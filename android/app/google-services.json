@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "41514283184",
+    "project_id": "relationship-d4fa7",
+    "storage_bucket": "relationship-d4fa7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41514283184:android:67a43dcb6ce4800e23cb75",
+        "android_client_info": {
+          "package_name": "com.AstroGuru.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoq2BNu3kD-36qczc9N96i4iGK1zCFPw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
