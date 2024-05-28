@@ -52,3 +52,40 @@ class ThemeController extends GetxController implements GetxService {
     update();
   }
 }
+class gradient {
+  // static const Gradient btnGradient = LinearGradient(
+  //   colors: [Color(0xff0c82df), Color(0xff3dc1fd)],
+  //   begin: Alignment.bottomCenter,
+  //   end: Alignment.topCenter,
+  // );
+  //Alignment.topLeft,end: Alignment.bottomRight
+  static const Gradient btnGradient = LinearGradient(
+    colors: [Color(0xff11A3C7),Color(0xff209A4B)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  static const Gradient greenGradient = LinearGradient(
+    colors: [Color(0xff5D8231), Color.fromARGB(255, 100, 199, 64)],
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+  );
+
+  static const Gradient lightGradient = LinearGradient(
+    colors: [Color(0xffdaedfd), Color(0xffdaedfd)],
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+  );
+  static const Gradient transpharantGradient = LinearGradient(
+    colors: [Colors.transparent, Colors.transparent],
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+  );
+  static const Color defoultColor = Color(0xFFBF2331);
+
+  static const Gradient appbarGradient = LinearGradient(
+    colors: [Color(0xff11A3C7),Color(0xff11A3C7)],
+    begin: Alignment.bottomRight,
+    end: Alignment.topLeft,
+    stops: [0,1]
+  );
+}

@@ -7,6 +7,7 @@ import 'package:AstroGuru/controllers/chatController.dart';
 import 'package:AstroGuru/controllers/history_controller.dart';
 import 'package:AstroGuru/controllers/reviewController.dart';
 import 'package:AstroGuru/controllers/splashController.dart';
+import 'package:AstroGuru/controllers/themeController.dart';
 import 'package:AstroGuru/utils/images.dart';
 import 'package:AstroGuru/views/addMoneyToWallet.dart';
 import 'package:AstroGuru/views/call/call_history_detail_screen.dart';
@@ -17,6 +18,7 @@ import 'package:AstroGuru/widget/drawerWidget.dart';
 import 'package:AstroGuru/widget/recommendedAstrologerWidget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:AstroGuru/utils/global.dart' as global;
 import 'package:get/get.dart';
@@ -152,7 +154,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
           key: drawerKey,
           //drawer: DrawerWidget(),
           appBar: CustomAppBar(
-            onBackPressed: () {},
+            isLeading: false,
+           // onBackPressed: () {},
             scaffoldKey: drawerKey,
             title: 'History',
             titleStyle: Get.theme.primaryTextTheme.headline6!
@@ -299,10 +302,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                               .theme.primaryTextTheme.headline5,
                                         )
                                       : SizedBox(),
-                                  SizedBox(
-                                    height: 30,
+                                  Container(
+                                    height: 35,
+                                    decoration: BoxDecoration(gradient: gradient.btnGradient,borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
                                     child: TextButton(
-                                      style: ButtonStyle(
+                                      /*style: ButtonStyle(
                                         padding: MaterialStateProperty.all(
                                             EdgeInsets.all(4)),
                                         fixedSize: MaterialStateProperty.all(
@@ -320,7 +325,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                             ),
                                           ),
                                         ),
-                                      ),
+                                      )*/
                                       onPressed: () {
                                         Get.to(() => AddmoneyToWallet());
                                       },
@@ -335,36 +340,48 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               );
                             }),
                             SizedBox(height: 15),
-                            TabBar(
-                              controller:
-                                  historyController.tabControllerHistory,
-                              indicator: BubbleTabIndicator(
-                                  indicatorColor: Get.theme.primaryColor),
-                              unselectedLabelStyle:
-                                  TextStyle(color: Colors.red),
-                              labelColor: Colors.black,
-                              onTap: (i) async {
-                                global.showOnlyLoaderDialog(context);
+                            SizedBox(
+                              height: 30,
+                              child: TabBar(
+                                controller:
+                                    historyController.tabControllerHistory,
+                                indicator: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    gradient: gradient.btnGradient),
+                                indicatorPadding: EdgeInsets.zero,
+                                unselectedLabelStyle:
+                                    TextStyle(color: Colors.red),
+                                labelColor: Colors.white,
+                                onTap: (i) async {
+                                  global.showOnlyLoaderDialog(context);
 
-                                historyController.paymentAllDataLoaded = false;
-                                historyController.update();
-                                await historyController.getPaymentLogs(
-                                    global.currentUserId!, false);
-                                historyController.walletTransactionList = [];
-                                historyController.walletAllDataLoaded = false;
-                                historyController.update();
-                                await historyController.getWalletTransaction(
-                                    global.currentUserId!, false);
-                                global.hideLoader();
-                              },
-                              tabs: [
-                                Tab(
-                                  child: Text('Wallet Transaction').translate(),
-                                ),
-                                Tab(
-                                  child: Text('Payment Logs').translate(),
-                                ),
-                              ],
+                                  historyController.paymentAllDataLoaded = false;
+                                  historyController.update();
+                                  await historyController.getPaymentLogs(
+                                      global.currentUserId!, false);
+                                  historyController.walletTransactionList = [];
+                                  historyController.walletAllDataLoaded = false;
+                                  historyController.update();
+                                  await historyController.getWalletTransaction(
+                                      global.currentUserId!, false);
+                                  global.hideLoader();
+                                },
+                                tabs: [
+                                  Tab(
+
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                                      child: Text('Wallet Transaction').translate(),
+                                    ),
+                                  ),
+                                  Tab(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                                      child: Text('Payment Logs').translate(),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             GetBuilder<HistoryController>(
                               builder: (history) {

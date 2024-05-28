@@ -228,6 +228,9 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
+  String? token = await FirebaseMessaging.instance.getToken();
+  print('FCM: ${token}');
+
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     announcement: false,

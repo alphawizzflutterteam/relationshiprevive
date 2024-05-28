@@ -522,19 +522,22 @@ showOnlyLoaderDialog(context) {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return Dialog(
+        backgroundColor: Colors.transparent,
         elevation: 0,
         //backgroundColor: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircularProgressIndicator(
                 color: Get.theme.primaryColor,
               ),
-              const SizedBox(
+              /* const SizedBox(
                 width: 10,
               ),
-              const Text('please wait').translate()
+              const Text('please wait').translate()*/
             ],
           ),
         ),

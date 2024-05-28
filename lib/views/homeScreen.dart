@@ -11,6 +11,7 @@ import 'package:AstroGuru/controllers/homeController.dart';
 import 'package:AstroGuru/controllers/kundliController.dart';
 import 'package:AstroGuru/controllers/liveController.dart';
 import 'package:AstroGuru/controllers/reviewController.dart';
+import 'package:AstroGuru/controllers/themeController.dart';
 
 import 'package:AstroGuru/model/kundli_model.dart';
 import 'package:AstroGuru/utils/date_converter.dart';
@@ -3312,10 +3313,11 @@ class HomeScreen extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         top: 15, bottom: 5),
-                                    child: SizedBox(
+                                    child: Container(
+                                      decoration: BoxDecoration(gradient: gradient.btnGradient,borderRadius: BorderRadius.circular(10)),
                                       height: 35,
                                       child: TextButton(
-                                        style: ButtonStyle(
+                                        /*style: ButtonStyle(
                                           padding: MaterialStateProperty.all(
                                               EdgeInsets.all(0)),
                                           fixedSize: MaterialStateProperty.all(
@@ -3329,7 +3331,7 @@ class HomeScreen extends StatelessWidget {
                                                   BorderRadius.circular(7),
                                             ),
                                           ),
-                                        ),
+                                        )*/
                                         onPressed: () async {
                                           bool isLogin = await global.isLogin();
                                           if (isLogin) {
@@ -3357,7 +3359,7 @@ class HomeScreen extends StatelessWidget {
                                           'Send Feedback',
                                           style: Get
                                               .theme.primaryTextTheme.bodySmall!
-                                              .copyWith(color: Colors.black),
+                                              .copyWith(color: Colors.white),
                                         ).translate(),
                                       ),
                                     ),
@@ -3483,7 +3485,8 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Card(
+
+                /*Card(
                   elevation: 0,
                   margin: EdgeInsets.only(top: 6),
                   shape:
@@ -3493,7 +3496,7 @@ class HomeScreen extends StatelessWidget {
                         const EdgeInsets.only(left: 5, right: 5, bottom: 6),
                     child: Row(
                       children: [
-                        /*Expanded(
+                        *//*Expanded(
                           child: GestureDetector(
                             onTap: () async {
                               global.showOnlyLoaderDialog(context);
@@ -3547,7 +3550,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         SizedBox(
                           width: 10,
-                        ),*/
+                        ),*//*
                         Expanded(
                           child: GestureDetector(
                             onTap: () async {
@@ -3606,10 +3609,37 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                )*/
               ],
             );
           }),
+        ),
+        floatingActionButton: GetBuilder<BottomNavigationController>(
+            builder: (bottomController) {
+            return Container(
+              decoration: BoxDecoration(gradient: gradient.btnGradient,borderRadius: const BorderRadius.all(
+                  Radius.circular(15))),
+              child: Expanded(
+                child: TextButton(
+                  onPressed: () async{
+                    global.showOnlyLoaderDialog(context);
+                    bottomController.astrologerList = [];
+                    bottomController.astrologerList.clear();
+                    bottomController.isAllDataLoaded = false;
+                    bottomController.update();
+                    await bottomController.getAstrologerList(
+                        isLazyLoading: false);
+                    global.hideLoader();
+
+                    Get.to(CallScreen());
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.call, color: Colors.white,), Text('Call With Advisor', style: TextStyle(color: Colors.white),)
+                    ],),),
+              ),);
+          }
         ),
       ),
     );

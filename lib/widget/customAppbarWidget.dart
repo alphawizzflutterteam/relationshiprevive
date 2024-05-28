@@ -4,7 +4,7 @@ import 'package:google_translator/google_translator.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final Function onBackPressed;
+  final Function? onBackPressed;
   final List<Widget> actions;
   final Color bgColor;
   final TextStyle titleStyle;
@@ -15,7 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       {required this.title,
       required this.bgColor,
       this.flagId = 0,
-      required this.onBackPressed,
+       this.onBackPressed,
       required this.actions,
       required this.titleStyle,
       required this.scaffoldKey,

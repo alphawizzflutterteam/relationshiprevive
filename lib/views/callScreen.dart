@@ -7,6 +7,7 @@ import 'package:AstroGuru/controllers/filtterTabController.dart';
 import 'package:AstroGuru/controllers/languageController.dart';
 import 'package:AstroGuru/controllers/reportController.dart';
 import 'package:AstroGuru/controllers/skillController.dart';
+import 'package:AstroGuru/controllers/themeController.dart';
 import 'package:AstroGuru/controllers/walletController.dart';
 import 'package:AstroGuru/utils/images.dart';
 import 'package:AstroGuru/views/call/incoming_call_request.dart';
@@ -76,6 +77,7 @@ class _CallScreenState extends State<CallScreen> {
         return true;
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         //drawer: DrawerWidget(),
         appBar: CustomAppBar(
           flagId: 2,
@@ -197,6 +199,7 @@ class _CallScreenState extends State<CallScreen> {
                       chatController.update();
                     },
                     indicatorColor: Colors.transparent,
+                    dividerColor: Get.theme.primaryColorLight,
                     labelPadding: EdgeInsets.symmetric(horizontal: 5),
                     tabs: List.generate(chatController.categoryList.length,
                         (index) {
@@ -212,7 +215,7 @@ class _CallScreenState extends State<CallScreen> {
                                 side: BorderSide(
                                   color: chatController.isSelected == index
                                       ? Get.theme.primaryColor
-                                      : Colors.transparent,
+                                      : Get.theme.primaryColor.withOpacity(0.1),
                                 ),
                                 borderRadius: BorderRadius.circular(7)),
                             label: Padding(
@@ -381,6 +384,99 @@ class _CallScreenState extends State<CallScreen> {
                 )
               : const SizedBox();
         }),
+        floatingActionButton: Container(
+          width: Get.width/1.2,
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(gradient: gradient.btnGradient,borderRadius: const BorderRadius.all(
+              Radius.circular(15))),
+          child: TextButton(
+            onPressed: () async{
+              bool isLogin = await global.isLogin();
+              if (isLogin) {
+                /*print(
+                    'charge${global.splashController.currentUser!.walletAmount! * 5}');
+                if (astrologerList[index].charge * 5 <=
+                    global.splashController.currentUser!
+                        .walletAmount! ||
+                    astrologerList[index].isFreeAvailable ==
+
+                        true) {
+                  *//*await bottomNavigationController
+                      .checkAlreadyInReqForCall(
+                      astrologerList[index].id);*//*
+                  if (bottomNavigationController
+                      .isUserAlreadyInCallReq ==
+                      false) {
+                    if (astrologerList[index].callStatus ==
+                        "Online" ||
+                        astrologerList[index].callStatus ==
+                            "Wait Time") {
+                      global.showOnlyLoaderDialog(context);
+                      if (astrologerList[index]
+                          .callWaitTime !=
+                          null) {
+                        if (astrologerList[index]
+                            .callWaitTime!
+                            .difference(DateTime.now())
+                            .inMinutes <
+                            0) {
+                          await bottomNavigationController
+                              .changeOfflineCallStatus(
+                              astrologerList[index].id,
+                              "Online");
+                        }
+                      }
+                      await Get.to(() => CallIntakeFormScreen(
+                        astrologerProfile:
+                        astrologerList[index]
+                            .profileImage,
+                        type: "Call",
+                        astrologerId:
+                        astrologerList[index].id,
+                        astrologerName:
+                        astrologerList[index].name,
+                        isFreeAvailable:
+                        astrologerList[index]
+                            .isFreeAvailable,
+                      ));
+
+                      global.hideLoader();
+                    } else if (astrologerList[index]
+                        .callStatus ==
+                        "Offline") {
+                      bottomNavigationController
+                          .dialogForJoinInWaitListForListPageOnly(
+                        context,
+                        astrologerList[index].name,
+                        false,
+                        astrologerList[index].id,
+                        astrologerList[index].profileImage,
+                        astrologerList[index].charge,
+                        astrologerList[index].isFreeAvailable,
+                      );
+                    }
+                  } else {
+                    bottomNavigationController
+                        .dialogForNotCreatingSession(context);
+                  }
+                } else {
+                  global.showOnlyLoaderDialog(context);
+                  await walletController.getAmount();
+                  global.hideLoader();
+                  openBottomSheetRechrage(
+                      context,
+                      (astrologerList[index].charge * 5)
+                          .toString(),
+                      '${astrologerList[index].name}');
+                }*/
+              }
+            },
+            child: Row(
+             // mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.call, color: Colors.white,), Text('Call', style: TextStyle(color: Colors.white),)
+              ],),),),
       ),
     );
   }
@@ -1107,11 +1203,11 @@ class TabViewAstrologer extends StatelessWidget {
                                 if (isLogin) {
                                   print(
                                       'charge${global.splashController.currentUser!.walletAmount! * 5}');
-                                  if (/*astrologerList[index].charge * 5 <=
+                                  if (astrologerList[index].charge * 5 <=
                                           global.splashController.currentUser!
                                               .walletAmount! ||
                                       astrologerList[index].isFreeAvailable ==
-                                          true*/
+
                                       true) {
                                     await bottomNavigationController
                                         .checkAlreadyInReqForCall(

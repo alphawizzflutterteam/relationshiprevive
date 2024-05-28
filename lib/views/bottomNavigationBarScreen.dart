@@ -57,11 +57,11 @@ class BottomNavigationBarScreen extends StatelessWidget {
                 return SizedBox(
                   height: 45,
                   child: BottomNavigationBar(
-                    backgroundColor: Get.theme.primaryColorLight,
+                    backgroundColor: Get.theme.primaryColor,
                     iconSize: 22,
                     type: BottomNavigationBarType.fixed,
-                    selectedItemColor: Colors.black,
-                    unselectedItemColor: Colors.white,
+                    selectedItemColor: Colors.white,
+                    unselectedItemColor: Colors.grey,
                     currentIndex: bottomNavigationController.bottomNavIndex,
                     showSelectedLabels: true,
                     showUnselectedLabels: true,
