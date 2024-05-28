@@ -6,6 +6,7 @@ import 'package:AstroGuru/controllers/themeController.dart';
 import 'package:AstroGuru/views/bottomNavigationBarScreen.dart';
 import 'package:AstroGuru/views/settings/privacyPolicyScreen.dart';
 import 'package:AstroGuru/views/settings/termsAndConditionScreen.dart';
+import 'package:AstroGuru/views/signup_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -329,6 +330,40 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 SizedBox(
                                   height: 20,
+                                ),
+                                SizedBox(height: 50,),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 10,
+                                      left: 10,
+                                      right: 10,
+                                      bottom: 5),
+                                  child: SizedBox(
+                                    child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            " Don't have account ? ",
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 14),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.to(
+                                                      () => RegisterUserScreen());
+                                            },
+                                            child: Text(
+                                              'Signup',
+                                              style: TextStyle(
+                                                  decoration:
+                                                  TextDecoration.underline,
+                                                  fontSize: 14,
+                                                  color: Colors.blue),
+                                            ),
+                                          )
+                                        ]),
+                                  ),
                                 ),
                               ],
                             ),
