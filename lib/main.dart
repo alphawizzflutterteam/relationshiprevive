@@ -673,7 +673,7 @@ class _MyAppState extends State<MyApp> {
             enableLog: true,
             theme: nativeTheme(),
             initialBinding: NetworkBinding(),
-            title: 'Astrofuse',
+            title: 'Relationship Revive',
             initialRoute: "SplashScreen",
             supportedLocales: L10n.all,
             home: SplashScreen(),

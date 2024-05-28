@@ -3024,7 +3024,7 @@ class HomeScreen extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Watch Astrology Videos',
+                                                'Watch Advisor Videos',
                                                 style: Get.theme
                                                     .primaryTextTheme.subtitle1!
                                                     .copyWith(
@@ -3433,7 +3433,7 @@ class HomeScreen extends StatelessWidget {
                                     height: 15,
                                   ),
                                   Text(
-                                    'Verified\nAstrologers',
+                                    'Verified\nAdvisors',
                                     textAlign: TextAlign.center,
                                     style:
                                         Get.theme.textTheme.subtitle1!.copyWith(
