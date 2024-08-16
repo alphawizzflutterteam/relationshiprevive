@@ -155,7 +155,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           //drawer: DrawerWidget(),
           appBar: CustomAppBar(
             isLeading: false,
-           // onBackPressed: () {},
+            // onBackPressed: () {},
             scaffoldKey: drawerKey,
             title: 'History',
             titleStyle: Get.theme.primaryTextTheme.headline6!
@@ -304,8 +304,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       : SizedBox(),
                                   Container(
                                     height: 35,
-                                    decoration: BoxDecoration(gradient: gradient.btnGradient,borderRadius: const BorderRadius.all(
-                                        Radius.circular(10))),
+                                    decoration: BoxDecoration(
+                                        gradient: gradient.btnGradient,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10))),
                                     child: TextButton(
                                       /*style: ButtonStyle(
                                         padding: MaterialStateProperty.all(
@@ -355,7 +357,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 onTap: (i) async {
                                   global.showOnlyLoaderDialog(context);
 
-                                  historyController.paymentAllDataLoaded = false;
+                                  historyController.paymentAllDataLoaded =
+                                      false;
                                   historyController.update();
                                   await historyController.getPaymentLogs(
                                       global.currentUserId!, false);
@@ -368,15 +371,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 },
                                 tabs: [
                                   Tab(
-
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                                      child: Text('Wallet Transaction').translate(),
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, right: 8.0),
+                                      child: Text('Wallet Transaction')
+                                          .translate(),
                                     ),
                                   ),
                                   Tab(
                                     child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, right: 8.0),
                                       child: Text('Payment Logs').translate(),
                                     ),
                                   ),

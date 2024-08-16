@@ -41,13 +41,17 @@ class LoginScreen extends StatelessWidget {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     stops: [
-                      0.2,
-                      0.5,
-                      0.8,
-                      0.9
-                    ],
-                    colors: [Theme.of(context).primaryColor,  Theme.of(context).primaryColorLight, Theme.of(context).primaryColor,Theme.of(context).primaryColorLight
-                    ])),
+                  0.2,
+                  0.5,
+                  0.8,
+                  0.9
+                ],
+                    colors: [
+                  Theme.of(context).primaryColor,
+                  Theme.of(context).primaryColorLight,
+                  Theme.of(context).primaryColor,
+                  Theme.of(context).primaryColorLight
+                ])),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -57,7 +61,9 @@ class LoginScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       SizedBox(
                         height: 40,
                         child: Align(
@@ -70,11 +76,11 @@ class LoginScreen extends StatelessWidget {
                               Get.find<SearchController1>().searchText = '';
                               homeController.myOrders.clear();
                               BottomNavigationController
-                              bottomNavigationController =
-                              Get.find<BottomNavigationController>();
+                                  bottomNavigationController =
+                                  Get.find<BottomNavigationController>();
                               bottomNavigationController.setIndex(0, 0);
                               Get.off(
-                                      () => BottomNavigationBarScreen(index: 0));
+                                  () => BottomNavigationBarScreen(index: 0));
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(6.0),
@@ -113,263 +119,245 @@ class LoginScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: Get.height * 0.02,),
-                  GetBuilder<LoginController>(
-                      builder: (loginController) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Card(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  height: 20,
+                  SizedBox(
+                    height: Get.height * 0.02,
+                  ),
+                  GetBuilder<LoginController>(builder: (loginController) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Card(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(8.0, 0, 8, 0),
+                              child: Container(
+                                height: 48,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(8.0, 0, 8, 0),
-                                  child: Container(
-                                    height: 48,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10)),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                          child: FutureBuilder(
-                                              future: global.translatedText(
-                                                  "Phone Number"),
-                                              builder: (context, snapshot) {
-                                                return IntlPhoneField(
-                                                  autovalidateMode: null,
-                                                  showDropdownIcon: false,
-                                                  controller: loginController
-                                                      .phoneController,
-                                                  decoration: InputDecoration(
-                                                    //labelText: 'Phone Number',
-                                                      contentPadding:
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                      child: FutureBuilder(
+                                          future: global
+                                              .translatedText("Phone Number"),
+                                          builder: (context, snapshot) {
+                                            return IntlPhoneField(
+                                              autovalidateMode: null,
+                                              showDropdownIcon: false,
+                                              controller: loginController
+                                                  .phoneController,
+                                              decoration: InputDecoration(
+                                                  //labelText: 'Phone Number',
+                                                  contentPadding:
                                                       const EdgeInsets
                                                           .symmetric(
                                                           vertical: 5,
                                                           horizontal: 10),
-                                                      hintText:
+                                                  hintText:
                                                       snapshot.data ??
                                                           'Phone Number',
-                                                      border:
+                                                  border:
                                                       const OutlineInputBorder(
-                                                        borderSide:
-                                                        BorderSide.none,
-                                                      ),
-                                                      enabledBorder:
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  enabledBorder:
                                                       const OutlineInputBorder(
-                                                        borderSide:
-                                                        BorderSide.none,
-                                                      ),
-                                                      disabledBorder:
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  disabledBorder:
                                                       const OutlineInputBorder(
-                                                        borderSide:
-                                                        BorderSide.none,
-                                                      ),
-                                                      focusedBorder:
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  focusedBorder:
                                                       const OutlineInputBorder(
-                                                        borderSide:
-                                                        BorderSide.none,
-                                                      ),
-                                                      errorBorder:
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  errorBorder:
                                                       const OutlineInputBorder(
-                                                        borderSide:
-                                                        BorderSide.none,
-                                                      ),
-                                                      errorText: null,
-                                                      counterText: ''),
-                                                  initialCountryCode: 'IN',
-                                                  onChanged: (phone) {
-                                                    //print(phone.completeNumber);
-                                                    loginController
-                                                        .updateCountryCode(
-                                                        phone
-                                                            .countryCode);
-                                                  },
-                                                );
-                                              })),
-                                    ),
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  errorText: null,
+                                                  counterText: ''),
+                                              initialCountryCode: 'IN',
+                                              onChanged: (phone) {
+                                                //print(phone.completeNumber);
+                                                loginController
+                                                    .updateCountryCode(
+                                                        phone.countryCode);
+                                              },
+                                            );
+                                          })),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
+                              child: Container(
+                                height: 45,
+                                width: double.infinity,
+                                margin: EdgeInsets.only(top: 20),
+                                decoration: BoxDecoration(
+                                  gradient: gradient.btnGradient,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                ),
+                                child: TextButton(
+                                  onPressed: () async {
+                                    bool isValid =
+                                        loginController.validedPhone();
+                                    if (isValid) {
+                                      global.showOnlyLoaderDialog(context);
+                                      await loginController.loginAndSignupUser(
+                                          int.parse(loginController
+                                              .phoneController.text));
+                                      //await loginController.verifyOTP();
+                                    } else {
+                                      global.showToast(
+                                        message: loginController.errorText!,
+                                        textColor: global.textColor,
+                                        bgColor: global.toastBackGoundColor,
+                                      );
+                                    }
+                                  },
+                                  child: Row(
+                                    // mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'SEND OTP',
+                                        style: TextStyle(color: Colors.white),
+                                        textAlign: TextAlign.center,
+                                      ).translate(),
+                                      Image.asset(
+                                        'assets/images/arrow_left.png',
+                                        color: Colors.white,
+                                        width: 20,
+                                      )
+                                    ],
                                   ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, left: 10, right: 10, bottom: 5),
+                              child: SizedBox(
+                                child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        'By signing up, you agree to our ',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 11),
+                                      ).translate(),
+                                    ]),
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => TermAndConditionScreen());
+                                  },
+                                  child: Text(
+                                    'Terms of use',
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 11,
+                                        color: Colors.blue),
+                                  ).translate(),
+                                ),
+                                Text(' and ',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 11))
+                                    .translate(),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => PrivacyPolicyScreen());
+                                  },
+                                  child: Text(
+                                    ' Privacy',
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 11,
+                                        color: Colors.blue),
+                                  ).translate(),
                                 ),
                                 SizedBox(
-                                  height: 20,
+                                  width: 5,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      8.0, 0, 8, 0),
-                                  child: Container(
-                                    height: 45,
-                                    width: double.infinity,
-                                    margin: EdgeInsets.only(top: 20),
-                                    decoration: BoxDecoration(
-                                      gradient: gradient.btnGradient,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10)),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => PrivacyPolicyScreen());
+                                  },
+                                  child: Text(
+                                    'Policy',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      fontSize: 11,
+                                      color: Colors.blue,
                                     ),
-                                    child: TextButton(onPressed: () async{
-                                      bool isValid =
-                                      loginController.validedPhone();
-                                      if (isValid) {
-                                        global.showOnlyLoaderDialog(context);
-                                        await loginController
-                                            .loginAndSignupUser(int.parse(
-                                            loginController
-                                                .phoneController.text));
-                                        //await loginController.verifyOTP();
-                                      } else {
-                                        global.showToast(
-                                          message: loginController.errorText!,
-                                          textColor: global.textColor,
-                                          bgColor: global.toastBackGoundColor,
-                                        );
-                                      }
-
-                                    },child: Row(
-                                     // mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          'SEND OTP',
-                                          style: TextStyle(
-                                              color: Colors.white),
-                                          textAlign: TextAlign.center,
-                                        ).translate(),
-                                        Image.asset(
-                                          'assets/images/arrow_left.png',
-                                          color: Colors.white,
-                                          width: 20,
-                                        )
-                                      ],
-                                    ),),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 10,
-                                      left: 10,
-                                      right: 10,
-                                      bottom: 5),
-                                  child: SizedBox(
-                                    child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            'By signing up, you agree to our ',
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 11),
-                                          ).translate(),
-                                        ]),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.to(
-                                                () => TermAndConditionScreen());
-                                      },
-                                      child: Text(
-                                        'Terms of use',
-                                        style: TextStyle(
-                                            decoration:
-                                            TextDecoration.underline,
-                                            fontSize: 11,
-                                            color: Colors.blue),
-                                      ).translate(),
-                                    ),
-                                    Text(' and ',
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 11))
-                                        .translate(),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.to(() => PrivacyPolicyScreen());
-                                      },
-                                      child: Text(
-                                        ' Privacy',
-                                        style: TextStyle(
-                                            decoration:
-                                            TextDecoration.underline,
-                                            fontSize: 11,
-                                            color: Colors.blue),
-                                      ).translate(),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.to(() => PrivacyPolicyScreen());
-                                      },
-                                      child: Text(
-                                        'Policy',
-                                        style: TextStyle(
-                                          decoration:
-                                          TextDecoration.underline,
-                                          fontSize: 11,
-                                          color: Colors.blue,
-                                        ),
-                                      ).translate(),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                SizedBox(height: 50,),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 10,
-                                      left: 10,
-                                      right: 10,
-                                      bottom: 5),
-                                  child: SizedBox(
-                                    child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            " Don't have account ? ",
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 14),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Get.to(
-                                                      () => RegisterUserScreen());
-                                            },
-                                            child: Text(
-                                              'Signup',
-                                              style: TextStyle(
-                                                  decoration:
-                                                  TextDecoration.underline,
-                                                  fontSize: 14,
-                                                  color: Colors.blue),
-                                            ),
-                                          )
-                                        ]),
-                                  ),
+                                  ).translate(),
                                 ),
                               ],
                             ),
-                          ),
-                        );
-                      }),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, left: 10, right: 10, bottom: 5),
+                              child: SizedBox(
+                                child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        " Don't have account ? ",
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 14),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to(() => RegisterUserScreen());
+                                        },
+                                        child: Text(
+                                          'Signup',
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              fontSize: 14,
+                                              color: Colors.blue),
+                                        ),
+                                      )
+                                    ]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),

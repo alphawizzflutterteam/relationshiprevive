@@ -3314,7 +3314,10 @@ class HomeScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         top: 15, bottom: 5),
                                     child: Container(
-                                      decoration: BoxDecoration(gradient: gradient.btnGradient,borderRadius: BorderRadius.circular(10)),
+                                      decoration: BoxDecoration(
+                                          gradient: gradient.btnGradient,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       height: 35,
                                       child: TextButton(
                                         /*style: ButtonStyle(
@@ -3496,7 +3499,7 @@ class HomeScreen extends StatelessWidget {
                         const EdgeInsets.only(left: 5, right: 5, bottom: 6),
                     child: Row(
                       children: [
-                        *//*Expanded(
+                        */ /*Expanded(
                           child: GestureDetector(
                             onTap: () async {
                               global.showOnlyLoaderDialog(context);
@@ -3550,7 +3553,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         SizedBox(
                           width: 10,
-                        ),*//*
+                        ),*/ /*
                         Expanded(
                           child: GestureDetector(
                             onTap: () async {
@@ -3614,33 +3617,43 @@ class HomeScreen extends StatelessWidget {
             );
           }),
         ),
-        floatingActionButton: GetBuilder<BottomNavigationController>(
-            builder: (bottomController) {
-            return Container(
-              decoration: BoxDecoration(gradient: gradient.btnGradient,borderRadius: const BorderRadius.all(
-                  Radius.circular(15))),
-              child: Expanded(
-                child: TextButton(
-                  onPressed: () async{
-                    global.showOnlyLoaderDialog(context);
-                    bottomController.astrologerList = [];
-                    bottomController.astrologerList.clear();
-                    bottomController.isAllDataLoaded = false;
-                    bottomController.update();
-                    await bottomController.getAstrologerList(
-                        isLazyLoading: false);
-                    global.hideLoader();
+        floatingActionButton:
+            GetBuilder<BottomNavigationController>(builder: (bottomController) {
+          return Container(
+            decoration: BoxDecoration(
+                gradient: gradient.btnGradient,
+                borderRadius: const BorderRadius.all(Radius.circular(15))),
+            child: Expanded(
+              child: TextButton(
+                onPressed: () async {
+                  global.showOnlyLoaderDialog(context);
+                  bottomController.astrologerList = [];
+                  bottomController.astrologerList.clear();
+                  bottomController.isAllDataLoaded = false;
+                  bottomController.update();
+                  await bottomController.getAstrologerList(
+                      isLazyLoading: false);
+                  global.hideLoader();
 
-                    Get.to(CallScreen());
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.call, color: Colors.white,), Text('Call With Advisor', style: TextStyle(color: Colors.white),)
-                    ],),),
-              ),);
-          }
-        ),
+                  Get.to(CallScreen());
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.call,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      'Call With Advisor',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        }),
       ),
     );
   }
