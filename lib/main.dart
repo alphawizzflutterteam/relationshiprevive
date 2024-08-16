@@ -233,6 +233,9 @@ void main() async {
 
   log('${token}');
 
+  String? token = await FirebaseMessaging.instance.getToken();
+  print('FCM: ${token}');
+
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     announcement: false,

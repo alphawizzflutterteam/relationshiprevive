@@ -7,6 +7,7 @@ import 'package:AstroGuru/controllers/filtterTabController.dart';
 import 'package:AstroGuru/controllers/languageController.dart';
 import 'package:AstroGuru/controllers/reportController.dart';
 import 'package:AstroGuru/controllers/skillController.dart';
+import 'package:AstroGuru/controllers/themeController.dart';
 import 'package:AstroGuru/controllers/walletController.dart';
 import 'package:AstroGuru/model/astrologerCategoryModel.dart';
 import 'package:AstroGuru/utils/images.dart';
@@ -49,7 +50,6 @@ class _CallScreenState extends State<CallScreen> {
 
   BottomNavigationController bottomNavigationController =
       Get.find<BottomNavigationController>();
-  WalletController walletController = Get.find<WalletController>();
   @override
   void initState() {
     init();
@@ -69,78 +69,6 @@ class _CallScreenState extends State<CallScreen> {
     }
     print(global.sp);
   }
-
-  final List<Service> services = [
-    Service(
-        icon: Icons.favorite,
-        title: 'Love Match',
-        startColor: Colors.pink[200]!,
-        endColor: Colors.pink[100]!),
-    Service(
-        icon: Icons.insert_chart,
-        title: 'Kundli',
-        startColor: Colors.yellow[200]!,
-        endColor: Colors.yellow[100]!),
-    Service(
-        icon: Icons.child_care,
-        title: 'Panchang',
-        startColor: Colors.pink[200]!,
-        endColor: Colors.pink[100]!),
-    Service(
-        icon: Icons.wb_sunny,
-        title: 'Horoscope',
-        startColor: Colors.blue[200]!,
-        endColor: Colors.blue[100]!),
-    Service(
-        icon: Icons.filter_vintage,
-        title: 'Vedic',
-        startColor: Colors.yellow[200]!,
-        endColor: Colors.yellow[100]!),
-    Service(
-        icon: Icons.art_track,
-        title: 'Tarot Reader',
-        startColor: Colors.blue[200]!,
-        endColor: Colors.blue[100]!),
-    Service(
-        icon: Icons.numbers,
-        title: 'Numerology',
-        startColor: Colors.red[200]!,
-        endColor: Colors.red[100]!),
-    Service(
-        icon: Icons.grid_on,
-        title: 'Vastu',
-        startColor: Colors.green[200]!,
-        endColor: Colors.green[100]!),
-    Service(
-        icon: Icons.ac_unit,
-        title: 'Chinese Astrology',
-        startColor: Colors.red[200]!,
-        endColor: Colors.red[100]!),
-    Service(
-        icon: Icons.pan_tool,
-        title: 'Palmistry',
-        startColor: Colors.yellow[200]!,
-        endColor: Colors.yellow[100]!),
-    Service(
-        icon: Icons.security,
-        title: 'Check Your Doshas',
-        startColor: Colors.red[200]!,
-        endColor: Colors.red[100]!),
-    Service(
-        icon: Icons.more_horiz,
-        title: ' & Many More Services',
-        startColor: Colors.pink[200]!,
-        endColor: Colors.pink[100]!),
-  ];
-  final List<List<Color>> colorList = [
-    [Colors.pink[200]!, Colors.pink[100]!],
-    [Colors.yellow[200]!, Colors.yellow[100]!],
-    [Colors.blue[200]!, Colors.blue[100]!],
-    [Colors.pink[200]!, Colors.pink[100]!],
-    [Colors.red[200]!, Colors.red[100]!],
-    [Colors.green[200]!, Colors.green[100]!],
-    [Colors.pink[200]!, Colors.pink[100]!],
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -170,17 +98,15 @@ class _CallScreenState extends State<CallScreen> {
                 global.splashController.currentUser?.walletAmount != null
                     ? Container(
                         padding: EdgeInsets.all(2),
-                        margin:
-                            EdgeInsets.symmetric(vertical: 17, horizontal: 20),
+                        margin: EdgeInsets.symmetric(vertical: 17),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
+                          border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         alignment: Alignment.center,
                         child: Text(
                           '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)}${global.splashController.currentUser?.walletAmount.toString()}',
-                          style: Get.theme.primaryTextTheme.bodySmall
-                              ?.copyWith(color: Colors.white),
+                          style: Get.theme.primaryTextTheme.bodySmall,
                         ),
                       )
                     : SizedBox(),
@@ -314,7 +240,7 @@ class _CallScreenState extends State<CallScreen> {
                                     chatController.categoryList[index].name,
                                     style: Get.theme.primaryTextTheme.bodySmall!
                                         .copyWith(fontWeight: FontWeight.w300),
-                                  ),
+                                  ).translate(),
                                 ],
                               ),
                             ),
@@ -1654,8 +1580,9 @@ class TabViewAstrologer extends StatelessWidget {
                                   ),
                                   Expanded(
                                       child: Text(
-                                          'Minimum balance required ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance',
-                                          style: TextStyle(fontSize: 12)))
+                                              'Minimum balance required ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance',
+                                              style: TextStyle(fontSize: 12))
+                                          .translate())
                                 ],
                               ),
                             ],

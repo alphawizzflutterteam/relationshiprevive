@@ -36,6 +36,7 @@ import 'package:AstroGuru/controllers/timer_controller.dart';
 import 'package:AstroGuru/controllers/upcoming_controller.dart';
 import 'package:AstroGuru/controllers/userProfileController.dart';
 import 'package:AstroGuru/controllers/walletController.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:AstroGuru/controllers/bottomNavigationController.dart';
 
@@ -86,5 +87,6 @@ class NetworkBinding extends Bindings {
     Get.lazyPut<AstrologerAssistantController>(() => AstrologerAssistantController(), fenix: true);
     Get.lazyPut<UpcomingController>(() => UpcomingController(), fenix: true);
     Get.lazyPut<ThemeController>(() => ThemeController(), fenix: true);
+    Get.lazyPut<SearchController>(() => SearchController(), fenix: true);
   }
 }

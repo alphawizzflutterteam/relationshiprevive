@@ -101,6 +101,8 @@ Future<bool> callOnFcmApiSendPushNotifications(
     String? title,
     String? subTitle,
     sendData}) async {
+
+
   try {
     String postUrl = 'https://fcm.googleapis.com/fcm/send';
     final data = {
@@ -150,6 +152,9 @@ Future<bool> callOnFcmApiSendPushNotifications(
     return false;
   }
 }
+
+
+
 
 /* stripe implement */
 
@@ -522,19 +527,22 @@ showOnlyLoaderDialog(context) {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return Dialog(
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircularProgressIndicator(
                 color: Get.theme.primaryColor,
               ),
-              const SizedBox(
-                width: 20,
+              /* const SizedBox(
+                width: 10,
               ),
-              const Text('please wait')
+              const Text('please wait').translate()*/
             ],
           ),
         ),
@@ -585,7 +593,7 @@ Future<bool> checkBody() async {
                 child: Text(
                   'No internet available',
                   textAlign: TextAlign.start,
-                ),
+                ).translate(),
               ),
             ),
             GestureDetector(
@@ -603,7 +611,7 @@ Future<bool> checkBody() async {
                   child: Text(
                     'Retry',
                     style: TextStyle(color: Get.theme.primaryColor),
-                  ),
+                  ).translate(),
                 ),
               ),
             )
@@ -789,7 +797,6 @@ Future getDeviceData() async {
     deviceManufacturer = androidInfo!.manufacturer;
     deviceId = androidInfo!.id;
     fcmToken = await FirebaseMessaging.instance.getToken();
-    log('=========Device Token======= ${fcmToken}');
     //appVersion = getAppVersion();
 
     ///await getCurrentLocation(),
