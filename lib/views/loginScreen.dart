@@ -68,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                                 style: Get.textTheme.subtitle1!.copyWith(
                                     color: Colors.black,
                                     decoration: TextDecoration.underline),
-                              ).translate(),
+                              ),
                             ),
                           ),
                         ),
@@ -86,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                       Text(
                         '${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
                         style: Get.textTheme.headline5,
-                      ).translate(),
+                      ),
                       SizedBox(
                         height: 10,
                       )
@@ -115,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600),
                                     textAlign: TextAlign.center)
-                                .translate(),
+                                ,
                           ),
                         ),
                       ),*/
@@ -252,7 +252,7 @@ class LoginScreen extends StatelessWidget {
                                               style: TextStyle(
                                                   color: Colors.white),
                                               textAlign: TextAlign.center,
-                                            ).translate(),
+                                            ),
                                             Image.asset(
                                               'assets/images/arrow_left.png',
                                               color: Colors.white,
@@ -281,7 +281,7 @@ class LoginScreen extends StatelessWidget {
                                               style: TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 11),
-                                            ).translate(),
+                                            ),
                                           ]),
                                     ),
                                   ),
@@ -300,13 +300,12 @@ class LoginScreen extends StatelessWidget {
                                                   TextDecoration.underline,
                                               fontSize: 11,
                                               color: Colors.blue),
-                                        ).translate(),
+                                        ),
                                       ),
                                       Text(' and ',
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 11))
-                                          .translate(),
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 11)),
                                       GestureDetector(
                                         onTap: () {
                                           Get.to(() => PrivacyPolicyScreen());
@@ -318,7 +317,7 @@ class LoginScreen extends StatelessWidget {
                                                   TextDecoration.underline,
                                               fontSize: 11,
                                               color: Colors.blue),
-                                        ).translate(),
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 5,
@@ -335,7 +334,7 @@ class LoginScreen extends StatelessWidget {
                                             fontSize: 11,
                                             color: Colors.blue,
                                           ),
-                                        ).translate(),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -374,7 +373,7 @@ class LoginScreen extends StatelessWidget {
                                         Text(
                                           'privacy',
                                           style: TextStyle(fontSize: 12),
-                                        ).translate()
+                                        )
                                       ],
                                     ),
                                     VerticalDivider(
@@ -394,11 +393,11 @@ class LoginScreen extends StatelessWidget {
                                         Text(
                                           'Top astrologers of',
                                           style: TextStyle(fontSize: 12),
-                                        ).translate(),
+                                        ),
                                         Text(
                                           'India',
                                           style: TextStyle(fontSize: 12),
-                                        ).translate()
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -421,11 +420,11 @@ class LoginScreen extends StatelessWidget {
                                         Text(
                                           'Happy',
                                           style: TextStyle(fontSize: 12),
-                                        ).translate(),
+                                        ),
                                         Text(
                                           'Customers',
                                           style: TextStyle(fontSize: 12),
-                                        ).translate()
+                                        )
                                       ],
                                     )
                                   ],

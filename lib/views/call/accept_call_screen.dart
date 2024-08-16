@@ -24,7 +24,14 @@ class AcceptCallScreen extends StatefulWidget {
   final String token;
   final String callChannel;
   final int callId;
-  const AcceptCallScreen({super.key, required this.astrologerName, required this.callId, required this.astrologerId, this.astrologerProfile, required this.token, required this.callChannel});
+  const AcceptCallScreen(
+      {super.key,
+      required this.astrologerName,
+      required this.callId,
+      required this.astrologerId,
+      this.astrologerProfile,
+      required this.token,
+      required this.callChannel});
 
   @override
   State<AcceptCallScreen> createState() => _AcceptCallScreenState();
@@ -66,8 +73,10 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
           isStart = true;
         });
         CallController callController = Get.find<CallController>();
-        await callController.getAgoraResourceId(widget.callChannel, global.localUid!);
-        await callController.getAgoraResourceId2(widget.callChannel, remoteUid!);
+        await callController.getAgoraResourceId(
+            widget.callChannel, global.localUid!);
+        await callController.getAgoraResourceId2(
+            widget.callChannel, remoteUid!);
         print('start recording');
         await startRecord();
         await startRecord2();
@@ -111,8 +120,9 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
                       children: [
                         Text(
                           widget.astrologerName,
-                          style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.w500, fontSize: 20),
-                        ).translate(),
+                          style: Get.textTheme.subtitle1!.copyWith(
+                              fontWeight: FontWeight.w500, fontSize: 20),
+                        ),
                         SizedBox(
                           child: status(),
                         ),
@@ -147,8 +157,10 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
                             width: 40,
                           )
                         : CachedNetworkImage(
-                            imageUrl: '${global.imgBaseurl}${widget.astrologerProfile}',
-                            imageBuilder: (context, imageProvider) => CircleAvatar(
+                            imageUrl:
+                                '${global.imgBaseurl}${widget.astrologerProfile}',
+                            imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
                               radius: 60,
                               backgroundColor: Colors.transparent,
                               child: Image.network(
@@ -157,7 +169,8 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
                                 height: 60,
                               ),
                             ),
-                            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
                             errorWidget: (context, url, error) => Image.asset(
                               Images.deafultUser,
                               fit: BoxFit.contain,
@@ -199,7 +212,8 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
                   global.hideLoader();
                   print('leave call from cut');
                   Get.back();
-                  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+                  BottomNavigationController bottomNavigationController =
+                      Get.find<BottomNavigationController>();
                   bottomNavigationController.setIndex(0, 0);
                   Get.to(() => BottomNavigationBarScreen(
                         index: 0,
@@ -244,7 +258,9 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     //create an instance of the Agora engine
     try {
       agoraEngine = createAgoraRtcEngine();
-      await agoraEngine.initialize(RtcEngineContext(appId: global.getSystemFlagValue(global.systemFlagNameList.agoraAppId)));
+      await agoraEngine.initialize(RtcEngineContext(
+          appId:
+              global.getSystemFlagValue(global.systemFlagNameList.agoraAppId)));
     } catch (e) {
       print('Exception in setupVoiceSDKEngine:- ${e.toString()}');
     }
@@ -270,7 +286,8 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
           callController.update();
           print("RemoteId for call" + remoteUid.toString());
         },
-        onUserOffline: (RtcConnection connection, int remoteUId, UserOfflineReasonType reason) async {
+        onUserOffline: (RtcConnection connection, int remoteUId,
+            UserOfflineReasonType reason) async {
           print('leave call from userOffline');
           await leave();
           print('offline : - $remoteUId');
@@ -294,7 +311,8 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
         return Padding(
           padding: const EdgeInsets.only(left: 10),
           child: time.min != null
-              ? Text('${time.min} min ${time.sec} sec', style: const TextStyle(fontWeight: FontWeight.w500))
+              ? Text('${time.min} min ${time.sec} sec',
+                  style: const TextStyle(fontWeight: FontWeight.w500))
               : Text(
                   '${time.sec} sec',
                   style: const TextStyle(fontWeight: FontWeight.w500),
@@ -308,7 +326,8 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
           await leave();
           global.hideLoader();
           Get.back();
-          BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+          BottomNavigationController bottomNavigationController =
+              Get.find<BottomNavigationController>();
           bottomNavigationController.setIndex(1, 0);
           Get.to(() => BottomNavigationBarScreen(
                 index: 0,
@@ -336,24 +355,28 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
 
   Future startRecord() async {
     CallController callController = Get.find<CallController>();
-    await callController.agoraStartRecording(widget.callChannel, global.localUid!, widget.token);
+    await callController.agoraStartRecording(
+        widget.callChannel, global.localUid!, widget.token);
   }
 
   Future startRecord2() async {
     CallController callController = Get.find<CallController>();
     print('stop1 audio recording in live astrologer $remoteIdForStop');
-    await callController.agoraStartRecording2(widget.callChannel, remoteIdForStop!, widget.token);
+    await callController.agoraStartRecording2(
+        widget.callChannel, remoteIdForStop!, widget.token);
   }
 
   Future stopRecord() async {
     CallController callController = Get.find<CallController>();
-    await callController.agoraStopRecording(widget.callId, widget.callChannel, global.localUid!);
+    await callController.agoraStopRecording(
+        widget.callId, widget.callChannel, global.localUid!);
   }
 
   Future stopRecord2() async {
     CallController callController = Get.find<CallController>();
     print('stop2 audio recording in live astrologer $remoteIdForStop');
-    await callController.agoraStopRecording2(widget.callId, widget.callChannel, remoteIdForStop!);
+    await callController.agoraStopRecording2(
+        widget.callId, widget.callChannel, remoteIdForStop!);
   }
 
   void onMute(bool mute) {
@@ -382,7 +405,8 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     // if (remoteUid != null) {
     print('endcall API');
     global.showOnlyLoaderDialog(Get.context);
-    await callController.endCall(widget.callId, _callController.totalSeconds, global.agoraSid1, global.agoraSid2);
+    await callController.endCall(widget.callId, _callController.totalSeconds,
+        global.agoraSid1, global.agoraSid2);
     global.hideLoader();
     // }
     print("mounted called");
@@ -409,7 +433,9 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     print("release going to call");
     agoraEngine.release(sync: true);
     global.localUid = null;
+
     Get.back();
+    Navigator.pop(context);
   }
 
   @override

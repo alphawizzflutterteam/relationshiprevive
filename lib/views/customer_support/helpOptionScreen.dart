@@ -13,8 +13,11 @@ import 'package:google_translator/google_translator.dart';
 class HelpOptionScreen extends StatelessWidget {
   final String title;
   final int helpSupportQuestionId;
-  HelpOptionScreen({Key? key, required this.title, required this.helpSupportQuestionId}) : super(key: key);
-  final CustomerSupportController customerSupportController = Get.find<CustomerSupportController>();
+  HelpOptionScreen(
+      {Key? key, required this.title, required this.helpSupportQuestionId})
+      : super(key: key);
+  final CustomerSupportController customerSupportController =
+      Get.find<CustomerSupportController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +28,7 @@ class HelpOptionScreen extends StatelessWidget {
           )),
       body: customerSupportController.helpAndSupportQuestion.isEmpty
           ? Center(
-              child: Text('No Question Available').translate(),
+              child: Text('No Question Available'),
             )
           : SingleChildScrollView(
               child: Column(
@@ -37,30 +40,43 @@ class HelpOptionScreen extends StatelessWidget {
                     child: Text(
                       title,
                       style: Get.textTheme.subtitle2!.copyWith(fontSize: 18),
-                    ).translate(),
+                    ),
                   ),
                   ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: customerSupportController.helpAndSupportQuestion.length,
+                      itemCount: customerSupportController
+                          .helpAndSupportQuestion.length,
                       itemBuilder: (context, i) {
                         return CommonListTileWidget(
                           helpSupportSubQuestion: '',
                           helpSupportQuestion: title,
-                          isSubCategory: customerSupportController.helpAndSupportQuestion[i].isSubCategory ?? false,
-                          subject: customerSupportController.helpAndSupportQuestion[i].question,
-                          title: customerSupportController.helpAndSupportQuestion[i].question,
-                          isChatWithUs: customerSupportController.helpAndSupportQuestion[i].isChatWithUs ?? 0,
+                          isSubCategory: customerSupportController
+                                  .helpAndSupportQuestion[i].isSubCategory ??
+                              false,
+                          subject: customerSupportController
+                              .helpAndSupportQuestion[i].question,
+                          title: customerSupportController
+                              .helpAndSupportQuestion[i].question,
+                          isChatWithUs: customerSupportController
+                                  .helpAndSupportQuestion[i].isChatWithUs ??
+                              0,
                           helpSupportQuestionId: helpSupportQuestionId,
                           onTap: () async {
-                            if (customerSupportController.helpAndSupportQuestion[i].isSubCategory!) {
+                            if (customerSupportController
+                                .helpAndSupportQuestion[i].isSubCategory!) {
                               global.showOnlyLoaderDialog(context);
-                              await customerSupportController.getHelpAndSupportQuestionAnswer(customerSupportController.helpAndSupportQuestion[i].id);
+                              await customerSupportController
+                                  .getHelpAndSupportQuestionAnswer(
+                                      customerSupportController
+                                          .helpAndSupportQuestion[i].id);
                               global.hideLoader();
                               Get.to(() => HelpDetailsScreen(
                                     index: i,
-                                    title: customerSupportController.helpAndSupportQuestion[i].question,
-                                    helpSupportQuestionId: helpSupportQuestionId,
+                                    title: customerSupportController
+                                        .helpAndSupportQuestion[i].question,
+                                    helpSupportQuestionId:
+                                        helpSupportQuestionId,
                                     helpSupportQuestion: title,
                                   ));
                             }

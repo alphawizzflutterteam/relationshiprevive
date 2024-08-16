@@ -19,9 +19,11 @@ import '../paymentInformationScreen.dart';
 // ignore: must_be_immutable
 class CallWithCounsellors extends StatelessWidget {
   final CounsellorController counsellorController;
-  CallWithCounsellors({Key? key, required this.counsellorController}) : super(key: key);
+  CallWithCounsellors({Key? key, required this.counsellorController})
+      : super(key: key);
   WalletController walletController = Get.find<WalletController>();
-  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,11 @@ class CallWithCounsellors extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () async {
-              Get.find<ReviewController>().getReviewData(counsellorController.counsellorList[index].id);
+              Get.find<ReviewController>()
+                  .getReviewData(counsellorController.counsellorList[index].id);
               global.showOnlyLoaderDialog(context);
-              await bottomNavigationController.getAstrologerbyId(counsellorController.counsellorList[index].id);
+              await bottomNavigationController.getAstrologerbyId(
+                  counsellorController.counsellorList[index].id);
               global.hideLoader();
               Get.to(() => AstrologerProfile(
                     index: index,
@@ -57,7 +61,10 @@ class CallWithCounsellors extends StatelessWidget {
                                   child: Container(
                                     height: 65,
                                     width: 65,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), border: Border.all(color: Get.theme.primaryColor)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(7),
+                                        border: Border.all(
+                                            color: Get.theme.primaryColor)),
                                     child: CircleAvatar(
                                       radius: 35,
                                       backgroundColor: Colors.white,
@@ -65,9 +72,14 @@ class CallWithCounsellors extends StatelessWidget {
                                         height: 55,
                                         width: 55,
                                         fit: BoxFit.cover,
-                                        imageUrl: '${global.imgBaseurl}${counsellorController.counsellorList[index].profileImage}',
-                                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) => Image.asset(
+                                        imageUrl:
+                                            '${global.imgBaseurl}${counsellorController.counsellorList[index].profileImage}',
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) =>
+                                            Image.asset(
                                           Images.deafultUser,
                                           fit: BoxFit.cover,
                                           height: 50,
@@ -98,12 +110,18 @@ class CallWithCounsellors extends StatelessWidget {
                               ),
                               onRatingUpdate: (rating) {},
                             ),
-                            counsellorController.counsellorList[index].totalOrder == 0
+                            counsellorController
+                                        .counsellorList[index].totalOrder ==
+                                    0
                                 ? SizedBox()
                                 : Text(
                                     ' ${counsellorController.counsellorList[index].totalOrder} orders',
-                                    style: Get.theme.primaryTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.w300, fontSize: 9, color: Colors.grey),
-                                  ).translate()
+                                    style: Get.theme.primaryTextTheme.bodySmall!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 9,
+                                            color: Colors.grey),
+                                  )
                           ],
                         ),
                         Expanded(
@@ -114,38 +132,49 @@ class CallWithCounsellors extends StatelessWidget {
                               children: [
                                 Text(
                                   '${counsellorController.counsellorList[index].name}',
-                                ).translate(),
-                                counsellorController.counsellorList[index].allSkill == "" || counsellorController.counsellorList[index].allSkill == null
+                                ),
+                                counsellorController.counsellorList[index]
+                                                .allSkill ==
+                                            "" ||
+                                        counsellorController
+                                                .counsellorList[index]
+                                                .allSkill ==
+                                            null
                                     ? const SizedBox()
                                     : Text(
                                         '${counsellorController.counsellorList[index].allSkill}',
-                                        style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                        style: Get
+                                            .theme.primaryTextTheme.bodySmall!
+                                            .copyWith(
                                           fontWeight: FontWeight.w300,
                                           color: Colors.grey[600],
                                         ),
-                                      ).translate(),
+                                      ),
                                 Text(
                                   '${counsellorController.counsellorList[index].languageKnown}',
-                                  style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                  style: Get.theme.primaryTextTheme.bodySmall!
+                                      .copyWith(
                                     fontWeight: FontWeight.w300,
                                     color: Colors.grey[600],
                                   ),
-                                ).translate(),
+                                ),
                                 Text(
                                   'Experience : ${counsellorController.counsellorList[index].experienceInYears} Years',
-                                  style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                  style: Get.theme.primaryTextTheme.bodySmall!
+                                      .copyWith(
                                     fontWeight: FontWeight.w300,
                                     color: Colors.grey[600],
                                   ),
-                                ).translate(),
+                                ),
                                 Text(
                                   '${counsellorController.counsellorList[index].charge}/min',
-                                  style: Get.theme.textTheme.subtitle1!.copyWith(
+                                  style:
+                                      Get.theme.textTheme.subtitle1!.copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w300,
                                     letterSpacing: 0,
                                   ),
-                                ).translate(),
+                                ),
                               ],
                             ),
                           ),
@@ -154,9 +183,12 @@ class CallWithCounsellors extends StatelessWidget {
                           children: [
                             TextButton(
                               style: ButtonStyle(
-                                padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
-                                backgroundColor: MaterialStateProperty.all(Colors.green),
+                                padding: MaterialStateProperty.all(
+                                    EdgeInsets.all(0)),
+                                fixedSize: MaterialStateProperty.all(
+                                    Size.fromWidth(90)),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.green),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -169,14 +201,25 @@ class CallWithCounsellors extends StatelessWidget {
                               onPressed: () async {
                                 bool isLogin = await global.isLogin();
                                 if (isLogin) {
-                                  double charge = double.parse(counsellorController.counsellorList[index].charge.toString());
-                                  if (charge * 5 <= global.splashController.currentUser!.walletAmount!) {
+                                  double charge = double.parse(
+                                      counsellorController
+                                          .counsellorList[index].charge
+                                          .toString());
+                                  if (charge * 5 <=
+                                      global.splashController.currentUser!
+                                          .walletAmount!) {
                                     global.showOnlyLoaderDialog(context);
                                     await Get.to(() => CallIntakeFormScreen(
                                           type: "Call",
-                                          astrologerId: counsellorController.counsellorList[index].id,
-                                          astrologerName: counsellorController.counsellorList[index].name,
-                                          astrologerProfile: counsellorController.counsellorList[index].profileImage ?? "",
+                                          astrologerId: counsellorController
+                                              .counsellorList[index].id,
+                                          astrologerName: counsellorController
+                                              .counsellorList[index].name,
+                                          astrologerProfile:
+                                              counsellorController
+                                                      .counsellorList[index]
+                                                      .profileImage ??
+                                                  "",
                                         ));
 
                                     global.hideLoader();
@@ -184,14 +227,19 @@ class CallWithCounsellors extends StatelessWidget {
                                     global.showOnlyLoaderDialog(context);
                                     await walletController.getAmount();
                                     global.hideLoader();
-                                    openBottomSheetRechrage(context, (charge * 5).toString(), counsellorController.counsellorList[index].name);
+                                    openBottomSheetRechrage(
+                                        context,
+                                        (charge * 5).toString(),
+                                        counsellorController
+                                            .counsellorList[index].name);
                                   }
                                 }
                               },
                               child: Text(
                                 'Call',
-                                style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.white),
-                              ).translate(),
+                                style: Get.theme.primaryTextTheme.bodySmall!
+                                    .copyWith(color: Colors.white),
+                              ),
                             ),
                           ],
                         )
@@ -199,7 +247,11 @@ class CallWithCounsellors extends StatelessWidget {
                     ),
                   ),
                 ),
-                counsellorController.isMoreDataAvailable == true && !counsellorController.isAllDataLoaded && counsellorController.counsellorList.length - 1 == index ? const CircularProgressIndicator() : const SizedBox(),
+                counsellorController.isMoreDataAvailable == true &&
+                        !counsellorController.isAllDataLoaded &&
+                        counsellorController.counsellorList.length - 1 == index
+                    ? const CircularProgressIndicator()
+                    : const SizedBox(),
                 index == counsellorController.counsellorList.length - 1
                     ? const SizedBox(
                         height: 40,
@@ -213,7 +265,8 @@ class CallWithCounsellors extends StatelessWidget {
     });
   }
 
-  void openBottomSheetRechrage(BuildContext context, String minBalance, String astrologer) {
+  void openBottomSheetRechrage(
+      BuildContext context, String minBalance, String astrologer) {
     Get.bottomSheet(
       Container(
         height: 250,
@@ -235,15 +288,24 @@ class CallWithCounsellors extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
                                     width: Get.width * 0.85,
-                                    child: minBalance != '' ? Text('Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start call with $astrologer ', style: TextStyle(fontWeight: FontWeight.w500, color: Colors.red)).translate() : const SizedBox(),
+                                    child: minBalance != ''
+                                        ? Text(
+                                            'Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start call with $astrologer ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red))
+                                        : const SizedBox(),
                                   ),
                                   GestureDetector(
                                     child: Padding(
-                                      padding: minBalance == '' ? const EdgeInsets.only(top: 8) : const EdgeInsets.only(top: 0),
+                                      padding: minBalance == ''
+                                          ? const EdgeInsets.only(top: 8)
+                                          : const EdgeInsets.only(top: 0),
                                       child: Icon(Icons.close, size: 18),
                                     ),
                                     onTap: () {
@@ -253,17 +315,25 @@ class CallWithCounsellors extends StatelessWidget {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 8.0, bottom: 5),
-                                child: Text('Recharge Now', style: TextStyle(fontWeight: FontWeight.w500)).translate(),
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, bottom: 5),
+                                child: Text('Recharge Now',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500)),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 5),
-                                    child: Icon(Icons.lightbulb_rounded, color: Get.theme.primaryColor, size: 13),
+                                    child: Icon(Icons.lightbulb_rounded,
+                                        color: Get.theme.primaryColor,
+                                        size: 13),
                                   ),
-                                  Expanded(child: Text('Tip:90% users recharge for 10 mins or more.', style: TextStyle(fontSize: 12)).translate())
+                                  Expanded(
+                                      child: Text(
+                                          'Tip:90% users recharge for 10 mins or more.',
+                                          style: TextStyle(fontSize: 12)))
                                 ],
                               ),
                             ],
@@ -277,7 +347,8 @@ class CallWithCounsellors extends StatelessWidget {
             ),
             Expanded(
                 child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       childAspectRatio: 3.8 / 2.3,
                       crossAxisSpacing: 1,
@@ -291,7 +362,10 @@ class CallWithCounsellors extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           Get.delete<RazorPayController>();
-                          Get.to(() => PaymentInformationScreen(flag: 0, amount: double.parse(walletController.payment[index])));
+                          Get.to(() => PaymentInformationScreen(
+                              flag: 0,
+                              amount: double.parse(
+                                  walletController.payment[index])));
                         },
                         child: Container(
                           margin: const EdgeInsets.all(8.0),

@@ -21,7 +21,15 @@ class IncomingCallRequest extends StatelessWidget {
   final String channel;
   final String fcmToken;
 
-  IncomingCallRequest({super.key, this.astrologerName, required this.fcmToken, required this.callId, this.astrologerProfile, required this.astrologerId, required this.token, required this.channel});
+  IncomingCallRequest(
+      {super.key,
+      this.astrologerName,
+      required this.fcmToken,
+      required this.callId,
+      this.astrologerProfile,
+      required this.astrologerId,
+      required this.token,
+      required this.channel});
   CallController callController = Get.find<CallController>();
 
   @override
@@ -29,7 +37,8 @@ class IncomingCallRequest extends StatelessWidget {
     return SafeArea(
         child: WillPopScope(
       onWillPop: () async {
-        BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+        BottomNavigationController bottomNavigationController =
+            Get.find<BottomNavigationController>();
         bottomNavigationController.setIndex(1, 0);
         Get.to(() => BottomNavigationBarScreen(index: 1));
         return true;
@@ -59,13 +68,17 @@ class IncomingCallRequest extends StatelessWidget {
                                   width: 40,
                                 )
                               : CachedNetworkImage(
-                                  imageUrl: '${global.imgBaseurl}$astrologerProfile',
-                                  imageBuilder: (context, imageProvider) => CircleAvatar(
+                                  imageUrl:
+                                      '${global.imgBaseurl}$astrologerProfile',
+                                  imageBuilder: (context, imageProvider) =>
+                                      CircleAvatar(
                                     radius: 48,
                                     backgroundImage: imageProvider,
                                   ),
-                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) => Image.asset(
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
                                     Images.deafultUser,
                                     fit: BoxFit.fill,
                                     height: 50,
@@ -77,15 +90,17 @@ class IncomingCallRequest extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          astrologerName == null || astrologerName == "" ? "Astrologer" : astrologerName ?? "Astrologer",
+                          astrologerName == null || astrologerName == ""
+                              ? "Astrologer"
+                              : astrologerName ?? "Astrologer",
                           style: Get.textTheme.headline5,
-                        ).translate(),
+                        ),
                       ],
                     ),
                     Text(
                       "Please accept call request",
                       style: Get.textTheme.bodyText1,
-                    ).translate(),
+                    ),
                   ],
                 ),
               ),
@@ -108,7 +123,7 @@ class IncomingCallRequest extends StatelessWidget {
                     Text(
                       '${global.getSystemFlagValue(global.systemFlagNameList.appName)}',
                       style: Get.textTheme.headline5,
-                    ).translate(),
+                    ),
                   ],
                 ),
               ),
@@ -125,9 +140,13 @@ class IncomingCallRequest extends StatelessWidget {
                           onTap: () async {
                             global.showOnlyLoaderDialog(context);
                             await callController.rejectedCall(callId);
-                            global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'Reject call request from astrologer');
+                            global.callOnFcmApiSendPushNotifications(
+                                fcmTokem: [fcmToken],
+                                title: 'Reject call request from advisor');
                             global.hideLoader();
-                            BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+                            BottomNavigationController
+                                bottomNavigationController =
+                                Get.find<BottomNavigationController>();
                             bottomNavigationController.setIndex(0, 0);
                             Get.to(() => BottomNavigationBarScreen(
                                   index: 0,
@@ -154,7 +173,10 @@ class IncomingCallRequest extends StatelessWidget {
 
                             Get.to(() => AcceptCallScreen(
                                   astrologerId: astrologerId,
-                                  astrologerName: astrologerName == null || astrologerName == "" ? "Astrologer" : astrologerName ?? "Astrologer",
+                                  astrologerName: astrologerName == null ||
+                                          astrologerName == ""
+                                      ? "Astrologer"
+                                      : astrologerName ?? "Astrologer",
                                   astrologerProfile: astrologerProfile,
                                   token: token,
                                   callChannel: channel,
@@ -164,7 +186,9 @@ class IncomingCallRequest extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.all(10),
                             margin: const EdgeInsets.only(left: 20),
-                            decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(30)),
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(30)),
                             child: Icon(
                               Icons.ring_volume,
                               color: Colors.white,

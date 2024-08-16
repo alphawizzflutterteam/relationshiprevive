@@ -15,7 +15,9 @@ class SadesatiDosha extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        Text('Sadesati Analysis', style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)).translate(),
+        Text('Sadesati Analysis',
+            style:
+                Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)),
         SizedBox(
           height: 10,
         ),
@@ -29,25 +31,28 @@ class SadesatiDosha extends StatelessWidget {
             children: [
               kundliController.isSadesati == null
                   ? Center(
-                      child: Text('Sadesati Data Not Found').translate(),
+                      child: Text('Sadesati Data Not Found'),
                     )
                   : Row(
                       children: [
                         CircleAvatar(
                           radius: 30,
-                          backgroundColor: kundliController.isSadesati! ? Colors.red : Colors.green,
+                          backgroundColor: kundliController.isSadesati!
+                              ? Colors.red
+                              : Colors.green,
                           child: Text(
                             kundliController.isSadesati! ? 'Yes' : 'No',
                             style: TextStyle(color: Colors.white),
-                          ).translate(),
+                          ),
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
                           'Current Sadesati Status',
-                          style: Get.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold),
-                        ).translate(),
+                          style: Get.textTheme.bodyText1!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
                       ],
                     )
             ],

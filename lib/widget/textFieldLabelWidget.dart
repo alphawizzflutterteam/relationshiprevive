@@ -17,7 +17,7 @@ class TextFieldLabelWidget extends StatelessWidget {
           fontWeight: FontWeight.w400,
           letterSpacing: 0,
         ),
-      ).translate(),
+      ) /**/,
     );
   }
 }

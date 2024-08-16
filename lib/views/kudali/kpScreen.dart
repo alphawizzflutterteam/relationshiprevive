@@ -18,7 +18,7 @@ class KPScreen extends StatelessWidget {
             Text(
               'Planets',
               style: Get.textTheme.subtitle1,
-            ).translate(),
+            ),
             Container(
               margin: EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
@@ -33,21 +33,25 @@ class KPScreen extends StatelessWidget {
                 headingRowHeight: 48,
                 columns: [
                   DataColumn(
-                    label: Text('Planet', textAlign: TextAlign.center).translate(),
+                    label: Text('Planet', textAlign: TextAlign.center),
                   ),
-                  DataColumn(label: Text('Cusp', textAlign: TextAlign.center).translate()),
+                  DataColumn(label: Text('Cusp', textAlign: TextAlign.center)),
                   DataColumn(
-                    label: Text('Sign', textAlign: TextAlign.center).translate(),
+                    label: Text('Sign', textAlign: TextAlign.center),
                   ),
-                  DataColumn(label: Text('Sign\nLord', textAlign: TextAlign.center).translate()),
-                  DataColumn(label: Text('Star\nLord', textAlign: TextAlign.center).translate()),
-                  DataColumn(label: Text('Sub\nLord', textAlign: TextAlign.center).translate()),
+                  DataColumn(
+                      label: Text('Sign\nLord', textAlign: TextAlign.center)),
+                  DataColumn(
+                      label: Text('Star\nLord', textAlign: TextAlign.center)),
+                  DataColumn(
+                      label: Text('Sub\nLord', textAlign: TextAlign.center)),
                 ],
                 border: TableBorder(
                   verticalInside: BorderSide(color: Colors.grey),
                   horizontalInside: BorderSide(color: Colors.grey),
                 ),
-                rows: kundliController.listOfPlanets // Loops through dataColumnText, each iteration assigning the value to element
+                rows: kundliController
+                    .listOfPlanets // Loops through dataColumnText, each iteration assigning the value to element
                     .map(
                       ((element) => DataRow(
                             color: MaterialStateProperty.all(Colors.white),
@@ -55,12 +59,15 @@ class KPScreen extends StatelessWidget {
                               DataCell(Center(
                                   child: Text(
                                 element["planet"]!,
-                              ).translate())),
-                              DataCell(Center(child: Text(element["cups"]!).translate())),
-                              DataCell(Center(child: Text(element["sign"]!).translate())),
-                              DataCell(Center(child: Text(element["signLord"]!))),
-                              DataCell(Center(child: Text(element["starLord"]!))),
-                              DataCell(Center(child: Text(element["subLord"]!))),
+                              ))),
+                              DataCell(Center(child: Text(element["cups"]!))),
+                              DataCell(Center(child: Text(element["sign"]!))),
+                              DataCell(
+                                  Center(child: Text(element["signLord"]!))),
+                              DataCell(
+                                  Center(child: Text(element["starLord"]!))),
+                              DataCell(
+                                  Center(child: Text(element["subLord"]!))),
                             ],
                           )),
                     )

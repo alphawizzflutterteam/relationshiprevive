@@ -215,7 +215,7 @@ class BottomNavigationController extends GetxController {
                         "$astrologerName",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
-                      ).translate(),
+                      ),
                     ),
                   ],
                 ),
@@ -229,7 +229,7 @@ class BottomNavigationController extends GetxController {
                     fontSize: 12,
                   ),
                   textAlign: TextAlign.center,
-                ).translate(),
+                ),
               ),
               Container(
                 width: Get.width,
@@ -254,7 +254,7 @@ class BottomNavigationController extends GetxController {
                         child: Text(
                           "Cancel",
                           style: TextStyle(color: Colors.black),
-                        ).translate(),
+                        ),
                       ),
                     ),
                     GestureDetector(
@@ -319,7 +319,7 @@ class BottomNavigationController extends GetxController {
                         child: Text(
                           "Join Waitlist",
                           style: TextStyle(color: Colors.black),
-                        ).translate(),
+                        ),
                       ),
                     )
                   ],
@@ -345,7 +345,7 @@ class BottomNavigationController extends GetxController {
                     fontSize: 12,
                   ),
                   textAlign: TextAlign.center,
-                ).translate(),
+                ),
               ),
               Container(
                 width: Get.width,
@@ -366,7 +366,7 @@ class BottomNavigationController extends GetxController {
                         child: Text(
                           "OK",
                           style: TextStyle(color: Colors.black),
-                        ).translate(),
+                        ),
                       ),
                     ),
                   ],

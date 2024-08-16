@@ -171,22 +171,22 @@ class RazorPayController extends GetxController {
               child: CupertinoAlertDialog(
                 title: Text(
                   'Transaction Failed',
-                ).translate(),
+                ),
                 content: Text(
                   'Please Try Again',
-                ).translate(),
+                ),
                 actions: <Widget>[
                   CupertinoDialogAction(
                     child: Text(
                       'Cancel',
                       style: TextStyle(color: Colors.red),
-                    ).translate(),
+                    ),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   CupertinoDialogAction(
-                    child: Text('Try Again').translate(),
+                    child: Text('Try Again'),
                     onPressed: () async {
                       Navigator.of(context).pop();
                       global.showOnlyLoaderDialog(context);
@@ -220,16 +220,15 @@ class RazorPayController extends GetxController {
                     title: Text(
                       'Card Details',
                       style: TextStyle(),
-                    ).translate(),
+                    ),
                     actions: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextButton(
                             child: Text('Cancel',
-                                    style: TextStyle(
-                                        color: Get.theme.primaryColor))
-                                .translate(),
+                                style:
+                                    TextStyle(color: Get.theme.primaryColor)),
                             onPressed: () {
                               Get.back();
                             },
@@ -240,7 +239,7 @@ class RazorPayController extends GetxController {
                               child: Text(
                                 'Pay',
                                 style: TextStyle(color: Get.theme.primaryColor),
-                              ).translate(),
+                              ),
                               onPressed: () async {
                                 // Get.back();
                                 await _save(
@@ -674,22 +673,22 @@ class RazorPayController extends GetxController {
               child: CupertinoAlertDialog(
                 title: Text(
                   'Transaction failed',
-                ).translate(),
+                ),
                 content: Text(
                   'Please try again',
-                ).translate(),
+                ),
                 actions: <Widget>[
                   CupertinoDialogAction(
                     child: Text(
                       'Cancel',
                       style: TextStyle(color: Colors.red),
-                    ).translate(),
+                    ),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   CupertinoDialogAction(
-                    child: Text('Try Again').translate(),
+                    child: Text('Try Again'),
                     onPressed: () async {
                       Navigator.of(context).pop();
                       showOnlyLoaderDialog(context);

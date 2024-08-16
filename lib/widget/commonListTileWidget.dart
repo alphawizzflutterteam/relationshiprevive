@@ -13,7 +13,17 @@ class CommonListTileWidget extends StatelessWidget {
   final String helpSupportSubQuestion;
   final int isChatWithUs;
   final bool isSubCategory;
-  const CommonListTileWidget({Key? key, required this.helpSupportQuestion, required this.helpSupportSubQuestion, required this.title, required this.isSubCategory, required this.onTap, required this.isChatWithUs, required this.subject, required this.helpSupportQuestionId}) : super(key: key);
+  const CommonListTileWidget(
+      {Key? key,
+      required this.helpSupportQuestion,
+      required this.helpSupportSubQuestion,
+      required this.title,
+      required this.isSubCategory,
+      required this.onTap,
+      required this.isChatWithUs,
+      required this.subject,
+      required this.helpSupportQuestionId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +41,7 @@ class CommonListTileWidget extends StatelessWidget {
                 Text(
                   title,
                   style: Get.textTheme.subtitle2,
-                ).translate(),
+                ),
                 Spacer(),
                 isSubCategory
                     ? Icon(
@@ -46,7 +56,8 @@ class CommonListTileWidget extends StatelessWidget {
           isChatWithUs == 1
               ? Column(
                   children: [
-                    Text('Still need help?', style: Get.textTheme.subtitle1!.copyWith(fontSize: 10)).translate(),
+                    Text('Still need help?',
+                        style: Get.textTheme.subtitle1!.copyWith(fontSize: 10)),
                     GestureDetector(
                       onTap: () {
                         Get.to(() => CreateTiketScreen(
@@ -61,16 +72,20 @@ class CommonListTileWidget extends StatelessWidget {
                         width: 100,
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Get.theme.primaryColor),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Get.theme.primaryColor),
                         child: FittedBox(
                           child: Text(
                             'Chat with us',
-                            style: Get.textTheme.subtitle1!.copyWith(fontSize: 13),
-                          ).translate(),
+                            style:
+                                Get.textTheme.subtitle1!.copyWith(fontSize: 13),
+                          ),
                         ),
                       ),
                     ),
-                    Text('Wait time - 5 min', style: Get.textTheme.subtitle1!.copyWith(fontSize: 10)).translate(),
+                    Text('Wait time - 5 min',
+                        style: Get.textTheme.subtitle1!.copyWith(fontSize: 10)),
                   ],
                 )
               : const SizedBox(),

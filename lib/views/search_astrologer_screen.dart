@@ -27,7 +27,8 @@ class SeachAstrologerReportScreen extends StatelessWidget {
   SeachAstrologerReportScreen({Key? key}) : super(key: key);
 
   ReportController reportController = Get.find<ReportController>();
-  ReportFilterTabController reportFilter = Get.find<ReportFilterTabController>();
+  ReportFilterTabController reportFilter =
+      Get.find<ReportFilterTabController>();
   SkillController skillController = Get.find<SkillController>();
   LanguageController languageController = Get.find<LanguageController>();
   WalletController walletController = Get.find<WalletController>();
@@ -57,7 +58,8 @@ class SeachAstrologerReportScreen extends StatelessWidget {
                       searchController.isAllDataLoaded = false;
                       searchController.searchString = value;
                       searchController.update();
-                      await searchController.getSearchResult(value, 'astrologer', false);
+                      await searchController.getSearchResult(
+                          value, 'astrologer', false);
                     }
                   },
                   decoration: InputDecoration(
@@ -79,7 +81,7 @@ class SeachAstrologerReportScreen extends StatelessWidget {
       body: GetBuilder<SearchController1>(builder: (searchController) {
         return searchController.astrologerList.isEmpty
             ? Center(
-                child: Text('Astrologer not found').translate(),
+                child: Text('Astrologer not found'),
               )
             : ListView.builder(
                 itemCount: searchController.astrologerList.length,
@@ -88,10 +90,13 @@ class SeachAstrologerReportScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () async {
-                      Get.find<ReviewController>().getReviewData(searchController.astrologerList[index].id!);
-                      BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+                      Get.find<ReviewController>().getReviewData(
+                          searchController.astrologerList[index].id!);
+                      BottomNavigationController bottomNavigationController =
+                          Get.find<BottomNavigationController>();
                       global.showOnlyLoaderDialog(context);
-                      await bottomNavigationController.getAstrologerbyId(searchController.astrologerList[index].id!);
+                      await bottomNavigationController.getAstrologerbyId(
+                          searchController.astrologerList[index].id!);
                       global.hideLoader();
                       Get.to(() => AstrologerProfile(
                             index: index,
@@ -112,23 +117,35 @@ class SeachAstrologerReportScreen extends StatelessWidget {
                                       child: Stack(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 10),
+                                            padding:
+                                                const EdgeInsets.only(top: 10),
                                             child: Container(
                                               height: 65,
                                               width: 65,
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), border: Border.all(color: Get.theme.primaryColor)),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(7),
+                                                  border: Border.all(
+                                                      color: Get
+                                                          .theme.primaryColor)),
                                               child: CircleAvatar(
                                                 radius: 35,
                                                 backgroundColor: Colors.white,
                                                 child: CachedNetworkImage(
                                                   height: 55,
                                                   width: 55,
-                                                  imageUrl: '${global.imgBaseurl}${searchController.astrologerList[index].profileImage}',
-                                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                  errorWidget: (context, url, error) {
+                                                  imageUrl:
+                                                      '${global.imgBaseurl}${searchController.astrologerList[index].profileImage}',
+                                                  placeholder: (context, url) =>
+                                                      const Center(
+                                                          child:
+                                                              CircularProgressIndicator()),
+                                                  errorWidget:
+                                                      (context, url, error) {
                                                     return CircleAvatar(
                                                         radius: 35,
-                                                        backgroundColor: Colors.white,
+                                                        backgroundColor:
+                                                            Colors.white,
                                                         child: Image.asset(
                                                           Images.deafultUser,
                                                           fit: BoxFit.fill,
@@ -172,56 +189,71 @@ class SeachAstrologerReportScreen extends StatelessWidget {
                                         ),
                                         Text(
                                           '${searchController.astrologerList[index].totalOrder} orders',
-                                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(
                                             fontWeight: FontWeight.w300,
                                             fontSize: 9,
                                           ),
-                                        ).translate(),
+                                        ),
                                       ],
                                     )
                                   ],
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          searchController.astrologerList[index].name!,
-                                        ).translate(),
+                                          searchController
+                                              .astrologerList[index].name!,
+                                        ),
                                         Text(
-                                          searchController.astrologerList[index].allSkill!,
-                                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                          searchController
+                                              .astrologerList[index].allSkill!,
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(
                                             fontWeight: FontWeight.w300,
                                             color: Colors.grey[600],
                                           ),
-                                        ).translate(),
+                                        ),
                                         Text(
-                                          searchController.astrologerList[index].languageKnown!,
-                                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                          searchController.astrologerList[index]
+                                              .languageKnown!,
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(
                                             fontWeight: FontWeight.w300,
                                             color: Colors.grey[600],
                                           ),
-                                        ).translate(),
+                                        ),
                                         Text(
                                           'Experience : ${searchController.astrologerList[index].experienceInYears} Years',
-                                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(
                                             fontWeight: FontWeight.w300,
                                             color: Colors.grey[600],
                                           ),
-                                        ).translate(),
+                                        ),
                                         Row(
                                           children: [
                                             Text(
                                               '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${searchController.astrologerList[index].reportRate}/report',
-                                              style: Get.theme.textTheme.subtitle1!.copyWith(
+                                              style: Get
+                                                  .theme.textTheme.subtitle1!
+                                                  .copyWith(
                                                 color: Colors.black54,
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w500,
                                                 letterSpacing: 0,
                                               ),
-                                            ).translate(),
+                                            ),
                                           ],
                                         ),
                                       ],
@@ -230,9 +262,12 @@ class SeachAstrologerReportScreen extends StatelessWidget {
                                 ),
                                 TextButton(
                                   style: ButtonStyle(
-                                    padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                    fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
-                                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                                    padding: MaterialStateProperty.all(
+                                        EdgeInsets.all(0)),
+                                    fixedSize: MaterialStateProperty.all(
+                                        Size.fromWidth(90)),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.green),
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
@@ -242,38 +277,56 @@ class SeachAstrologerReportScreen extends StatelessWidget {
                                   onPressed: () async {
                                     bool isLogin = await global.isLogin();
                                     if (isLogin) {
-                                      double charge = double.parse(searchController.astrologerList[index].reportRate.toString());
-                                      if (charge <= global.splashController.currentUser!.walletAmount!) {
+                                      double charge = double.parse(
+                                          searchController
+                                              .astrologerList[index].reportRate
+                                              .toString());
+                                      if (charge <=
+                                          global.splashController.currentUser!
+                                              .walletAmount!) {
                                         global.showOnlyLoaderDialog(context);
                                         reportController.searchString = null;
                                         reportController.reportTypeList = [];
                                         reportController.reportTypeList.clear();
-                                        reportController.isAllDataLoaded = false;
+                                        reportController.isAllDataLoaded =
+                                            false;
                                         reportController.update();
-                                        await reportController.getReportTypes(null, false);
+                                        await reportController.getReportTypes(
+                                            null, false);
                                         global.hideLoader();
                                         Get.to(() => ReportTypeScreen(
-                                              astrologerId: searchController.astrologerList[index].id!,
-                                              astrologerName: searchController.astrologerList[index].name!,
+                                              astrologerId: searchController
+                                                  .astrologerList[index].id!,
+                                              astrologerName: searchController
+                                                  .astrologerList[index].name!,
                                             ));
                                       } else {
                                         global.showOnlyLoaderDialog(context);
                                         await walletController.getAmount();
                                         global.hideLoader();
-                                        openBottomSheetRechrage(context, charge.toString(), '${searchController.astrologerList[index].name!}');
+                                        openBottomSheetRechrage(
+                                            context,
+                                            charge.toString(),
+                                            '${searchController.astrologerList[index].name!}');
                                       }
                                     }
                                   },
                                   child: Text(
                                     'Get report',
-                                    style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.white),
-                                  ).translate(),
+                                    style: Get.theme.primaryTextTheme.bodySmall!
+                                        .copyWith(color: Colors.white),
+                                  ),
                                 )
                               ],
                             ),
                           ),
                         ),
-                        searchController.isMoreDataAvailable == true && !searchController.isAllDataLoaded && searchController.astrologerList.length - 1 == index ? const CircularProgressIndicator() : const SizedBox(),
+                        searchController.isMoreDataAvailable == true &&
+                                !searchController.isAllDataLoaded &&
+                                searchController.astrologerList.length - 1 ==
+                                    index
+                            ? const CircularProgressIndicator()
+                            : const SizedBox(),
                         const SizedBox(
                           height: 20,
                         )
@@ -286,7 +339,8 @@ class SeachAstrologerReportScreen extends StatelessWidget {
     );
   }
 
-  void openBottomSheetRechrage(BuildContext context, String minBalance, String astrologer) {
+  void openBottomSheetRechrage(
+      BuildContext context, String minBalance, String astrologer) {
     Get.bottomSheet(
       Container(
         height: 250,
@@ -308,15 +362,24 @@ class SeachAstrologerReportScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
                                     width: Get.width * 0.85,
-                                    child: minBalance != '' ? Text('Minimum balance ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance is required to get report from $astrologer ', style: TextStyle(fontWeight: FontWeight.w500, color: Colors.red)).translate() : const SizedBox(),
+                                    child: minBalance != ''
+                                        ? Text(
+                                            'Minimum balance ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance is required to get report from $astrologer ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red))
+                                        : const SizedBox(),
                                   ),
                                   GestureDetector(
                                     child: Padding(
-                                      padding: minBalance == '' ? const EdgeInsets.only(top: 8) : const EdgeInsets.only(top: 0),
+                                      padding: minBalance == ''
+                                          ? const EdgeInsets.only(top: 8)
+                                          : const EdgeInsets.only(top: 0),
                                       child: Icon(Icons.close, size: 18),
                                     ),
                                     onTap: () {
@@ -326,17 +389,25 @@ class SeachAstrologerReportScreen extends StatelessWidget {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 8.0, bottom: 5),
-                                child: Text('Recharge Now', style: TextStyle(fontWeight: FontWeight.w500)).translate(),
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, bottom: 5),
+                                child: Text('Recharge Now',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500)),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 5),
-                                    child: Icon(Icons.lightbulb_rounded, color: Get.theme.primaryColor, size: 13),
+                                    child: Icon(Icons.lightbulb_rounded,
+                                        color: Get.theme.primaryColor,
+                                        size: 13),
                                   ),
-                                  Expanded(child: Text('Tip:90% users recharge for 10 mins or more.', style: TextStyle(fontSize: 12)).translate())
+                                  Expanded(
+                                      child: Text(
+                                          'Tip:90% users recharge for 10 mins or more.',
+                                          style: TextStyle(fontSize: 12)))
                                 ],
                               ),
                             ],
@@ -350,7 +421,8 @@ class SeachAstrologerReportScreen extends StatelessWidget {
             ),
             Expanded(
                 child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       childAspectRatio: 3.8 / 2.3,
                       crossAxisSpacing: 1,
@@ -364,7 +436,10 @@ class SeachAstrologerReportScreen extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           Get.delete<RazorPayController>();
-                          Get.to(() => PaymentInformationScreen(flag: 0, amount: double.parse(walletController.payment[index])));
+                          Get.to(() => PaymentInformationScreen(
+                              flag: 0,
+                              amount: double.parse(
+                                  walletController.payment[index])));
                         },
                         child: Container(
                           margin: const EdgeInsets.all(8.0),

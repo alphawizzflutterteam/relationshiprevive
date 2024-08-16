@@ -46,7 +46,8 @@ class AcceptChatScreen extends StatelessWidget {
   });
   final TextEditingController messageController = TextEditingController();
   final SplashController splashController = Get.find<SplashController>();
-  final BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  final BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
   TimerController timerController = Get.find<TimerController>();
 
   @override
@@ -62,16 +63,18 @@ class AcceptChatScreen extends StatelessWidget {
               Get.dialog(
                 AlertDialog(
                   contentPadding: const EdgeInsets.all(0),
-                  titlePadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                  titlePadding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                   title: Text(
                     "You can end chat after one minute",
                     style: Get.textTheme.subtitle1,
-                  ).translate(),
+                  ),
                   content: TextButton(
                     onPressed: () {
                       Get.back();
                     },
-                    child: Text('Ok', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                    child: Text('Ok',
+                        style: TextStyle(color: Get.theme.primaryColor)),
                   ),
                 ),
               );
@@ -81,14 +84,19 @@ class AcceptChatScreen extends StatelessWidget {
                   title: Text(
                     "Are you sure you want to end chat?",
                     style: Get.textTheme.subtitle1,
-                  ).translate(),
+                  ),
                   content: Row(
                     children: [
                       TextButton(
                         onPressed: () async {
                           global.showOnlyLoaderDialog(context);
-                          final ChatController chatController = Get.find<ChatController>();
-                          chatController.sendMessage('${global.user.name == '' ? 'user' : global.user.name} -> ended chat', fireBasechatId, astrologerId, true);
+                          final ChatController chatController =
+                              Get.find<ChatController>();
+                          chatController.sendMessage(
+                              '${global.user.name == '' ? 'user' : global.user.name} -> ended chat',
+                              fireBasechatId,
+                              astrologerId,
+                              true);
                           chatController.showBottomAcceptChat = false;
                           global.sp = await SharedPreferences.getInstance();
                           global.sp!.remove('chatBottom');
@@ -97,9 +105,12 @@ class AcceptChatScreen extends StatelessWidget {
                           chatController.chatBottom = false;
                           chatController.isInchat = false;
                           chatController.isAstrologerEndedChat = false;
-                          global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'End chat from customer');
+                          global.callOnFcmApiSendPushNotifications(
+                              fcmTokem: [fcmToken],
+                              title: 'End chat from customer');
                           chatController.update();
-                          await timerController.endChatTime(timerController.totalSeconds, chatId);
+                          await timerController.endChatTime(
+                              timerController.totalSeconds, chatId);
                           global.hideLoader();
                           timerController.min = 0;
                           timerController.minText = "";
@@ -110,23 +121,29 @@ class AcceptChatScreen extends StatelessWidget {
                           timerController.update();
                           bottomNavigationController.astrologerList.clear();
                           bottomNavigationController.isAllDataLoaded = false;
-                          if (bottomNavigationController.genderFilterList != null) {
-                            bottomNavigationController.genderFilterList!.clear();
+                          if (bottomNavigationController.genderFilterList !=
+                              null) {
+                            bottomNavigationController.genderFilterList!
+                                .clear();
                           }
-                          if (bottomNavigationController.languageFilter != null) {
+                          if (bottomNavigationController.languageFilter !=
+                              null) {
                             bottomNavigationController.languageFilter!.clear();
                           }
-                          if (bottomNavigationController.skillFilterList != null) {
+                          if (bottomNavigationController.skillFilterList !=
+                              null) {
                             bottomNavigationController.skillFilterList!.clear();
                           }
                           bottomNavigationController.applyFilter = false;
                           bottomNavigationController.update();
-                          await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                          await bottomNavigationController.getAstrologerList(
+                              isLazyLoading: false);
                           Get.back();
                           Get.back();
                           Get.back();
                         },
-                        child: Text('Yes', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                        child: Text('Yes',
+                            style: TextStyle(color: Get.theme.primaryColor)),
                       ),
                       TextButton(
                         onPressed: () {
@@ -134,7 +151,8 @@ class AcceptChatScreen extends StatelessWidget {
                           timerController.endChat = false;
                           timerController.update();
                         },
-                        child: Text('No', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                        child: Text('No',
+                            style: TextStyle(color: Get.theme.primaryColor)),
                       ),
                     ],
                   ),
@@ -148,14 +166,19 @@ class AcceptChatScreen extends StatelessWidget {
                 title: Text(
                   "Are you sure you want to end chat?",
                   style: Get.textTheme.subtitle1,
-                ).translate(),
+                ),
                 content: Row(
                   children: [
                     TextButton(
                       onPressed: () async {
                         global.showOnlyLoaderDialog(context);
-                        final ChatController chatController = Get.find<ChatController>();
-                        chatController.sendMessage('${global.user.name == '' ? 'user' : global.user.name} -> ended chat', fireBasechatId, astrologerId, true);
+                        final ChatController chatController =
+                            Get.find<ChatController>();
+                        chatController.sendMessage(
+                            '${global.user.name == '' ? 'user' : global.user.name} -> ended chat',
+                            fireBasechatId,
+                            astrologerId,
+                            true);
                         chatController.showBottomAcceptChat = false;
                         global.sp = await SharedPreferences.getInstance();
                         global.sp!.remove('chatBottom');
@@ -164,9 +187,12 @@ class AcceptChatScreen extends StatelessWidget {
                         chatController.chatBottom = false;
                         chatController.isInchat = false;
                         chatController.isAstrologerEndedChat = false;
-                        global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'End chat from customer');
+                        global.callOnFcmApiSendPushNotifications(
+                            fcmTokem: [fcmToken],
+                            title: 'End chat from customer');
                         chatController.update();
-                        await timerController.endChatTime(timerController.totalSeconds, chatId);
+                        await timerController.endChatTime(
+                            timerController.totalSeconds, chatId);
                         global.hideLoader();
                         timerController.min = 0;
                         timerController.minText = "";
@@ -177,23 +203,27 @@ class AcceptChatScreen extends StatelessWidget {
                         timerController.update();
                         bottomNavigationController.astrologerList.clear();
                         bottomNavigationController.isAllDataLoaded = false;
-                        if (bottomNavigationController.genderFilterList != null) {
+                        if (bottomNavigationController.genderFilterList !=
+                            null) {
                           bottomNavigationController.genderFilterList!.clear();
                         }
                         if (bottomNavigationController.languageFilter != null) {
                           bottomNavigationController.languageFilter!.clear();
                         }
-                        if (bottomNavigationController.skillFilterList != null) {
+                        if (bottomNavigationController.skillFilterList !=
+                            null) {
                           bottomNavigationController.skillFilterList!.clear();
                         }
                         bottomNavigationController.applyFilter = false;
                         bottomNavigationController.update();
-                        await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                        await bottomNavigationController.getAstrologerList(
+                            isLazyLoading: false);
                         Get.back();
                         Get.back();
                         Get.back();
                       },
-                      child: Text('Yes', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                      child: Text('Yes',
+                          style: TextStyle(color: Get.theme.primaryColor)),
                     ),
                     TextButton(
                       onPressed: () {
@@ -201,7 +231,8 @@ class AcceptChatScreen extends StatelessWidget {
                         timerController.endChat = false;
                         timerController.update();
                       },
-                      child: Text('No', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                      child: Text('No',
+                          style: TextStyle(color: Get.theme.primaryColor)),
                     ),
                   ],
                 ),
@@ -214,14 +245,16 @@ class AcceptChatScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+            backgroundColor:
+                Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
             title: GestureDetector(
               onTap: () async {
                 print('appbar tapped');
                 if (flagId == 0) {
                   Get.find<ReviewController>().getReviewData(astrologerId);
                   global.showOnlyLoaderDialog(context);
-                  await bottomNavigationController.getAstrologerbyId(astrologerId);
+                  await bottomNavigationController
+                      .getAstrologerbyId(astrologerId);
                   global.hideLoader();
                   Get.to(() => AstrologerProfile(
                         index: 0,
@@ -238,7 +271,8 @@ class AcceptChatScreen extends StatelessWidget {
                         radius: 48,
                         backgroundImage: imageProvider,
                       ),
-                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => Image.asset(
                         Images.deafultUser,
                         height: 40,
@@ -258,37 +292,55 @@ class AcceptChatScreen extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.normal,
                         ),
-                      ).translate(),
+                      ),
                       flagId == 1
                           ? CountdownTimer(
-                              endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 300,
+                              endTime: DateTime.now().millisecondsSinceEpoch +
+                                  1000 * 300,
                               widgetBuilder: (_, CurrentRemainingTime? time) {
                                 if (time == null) {
-                                  return Text('00:00', style: TextStyle(fontSize: 10, color: Colors.red));
+                                  return Text('00:00',
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.red));
                                 }
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 10),
-                                  child: time.min != null ? Text('${time.min}:${time.sec}', style: TextStyle(fontSize: 10, color: Colors.red)) : Text('${time.sec}', style: TextStyle(fontSize: 10, color: Colors.red)),
+                                  child: time.min != null
+                                      ? Text('${time.min}:${time.sec}',
+                                          style: TextStyle(
+                                              fontSize: 10, color: Colors.red))
+                                      : Text('${time.sec}',
+                                          style: TextStyle(
+                                              fontSize: 10, color: Colors.red)),
                                 );
                               },
                               onEnd: () async {
-                                final ChatController chatController = Get.find<ChatController>();
+                                final ChatController chatController =
+                                    Get.find<ChatController>();
 
                                 log('in onEnd chat:- ${chatController.isEndChat} :- seconds ${timerController.totalSeconds}');
                                 if (chatController.isEndChat == false) {
                                   // call the disconnect method from requested customer
                                   global.showOnlyLoaderDialog(Get.context);
-                                  chatController.sendMessage('${global.user.name == '' ? 'user' : global.user.name} -> ended chat', fireBasechatId, astrologerId, true);
+                                  chatController.sendMessage(
+                                      '${global.user.name == '' ? 'user' : global.user.name} -> ended chat',
+                                      fireBasechatId,
+                                      astrologerId,
+                                      true);
                                   chatController.showBottomAcceptChat = false;
-                                  global.sp = await SharedPreferences.getInstance();
+                                  global.sp =
+                                      await SharedPreferences.getInstance();
                                   global.sp!.remove('chatBottom');
                                   global.sp!.setInt('chatBottom', 0);
                                   chatController.chatBottom = false;
                                   chatController.isInchat = false;
                                   chatController.isAstrologerEndedChat = false;
-                                  global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'End chat from customer');
+                                  global.callOnFcmApiSendPushNotifications(
+                                      fcmTokem: [fcmToken],
+                                      title: 'End chat from customer');
                                   chatController.update();
-                                  await timerController.endChatTime(timerController.totalSeconds, chatId);
+                                  await timerController.endChatTime(
+                                      timerController.totalSeconds, chatId);
                                   global.hideLoader();
                                   timerController.min = 0;
                                   timerController.minText = "";
@@ -296,20 +348,33 @@ class AcceptChatScreen extends StatelessWidget {
                                   timerController.secText = "";
                                   timerController.secTimer!.cancel();
                                   timerController.update();
-                                  bottomNavigationController.astrologerList.clear();
-                                  bottomNavigationController.isAllDataLoaded = false;
-                                  if (bottomNavigationController.genderFilterList != null) {
-                                    bottomNavigationController.genderFilterList!.clear();
+                                  bottomNavigationController.astrologerList
+                                      .clear();
+                                  bottomNavigationController.isAllDataLoaded =
+                                      false;
+                                  if (bottomNavigationController
+                                          .genderFilterList !=
+                                      null) {
+                                    bottomNavigationController.genderFilterList!
+                                        .clear();
                                   }
-                                  if (bottomNavigationController.languageFilter != null) {
-                                    bottomNavigationController.languageFilter!.clear();
+                                  if (bottomNavigationController
+                                          .languageFilter !=
+                                      null) {
+                                    bottomNavigationController.languageFilter!
+                                        .clear();
                                   }
-                                  if (bottomNavigationController.skillFilterList != null) {
-                                    bottomNavigationController.skillFilterList!.clear();
+                                  if (bottomNavigationController
+                                          .skillFilterList !=
+                                      null) {
+                                    bottomNavigationController.skillFilterList!
+                                        .clear();
                                   }
-                                  bottomNavigationController.applyFilter = false;
+                                  bottomNavigationController.applyFilter =
+                                      false;
                                   bottomNavigationController.update();
-                                  await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                                  await bottomNavigationController
+                                      .getAstrologerList(isLazyLoading: false);
                                   Get.back();
                                   Get.back();
                                   Get.back();
@@ -335,12 +400,14 @@ class AcceptChatScreen extends StatelessWidget {
                           title: Text(
                             "You can end chat after one minute",
                             style: Get.textTheme.subtitle1,
-                          ).translate(),
+                          ),
                           content: TextButton(
                             onPressed: () {
                               Get.back();
                             },
-                            child: Text('Ok', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                            child: Text('Ok',
+                                style:
+                                    TextStyle(color: Get.theme.primaryColor)),
                           ),
                         ),
                       );
@@ -350,25 +417,34 @@ class AcceptChatScreen extends StatelessWidget {
                           title: Text(
                             "Are you sure you want to end chat?",
                             style: Get.textTheme.subtitle1,
-                          ).translate(),
+                          ),
                           content: Row(
                             children: [
                               TextButton(
                                 onPressed: () async {
                                   global.showOnlyLoaderDialog(context);
-                                  final ChatController chatController = Get.find<ChatController>();
-                                  chatController.sendMessage('${global.user.name == '' ? 'user' : global.user.name} -> ended chat', fireBasechatId, astrologerId, true);
+                                  final ChatController chatController =
+                                      Get.find<ChatController>();
+                                  chatController.sendMessage(
+                                      '${global.user.name == '' ? 'user' : global.user.name} -> ended chat',
+                                      fireBasechatId,
+                                      astrologerId,
+                                      true);
                                   chatController.showBottomAcceptChat = false;
-                                  global.sp = await SharedPreferences.getInstance();
+                                  global.sp =
+                                      await SharedPreferences.getInstance();
                                   chatController.isEndChat = true;
                                   global.sp!.remove('chatBottom');
                                   global.sp!.setInt('chatBottom', 0);
                                   chatController.chatBottom = false;
                                   chatController.isInchat = false;
                                   chatController.isAstrologerEndedChat = false;
-                                  global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'End chat from customer');
+                                  global.callOnFcmApiSendPushNotifications(
+                                      fcmTokem: [fcmToken],
+                                      title: 'End chat from customer');
                                   chatController.update();
-                                  await timerController.endChatTime(timerController.totalSeconds, chatId);
+                                  await timerController.endChatTime(
+                                      timerController.totalSeconds, chatId);
                                   global.hideLoader();
                                   timerController.min = 0;
                                   timerController.minText = "";
@@ -376,31 +452,48 @@ class AcceptChatScreen extends StatelessWidget {
                                   timerController.secText = "";
                                   timerController.secTimer!.cancel();
                                   timerController.update();
-                                  bottomNavigationController.astrologerList.clear();
-                                  bottomNavigationController.isAllDataLoaded = false;
-                                  if (bottomNavigationController.genderFilterList != null) {
-                                    bottomNavigationController.genderFilterList!.clear();
+                                  bottomNavigationController.astrologerList
+                                      .clear();
+                                  bottomNavigationController.isAllDataLoaded =
+                                      false;
+                                  if (bottomNavigationController
+                                          .genderFilterList !=
+                                      null) {
+                                    bottomNavigationController.genderFilterList!
+                                        .clear();
                                   }
-                                  if (bottomNavigationController.languageFilter != null) {
-                                    bottomNavigationController.languageFilter!.clear();
+                                  if (bottomNavigationController
+                                          .languageFilter !=
+                                      null) {
+                                    bottomNavigationController.languageFilter!
+                                        .clear();
                                   }
-                                  if (bottomNavigationController.skillFilterList != null) {
-                                    bottomNavigationController.skillFilterList!.clear();
+                                  if (bottomNavigationController
+                                          .skillFilterList !=
+                                      null) {
+                                    bottomNavigationController.skillFilterList!
+                                        .clear();
                                   }
-                                  bottomNavigationController.applyFilter = false;
+                                  bottomNavigationController.applyFilter =
+                                      false;
                                   bottomNavigationController.update();
-                                  await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                                  await bottomNavigationController
+                                      .getAstrologerList(isLazyLoading: false);
                                   Get.back();
                                   Get.back();
                                   Get.back();
                                 },
-                                child: Text('Yes', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                                child: Text('Yes',
+                                    style: TextStyle(
+                                        color: Get.theme.primaryColor)),
                               ),
                               TextButton(
                                 onPressed: () {
                                   Get.back();
                                 },
-                                child: Text('No', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                                child: Text('No',
+                                    style: TextStyle(
+                                        color: Get.theme.primaryColor)),
                               ),
                             ],
                           ),
@@ -413,25 +506,34 @@ class AcceptChatScreen extends StatelessWidget {
                         title: Text(
                           "Are you sure you want to end chat?",
                           style: Get.textTheme.subtitle1,
-                        ).translate(),
+                        ),
                         content: Row(
                           children: [
                             TextButton(
                               onPressed: () async {
                                 global.showOnlyLoaderDialog(context);
-                                final ChatController chatController = Get.find<ChatController>();
-                                chatController.sendMessage('${global.user.name == '' ? 'user' : global.user.name} -> ended chat', fireBasechatId, astrologerId, true);
+                                final ChatController chatController =
+                                    Get.find<ChatController>();
+                                chatController.sendMessage(
+                                    '${global.user.name == '' ? 'user' : global.user.name} -> ended chat',
+                                    fireBasechatId,
+                                    astrologerId,
+                                    true);
                                 chatController.showBottomAcceptChat = false;
-                                global.sp = await SharedPreferences.getInstance();
+                                global.sp =
+                                    await SharedPreferences.getInstance();
                                 chatController.isEndChat = true;
                                 global.sp!.remove('chatBottom');
                                 global.sp!.setInt('chatBottom', 0);
                                 chatController.chatBottom = false;
                                 chatController.isInchat = false;
                                 chatController.isAstrologerEndedChat = false;
-                                global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'End chat from customer');
+                                global.callOnFcmApiSendPushNotifications(
+                                    fcmTokem: [fcmToken],
+                                    title: 'End chat from customer');
                                 chatController.update();
-                                await timerController.endChatTime(timerController.totalSeconds, chatId);
+                                await timerController.endChatTime(
+                                    timerController.totalSeconds, chatId);
                                 global.hideLoader();
                                 timerController.min = 0;
                                 timerController.minText = "";
@@ -439,31 +541,46 @@ class AcceptChatScreen extends StatelessWidget {
                                 timerController.secText = "";
                                 timerController.secTimer!.cancel();
                                 timerController.update();
-                                bottomNavigationController.astrologerList.clear();
-                                bottomNavigationController.isAllDataLoaded = false;
-                                if (bottomNavigationController.genderFilterList != null) {
-                                  bottomNavigationController.genderFilterList!.clear();
+                                bottomNavigationController.astrologerList
+                                    .clear();
+                                bottomNavigationController.isAllDataLoaded =
+                                    false;
+                                if (bottomNavigationController
+                                        .genderFilterList !=
+                                    null) {
+                                  bottomNavigationController.genderFilterList!
+                                      .clear();
                                 }
-                                if (bottomNavigationController.languageFilter != null) {
-                                  bottomNavigationController.languageFilter!.clear();
+                                if (bottomNavigationController.languageFilter !=
+                                    null) {
+                                  bottomNavigationController.languageFilter!
+                                      .clear();
                                 }
-                                if (bottomNavigationController.skillFilterList != null) {
-                                  bottomNavigationController.skillFilterList!.clear();
+                                if (bottomNavigationController
+                                        .skillFilterList !=
+                                    null) {
+                                  bottomNavigationController.skillFilterList!
+                                      .clear();
                                 }
                                 bottomNavigationController.applyFilter = false;
                                 bottomNavigationController.update();
-                                await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                                await bottomNavigationController
+                                    .getAstrologerList(isLazyLoading: false);
                                 Get.back();
                                 Get.back();
                                 Get.back();
                               },
-                              child: Text('Yes', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                              child: Text('Yes',
+                                  style:
+                                      TextStyle(color: Get.theme.primaryColor)),
                             ),
                             TextButton(
                               onPressed: () {
                                 Get.back();
                               },
-                              child: Text('No', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                              child: Text('No',
+                                  style:
+                                      TextStyle(color: Get.theme.primaryColor)),
                             ),
                           ],
                         ),
@@ -482,7 +599,8 @@ class AcceptChatScreen extends StatelessWidget {
                   ? IconButton(
                       onPressed: () async {
                         global.showOnlyLoaderDialog(context);
-                        await chatController.shareChat(fireBasechatId, astrologerName);
+                        await chatController.shareChat(
+                            fireBasechatId, astrologerName);
                         global.hideLoader();
                       },
                       icon: Icon(Icons.share))
@@ -500,12 +618,14 @@ class AcceptChatScreen extends StatelessWidget {
                                   title: Text(
                                     "You can end chat after one minute",
                                     style: Get.textTheme.subtitle1,
-                                  ).translate(),
+                                  ),
                                   content: TextButton(
                                     onPressed: () {
                                       Get.back();
                                     },
-                                    child: Text('Ok', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                                    child: Text('Ok',
+                                        style: TextStyle(
+                                            color: Get.theme.primaryColor)),
                                   ),
                                 ),
                               );
@@ -515,25 +635,39 @@ class AcceptChatScreen extends StatelessWidget {
                                   title: Text(
                                     "Are you sure you want to end chat?",
                                     style: Get.textTheme.subtitle1,
-                                  ).translate(),
+                                  ),
                                   content: Row(
                                     children: [
                                       TextButton(
                                         onPressed: () async {
                                           global.showOnlyLoaderDialog(context);
-                                          final ChatController chatController = Get.find<ChatController>();
-                                          chatController.sendMessage('${global.user.name == '' ? 'user' : global.user.name} -> ended chat', fireBasechatId, astrologerId, true);
-                                          chatController.showBottomAcceptChat = false;
-                                          global.sp = await SharedPreferences.getInstance();
+                                          final ChatController chatController =
+                                              Get.find<ChatController>();
+                                          chatController.sendMessage(
+                                              '${global.user.name == '' ? 'user' : global.user.name} -> ended chat',
+                                              fireBasechatId,
+                                              astrologerId,
+                                              true);
+                                          chatController.showBottomAcceptChat =
+                                              false;
+                                          global.sp = await SharedPreferences
+                                              .getInstance();
                                           chatController.isEndChat = true;
                                           global.sp!.remove('chatBottom');
                                           global.sp!.setInt('chatBottom', 0);
                                           chatController.chatBottom = false;
                                           chatController.isInchat = false;
-                                          chatController.isAstrologerEndedChat = false;
-                                          global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'End chat from customer');
+                                          chatController.isAstrologerEndedChat =
+                                              false;
+                                          global
+                                              .callOnFcmApiSendPushNotifications(
+                                                  fcmTokem: [fcmToken],
+                                                  title:
+                                                      'End chat from customer');
                                           chatController.update();
-                                          await timerController.endChatTime(timerController.totalSeconds, chatId);
+                                          await timerController.endChatTime(
+                                              timerController.totalSeconds,
+                                              chatId);
                                           global.hideLoader();
                                           timerController.min = 0;
                                           timerController.minText = "";
@@ -541,31 +675,53 @@ class AcceptChatScreen extends StatelessWidget {
                                           timerController.secText = "";
                                           timerController.secTimer!.cancel();
                                           timerController.update();
-                                          bottomNavigationController.astrologerList.clear();
-                                          bottomNavigationController.isAllDataLoaded = false;
-                                          if (bottomNavigationController.genderFilterList != null) {
-                                            bottomNavigationController.genderFilterList!.clear();
+                                          bottomNavigationController
+                                              .astrologerList
+                                              .clear();
+                                          bottomNavigationController
+                                              .isAllDataLoaded = false;
+                                          if (bottomNavigationController
+                                                  .genderFilterList !=
+                                              null) {
+                                            bottomNavigationController
+                                                .genderFilterList!
+                                                .clear();
                                           }
-                                          if (bottomNavigationController.languageFilter != null) {
-                                            bottomNavigationController.languageFilter!.clear();
+                                          if (bottomNavigationController
+                                                  .languageFilter !=
+                                              null) {
+                                            bottomNavigationController
+                                                .languageFilter!
+                                                .clear();
                                           }
-                                          if (bottomNavigationController.skillFilterList != null) {
-                                            bottomNavigationController.skillFilterList!.clear();
+                                          if (bottomNavigationController
+                                                  .skillFilterList !=
+                                              null) {
+                                            bottomNavigationController
+                                                .skillFilterList!
+                                                .clear();
                                           }
-                                          bottomNavigationController.applyFilter = false;
+                                          bottomNavigationController
+                                              .applyFilter = false;
                                           bottomNavigationController.update();
-                                          await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                                          await bottomNavigationController
+                                              .getAstrologerList(
+                                                  isLazyLoading: false);
                                           Get.back();
                                           Get.back();
                                           Get.back();
                                         },
-                                        child: Text('Yes', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                                        child: Text('Yes',
+                                            style: TextStyle(
+                                                color: Get.theme.primaryColor)),
                                       ),
                                       TextButton(
                                         onPressed: () {
                                           Get.back();
                                         },
-                                        child: Text('No', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                                        child: Text('No',
+                                            style: TextStyle(
+                                                color: Get.theme.primaryColor)),
                                       ),
                                     ],
                                   ),
@@ -578,25 +734,39 @@ class AcceptChatScreen extends StatelessWidget {
                                 title: Text(
                                   "Are you sure you want to end chat?",
                                   style: Get.textTheme.subtitle1,
-                                ).translate(),
+                                ),
                                 content: Row(
                                   children: [
                                     TextButton(
                                       onPressed: () async {
                                         global.showOnlyLoaderDialog(context);
-                                        final ChatController chatController = Get.find<ChatController>();
-                                        chatController.sendMessage('${global.user.name == '' ? 'user' : global.user.name} -> ended chat', fireBasechatId, astrologerId, true);
-                                        chatController.showBottomAcceptChat = false;
-                                        global.sp = await SharedPreferences.getInstance();
+                                        final ChatController chatController =
+                                            Get.find<ChatController>();
+                                        chatController.sendMessage(
+                                            '${global.user.name == '' ? 'user' : global.user.name} -> ended chat',
+                                            fireBasechatId,
+                                            astrologerId,
+                                            true);
+                                        chatController.showBottomAcceptChat =
+                                            false;
+                                        global.sp = await SharedPreferences
+                                            .getInstance();
                                         global.sp!.remove('chatBottom');
                                         global.sp!.setInt('chatBottom', 0);
                                         chatController.chatBottom = false;
                                         chatController.isInchat = false;
-                                        chatController.isAstrologerEndedChat = false;
+                                        chatController.isAstrologerEndedChat =
+                                            false;
                                         chatController.isEndChat = true;
-                                        global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'End chat from customer');
+                                        global
+                                            .callOnFcmApiSendPushNotifications(
+                                                fcmTokem: [fcmToken],
+                                                title:
+                                                    'End chat from customer');
                                         chatController.update();
-                                        await timerController.endChatTime(timerController.totalSeconds, chatId);
+                                        await timerController.endChatTime(
+                                            timerController.totalSeconds,
+                                            chatId);
                                         global.hideLoader();
                                         timerController.min = 0;
                                         timerController.minText = "";
@@ -604,32 +774,55 @@ class AcceptChatScreen extends StatelessWidget {
                                         timerController.secText = "";
                                         timerController.secTimer!.cancel();
                                         timerController.update();
-                                        bottomNavigationController.astrologerList = [];
-                                        bottomNavigationController.astrologerList.clear();
-                                        bottomNavigationController.isAllDataLoaded = false;
-                                        if (bottomNavigationController.genderFilterList != null) {
-                                          bottomNavigationController.genderFilterList!.clear();
+                                        bottomNavigationController
+                                            .astrologerList = [];
+                                        bottomNavigationController
+                                            .astrologerList
+                                            .clear();
+                                        bottomNavigationController
+                                            .isAllDataLoaded = false;
+                                        if (bottomNavigationController
+                                                .genderFilterList !=
+                                            null) {
+                                          bottomNavigationController
+                                              .genderFilterList!
+                                              .clear();
                                         }
-                                        if (bottomNavigationController.languageFilter != null) {
-                                          bottomNavigationController.languageFilter!.clear();
+                                        if (bottomNavigationController
+                                                .languageFilter !=
+                                            null) {
+                                          bottomNavigationController
+                                              .languageFilter!
+                                              .clear();
                                         }
-                                        if (bottomNavigationController.skillFilterList != null) {
-                                          bottomNavigationController.skillFilterList!.clear();
+                                        if (bottomNavigationController
+                                                .skillFilterList !=
+                                            null) {
+                                          bottomNavigationController
+                                              .skillFilterList!
+                                              .clear();
                                         }
-                                        bottomNavigationController.applyFilter = false;
+                                        bottomNavigationController.applyFilter =
+                                            false;
                                         bottomNavigationController.update();
-                                        await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                                        await bottomNavigationController
+                                            .getAstrologerList(
+                                                isLazyLoading: false);
                                         Get.back();
                                         Get.back();
                                         Get.back();
                                       },
-                                      child: Text('Yes', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                                      child: Text('Yes',
+                                          style: TextStyle(
+                                              color: Get.theme.primaryColor)),
                                     ),
                                     TextButton(
                                       onPressed: () {
                                         Get.back();
                                       },
-                                      child: Text('No', style: TextStyle(color: Get.theme.primaryColor)).translate(),
+                                      child: Text('No',
+                                          style: TextStyle(
+                                              color: Get.theme.primaryColor)),
                                     ),
                                   ],
                                 ),
@@ -638,18 +831,21 @@ class AcceptChatScreen extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 8),
                           height: 20,
                           padding: const EdgeInsets.all(6),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Color.fromARGB(255, 4, 70, 100), width: 1),
+                            border: Border.all(
+                                color: Color.fromARGB(255, 4, 70, 100),
+                                width: 1),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Text(
                             'End',
                             style: TextStyle(fontSize: 10),
-                          ).translate(),
+                          ),
                         ),
                       );
                     })
@@ -670,56 +866,77 @@ class AcceptChatScreen extends StatelessWidget {
                       flagId == 0
                           ? const SizedBox()
                           : FutureBuilder(
-                              future: global.translatedText("Warning - Don't close the app without leaving running session."),
+                              future: global.translatedText(
+                                  "Warning - Don't close the app without leaving running session."),
                               builder: (context, snapshot) {
                                 return Container(
                                     margin: EdgeInsets.only(bottom: 5, left: 5),
-                                    padding: EdgeInsets.only(top: 3, left: 3, right: 3),
+                                    padding: EdgeInsets.only(
+                                        top: 3, left: 3, right: 3),
                                     height: 20,
                                     color: Colors.black.withOpacity(0.9),
                                     child: Marquee(
-                                      text: snapshot.data ?? "Warning - Don't close the app without leaving running session.",
-                                      style: TextStyle(color: Colors.red, fontSize: 10),
+                                      text: snapshot.data ??
+                                          "Warning - Don't close the app without leaving running session.",
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: 10),
                                       scrollAxis: Axis.horizontal,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       blankSpace: 20.0,
                                       velocity: 80.0,
-                                      pauseAfterRound: Duration(milliseconds: 500),
+                                      pauseAfterRound:
+                                          Duration(milliseconds: 500),
                                       startPadding: 10.0,
-                                      accelerationDuration: Duration(milliseconds: 500),
+                                      accelerationDuration:
+                                          Duration(milliseconds: 500),
                                       accelerationCurve: Curves.linear,
-                                      decelerationDuration: Duration(milliseconds: 500),
+                                      decelerationDuration:
+                                          Duration(milliseconds: 500),
                                       decelerationCurve: Curves.easeOut,
                                     ));
                               }),
                       Expanded(
-                        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                            stream: chatController.getChatMessages(fireBasechatId, global.currentUserId),
+                        child: StreamBuilder<
+                                QuerySnapshot<Map<String, dynamic>>>(
+                            stream: chatController.getChatMessages(
+                                fireBasechatId, global.currentUserId),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState.name == "waiting") {
-                                return Center(child: CircularProgressIndicator());
+                                return Center(
+                                    child: CircularProgressIndicator());
                               } else {
                                 if (snapshot.hasError) {
-                                  return Text('snapShotError :- ${snapshot.error}');
+                                  return Text(
+                                      'snapShotError :- ${snapshot.error}');
                                 } else {
                                   List<ChatMessageModel> messageList = [];
                                   for (var res in snapshot.data!.docs) {
-                                    messageList.add(ChatMessageModel.fromJson(res.data()));
+                                    messageList.add(
+                                        ChatMessageModel.fromJson(res.data()));
                                   }
                                   print(messageList.length);
                                   return ListView.builder(
-                                      padding: const EdgeInsets.only(bottom: 50),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 50),
                                       itemCount: messageList.length,
                                       shrinkWrap: true,
                                       reverse: true,
                                       itemBuilder: (context, index) {
-                                        ChatMessageModel message = messageList[index];
-                                        chatController.isMe = message.userId1 == '${global.currentUserId}';
-                                        return messageList[index].isEndMessage == true
+                                        ChatMessageModel message =
+                                            messageList[index];
+                                        chatController.isMe = message.userId1 ==
+                                            '${global.currentUserId}';
+                                        return messageList[index]
+                                                    .isEndMessage ==
+                                                true
                                             ? Container(
-                                                margin: const EdgeInsets.only(bottom: 10),
-                                                color: const Color.fromARGB(255, 247, 244, 211),
-                                                padding: const EdgeInsets.all(8),
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                color: const Color.fromARGB(
+                                                    255, 247, 244, 211),
+                                                padding:
+                                                    const EdgeInsets.all(8),
                                                 alignment: Alignment.center,
                                                 child: Text(
                                                   messageList[index].message!,
@@ -730,43 +947,103 @@ class AcceptChatScreen extends StatelessWidget {
                                                 ),
                                               )
                                             : Row(
-                                                mainAxisAlignment: chatController.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    chatController.isMe
+                                                        ? MainAxisAlignment.end
+                                                        : MainAxisAlignment
+                                                            .start,
                                                 children: [
                                                   Container(
                                                     decoration: BoxDecoration(
-                                                      color: chatController.isMe ? Colors.grey[300] : Get.theme.primaryColor,
-                                                      borderRadius: BorderRadius.only(
-                                                        topLeft: const Radius.circular(12),
-                                                        topRight: const Radius.circular(12),
-                                                        bottomLeft: chatController.isMe ? const Radius.circular(0) : const Radius.circular(12),
-                                                        bottomRight: chatController.isMe ? const Radius.circular(0) : const Radius.circular(12),
+                                                      color: chatController.isMe
+                                                          ? Colors.grey[300]
+                                                          : Get.theme
+                                                              .primaryColor,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft: const Radius
+                                                            .circular(12),
+                                                        topRight: const Radius
+                                                            .circular(12),
+                                                        bottomLeft:
+                                                            chatController.isMe
+                                                                ? const Radius
+                                                                    .circular(0)
+                                                                : const Radius
+                                                                    .circular(
+                                                                    12),
+                                                        bottomRight:
+                                                            chatController.isMe
+                                                                ? const Radius
+                                                                    .circular(0)
+                                                                : const Radius
+                                                                    .circular(
+                                                                    12),
                                                       ),
                                                     ),
-                                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                                                    margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 16),
+                                                    margin: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 16,
+                                                        horizontal: 8),
                                                     child: Column(
-                                                      crossAxisAlignment: chatController.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                          chatController.isMe
+                                                              ? CrossAxisAlignment
+                                                                  .end
+                                                              : CrossAxisAlignment
+                                                                  .start,
                                                       children: [
                                                         Container(
-                                                          constraints: BoxConstraints(maxWidth: Get.width - 100),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                                  maxWidth:
+                                                                      Get.width -
+                                                                          100),
                                                           child: Text(
-                                                            messageList[index].message!,
-                                                            style: const TextStyle(
-                                                              color: Colors.black,
+                                                            messageList[index]
+                                                                .message!,
+                                                            style:
+                                                                const TextStyle(
+                                                              color:
+                                                                  Colors.black,
                                                             ),
-                                                            textAlign: chatController.isMe ? TextAlign.end : TextAlign.start,
+                                                            textAlign:
+                                                                chatController.isMe
+                                                                    ? TextAlign
+                                                                        .end
+                                                                    : TextAlign
+                                                                        .start,
                                                           ),
                                                         ),
-                                                        messageList[index].createdAt != null
+                                                        messageList[index]
+                                                                    .createdAt !=
+                                                                null
                                                             ? Padding(
-                                                                padding: const EdgeInsets.only(top: 8.0),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        top:
+                                                                            8.0),
                                                                 child: Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .end,
                                                                   children: [
-                                                                    Text(DateFormat().add_jm().format(messageList[index].createdAt!),
-                                                                        style: const TextStyle(
-                                                                          color: Colors.grey,
-                                                                          fontSize: 9.5,
+                                                                    Text(
+                                                                        DateFormat()
+                                                                            .add_jm()
+                                                                            .format(messageList[index]
+                                                                                .createdAt!),
+                                                                        style:
+                                                                            const TextStyle(
+                                                                          color:
+                                                                              Colors.grey,
+                                                                          fontSize:
+                                                                              9.5,
                                                                         )),
                                                                   ],
                                                                 ),
@@ -805,9 +1082,11 @@ class AcceptChatScreen extends StatelessWidget {
                                             )),
                                       ),
                                       titlePadding: const EdgeInsets.all(0),
-                                      content: addReviewWidget(astrologerName, "astrologerProfile", context)));
+                                      content: addReviewWidget(astrologerName,
+                                          "astrologerProfile", context)));
                                 },
-                                child: GetBuilder<ChatController>(builder: (chatController) {
+                                child: GetBuilder<ChatController>(
+                                    builder: (chatController) {
                                   return Card(
                                     elevation: 1,
                                     child: Container(
@@ -818,46 +1097,72 @@ class AcceptChatScreen extends StatelessWidget {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Text('Add Your Review').translate(),
+                                            Text('Add Your Review'),
                                             chatController.reviewData.isEmpty
                                                 ? const SizedBox()
                                                 : Column(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    mainAxisSize: MainAxisSize.min,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
                                                     children: [
                                                       Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
                                                         children: [
                                                           Row(
                                                             children: [
-                                                              chatController.reviewData[0].isPublic == 0
+                                                              chatController
+                                                                          .reviewData[
+                                                                              0]
+                                                                          .isPublic ==
+                                                                      0
                                                                   ? CircleAvatar(
-                                                                      radius: 22,
-                                                                      child: CircleAvatar(
-                                                                        backgroundColor: Colors.white,
-                                                                        backgroundImage: AssetImage(Images.deafultUser),
+                                                                      radius:
+                                                                          22,
+                                                                      child:
+                                                                          CircleAvatar(
+                                                                        backgroundColor:
+                                                                            Colors.white,
+                                                                        backgroundImage:
+                                                                            AssetImage(Images.deafultUser),
                                                                       ),
                                                                     )
-                                                                  : splashController.currentUser?.profile == ""
+                                                                  : splashController
+                                                                              .currentUser
+                                                                              ?.profile ==
+                                                                          ""
                                                                       ? CircleAvatar(
-                                                                          radius: 22,
-                                                                          child: CircleAvatar(
-                                                                            backgroundColor: Colors.white,
-                                                                            backgroundImage: AssetImage(Images.deafultUser),
+                                                                          radius:
+                                                                              22,
+                                                                          child:
+                                                                              CircleAvatar(
+                                                                            backgroundColor:
+                                                                                Colors.white,
+                                                                            backgroundImage:
+                                                                                AssetImage(Images.deafultUser),
                                                                           ),
                                                                         )
                                                                       : CachedNetworkImage(
-                                                                          imageUrl: "${global.imgBaseurl}${splashController.currentUser?.profile}",
-                                                                          imageBuilder: (context, imageProvider) {
+                                                                          imageUrl:
+                                                                              "${global.imgBaseurl}${splashController.currentUser?.profile}",
+                                                                          imageBuilder:
+                                                                              (context, imageProvider) {
                                                                             return CircleAvatar(
                                                                               radius: 22,
                                                                               backgroundColor: Colors.white,
                                                                               backgroundImage: NetworkImage("${global.imgBaseurl}${splashController.currentUser?.profile}"),
                                                                             );
                                                                           },
-                                                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                                          errorWidget: (context, url, error) {
+                                                                          placeholder: (context, url) =>
+                                                                              const Center(child: CircularProgressIndicator()),
+                                                                          errorWidget: (context,
+                                                                              url,
+                                                                              error) {
                                                                             return CircleAvatar(
                                                                                 radius: 22,
                                                                                 backgroundColor: Colors.white,
@@ -872,23 +1177,64 @@ class AcceptChatScreen extends StatelessWidget {
                                                                 width: 10,
                                                               ),
                                                               Column(
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
                                                                 children: [
-                                                                  Text(chatController.reviewData[0].isPublic == 0 ? 'Anonymous' : splashController.currentUser!.name ?? 'User').translate(),
+                                                                  Text(chatController
+                                                                              .reviewData[
+                                                                                  0]
+                                                                              .isPublic ==
+                                                                          0
+                                                                      ? 'Anonymous'
+                                                                      : splashController
+                                                                              .currentUser!
+                                                                              .name ??
+                                                                          'User'),
                                                                   RatingBar(
-                                                                    initialRating: chatController.reviewData[0].rating,
-                                                                    itemCount: 5,
-                                                                    allowHalfRating: true,
-                                                                    itemSize: 15,
-                                                                    ignoreGestures: true,
-                                                                    ratingWidget: RatingWidget(
-                                                                      full: const Icon(Icons.grade, color: Colors.yellow),
-                                                                      half: const Icon(Icons.star_half, color: Colors.yellow),
-                                                                      empty: const Icon(Icons.grade, color: Colors.grey),
+                                                                    initialRating: chatController
+                                                                        .reviewData[
+                                                                            0]
+                                                                        .rating,
+                                                                    itemCount:
+                                                                        5,
+                                                                    allowHalfRating:
+                                                                        true,
+                                                                    itemSize:
+                                                                        15,
+                                                                    ignoreGestures:
+                                                                        true,
+                                                                    ratingWidget:
+                                                                        RatingWidget(
+                                                                      full: const Icon(
+                                                                          Icons
+                                                                              .grade,
+                                                                          color:
+                                                                              Colors.yellow),
+                                                                      half: const Icon(
+                                                                          Icons
+                                                                              .star_half,
+                                                                          color:
+                                                                              Colors.yellow),
+                                                                      empty: const Icon(
+                                                                          Icons
+                                                                              .grade,
+                                                                          color:
+                                                                              Colors.grey),
                                                                     ),
-                                                                    onRatingUpdate: (rating) {},
+                                                                    onRatingUpdate:
+                                                                        (rating) {},
                                                                   ),
-                                                                  chatController.reviewData[0].review != "" ? Text(chatController.reviewData[0].review) : const SizedBox(),
+                                                                  chatController
+                                                                              .reviewData[
+                                                                                  0]
+                                                                              .review !=
+                                                                          ""
+                                                                      ? Text(chatController
+                                                                          .reviewData[
+                                                                              0]
+                                                                          .review)
+                                                                      : const SizedBox(),
                                                                 ],
                                                               )
                                                             ],
@@ -896,39 +1242,65 @@ class AcceptChatScreen extends StatelessWidget {
                                                           PopupMenuButton(
                                                             icon: Icon(
                                                               Icons.more_vert,
-                                                              color: Colors.grey,
+                                                              color:
+                                                                  Colors.grey,
                                                             ),
-                                                            itemBuilder: (context) => [
+                                                            itemBuilder:
+                                                                (context) => [
                                                               PopupMenuItem(
-                                                                child: Text('Edit review').translate(),
+                                                                child: Text(
+                                                                    'Edit review'),
                                                                 value: "Edit",
                                                               ),
                                                               PopupMenuItem(
                                                                 value: "delete",
                                                                 child: Text(
                                                                   'Delete Review',
-                                                                  style: Get.textTheme.subtitle1!.copyWith(color: Colors.red),
-                                                                ).translate(),
+                                                                  style: Get
+                                                                      .textTheme
+                                                                      .subtitle1!
+                                                                      .copyWith(
+                                                                          color:
+                                                                              Colors.red),
+                                                                ),
                                                               )
                                                             ],
-                                                            onSelected: (value) async {
-                                                              if (value == "Edit") {
-                                                                Get.dialog(AlertDialog(
-                                                                  scrollable: true,
-                                                                  content: addReviewWidget(astrologerName, profileImage, context),
+                                                            onSelected:
+                                                                (value) async {
+                                                              if (value ==
+                                                                  "Edit") {
+                                                                Get.dialog(
+                                                                    AlertDialog(
+                                                                  scrollable:
+                                                                      true,
+                                                                  content: addReviewWidget(
+                                                                      astrologerName,
+                                                                      profileImage,
+                                                                      context),
                                                                 ));
-                                                              } else if (value == "delete") {
-                                                                global.showOnlyLoaderDialog(context);
-                                                                await chatController.deleteReview(chatController.reviewData[0].id!);
-                                                                await chatController.getuserReview(astrologerId);
-                                                                global.hideLoader();
+                                                              } else if (value ==
+                                                                  "delete") {
+                                                                global
+                                                                    .showOnlyLoaderDialog(
+                                                                        context);
+                                                                await chatController
+                                                                    .deleteReview(
+                                                                        chatController
+                                                                            .reviewData[0]
+                                                                            .id!);
+                                                                await chatController
+                                                                    .getuserReview(
+                                                                        astrologerId);
+                                                                global
+                                                                    .hideLoader();
                                                               }
                                                             },
                                                           )
                                                         ],
                                                       ),
                                                       Row(
-                                                        mainAxisSize: MainAxisSize.min,
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
                                                         children: [
                                                           SizedBox(
                                                             width: 10,
@@ -950,36 +1322,49 @@ class AcceptChatScreen extends StatelessWidget {
                             : Container(
                                 margin: const EdgeInsets.only(top: 8),
                                 padding: const EdgeInsets.all(8),
-                                child: GetBuilder<ChatController>(builder: (chatController) {
+                                child: GetBuilder<ChatController>(
+                                    builder: (chatController) {
                                   return Row(
                                     children: [
                                       Expanded(
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(30.0)),
                                           ),
                                           height: 50,
                                           child: TextField(
                                             controller: messageController,
                                             onChanged: (value) {},
                                             cursorColor: Colors.black,
-                                            style: TextStyle(color: Colors.black),
+                                            style:
+                                                TextStyle(color: Colors.black),
                                             decoration: InputDecoration(
                                               focusedBorder: OutlineInputBorder(
-                                                borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                                                borderSide: BorderSide(color: Get.theme.primaryColor),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(30.0)),
+                                                borderSide: BorderSide(
+                                                    color:
+                                                        Get.theme.primaryColor),
                                               ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                                                borderSide: BorderSide(color: Get.theme.primaryColor),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(30.0)),
+                                                borderSide: BorderSide(
+                                                    color:
+                                                        Get.theme.primaryColor),
                                               ),
                                             ),
                                           ),
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
                                         child: Material(
                                           elevation: 3,
                                           color: Colors.transparent,
@@ -998,13 +1383,19 @@ class AcceptChatScreen extends StatelessWidget {
                                             ),
                                             child: InkWell(
                                               onTap: () {
-                                                if (messageController.text != "") {
-                                                  chatController.sendMessage(messageController.text, fireBasechatId, astrologerId, false);
+                                                if (messageController.text !=
+                                                    "") {
+                                                  chatController.sendMessage(
+                                                      messageController.text,
+                                                      fireBasechatId,
+                                                      astrologerId,
+                                                      false);
                                                   messageController.clear();
                                                 }
                                               },
                                               child: const Padding(
-                                                padding: EdgeInsets.only(left: 5.0),
+                                                padding:
+                                                    EdgeInsets.only(left: 5.0),
                                                 child: Icon(
                                                   Icons.send,
                                                   size: 25,
@@ -1028,14 +1419,15 @@ class AcceptChatScreen extends StatelessWidget {
     );
   }
 
-  Widget addReviewWidget(String astrologerName, String astrologerProfile, BuildContext context) {
+  Widget addReviewWidget(
+      String astrologerName, String astrologerProfile, BuildContext context) {
     SplashController splashController = Get.find<SplashController>();
     return GetBuilder<ChatController>(builder: (chatController) {
       return SizedBox(
         height: Get.height * 0.6,
         child: Column(
           children: [
-            Center(child: Text(astrologerName).translate()),
+            Center(child: Text(astrologerName)),
             profileImage == ""
                 ? Center(
                     child: CircleAvatar(
@@ -1060,7 +1452,8 @@ class AcceptChatScreen extends StatelessWidget {
                           backgroundImage: imageProvider,
                         );
                       },
-                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) {
                         return CircleAvatar(
                             radius: 30,
@@ -1085,15 +1478,18 @@ class AcceptChatScreen extends StatelessWidget {
                             ),
                           )
                         : CachedNetworkImage(
-                            imageUrl: "${global.imgBaseurl}${splashController.currentUser?.profile}",
+                            imageUrl:
+                                "${global.imgBaseurl}${splashController.currentUser?.profile}",
                             imageBuilder: (context, imageProvider) {
                               return CircleAvatar(
                                 radius: 22,
                                 backgroundColor: Colors.white,
-                                backgroundImage: NetworkImage("${global.imgBaseurl}${splashController.currentUser?.profile}"),
+                                backgroundImage: NetworkImage(
+                                    "${global.imgBaseurl}${splashController.currentUser?.profile}"),
                               );
                             },
-                            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
                             errorWidget: (context, url, error) {
                               return CircleAvatar(
                                   radius: 22,
@@ -1115,7 +1511,9 @@ class AcceptChatScreen extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                !chatController.isPublic ? Text(splashController.currentUser!.name ?? "Anonymous").translate() : Text("Anonymous").translate(),
+                !chatController.isPublic
+                    ? Text(splashController.currentUser!.name ?? "Anonymous")
+                    : Text("Anonymous"),
               ],
             ),
             Row(
@@ -1134,7 +1532,7 @@ class AcceptChatScreen extends StatelessWidget {
                   child: Text('Hide my name from all public reviews',
                       style: Get.textTheme.subtitle1!.copyWith(
                         fontSize: 12,
-                      )).translate(),
+                      )),
                 )
               ],
             ),
@@ -1155,7 +1553,8 @@ class AcceptChatScreen extends StatelessWidget {
               ),
             ),
             FutureBuilder(
-                future: global.translatedText('Describe your experience(optional)'),
+                future:
+                    global.translatedText('Describe your experience(optional)'),
                 builder: (context, snapshot) {
                   return TextField(
                     controller: chatController.reviewController,
@@ -1165,7 +1564,8 @@ class AcceptChatScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       isDense: true,
                       hintStyle: TextStyle(fontSize: 12),
-                      hintText: snapshot.data ?? "Describe your experience(optional)",
+                      hintText:
+                          snapshot.data ?? "Describe your experience(optional)",
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -1189,7 +1589,8 @@ class AcceptChatScreen extends StatelessWidget {
                 child: TextButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.all(10)),
-                    backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
+                    backgroundColor:
+                        MaterialStateProperty.all(Get.theme.primaryColor),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -1213,7 +1614,8 @@ class AcceptChatScreen extends StatelessWidget {
                     } else {
                       if (chatController.reviewData.isNotEmpty) {
                         global.showOnlyLoaderDialog(context);
-                        await chatController.updateReview(chatController.reviewData[0].id!, astrologerId);
+                        await chatController.updateReview(
+                            chatController.reviewData[0].id!, astrologerId);
                         global.hideLoader();
                       } else {
                         global.showOnlyLoaderDialog(context);
@@ -1229,7 +1631,7 @@ class AcceptChatScreen extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
-                  ).translate(),
+                  ),
                 ),
               ),
             ),

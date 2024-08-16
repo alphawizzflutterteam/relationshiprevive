@@ -48,10 +48,8 @@ class PaymentInformationScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('Payment Details',
-                                    style: Get.textTheme.subtitle1!.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15))
-                                .translate(),
+                                style: Get.textTheme.subtitle1!.copyWith(
+                                    fontWeight: FontWeight.bold, fontSize: 15)),
                             SizedBox(
                               height: 5,
                             ),
@@ -60,8 +58,8 @@ class PaymentInformationScreen extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text('${astromallController.astroProductbyId[0].name}')
-                                          .translate(),
+                                      Text(
+                                          '${astromallController.astroProductbyId[0].name}'),
                                       Text(
                                           '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${double.parse(astromallController.astroProductbyId[0].amount.toString())}'),
                                     ],
@@ -73,7 +71,7 @@ class PaymentInformationScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Total Amount').translate(),
+                                Text('Total Amount'),
                                 Text(
                                     '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $amount'),
                               ],
@@ -84,8 +82,8 @@ class PaymentInformationScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('GST ${global.getSystemFlagValue(global.systemFlagNameList.gst)}%')
-                                    .translate(),
+                                Text(
+                                    'GST ${global.getSystemFlagValue(global.systemFlagNameList.gst)}%'),
                                 Expanded(
                                   child: Align(
                                     alignment: Alignment.centerRight,
@@ -102,11 +100,9 @@ class PaymentInformationScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('Total Payable Amount',
-                                        style: Get.textTheme.subtitle1!
-                                            .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500))
-                                    .translate(),
+                                    style: Get.textTheme.subtitle1!.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500)),
                                 Text(
                                     '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${(amount + amount * double.parse(global.getSystemFlagValue(global.systemFlagNameList.gst)) / 100).toStringAsFixed(2)}',
                                     style: Get.textTheme.subtitle1!.copyWith(
@@ -152,8 +148,7 @@ class PaymentInformationScreen extends StatelessWidget {
                               100);
             },
             child: Text('Proceed to Pay',
-                    style: Get.textTheme.subtitle1!.copyWith(fontSize: 12))
-                .translate(),
+                style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)),
             style: ButtonStyle(
               padding: MaterialStateProperty.all(EdgeInsets.all(0)),
               backgroundColor:

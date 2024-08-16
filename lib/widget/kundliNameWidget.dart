@@ -10,7 +10,12 @@ class KundliNameWidget extends StatelessWidget {
   final KundliController kundliController;
   final VoidCallback onPressed;
   List<TextInputFormatter>? inputFormatters;
-  KundliNameWidget({Key? key, required this.kundliController, required this.onPressed, this.inputFormatters}) : super(key: key);
+  KundliNameWidget(
+      {Key? key,
+      required this.kundliController,
+      required this.onPressed,
+      this.inputFormatters})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,10 @@ class KundliNameWidget extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
                       hintText: snapshot.data ?? '',
-                      hintStyle: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500)),
+                      hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500)),
                 );
               }),
         ),
@@ -61,17 +69,28 @@ class KundliNameWidget extends StatelessWidget {
           child: TextButton(
             style: ButtonStyle(
               padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-              backgroundColor: MaterialStateProperty.all(kundliController.isDisable ? Color.fromARGB(255, 209, 204, 204) : Get.theme.primaryColor),
+              backgroundColor: MaterialStateProperty.all(
+                  kundliController.isDisable
+                      ? Color.fromARGB(255, 209, 204, 204)
+                      : Get.theme.primaryColor),
               shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: BorderSide(color: kundliController.isDisable ? Colors.transparent : Colors.grey)),
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: BorderSide(
+                        color: kundliController.isDisable
+                            ? Colors.transparent
+                            : Colors.grey)),
               ),
             ),
             onPressed: onPressed,
             child: Text(
               'Next',
               textAlign: TextAlign.center,
-              style: Get.theme.primaryTextTheme.subtitle1!.copyWith(color: kundliController.isDisable ? Color.fromARGB(255, 100, 98, 98) : null),
-            ).translate(),
+              style: Get.theme.primaryTextTheme.subtitle1!.copyWith(
+                  color: kundliController.isDisable
+                      ? Color.fromARGB(255, 100, 98, 98)
+                      : null),
+            ),
           ),
         ),
       ],

@@ -40,7 +40,7 @@ class PopularSearchWidget extends StatelessWidget {
                   child: Text(
                 text,
                 style: Get.textTheme.subtitle1,
-              ).translate())
+              ))
             ],
           ),
         ),

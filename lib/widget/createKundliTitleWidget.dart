@@ -4,10 +4,11 @@ import 'package:google_translator/google_translator.dart';
 
 class CreateKundliTitleWidget extends StatelessWidget {
   final String title;
-  const CreateKundliTitleWidget({Key? key, required this.title}) : super(key: key);
+  const CreateKundliTitleWidget({Key? key, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(title, style: Get.textTheme.headline5).translate();
+    return Text(title, style: Get.textTheme.headline5);
   }
 }

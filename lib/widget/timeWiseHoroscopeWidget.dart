@@ -10,15 +10,25 @@ import '../model/dailyHoroscopeModel.dart';
 
 class TimeWiseHoroscopeWidget extends StatelessWidget {
   final DailyscopeModel dailyHoroscopeModel;
-  TimeWiseHoroscopeWidget({Key? key, required this.dailyHoroscopeModel}) : super(key: key);
-  List title = ['Love and Relationship', 'Money and Finance', 'Career,Education,and Cuisiness', 'Health and Wllness', 'important dates', 'Tip of the month'];
+  TimeWiseHoroscopeWidget({Key? key, required this.dailyHoroscopeModel})
+      : super(key: key);
+  List title = [
+    'Love and Relationship',
+    'Money and Finance',
+    'Career,Education,and Cuisiness',
+    'Health and Wllness',
+    'important dates',
+    'Tip of the month'
+  ];
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Text('Yearly Horoscope', style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)).translate(),
+          Text('Yearly Horoscope',
+              style: Get.textTheme.subtitle1!
+                  .copyWith(fontWeight: FontWeight.bold)),
           SizedBox(
             height: 3,
           ),
@@ -33,7 +43,9 @@ class TimeWiseHoroscopeWidget extends StatelessWidget {
                   endIndent: 10,
                 ),
               ),
-              Text(DateFormat('yyy').format(DateTime.now()), style: Get.textTheme.subtitle1!.copyWith(fontSize: 13, color: Colors.grey)),
+              Text(DateFormat('yyy').format(DateTime.now()),
+                  style: Get.textTheme.subtitle1!
+                      .copyWith(fontSize: 13, color: Colors.grey)),
               const Expanded(
                 child: Divider(
                   color: Colors.black,
@@ -58,13 +70,18 @@ class TimeWiseHoroscopeWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('${dailyHoroscopeModel.yearlyHoroScope![index].title!}', style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)).translate(),
+                        Text(
+                            '${dailyHoroscopeModel.yearlyHoroScope![index].title!}',
+                            style: Get.textTheme.subtitle1!
+                                .copyWith(fontWeight: FontWeight.bold)),
                         SizedBox(
                           height: 10,
                         ),
                         FutureBuilder(
                           future: global.showHtml(
-                            html: dailyHoroscopeModel.yearlyHoroScope![index].description ?? '',
+                            html: dailyHoroscopeModel
+                                    .yearlyHoroScope![index].description ??
+                                '',
                           ),
                           builder: (context, snapshot) {
                             return snapshot.data ?? const SizedBox();

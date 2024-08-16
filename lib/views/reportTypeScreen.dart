@@ -32,11 +32,13 @@ class ReportTypeScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+          backgroundColor:
+              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           title: Text(
             'Select Report type',
-            style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-          ).translate(),
+            style: Get.theme.primaryTextTheme.headline6!
+                .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
+          ),
           leading: IconButton(
             onPressed: () {
               reportController.searchReportController.clear();
@@ -90,32 +92,50 @@ class ReportTypeScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                     child: FutureBuilder(
-                                        future: global.translatedText('Search report..'),
+                                        future: global
+                                            .translatedText('Search report..'),
                                         builder: (context, snapshot) {
                                           return TextField(
-                                            controller: reportController.searchReportController,
+                                            controller: reportController
+                                                .searchReportController,
                                             keyboardType: TextInputType.text,
                                             cursorColor: global.coursorColor,
                                             onChanged: (value) async {
-                                              reportController.searchString = value;
-                                              reportController.reportTypeList = [];
-                                              reportController.reportTypeList.clear();
-                                              reportController.isAllDataLoaded = false;
+                                              reportController.searchString =
+                                                  value;
+                                              reportController.reportTypeList =
+                                                  [];
+                                              reportController.reportTypeList
+                                                  .clear();
+                                              reportController.isAllDataLoaded =
+                                                  false;
                                               reportController.update();
-                                              await reportController.getReportTypes(value, false);
+                                              await reportController
+                                                  .getReportTypes(value, false);
                                             },
                                             decoration: InputDecoration(
                                               hintText: snapshot.data,
-                                              hintStyle: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
+                                              hintStyle: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500),
                                               isDense: true,
                                               border: new UnderlineInputBorder(
-                                                borderSide: new BorderSide(color: Get.theme.primaryColor),
+                                                borderSide: new BorderSide(
+                                                    color:
+                                                        Get.theme.primaryColor),
                                               ),
-                                              enabledBorder: new UnderlineInputBorder(
-                                                borderSide: new BorderSide(color: Get.theme.primaryColor),
+                                              enabledBorder:
+                                                  new UnderlineInputBorder(
+                                                borderSide: new BorderSide(
+                                                    color:
+                                                        Get.theme.primaryColor),
                                               ),
-                                              focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(color: Get.theme.primaryColor),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color:
+                                                        Get.theme.primaryColor),
                                               ),
                                             ),
                                           );
@@ -124,14 +144,16 @@ class ReportTypeScreen extends StatelessWidget {
                                 GestureDetector(
                                     onTap: () async {
                                       reportController.isSearch = false;
-                                      reportController.searchReportController.clear();
+                                      reportController.searchReportController
+                                          .clear();
                                       global.showOnlyLoaderDialog(context);
                                       reportController.searchString = null;
                                       reportController.reportTypeList = [];
                                       reportController.reportTypeList.clear();
                                       reportController.isAllDataLoaded = false;
                                       reportController.update();
-                                      await reportController.getReportTypes(null, false);
+                                      await reportController.getReportTypes(
+                                          null, false);
                                       global.hideLoader();
                                       reportController.update();
                                     },
@@ -147,21 +169,26 @@ class ReportTypeScreen extends StatelessWidget {
                             ? SizedBox(
                                 height: Get.height * 0.8,
                                 child: Center(
-                                  child: Text('Result Not Found').translate(),
+                                  child: Text('Result Not Found'),
                                 ),
                               )
                             : ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: reportController.reportTypeList.length,
+                                itemCount:
+                                    reportController.reportTypeList.length,
                                 itemBuilder: (context, i) {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: CustomContainer(
-                                      reportId: reportController.reportTypeList[i].id,
-                                      title: reportController.reportTypeList[i].title,
-                                      image: "${reportController.reportTypeList[i].reportImage}",
-                                      desc: reportController.reportTypeList[i].description,
+                                      reportId:
+                                          reportController.reportTypeList[i].id,
+                                      title: reportController
+                                          .reportTypeList[i].title,
+                                      image:
+                                          "${reportController.reportTypeList[i].reportImage}",
+                                      desc: reportController
+                                          .reportTypeList[i].description,
                                       astrologerId: astrologerId,
                                       astrologerName: astrologerName,
                                     ),
@@ -171,7 +198,10 @@ class ReportTypeScreen extends StatelessWidget {
                     );
                   }),
                 ),
-                reportController.isMoreDataAvailable == true && !reportController.isAllDataLoaded ? const CircularProgressIndicator() : const SizedBox(),
+                reportController.isMoreDataAvailable == true &&
+                        !reportController.isAllDataLoaded
+                    ? const CircularProgressIndicator()
+                    : const SizedBox(),
               ],
             ),
           ),
@@ -237,7 +267,8 @@ class CustomContainer extends StatelessWidget {
                       height: 200,
                       width: double.infinity,
                     ),
-                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
                     errorWidget: (context, url, error) => Image.asset(
                       Images.yearlyImage,
                       fit: BoxFit.cover,
@@ -249,8 +280,9 @@ class CustomContainer extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8.0, bottom: 6, left: 8.0),
               child: Text(
                 title,
-                style: Get.textTheme.subtitle1!.copyWith(fontSize: 15, fontWeight: FontWeight.bold),
-              ).translate(),
+                style: Get.textTheme.subtitle1!
+                    .copyWith(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
             ),
             FutureBuilder(
               future: global.showHtml(html: desc),

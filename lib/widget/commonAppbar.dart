@@ -68,14 +68,14 @@ class CommonAppBar extends StatelessWidget {
                   title,
                   style: Get.theme.primaryTextTheme.headline6!
                       .copyWith(fontSize: 18, fontWeight: FontWeight.normal),
-                ).translate(),
+                ),
               ],
             )
           : Text(
               title,
               style: Get.theme.primaryTextTheme.headline6!
                   .copyWith(fontSize: 18, fontWeight: FontWeight.normal),
-            ).translate(),
+            ),
       leading: isLeading ?? false
           ? null
           : IconButton(

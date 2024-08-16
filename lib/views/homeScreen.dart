@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
             '${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
             style: Get.theme.primaryTextTheme.headline6!
                 .copyWith(fontWeight: FontWeight.normal),
-          ).translate(),
+          ),
           iconTheme: IconThemeData(
             color: Get.theme.iconTheme.color,
           ),
@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                                     Container(
                                         padding: EdgeInsets.all(6),
                                         child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                          Text('Choose your app language', style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)).translate(),
+                                          Text('Choose your app language', style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)),
                                           GetBuilder<HomeController>(builder: (home) {
                                             return Padding(
                                               padding: EdgeInsets.only(top: 15),
@@ -204,7 +204,7 @@ class HomeScreen extends StatelessWidget {
                                                 bottomNavigationController.refresh();
                                                 Get.back();
                                               },
-                                              child: Text('APPLY', style: Get.textTheme.bodyText1).translate(),
+                                              child: Text('APPLY', style: Get.textTheme.bodyText1),
                                               style: ButtonStyle(
                                                 backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
                                               ),
@@ -306,7 +306,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w400,
                                         color: Colors.black38,
                                       ),
-                                    ).translate()
+                                    )
                                   ],
                                 ),
                               ),
@@ -369,7 +369,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -423,7 +423,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -474,7 +474,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -526,7 +526,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -662,7 +662,7 @@ class HomeScreen extends StatelessWidget {
                                                             fontWeight:
                                                                 FontWeight
                                                                     .w500),
-                                                  ).translate(),
+                                                  ),
                                                 ],
                                               ),
                                               GestureDetector(
@@ -742,7 +742,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -876,7 +876,7 @@ class HomeScreen extends StatelessWidget {
                                                                         .start,
                                                                 children: [
                                                                   Text('${homeController.myOrders[index].astrologerName}')
-                                                                      .translate(),
+                                                                      ,
                                                                   Text(
                                                                     DateConverter.dateTimeStringToDateOnly(homeController
                                                                         .myOrders[
@@ -949,7 +949,7 @@ class HomeScreen extends StatelessWidget {
                                                                                 : homeController.myOrders[index].orderType == "chat"
                                                                                     ? Padding(
                                                                                         padding: const EdgeInsets.all(10.0),
-                                                                                        child: Text('View Chat').translate(),
+                                                                                        child: Text('View Chat'),
                                                                                       )
                                                                                     : const SizedBox()),
                                                                       ),
@@ -986,7 +986,7 @@ class HomeScreen extends StatelessWidget {
                                                                               border: Border.all(color: Get.theme.primaryColor),
                                                                               borderRadius: BorderRadius.circular(15),
                                                                             ),
-                                                                            child: Text(homeController.myOrders[index].orderType == "call" ? 'Call Again' : 'Chat again').translate()),
+                                                                            child: Text(homeController.myOrders[index].orderType == "call" ? 'Call Again' : 'Chat again')),
                                                                       ),
                                                                     ],
                                                                   )
@@ -1046,7 +1046,7 @@ class HomeScreen extends StatelessWidget {
                                                             fontWeight:
                                                                 FontWeight
                                                                     .w500),
-                                                  ).translate(),
+                                                  ),
                                                   Padding(
                                                     padding: EdgeInsets.only(
                                                         left: 5),
@@ -1082,7 +1082,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -1330,7 +1330,7 @@ class HomeScreen extends StatelessWidget {
                                                                                   fontSize: 12,
                                                                                   fontWeight: FontWeight.w300,
                                                                                 ),
-                                                                              ).translate(),
+                                                                              ),
                                                                             ],
                                                                           ),
                                                                         ),
@@ -1345,7 +1345,7 @@ class HomeScreen extends StatelessWidget {
                                                                             color:
                                                                                 Colors.white,
                                                                           ),
-                                                                        ).translate(),
+                                                                        ),
                                                                       ],
                                                                     ),
                                                                   )
@@ -1396,7 +1396,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () {
                                                   bottomController
@@ -1413,7 +1413,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -1526,7 +1526,7 @@ class HomeScreen extends StatelessWidget {
                                                               FontWeight.w400,
                                                           letterSpacing: 0,
                                                         ),
-                                                      ).translate(),
+                                                      ),
                                                       Text(
                                                         '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${bottomNavigationController.astrologerList[index].charge}/min',
                                                         textAlign:
@@ -1541,7 +1541,7 @@ class HomeScreen extends StatelessWidget {
                                                               FontWeight.w300,
                                                           letterSpacing: 0,
                                                         ),
-                                                      ).translate(),
+                                                      ),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -1616,7 +1616,7 @@ class HomeScreen extends StatelessWidget {
                                                                   .copyWith(
                                                                       color: Colors
                                                                           .green),
-                                                            ).translate(),
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -1664,7 +1664,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () async {
                                                   BlogController
@@ -1696,7 +1696,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -1982,7 +1982,7 @@ class HomeScreen extends StatelessWidget {
                                                                       letterSpacing:
                                                                           0,
                                                                     ),
-                                                                  ).translate(),
+                                                                  ),
                                                                 ),
                                                               ),
                                                               Row(
@@ -2013,7 +2013,7 @@ class HomeScreen extends StatelessWidget {
                                                                         letterSpacing:
                                                                             0,
                                                                       ),
-                                                                    ).translate(),
+                                                                    ),
                                                                   ),
                                                                   Text(
                                                                     "${DateFormat("MMM d,yyyy").format(DateTime.parse(homeController.blogList[index].createdAt))}",
@@ -2088,7 +2088,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () async {
                                                   final AstromallController
@@ -2120,7 +2120,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -2235,7 +2235,7 @@ class HomeScreen extends StatelessWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold),
-                                                      ).translate(),
+                                                      ),
                                                     )
                                                   ],
                                                 ),
@@ -2272,7 +2272,7 @@ class HomeScreen extends StatelessWidget {
                                           .theme.primaryTextTheme.subtitle1!
                                           .copyWith(
                                               fontWeight: FontWeight.w500),
-                                    ).translate(),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 200,
@@ -2363,7 +2363,7 @@ class HomeScreen extends StatelessWidget {
                                                 .copyWith(
                                                     fontWeight:
                                                         FontWeight.w500),
-                                          ).translate(),
+                                          ),
                                           GestureDetector(
                                             onTap: () async {
                                               global.showOnlyLoaderDialog(
@@ -2382,7 +2382,7 @@ class HomeScreen extends StatelessWidget {
                                                 fontWeight: FontWeight.w400,
                                                 color: Colors.grey[500],
                                               ),
-                                            ).translate(),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -2455,7 +2455,7 @@ class HomeScreen extends StatelessWidget {
                                                               FontWeight.w300,
                                                           fontSize: 13,
                                                         ),
-                                                      ).translate(),
+                                                      ),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -2569,7 +2569,7 @@ class HomeScreen extends StatelessWidget {
                                                                         fontWeight:
                                                                             FontWeight.w400,
                                                                       ),
-                                                                    ).translate(),
+                                                                    ),
                                                                   ),
                                                                   Text(
                                                                     '${homeController.clientReviews[index].location}',
@@ -2582,7 +2582,7 @@ class HomeScreen extends StatelessWidget {
                                                                           FontWeight
                                                                               .w300,
                                                                     ),
-                                                                  ).translate(),
+                                                                  ),
                                                                 ],
                                                               ),
                                                             ),
@@ -2656,7 +2656,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () {
                                                   Get.to(() =>
@@ -2672,7 +2672,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -2805,7 +2805,7 @@ class HomeScreen extends StatelessWidget {
                                                                   letterSpacing:
                                                                       0,
                                                                 ),
-                                                              ).translate(),
+                                                              ),
                                                             ),
                                                             Row(
                                                               mainAxisAlignment:
@@ -2836,7 +2836,7 @@ class HomeScreen extends StatelessWidget {
                                                                     letterSpacing:
                                                                         0,
                                                                   ),
-                                                                ).translate(),
+                                                                ),
                                                                 Text(
                                                                   "${DateFormat("MMM d,yyyy").format(DateTime.parse(homeController.astroNews[index].newsDate.toString()))}",
                                                                   textAlign:
@@ -2930,7 +2930,7 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text("Today's Panchang").translate(),
+                                        Text("Today's Panchang"),
                                         Container(
                                           height: 25,
                                           width: 90,
@@ -2953,7 +2953,7 @@ class HomeScreen extends StatelessWidget {
                                               letterSpacing: -0.2,
                                               wordSpacing: 0,
                                             ),
-                                          ).translate(),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -3030,7 +3030,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () {
                                                   Get.to(() =>
@@ -3046,7 +3046,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -3210,7 +3210,7 @@ class HomeScreen extends StatelessWidget {
                                                                 letterSpacing:
                                                                     0,
                                                               ),
-                                                            ).translate(),
+                                                            ),
                                                             Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
@@ -3277,11 +3277,11 @@ class HomeScreen extends StatelessWidget {
                                   'I am the Product Manager',
                                   style: Get.theme.primaryTextTheme.subtitle1!
                                       .copyWith(fontWeight: FontWeight.w500),
-                                ).translate(),
+                                ),
                                 Text(
                                   'share your feedback to help us improve the app',
                                   style: TextStyle(fontSize: 10),
-                                ).translate(),
+                                ),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -3358,7 +3358,7 @@ class HomeScreen extends StatelessWidget {
                                           style: Get
                                               .theme.primaryTextTheme.bodySmall!
                                               .copyWith(color: Colors.black),
-                                        ).translate(),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -3409,7 +3409,7 @@ class HomeScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 0.5,
                                     ),
-                                  ).translate(),
+                                  ),
                                 ],
                               ),
                               Column(
@@ -3441,7 +3441,7 @@ class HomeScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 0.5,
                                     ),
-                                  ).translate(),
+                                  ),
                                 ],
                               ),
                               Column(
@@ -3473,7 +3473,7 @@ class HomeScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 0.5,
                                     ),
-                                  ).translate(),
+                                  ),
                                 ],
                               ),
                             ],
@@ -3537,7 +3537,7 @@ class HomeScreen extends StatelessWidget {
                                           letterSpacing: -0.2,
                                           wordSpacing: 0,
                                         ),
-                                      ).translate(),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3561,7 +3561,6 @@ class HomeScreen extends StatelessWidget {
                               global.hideLoader();
 
                               Get.to(CallScreen());
-
                               //bottomController.setBottomIndex(3, 0);
                             },
                             child: Container(
@@ -3595,7 +3594,7 @@ class HomeScreen extends StatelessWidget {
                                           letterSpacing: -0.2,
                                           wordSpacing: 0,
                                         ),
-                                      ).translate(),
+                                      ),
                                     ),
                                   ],
                                 ),

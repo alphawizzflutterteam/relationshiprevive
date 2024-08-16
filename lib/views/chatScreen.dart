@@ -45,7 +45,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   ReportController reportController = Get.find<ReportController>();
 
-  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
 
   WalletController walletController = Get.find<WalletController>();
 
@@ -85,7 +86,8 @@ class _ChatScreenState extends State<ChatScreen> {
           onBackPressed: () {},
           scaffoldKey: GlobalKey<ScaffoldState>(),
           title: 'Chat with Astrologer',
-          titleStyle: Get.theme.primaryTextTheme.subtitle2!.copyWith(fontWeight: FontWeight.w300),
+          titleStyle: Get.theme.primaryTextTheme.subtitle2!
+              .copyWith(fontWeight: FontWeight.w300),
           bgColor: Get.theme.primaryColor,
           actions: [
             InkWell(
@@ -178,17 +180,22 @@ class _ChatScreenState extends State<ChatScreen> {
                         bottomNavigationController.astrologerList.clear();
                         bottomNavigationController.isAllDataLoaded = false;
                         bottomNavigationController.update();
-                        await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                        await bottomNavigationController.getAstrologerList(
+                            isLazyLoading: false);
                         global.hideLoader();
                       } else {
-                        for (var i = 0; i < chatController.categoryList.length; i++) {
+                        for (var i = 0;
+                            i < chatController.categoryList.length;
+                            i++) {
                           if (value == i) {
                             bottomNavigationController.astrologerList = [];
                             bottomNavigationController.astrologerList.clear();
                             bottomNavigationController.isAllDataLoaded = false;
                             bottomNavigationController.update();
                             global.showOnlyLoaderDialog(context);
-                            await bottomNavigationController.astroCat(id: chatController.categoryList[i].id!, isLazyLoading: false);
+                            await bottomNavigationController.astroCat(
+                                id: chatController.categoryList[i].id!,
+                                isLazyLoading: false);
                             global.hideLoader();
                           }
                         }
@@ -197,35 +204,47 @@ class _ChatScreenState extends State<ChatScreen> {
                     },
                     indicatorColor: Colors.transparent,
                     labelPadding: EdgeInsets.symmetric(horizontal: 5),
-                    tabs: List.generate(chatController.categoryList.length, (index) {
+                    tabs: List.generate(chatController.categoryList.length,
+                        (index) {
                       return GetBuilder<ChatController>(builder: (chatco) {
                         return SizedBox(
                           height: 30,
                           child: Chip(
                             padding: EdgeInsets.only(bottom: 5),
-                            backgroundColor: chatController.isSelected == index ? Colors.transparent : Colors.white,
+                            backgroundColor: chatController.isSelected == index
+                                ? Colors.transparent
+                                : Colors.white,
                             shape: RoundedRectangleBorder(
                                 side: BorderSide(
-                                  color: chatController.isSelected == index ? Get.theme.primaryColor : Colors.transparent,
+                                  color: chatController.isSelected == index
+                                      ? Get.theme.primaryColor
+                                      : Colors.transparent,
                                 ),
                                 borderRadius: BorderRadius.circular(7)),
                             label: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 5),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   CachedNetworkImage(
                                     height: 20,
                                     width: 20,
-                                    imageUrl: '${global.imgBaseurl}${chatController.categoryList[index].image}',
-                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                    errorWidget: (context, url, error) => Icon(Icons.grid_view_rounded, color: Get.theme.primaryColor, size: 20),
+                                    imageUrl:
+                                        '${global.imgBaseurl}${chatController.categoryList[index].image}',
+                                    placeholder: (context, url) => const Center(
+                                        child: CircularProgressIndicator()),
+                                    errorWidget: (context, url, error) => Icon(
+                                        Icons.grid_view_rounded,
+                                        color: Get.theme.primaryColor,
+                                        size: 20),
                                   ),
                                   SizedBox(width: 5),
                                   Text(
                                     chatController.categoryList[index].name,
-                                    style: Get.theme.primaryTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.w300),
-                                  ).translate(),
+                                    style: Get.theme.primaryTextTheme.bodySmall!
+                                        .copyWith(fontWeight: FontWeight.w300),
+                                  ),
                                 ],
                               ),
                             ),
@@ -234,42 +253,60 @@ class _ChatScreenState extends State<ChatScreen> {
                       });
                     }),
                   ),
-                  GetBuilder<BottomNavigationController>(builder: (bottomNavigationController) {
+                  GetBuilder<BottomNavigationController>(
+                      builder: (bottomNavigationController) {
                     return bottomNavigationController.astrologerList.length == 0
                         ? Container(
                             height: Get.height * 0.63,
                             child: Center(
                               child: Text(
                                 'Astrologer not available',
-                                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
-                              ).translate(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 18),
+                              ),
                             ),
                           )
                         : Expanded(
                             child: TabBarView(
                             controller: chatController.categoryTab,
                             physics: const NeverScrollableScrollPhysics(),
-                            children: List.generate(chatController.categoryList.length, (index) {
+                            children: List.generate(
+                                chatController.categoryList.length, (index) {
                               return RefreshIndicator(
                                 onRefresh: () async {
-                                  bottomNavigationController.astrologerList = [];
-                                  bottomNavigationController.astrologerList.clear();
-                                  bottomNavigationController.isAllDataLoaded = false;
-                                  if (bottomNavigationController.genderFilterList != null) {
-                                    bottomNavigationController.genderFilterList!.clear();
+                                  bottomNavigationController.astrologerList =
+                                      [];
+                                  bottomNavigationController.astrologerList
+                                      .clear();
+                                  bottomNavigationController.isAllDataLoaded =
+                                      false;
+                                  if (bottomNavigationController
+                                          .genderFilterList !=
+                                      null) {
+                                    bottomNavigationController.genderFilterList!
+                                        .clear();
                                   }
-                                  if (bottomNavigationController.languageFilter != null) {
-                                    bottomNavigationController.languageFilter!.clear();
+                                  if (bottomNavigationController
+                                          .languageFilter !=
+                                      null) {
+                                    bottomNavigationController.languageFilter!
+                                        .clear();
                                   }
-                                  if (bottomNavigationController.skillFilterList != null) {
-                                    bottomNavigationController.skillFilterList!.clear();
+                                  if (bottomNavigationController
+                                          .skillFilterList !=
+                                      null) {
+                                    bottomNavigationController.skillFilterList!
+                                        .clear();
                                   }
-                                  bottomNavigationController.applyFilter = false;
+                                  bottomNavigationController.applyFilter =
+                                      false;
                                   bottomNavigationController.update();
-                                  await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                                  await bottomNavigationController
+                                      .getAstrologerList(isLazyLoading: false);
                                 },
                                 child: TabViewWidget(
-                                  astrologerList: bottomNavigationController.astrologerList,
+                                  astrologerList:
+                                      bottomNavigationController.astrologerList,
                                 ),
                               );
                             }),
@@ -290,12 +327,14 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text('Start chat with ${cController.bottomAstrologerName}').translate(),
+                        child: Text(
+                            'Start chat with ${cController.bottomAstrologerName}'),
                       ),
                       TextButton(
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                          backgroundColor: MaterialStateProperty.all(Colors.green),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.green),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -303,17 +342,28 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                         onPressed: () async {
-                          cController.bottomAstrologerName = global.sp!.getString('bottomAstrologerName') ?? '';
-                          cController.bottomAstrologerProfile = global.sp!.getString('bottomAstrologerProfile') ?? '';
-                          cController.bottomFirebaseChatId = global.sp!.getString('bottomFirebaseChatId') ?? '';
-                          cController.bottomChatId = global.sp!.getInt('bottomChatId');
-                          cController.bottomAstrologerId = global.sp!.getInt('bottomAstrologerId');
-                          cController.bottomFcmToken = global.sp!.getString('bottomFcmToken');
+                          cController.bottomAstrologerName =
+                              global.sp!.getString('bottomAstrologerName') ??
+                                  '';
+                          cController.bottomAstrologerProfile =
+                              global.sp!.getString('bottomAstrologerProfile') ??
+                                  '';
+                          cController.bottomFirebaseChatId =
+                              global.sp!.getString('bottomFirebaseChatId') ??
+                                  '';
+                          cController.bottomChatId =
+                              global.sp!.getInt('bottomChatId');
+                          cController.bottomAstrologerId =
+                              global.sp!.getInt('bottomAstrologerId');
+                          cController.bottomFcmToken =
+                              global.sp!.getString('bottomFcmToken');
                           cController.update();
                           Get.to(() => IncomingChatRequest(
-                                astrologerName: cController.bottomAstrologerName,
+                                astrologerName:
+                                    cController.bottomAstrologerName,
                                 profile: cController.bottomAstrologerProfile,
-                                fireBasechatId: cController.bottomFirebaseChatId ?? "",
+                                fireBasechatId:
+                                    cController.bottomFirebaseChatId ?? "",
                                 chatId: cController.bottomChatId!,
                                 astrologerId: cController.bottomAstrologerId!,
                                 fcmToken: cController.bottomFcmToken,
@@ -321,8 +371,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                         child: Text(
                           'Start',
-                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.white),
-                        ).translate(),
+                          style: Get.theme.primaryTextTheme.bodySmall!
+                              .copyWith(color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
@@ -350,7 +401,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('Sort & Filter').translate(),
+                        Text('Sort & Filter'),
                         Expanded(
                           child: Align(
                             alignment: Alignment.topRight,
@@ -386,7 +437,8 @@ class _ChatScreenState extends State<ChatScreen> {
                         indicatorWeight: 0,
                         unselectedLabelColor: Colors.grey[50],
                         onTap: (index) {
-                          filtterTabController.selectedFilterIndex.value = index;
+                          filtterTabController.selectedFilterIndex.value =
+                              index;
                           filtterTabController.update();
                         },
                         tabs: List.generate(
@@ -395,7 +447,11 @@ class _ChatScreenState extends State<ChatScreen> {
                             return RotatedBox(
                               quarterTurns: -1,
                               child: Container(
-                                color: filtterTabController.selectedFilterIndex.value == ind ? Colors.white : Colors.grey[50],
+                                color: filtterTabController
+                                            .selectedFilterIndex.value ==
+                                        ind
+                                    ? Colors.white
+                                    : Colors.grey[50],
                                 height: 50,
                                 child: Row(
                                   children: [
@@ -406,17 +462,24 @@ class _ChatScreenState extends State<ChatScreen> {
                                           topRight: Radius.circular(5),
                                           bottomRight: Radius.circular(5),
                                         ),
-                                        color: filtterTabController.selectedFilterIndex.value == ind ? Colors.white : Colors.black,
+                                        color: filtterTabController
+                                                    .selectedFilterIndex
+                                                    .value ==
+                                                ind
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                     ),
                                     Container(
-                                      width: MediaQuery.of(context).size.width * 0.25,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
                                       alignment: Alignment.centerLeft,
-                                      padding: EdgeInsets.symmetric(horizontal: 8),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
                                       child: Text(
                                         filtterTabController.filtterList[ind],
                                         style: TextStyle(color: Colors.black54),
-                                      ).translate(),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -441,23 +504,31 @@ class _ChatScreenState extends State<ChatScreen> {
                               return GetBuilder<SkillController>(
                                 builder: (c) {
                                   return Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
                                       child: ListView.builder(
-                                          itemCount: reportController.sorting.length,
+                                          itemCount:
+                                              reportController.sorting.length,
                                           padding: EdgeInsets.zero,
                                           itemBuilder: (context, index) {
                                             return RadioListTile(
-                                              groupValue: reportController.groupValue,
-                                              controlAffinity: ListTileControlAffinity.leading,
+                                              groupValue:
+                                                  reportController.groupValue,
+                                              controlAffinity:
+                                                  ListTileControlAffinity
+                                                      .leading,
                                               contentPadding: EdgeInsets.zero,
                                               activeColor: Colors.black,
-                                              value: reportController.sorting[index].id,
+                                              value: reportController
+                                                  .sorting[index].id,
                                               onChanged: (val) {
-                                                reportController.groupValue = val!;
+                                                reportController.groupValue =
+                                                    val!;
 
                                                 reportController.update();
                                               },
-                                              title: Text(reportController.sorting[index].name!).translate(),
+                                              title: Text(reportController
+                                                  .sorting[index].name!),
                                             );
                                           }));
                                 },
@@ -471,21 +542,26 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: GetBuilder<SkillController>(
                             builder: (c) {
                               return Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                                   child: ListView.builder(
                                     itemCount: skillController.skillList.length,
                                     padding: EdgeInsets.zero,
                                     itemBuilder: (context, index) {
                                       return CheckboxListTile(
-                                        controlAffinity: ListTileControlAffinity.leading,
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
                                         contentPadding: EdgeInsets.zero,
                                         activeColor: Colors.black,
-                                        value: skillController.skillList[index].isSelected,
+                                        value: skillController
+                                            .skillList[index].isSelected,
                                         onChanged: (value) {
-                                          skillController.skillList[index].isSelected = value!;
+                                          skillController.skillList[index]
+                                              .isSelected = value!;
                                           skillController.update();
                                         },
-                                        title: Text(skillController.skillList[index].name).translate(),
+                                        title: Text(skillController
+                                            .skillList[index].name),
                                       );
                                     },
                                   ));
@@ -498,21 +574,29 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: GetBuilder<LanguageController>(
                             builder: (c) {
                               return Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                                   child: ListView.builder(
-                                      itemCount: languageController.languageList.length,
+                                      itemCount: languageController
+                                          .languageList.length,
                                       padding: EdgeInsets.zero,
                                       itemBuilder: (context, index) {
                                         return CheckboxListTile(
-                                          controlAffinity: ListTileControlAffinity.leading,
+                                          controlAffinity:
+                                              ListTileControlAffinity.leading,
                                           contentPadding: EdgeInsets.zero,
                                           activeColor: Colors.black,
-                                          value: languageController.languageList[index].isSelected,
+                                          value: languageController
+                                              .languageList[index].isSelected,
                                           onChanged: (value) {
-                                            languageController.languageList[index].isSelected = value!;
+                                            languageController
+                                                .languageList[index]
+                                                .isSelected = value!;
                                             languageController.update();
                                           },
-                                          title: Text(languageController.languageList[index].languageName).translate(),
+                                          title: Text(languageController
+                                              .languageList[index]
+                                              .languageName),
                                         );
                                       }));
                             },
@@ -523,21 +607,27 @@ class _ChatScreenState extends State<ChatScreen> {
                           quarterTurns: -1,
                           child: GetBuilder<FiltterTabController>(builder: (c) {
                             return Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
                                 child: ListView.builder(
-                                    itemCount: filtterTabController.gender.length,
+                                    itemCount:
+                                        filtterTabController.gender.length,
                                     padding: EdgeInsets.zero,
                                     itemBuilder: (context, index) {
                                       return CheckboxListTile(
-                                        controlAffinity: ListTileControlAffinity.leading,
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
                                         contentPadding: EdgeInsets.zero,
                                         activeColor: Colors.black,
-                                        value: filtterTabController.gender[index].isCheck,
+                                        value: filtterTabController
+                                            .gender[index].isCheck,
                                         onChanged: (value) {
-                                          filtterTabController.gender[index].isCheck = value!;
+                                          filtterTabController
+                                              .gender[index].isCheck = value!;
                                           filtterTabController.update();
                                         },
-                                        title: Text(filtterTabController.gender[index].name).translate(),
+                                        title: Text(filtterTabController
+                                            .gender[index].name),
                                       );
                                     }));
                           }),
@@ -554,7 +644,8 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 Divider(thickness: 2),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Row(
@@ -569,32 +660,50 @@ class _ChatScreenState extends State<ChatScreen> {
                               filtterTabController.genderFilterList = [];
                               languageController.languageFilterList = [];
                               reportController.sortingFilter = null;
-                              for (var i = 0; i < skillController.skillList.length; i++) {
+                              for (var i = 0;
+                                  i < skillController.skillList.length;
+                                  i++) {
                                 skillController.skillList[i].isSelected = false;
 
                                 skillController.update();
                               }
-                              for (var i = 0; i < languageController.languageList.length; i++) {
-                                languageController.languageList[i].isSelected = false;
+                              for (var i = 0;
+                                  i < languageController.languageList.length;
+                                  i++) {
+                                languageController.languageList[i].isSelected =
+                                    false;
 
                                 languageController.update();
                               }
-                              for (var i = 0; i < filtterTabController.gender.length; i++) {
+                              for (var i = 0;
+                                  i < filtterTabController.gender.length;
+                                  i++) {
                                 filtterTabController.gender[i].isCheck = false;
 
                                 filtterTabController.update();
                               }
                               bottomNavigationController.astrologerList = [];
                               bottomNavigationController.astrologerList.clear();
-                              bottomNavigationController.isAllDataLoaded = false;
-                              bottomNavigationController.skillFilterList = skillController.skillFilterList;
-                              bottomNavigationController.genderFilterList = filtterTabController.genderFilterList;
-                              bottomNavigationController.languageFilter = languageController.languageFilterList;
+                              bottomNavigationController.isAllDataLoaded =
+                                  false;
+                              bottomNavigationController.skillFilterList =
+                                  skillController.skillFilterList;
+                              bottomNavigationController.genderFilterList =
+                                  filtterTabController.genderFilterList;
+                              bottomNavigationController.languageFilter =
+                                  languageController.languageFilterList;
                               bottomNavigationController.applyFilter = false;
                               bottomNavigationController.update();
                               Get.back();
                               global.showOnlyLoaderDialog(context);
-                              await bottomNavigationController.getAstrologerList(skills: skillController.skillFilterList, gender: filtterTabController.genderFilterList, language: languageController.languageFilterList, isLazyLoading: false);
+                              await bottomNavigationController
+                                  .getAstrologerList(
+                                      skills: skillController.skillFilterList,
+                                      gender:
+                                          filtterTabController.genderFilterList,
+                                      language:
+                                          languageController.languageFilterList,
+                                      isLazyLoading: false);
                               global.hideLoader();
 
                               reportController.groupValue = 0;
@@ -604,7 +713,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             child: Text(
                               'Reset',
                               style: TextStyle(color: Colors.black54),
-                            ).translate(),
+                            ),
                           ),
                         )),
                         Expanded(child: GetBuilder<SkillController>(
@@ -618,51 +727,102 @@ class _ChatScreenState extends State<ChatScreen> {
                                   filtterTabController.genderFilterList = [];
                                   languageController.languageFilterList = [];
                                   reportController.sortingFilter = null;
-                                  for (var i = 0; i < skillController.skillList.length; i++) {
-                                    if (skillController.skillList[i].isSelected == true) {
-                                      skillController.skillFilterList.add(skillController.skillList[i].id!);
+                                  for (var i = 0;
+                                      i < skillController.skillList.length;
+                                      i++) {
+                                    if (skillController
+                                            .skillList[i].isSelected ==
+                                        true) {
+                                      skillController.skillFilterList.add(
+                                          skillController.skillList[i].id!);
                                       skillController.update();
                                     }
                                   }
-                                  for (var i = 0; i < filtterTabController.gender.length; i++) {
-                                    if (filtterTabController.gender[i].isCheck == true) {
-                                      filtterTabController.genderFilterList.add(filtterTabController.gender[i].name);
+                                  for (var i = 0;
+                                      i < filtterTabController.gender.length;
+                                      i++) {
+                                    if (filtterTabController
+                                            .gender[i].isCheck ==
+                                        true) {
+                                      filtterTabController.genderFilterList.add(
+                                          filtterTabController.gender[i].name);
                                       filtterTabController.update();
                                     }
                                   }
-                                  for (var i = 0; i < languageController.languageList.length; i++) {
-                                    if (languageController.languageList[i].isSelected == true) {
-                                      languageController.languageFilterList.add(languageController.languageList[i].id!);
+                                  for (var i = 0;
+                                      i <
+                                          languageController
+                                              .languageList.length;
+                                      i++) {
+                                    if (languageController
+                                            .languageList[i].isSelected ==
+                                        true) {
+                                      languageController.languageFilterList.add(
+                                          languageController
+                                              .languageList[i].id!);
                                       languageController.update();
                                     }
                                   }
-                                  for (var i = 0; i < reportController.sorting.length; i++) {
-                                    if (reportController.groupValue == reportController.sorting[i].id) {
-                                      reportController.sortingFilter = reportController.sorting[i].value;
+                                  for (var i = 0;
+                                      i < reportController.sorting.length;
+                                      i++) {
+                                    if (reportController.groupValue ==
+                                        reportController.sorting[i].id) {
+                                      reportController.sortingFilter =
+                                          reportController.sorting[i].value;
                                       reportController.update();
                                     }
                                   }
                                   Get.back();
-                                  bottomNavigationController.astrologerList = [];
-                                  bottomNavigationController.astrologerList.clear();
-                                  bottomNavigationController.isAllDataLoaded = false;
+                                  bottomNavigationController.astrologerList =
+                                      [];
+                                  bottomNavigationController.astrologerList
+                                      .clear();
+                                  bottomNavigationController.isAllDataLoaded =
+                                      false;
                                   bottomNavigationController.applyFilter = true;
-                                  bottomNavigationController.skillFilterList = skillController.skillFilterList;
-                                  bottomNavigationController.genderFilterList = filtterTabController.genderFilterList;
-                                  bottomNavigationController.languageFilter = languageController.languageFilterList;
-                                  bottomNavigationController.sortingFilter = reportController.sortingFilter;
+                                  bottomNavigationController.skillFilterList =
+                                      skillController.skillFilterList;
+                                  bottomNavigationController.genderFilterList =
+                                      filtterTabController.genderFilterList;
+                                  bottomNavigationController.languageFilter =
+                                      languageController.languageFilterList;
+                                  bottomNavigationController.sortingFilter =
+                                      reportController.sortingFilter;
                                   bottomNavigationController.update();
                                   global.showOnlyLoaderDialog(context);
-                                  await bottomNavigationController.getAstrologerList(skills: skillController.skillFilterList, gender: filtterTabController.genderFilterList, language: languageController.languageFilterList, sortBy: reportController.sortingFilter, isLazyLoading: false);
+                                  await bottomNavigationController
+                                      .getAstrologerList(
+                                          skills:
+                                              skillController.skillFilterList,
+                                          gender: filtterTabController
+                                              .genderFilterList,
+                                          language: languageController
+                                              .languageFilterList,
+                                          sortBy:
+                                              reportController.sortingFilter,
+                                          isLazyLoading: false);
                                   global.hideLoader();
 
-                                  skillController.addFilter(catId: cController.categoryList[cController.isSelected].id, skills: skillController.skillFilterList, language: languageController.languageFilterList, gender: filtterTabController.genderFilterList, sortBy: reportController.sortingFilter);
+                                  skillController.addFilter(
+                                      catId: cController
+                                          .categoryList[cController.isSelected]
+                                          .id,
+                                      skills: skillController.skillFilterList,
+                                      language:
+                                          languageController.languageFilterList,
+                                      gender:
+                                          filtterTabController.genderFilterList,
+                                      sortBy: reportController.sortingFilter);
                                 },
-                                child: Text('Apply').translate(),
+                                child: Text('Apply'),
                                 style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-                                  backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                                  foregroundColor: MaterialStateProperty.all(Colors.black),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(8)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Get.theme.primaryColor),
+                                  foregroundColor:
+                                      MaterialStateProperty.all(Colors.black),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -700,7 +860,8 @@ class TabViewWidget extends StatelessWidget {
   final List astrologerList;
   final ChatController chatController = ChatController();
   WalletController walletController = Get.find<WalletController>();
-  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
   TabViewWidget({
     required this.astrologerList,
     Key? key,
@@ -710,14 +871,22 @@ class TabViewWidget extends StatelessWidget {
 
   void paginateTask() {
     chatScrollController.addListener(() async {
-      if (chatScrollController.position.pixels == chatScrollController.position.maxScrollExtent && !bottomNavigationController.isAllDataLoaded) {
+      if (chatScrollController.position.pixels ==
+              chatScrollController.position.maxScrollExtent &&
+          !bottomNavigationController.isAllDataLoaded) {
         bottomNavigationController.isMoreDataAvailable = true;
         bottomNavigationController.update();
-        if (bottomNavigationController.selectedCatId == null || bottomNavigationController.selectedCatId! == 0) {
+        if (bottomNavigationController.selectedCatId == null ||
+            bottomNavigationController.selectedCatId! == 0) {
           if (bottomNavigationController.isChatAstroDataLoadedOnce == false) {
             bottomNavigationController.isChatAstroDataLoadedOnce = true;
             bottomNavigationController.update();
-            await bottomNavigationController.getAstrologerList(skills: bottomNavigationController.skillFilterList, gender: bottomNavigationController.genderFilterList, language: bottomNavigationController.languageFilter, sortBy: bottomNavigationController.sortingFilter, isLazyLoading: true);
+            await bottomNavigationController.getAstrologerList(
+                skills: bottomNavigationController.skillFilterList,
+                gender: bottomNavigationController.genderFilterList,
+                language: bottomNavigationController.languageFilter,
+                sortBy: bottomNavigationController.sortingFilter,
+                isLazyLoading: true);
             bottomNavigationController.isChatAstroDataLoadedOnce = false;
             bottomNavigationController.update();
           }
@@ -726,7 +895,9 @@ class TabViewWidget extends StatelessWidget {
           bottomNavigationController.astrologerList.clear();
           bottomNavigationController.isAllDataLoaded = false;
           bottomNavigationController.update();
-          await bottomNavigationController.astroCat(id: bottomNavigationController.selectedCatId!, isLazyLoading: true);
+          await bottomNavigationController.astroCat(
+              id: bottomNavigationController.selectedCatId!,
+              isLazyLoading: true);
         }
       }
     });
@@ -742,9 +913,11 @@ class TabViewWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () async {
-            Get.find<ReviewController>().getReviewData(astrologerList[index].id);
+            Get.find<ReviewController>()
+                .getReviewData(astrologerList[index].id);
             global.showOnlyLoaderDialog(context);
-            await bottomNavigationController.getAstrologerbyId(astrologerList[index].id);
+            await bottomNavigationController
+                .getAstrologerbyId(astrologerList[index].id);
             global.hideLoader();
             Get.to(() => AstrologerProfile(
                   index: index,
@@ -767,7 +940,8 @@ class TabViewWidget extends StatelessWidget {
                                   height: 65,
                                   width: 65,
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: Get.theme.primaryColor),
+                                    border: Border.all(
+                                        color: Get.theme.primaryColor),
                                     borderRadius: BorderRadius.circular(7),
                                   ),
                                   child: CircleAvatar(
@@ -776,9 +950,14 @@ class TabViewWidget extends StatelessWidget {
                                     child: CachedNetworkImage(
                                       height: 55,
                                       width: 55,
-                                      imageUrl: '${global.imgBaseurl}${astrologerList[index].profileImage}',
-                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) => Image.asset(
+                                      imageUrl:
+                                          '${global.imgBaseurl}${astrologerList[index].profileImage}',
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
                                         Images.deafultUser,
                                         fit: BoxFit.cover,
                                         height: 50,
@@ -809,15 +988,17 @@ class TabViewWidget extends StatelessWidget {
                             ),
                             onRatingUpdate: (rating) {},
                           ),
-                          astrologerList[index].totalOrder == 0 || astrologerList[index].totalOrder == null
+                          astrologerList[index].totalOrder == 0 ||
+                                  astrologerList[index].totalOrder == null
                               ? SizedBox()
                               : Text(
                                   '${astrologerList[index].totalOrder} orders',
-                                  style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                  style: Get.theme.primaryTextTheme.bodySmall!
+                                      .copyWith(
                                     fontWeight: FontWeight.w300,
                                     fontSize: 9,
                                   ),
-                                ).translate()
+                                )
                         ],
                       ),
                       Expanded(
@@ -828,58 +1009,78 @@ class TabViewWidget extends StatelessWidget {
                             children: [
                               Text(
                                 astrologerList[index].name,
-                              ).translate(),
+                              ),
                               astrologerList[index].allSkill == ""
                                   ? const SizedBox()
                                   : Text(
                                       astrologerList[index].allSkill,
-                                      style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                      style: Get
+                                          .theme.primaryTextTheme.bodySmall!
+                                          .copyWith(
                                         fontWeight: FontWeight.w300,
                                         color: Colors.grey[600],
                                       ),
-                                    ).translate(),
+                                    ),
                               astrologerList[index].languageKnown == ""
                                   ? const SizedBox()
                                   : Text(
                                       astrologerList[index].languageKnown,
-                                      style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                      style: Get
+                                          .theme.primaryTextTheme.bodySmall!
+                                          .copyWith(
                                         fontWeight: FontWeight.w300,
                                         color: Colors.grey[600],
                                       ),
-                                    ).translate(),
+                                    ),
                               Text(
                                 'Experience : ${astrologerList[index].experienceInYears} Years',
-                                style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                style: Get.theme.primaryTextTheme.bodySmall!
+                                    .copyWith(
                                   fontWeight: FontWeight.w300,
                                   color: Colors.grey[600],
                                 ),
-                              ).translate(),
+                              ),
                               Row(
                                 children: [
                                   astrologerList[index].isFreeAvailable == true
                                       ? Text(
                                           'FREE',
-                                          style: Get.theme.textTheme.subtitle1!.copyWith(
+                                          style: Get.theme.textTheme.subtitle1!
+                                              .copyWith(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             letterSpacing: 0,
-                                            color: Color.fromARGB(255, 167, 1, 1),
+                                            color:
+                                                Color.fromARGB(255, 167, 1, 1),
                                           ),
-                                        ).translate()
+                                        )
                                       : const SizedBox(),
                                   SizedBox(
-                                    width: astrologerList[index].isFreeAvailable == true ? 10 : 0,
+                                    width:
+                                        astrologerList[index].isFreeAvailable ==
+                                                true
+                                            ? 10
+                                            : 0,
                                   ),
                                   Text(
                                     '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${astrologerList[index].charge}/min',
-                                    style: Get.theme.textTheme.subtitle1!.copyWith(
+                                    style:
+                                        Get.theme.textTheme.subtitle1!.copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       letterSpacing: 0,
-                                      decoration: astrologerList[index].isFreeAvailable == true ? TextDecoration.lineThrough : null,
-                                      color: astrologerList[index].isFreeAvailable == true ? Colors.grey : Color.fromARGB(255, 167, 1, 1),
+                                      decoration: astrologerList[index]
+                                                  .isFreeAvailable ==
+                                              true
+                                          ? TextDecoration.lineThrough
+                                          : null,
+                                      color: astrologerList[index]
+                                                  .isFreeAvailable ==
+                                              true
+                                          ? Colors.grey
+                                          : Color.fromARGB(255, 167, 1, 1),
                                     ),
-                                  ).translate(),
+                                  ),
                                 ],
                               ),
                             ],
@@ -890,11 +1091,16 @@ class TabViewWidget extends StatelessWidget {
                         children: [
                           TextButton(
                             style: ButtonStyle(
-                              padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                              fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
-                              backgroundColor: astrologerList[index].chatStatus == "Online"
+                              padding:
+                                  MaterialStateProperty.all(EdgeInsets.all(0)),
+                              fixedSize:
+                                  MaterialStateProperty.all(Size.fromWidth(90)),
+                              backgroundColor: astrologerList[index]
+                                          .chatStatus ==
+                                      "Online"
                                   ? MaterialStateProperty.all(Colors.green)
-                                  : astrologerList[index].chatStatus == "Offline"
+                                  : astrologerList[index].chatStatus ==
+                                          "Offline"
                                       ? MaterialStateProperty.all(Colors.red)
                                       : MaterialStateProperty.all(Colors.red),
                               shape: MaterialStateProperty.all(
@@ -906,27 +1112,55 @@ class TabViewWidget extends StatelessWidget {
                             onPressed: () async {
                               bool isLogin = await global.isLogin();
                               if (isLogin) {
-                                if (astrologerList[index].charge * 5 <= global.splashController.currentUser!.walletAmount || astrologerList[index].isFreeAvailable == true) {
-                                  await bottomNavigationController.checkAlreadyInReq(astrologerList[index].id);
-                                  if (bottomNavigationController.isUserAlreadyInChatReq == false) {
-                                    if (astrologerList[index].chatStatus == "Online" || astrologerList[index].chatStatus == "Wait Time") {
+                                if (astrologerList[index].charge * 5 <=
+                                        global.splashController.currentUser!
+                                            .walletAmount ||
+                                    astrologerList[index].isFreeAvailable ==
+                                        true) {
+                                  await bottomNavigationController
+                                      .checkAlreadyInReq(
+                                          astrologerList[index].id);
+                                  if (bottomNavigationController
+                                          .isUserAlreadyInChatReq ==
+                                      false) {
+                                    if (astrologerList[index].chatStatus ==
+                                            "Online" ||
+                                        astrologerList[index].chatStatus ==
+                                            "Wait Time") {
                                       global.showOnlyLoaderDialog(context);
 
-                                      if (astrologerList[index].chatWaitTime != null) {
-                                        if (astrologerList[index].chatWaitTime!.difference(DateTime.now()).inMinutes < 0) {
-                                          await bottomNavigationController.changeOfflineStatus(astrologerList[index].id, "Online");
+                                      if (astrologerList[index].chatWaitTime !=
+                                          null) {
+                                        if (astrologerList[index]
+                                                .chatWaitTime!
+                                                .difference(DateTime.now())
+                                                .inMinutes <
+                                            0) {
+                                          await bottomNavigationController
+                                              .changeOfflineStatus(
+                                                  astrologerList[index].id,
+                                                  "Online");
                                         }
                                       }
                                       await Get.to(() => CallIntakeFormScreen(
                                             type: "Chat",
-                                            astrologerId: astrologerList[index].id,
-                                            astrologerName: astrologerList[index].name,
-                                            astrologerProfile: astrologerList[index].profileImage,
-                                            isFreeAvailable: astrologerList[index].isFreeAvailable,
+                                            astrologerId:
+                                                astrologerList[index].id,
+                                            astrologerName:
+                                                astrologerList[index].name,
+                                            astrologerProfile:
+                                                astrologerList[index]
+                                                    .profileImage,
+                                            isFreeAvailable:
+                                                astrologerList[index]
+                                                    .isFreeAvailable,
                                           ));
                                       global.hideLoader();
-                                    } else if (astrologerList[index].chatStatus == "Offline") {
-                                      bottomNavigationController.dialogForJoinInWaitListForListPageOnly(
+                                    } else if (astrologerList[index]
+                                            .chatStatus ==
+                                        "Offline") {
+                                      bottomNavigationController
+                                          .dialogForJoinInWaitListForListPageOnly(
                                         context,
                                         astrologerList[index].name,
                                         true,
@@ -937,31 +1171,45 @@ class TabViewWidget extends StatelessWidget {
                                       );
                                     }
                                   } else {
-                                    bottomNavigationController.dialogForNotCreatingSession(context);
+                                    bottomNavigationController
+                                        .dialogForNotCreatingSession(context);
                                   }
                                 } else {
                                   global.showOnlyLoaderDialog(context);
                                   await walletController.getAmount();
                                   global.hideLoader();
-                                  openBottomSheetRechrage(context, (astrologerList[index].charge * 5).toString(), astrologerList[index].name);
+                                  openBottomSheetRechrage(
+                                      context,
+                                      (astrologerList[index].charge * 5)
+                                          .toString(),
+                                      astrologerList[index].name);
                                 }
                               }
                             },
                             child: Text(
                               'Chat',
-                              style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.white),
-                            ).translate(),
+                              style: Get.theme.primaryTextTheme.bodySmall!
+                                  .copyWith(color: Colors.white),
+                            ),
                           ),
                           astrologerList[index].chatStatus == "Offline"
                               ? Text(
                                   "Currently Offline",
-                                  style: TextStyle(color: Colors.red, fontSize: 09),
-                                ).translate()
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 09),
+                                )
                               : astrologerList[index].chatStatus == "Wait Time"
                                   ? Text(
-                                      astrologerList[index].chatWaitTime!.difference(DateTime.now()).inMinutes > 0 ? "Wait till - ${astrologerList[index].chatWaitTime!.difference(DateTime.now()).inMinutes} min" : "Wait till",
-                                      style: TextStyle(color: Colors.red, fontSize: 09),
-                                    ).translate()
+                                      astrologerList[index]
+                                                  .chatWaitTime!
+                                                  .difference(DateTime.now())
+                                                  .inMinutes >
+                                              0
+                                          ? "Wait till - ${astrologerList[index].chatWaitTime!.difference(DateTime.now()).inMinutes} min"
+                                          : "Wait till",
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: 09),
+                                    )
                                   : SizedBox()
                         ],
                       )
@@ -969,7 +1217,9 @@ class TabViewWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              bottomNavigationController.isMoreDataAvailable == true && !bottomNavigationController.isAllDataLoaded && astrologerList.length - 1 == index
+              bottomNavigationController.isMoreDataAvailable == true &&
+                      !bottomNavigationController.isAllDataLoaded &&
+                      astrologerList.length - 1 == index
                   ? Column(
                       children: [
                         const CircularProgressIndicator(),
@@ -990,7 +1240,8 @@ class TabViewWidget extends StatelessWidget {
     );
   }
 
-  void openBottomSheetRechrage(BuildContext context, String minBalance, String astrologer) {
+  void openBottomSheetRechrage(
+      BuildContext context, String minBalance, String astrologer) {
     Get.bottomSheet(
       Container(
         height: 250,
@@ -1012,15 +1263,24 @@ class TabViewWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
                                     width: Get.width * 0.85,
-                                    child: minBalance != '' ? Text('Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start chat with $astrologer ', style: TextStyle(fontWeight: FontWeight.w500, color: Colors.red)).translate() : const SizedBox(),
+                                    child: minBalance != ''
+                                        ? Text(
+                                            'Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start chat with $astrologer ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red))
+                                        : const SizedBox(),
                                   ),
                                   GestureDetector(
                                     child: Padding(
-                                      padding: minBalance == '' ? const EdgeInsets.only(top: 8) : const EdgeInsets.only(top: 0),
+                                      padding: minBalance == ''
+                                          ? const EdgeInsets.only(top: 8)
+                                          : const EdgeInsets.only(top: 0),
                                       child: Icon(Icons.close, size: 18),
                                     ),
                                     onTap: () {
@@ -1030,17 +1290,25 @@ class TabViewWidget extends StatelessWidget {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 8.0, bottom: 5),
-                                child: Text('Recharge Now', style: TextStyle(fontWeight: FontWeight.w500)).translate(),
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, bottom: 5),
+                                child: Text('Recharge Now',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500)),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 5),
-                                    child: Icon(Icons.lightbulb_rounded, color: Get.theme.primaryColor, size: 13),
+                                    child: Icon(Icons.lightbulb_rounded,
+                                        color: Get.theme.primaryColor,
+                                        size: 13),
                                   ),
-                                  Expanded(child: Text('Tip:90% users recharge for 10 mins or more.', style: TextStyle(fontSize: 12)).translate())
+                                  Expanded(
+                                      child: Text(
+                                          'Tip:90% users recharge for 10 mins or more.',
+                                          style: TextStyle(fontSize: 12)))
                                 ],
                               ),
                             ],
@@ -1054,7 +1322,8 @@ class TabViewWidget extends StatelessWidget {
             ),
             Expanded(
                 child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       childAspectRatio: 3.8 / 2.3,
                       crossAxisSpacing: 1,
@@ -1068,7 +1337,10 @@ class TabViewWidget extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           Get.delete<RazorPayController>();
-                          Get.to(() => PaymentInformationScreen(flag: 0, amount: double.parse(walletController.payment[index])));
+                          Get.to(() => PaymentInformationScreen(
+                              flag: 0,
+                              amount: double.parse(
+                                  walletController.payment[index])));
                         },
                         child: Container(
                           margin: const EdgeInsets.all(8.0),

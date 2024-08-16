@@ -28,12 +28,14 @@ import 'package:AstroGuru/utils/global.dart' as global;
 // ignore: must_be_immutable
 class EditUserProfile extends StatelessWidget {
   EditUserProfile({Key? key}) : super(key: key);
-  final UserProfileController userProfileController = Get.find<UserProfileController>();
+  final UserProfileController userProfileController =
+      Get.find<UserProfileController>();
   SearchController1 searchController = Get.find<SearchController1>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(56),
           child: CommonAppBar(
@@ -53,7 +55,8 @@ class EditUserProfile extends StatelessWidget {
               Center(
                 child: Stack(
                   children: [
-                    userProfileController.userFile != null && userProfileController.userFile != ''
+                    userProfileController.userFile != null &&
+                            userProfileController.userFile != ''
                         ? Container(
                             height: 140,
                             width: 140,
@@ -62,16 +65,23 @@ class EditUserProfile extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(7),
                                 color: Get.theme.primaryColor,
                                 image: DecorationImage(
-                                  image: FileImage(userProfileController.userFile!),
+                                  image: FileImage(
+                                      userProfileController.userFile!),
                                   fit: BoxFit.cover,
                                 )),
                           )
-                        : GetBuilder<SplashController>(builder: (splashController) {
+                        : GetBuilder<SplashController>(
+                            builder: (splashController) {
                             return Container(
                                 height: 140,
                                 width: 140,
                                 alignment: Alignment.center,
-                                child: userProfileController.splashController.currentUser?.profile == "" || userProfileController.splashController.currentUser?.profile == null
+                                child: userProfileController.splashController
+                                                .currentUser?.profile ==
+                                            "" ||
+                                        userProfileController.splashController
+                                                .currentUser?.profile ==
+                                            null
                                     ? CircleAvatar(
                                         radius: 35,
                                         backgroundColor: Colors.white,
@@ -85,10 +95,12 @@ class EditUserProfile extends StatelessWidget {
                                         width: 140,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(7),
+                                            borderRadius:
+                                                BorderRadius.circular(7),
                                             color: Get.theme.primaryColor,
                                             image: DecorationImage(
-                                              image: NetworkImage("${global.imgBaseurl}${userProfileController.splashController.currentUser?.profile}"),
+                                              image: NetworkImage(
+                                                  "${global.imgBaseurl}${userProfileController.splashController.currentUser?.profile}"),
                                               fit: BoxFit.cover,
                                             )),
                                       ));
@@ -100,6 +112,7 @@ class EditUserProfile extends StatelessWidget {
                           onTap: () async {
                             await userProfileController.getZodicImg();
                             Get.defaultDialog(
+                                backgroundColor: Colors.white,
                                 titlePadding: EdgeInsets.all(0),
                                 contentPadding: EdgeInsets.all(0),
                                 title: "",
@@ -110,19 +123,21 @@ class EditUserProfile extends StatelessWidget {
                                     Center(
                                         child: Text(
                                       'Change Profile Pic',
-                                      style: Get.textTheme.headline6!.copyWith(color: Colors.grey, fontSize: 16),
-                                    ).translate()),
+                                      style: Get.textTheme.headline6!.copyWith(
+                                          color: Colors.grey, fontSize: 16),
+                                    )),
                                     Divider(
                                       thickness: 2,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+                                    /*Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 6.0, horizontal: 8.0),
                                       child: Text(
                                         'Select from Library',
                                         style: TextStyle(
                                           color: Colors.grey,
                                         ),
-                                      ).translate(),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: Get.height * 0.4,
@@ -130,27 +145,38 @@ class EditUserProfile extends StatelessWidget {
                                       child: ListView(
                                         primary: true,
                                         shrinkWrap: true,
-                                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 8),
                                         children: [
                                           Center(
                                             child: Wrap(
                                               spacing: 15.0,
                                               runSpacing: 16.0,
                                               children: [
-                                                for (int i = 0; i < userProfileController.zodicData.length; i++)
+                                                for (int i = 0;
+                                                    i <
+                                                        userProfileController
+                                                            .zodicData.length;
+                                                    i++)
                                                   Column(
                                                     children: [
                                                       InkWell(
                                                         onTap: () async {
-                                                          Get.dialog(AlertDialog(
-                                                            title: GestureDetector(
+                                                          Get.dialog(
+                                                              AlertDialog(
+                                                            title:
+                                                                GestureDetector(
                                                               onTap: () {
                                                                 Get.back();
                                                               },
                                                               child: Container(
-                                                                padding: const EdgeInsets.all(8),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(8),
                                                                 child: Align(
-                                                                  alignment: Alignment.topRight,
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topRight,
                                                                   child: Icon(
                                                                     Icons.close,
                                                                     size: 18,
@@ -158,35 +184,72 @@ class EditUserProfile extends StatelessWidget {
                                                                 ),
                                                               ),
                                                             ),
-                                                            titlePadding: const EdgeInsets.all(0),
+                                                            titlePadding:
+                                                                const EdgeInsets
+                                                                    .all(0),
                                                             content: Column(
-                                                              mainAxisSize: MainAxisSize.min,
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
                                                               children: [
-                                                                Text('Update Profile Photo').translate(),
+                                                                Text(
+                                                                    'Update Profile Photo'),
                                                                 Container(
                                                                   height: 150,
                                                                   width: 150,
-                                                                  margin: const EdgeInsets.all(8),
-                                                                  padding: const EdgeInsets.all(8),
-                                                                  decoration: BoxDecoration(color: Get.theme.primaryColor, borderRadius: BorderRadius.circular(7)),
-                                                                  child: CachedNetworkImage(
+                                                                  margin:
+                                                                      const EdgeInsets
+                                                                          .all(
+                                                                          8),
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(
+                                                                          8),
+                                                                  decoration: BoxDecoration(
+                                                                      color: Get
+                                                                          .theme
+                                                                          .primaryColor,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              7)),
+                                                                  child:
+                                                                      CachedNetworkImage(
                                                                     height: 20,
                                                                     width: 20,
-                                                                    imageUrl: '${global.imgBaseurl}${userProfileController.zodicData[i].image}',
-                                                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                                    errorWidget: (context, url, error) => Icon(Icons.grid_view_rounded, size: 20),
+                                                                    imageUrl:
+                                                                        '${global.imgBaseurl}${userProfileController.zodicData[i].image}',
+                                                                    placeholder: (context,
+                                                                            url) =>
+                                                                        const Center(
+                                                                            child:
+                                                                                CircularProgressIndicator()),
+                                                                    errorWidget: (context,
+                                                                            url,
+                                                                            error) =>
+                                                                        Icon(
+                                                                            Icons
+                                                                                .grid_view_rounded,
+                                                                            size:
+                                                                                20),
                                                                   ),
                                                                 ),
                                                                 FittedBox(
                                                                   child: Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
                                                                     children: [
                                                                       ElevatedButton(
-                                                                        onPressed: () async {
-                                                                          String imgPath = "${global.imgBaseurl}${userProfileController.zodicData[i].image}";
-                                                                          print('ontappp');
+                                                                        onPressed:
+                                                                            () async {
+                                                                          String
+                                                                              imgPath =
+                                                                              "${global.imgBaseurl}${userProfileController.zodicData[i].image}";
+                                                                          print(
+                                                                              'ontappp');
 
-                                                                          GallerySaver.saveImage(imgPath).then((path) {
+                                                                          GallerySaver.saveImage(imgPath)
+                                                                              .then((path) {
                                                                             global.showToast(
                                                                               message: 'Image has been downloaded.',
                                                                               textColor: global.textColor,
@@ -195,29 +258,48 @@ class EditUserProfile extends StatelessWidget {
                                                                           });
                                                                           Get.back();
                                                                         },
-                                                                        child: Text('Download').translate(),
-                                                                        style: ButtonStyle(
-                                                                          backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                                                                          foregroundColor: MaterialStateProperty.all(Colors.black),
-                                                                          textStyle: MaterialStateProperty.all(TextStyle(fontSize: 12)),
+                                                                        child: Text(
+                                                                            'Download'),
+                                                                        style:
+                                                                            ButtonStyle(
+                                                                          backgroundColor: MaterialStateProperty.all(Get
+                                                                              .theme
+                                                                              .primaryColor),
+                                                                          foregroundColor:
+                                                                              MaterialStateProperty.all(Colors.black),
+                                                                          textStyle:
+                                                                              MaterialStateProperty.all(TextStyle(fontSize: 12)),
                                                                         ),
                                                                       ),
                                                                       const SizedBox(
-                                                                        width: 4,
+                                                                        width:
+                                                                            4,
                                                                       ),
                                                                       ElevatedButton(
-                                                                        onPressed: () async {
-                                                                          userProfileController.profile = userProfileController.zodicData[i].image;
-                                                                          userProfileController.isImgSelectFromList = true;
-                                                                          userProfileController.update();
-                                                                          await userProfileController.updateCurrentUserProfilepic(userProfileController.profile);
+                                                                        onPressed:
+                                                                            () async {
+                                                                          userProfileController.profile = userProfileController
+                                                                              .zodicData[i]
+                                                                              .image;
+                                                                          userProfileController.isImgSelectFromList =
+                                                                              true;
+                                                                          userProfileController
+                                                                              .update();
+                                                                          await userProfileController
+                                                                              .updateCurrentUserProfilepic(userProfileController.profile);
                                                                           Get.back();
                                                                         },
-                                                                        child: Text('Set profile pic').translate(),
-                                                                        style: ButtonStyle(
-                                                                          backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                                                                          foregroundColor: MaterialStateProperty.all(Colors.black),
-                                                                          textStyle: MaterialStateProperty.all(TextStyle(fontSize: 12)),
+                                                                        child: Text(
+                                                                            'Set profile pic'),
+                                                                        style:
+                                                                            ButtonStyle(
+                                                                          backgroundColor: MaterialStateProperty.all(Get
+                                                                              .theme
+                                                                              .primaryColor),
+                                                                          foregroundColor:
+                                                                              MaterialStateProperty.all(Colors.black),
+                                                                          textStyle:
+                                                                              MaterialStateProperty.all(TextStyle(fontSize: 12)),
                                                                         ),
                                                                       ),
                                                                     ],
@@ -230,18 +312,40 @@ class EditUserProfile extends StatelessWidget {
                                                         child: Container(
                                                           height: 50,
                                                           width: 50,
-                                                          decoration: BoxDecoration(
-                                                            color: Get.theme.primaryColor,
-                                                            borderRadius: BorderRadius.circular(7),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Get.theme
+                                                                .primaryColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        7),
                                                           ),
-                                                          child: CachedNetworkImage(
-                                                            imageUrl: '${global.imgBaseurl}${userProfileController.zodicData[i].image}',
-                                                            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                            errorWidget: (context, url, error) => Icon(Icons.grid_view_rounded, size: 20),
+                                                          child:
+                                                              CachedNetworkImage(
+                                                            imageUrl:
+                                                                '${global.imgBaseurl}${userProfileController.zodicData[i].image}',
+                                                            placeholder: (context,
+                                                                    url) =>
+                                                                const Center(
+                                                                    child:
+                                                                        CircularProgressIndicator()),
+                                                            errorWidget: (context,
+                                                                    url,
+                                                                    error) =>
+                                                                Icon(
+                                                                    Icons
+                                                                        .grid_view_rounded,
+                                                                    size: 20),
                                                           ),
                                                         ),
                                                       ),
-                                                      Text(userProfileController.zodicData[i].title, style: Get.textTheme.bodySmall).translate()
+                                                      Text(
+                                                          userProfileController
+                                                              .zodicData[i]
+                                                              .title,
+                                                          style: Get.textTheme
+                                                              .bodySmall)
                                                     ],
                                                   )
                                               ],
@@ -249,30 +353,46 @@ class EditUserProfile extends StatelessWidget {
                                           )
                                         ],
                                       ),
-                                    ),
+                                    ),*/
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 6.0, horizontal: 8.0),
                                       child: Text(
                                         'Upload from Phone',
                                         style: TextStyle(
                                           color: Colors.grey,
                                         ),
-                                      ).translate(),
+                                      ),
                                     ),
                                     SizedBox(
                                       width: Get.width,
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Column(
                                             children: [
                                               IconButton(
                                                 onPressed: () async {
-                                                  userProfileController.imageFile = await userProfileController.imageService(ImageSource.camera);
-                                                  userProfileController.userFile = userProfileController.imageFile;
-                                                  userProfileController.profile = base64.encode(userProfileController.imageFile!.readAsBytesSync());
-                                                  userProfileController.update();
+                                                  userProfileController
+                                                          .imageFile =
+                                                      await userProfileController
+                                                          .imageService(
+                                                              ImageSource
+                                                                  .camera);
+                                                  userProfileController
+                                                          .userFile =
+                                                      userProfileController
+                                                          .imageFile;
+                                                  userProfileController
+                                                          .profile =
+                                                      base64.encode(
+                                                          userProfileController
+                                                              .imageFile!
+                                                              .readAsBytesSync());
+                                                  userProfileController
+                                                      .update();
                                                   Get.back();
                                                 },
                                                 icon: Icon(
@@ -281,17 +401,33 @@ class EditUserProfile extends StatelessWidget {
                                                   color: Colors.grey,
                                                 ),
                                               ),
-                                              Text('Camera', style: Get.textTheme.bodySmall).translate()
+                                              Text('Camera',
+                                                  style:
+                                                      Get.textTheme.bodySmall)
                                             ],
                                           ),
                                           Column(
                                             children: [
                                               IconButton(
                                                 onPressed: () async {
-                                                  userProfileController.imageFile = await userProfileController.imageService(ImageSource.gallery);
-                                                  userProfileController.userFile = userProfileController.imageFile;
-                                                  userProfileController.profile = base64.encode(userProfileController.imageFile!.readAsBytesSync());
-                                                  userProfileController.update();
+                                                  userProfileController
+                                                          .imageFile =
+                                                      await userProfileController
+                                                          .imageService(
+                                                              ImageSource
+                                                                  .gallery);
+                                                  userProfileController
+                                                          .userFile =
+                                                      userProfileController
+                                                          .imageFile;
+                                                  userProfileController
+                                                          .profile =
+                                                      base64.encode(
+                                                          userProfileController
+                                                              .imageFile!
+                                                              .readAsBytesSync());
+                                                  userProfileController
+                                                      .update();
                                                   Get.back();
                                                 },
                                                 icon: Icon(
@@ -304,7 +440,7 @@ class EditUserProfile extends StatelessWidget {
                                                 ' Gallery',
                                                 style: Get.textTheme.bodySmall,
                                                 textAlign: TextAlign.center,
-                                              ).translate()
+                                              )
                                             ],
                                           )
                                         ],
@@ -316,7 +452,8 @@ class EditUserProfile extends StatelessWidget {
                           child: Container(
                               height: 40,
                               width: 40,
-                              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.white),
                               child: Icon(
                                 Icons.cloud_upload,
                                 color: Get.theme.primaryColor,
@@ -326,7 +463,9 @@ class EditUserProfile extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              Center(child: Text('${userProfileController.splashController.currentUser!.countryCode}-${userProfileController.splashController.currentUser!.contactNo}')),
+              Center(
+                  child: Text(
+                      '${userProfileController.splashController.currentUser!.countryCode}-${userProfileController.splashController.currentUser!.contactNo}')),
               SizedBox(height: 10),
               TextFieldWidget(
                 controller: userProfileController.nameController,
@@ -337,42 +476,45 @@ class EditUserProfile extends StatelessWidget {
                   FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                 ],
               ),
-              Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                TextFieldLabelWidget(
-                  label: 'Gender',
-                ),
-                Flexible(
-                  flex: 1,
-                  child: RadioListTile(
-                    title: Text(
-                      "Male",
-                      style: TextStyle(fontSize: 13),
-                    ).translate(),
-                    value: "Male",
-                    groupValue: userProfileController.gender,
-                    dense: true,
-                    activeColor: Get.theme.primaryColor,
-                    contentPadding: EdgeInsets.all(0.0),
-                    onChanged: (value) {
-                      userProfileController.updateGeneder(value);
-                    },
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: RadioListTile(
-                    title: Text("Female", style: TextStyle(fontSize: 13)).translate(),
-                    value: "Female",
-                    groupValue: userProfileController.gender,
-                    activeColor: Get.theme.primaryColor,
-                    contentPadding: EdgeInsets.all(0.0),
-                    onChanged: (value) {
-                      userProfileController.updateGeneder(value);
-                    },
-                  ),
-                ),
-                SizedBox(width: 78)
-              ]),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFieldLabelWidget(
+                      label: 'Gender',
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: RadioListTile(
+                        title: Text(
+                          "Male",
+                          style: TextStyle(fontSize: 13),
+                        ),
+                        value: "Male",
+                        groupValue: userProfileController.gender,
+                        dense: true,
+                        activeColor: Get.theme.primaryColor,
+                        contentPadding: EdgeInsets.all(0.0),
+                        onChanged: (value) {
+                          userProfileController.updateGeneder(value);
+                        },
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: RadioListTile(
+                        title: Text("Female", style: TextStyle(fontSize: 13)),
+                        value: "Female",
+                        groupValue: userProfileController.gender,
+                        activeColor: Get.theme.primaryColor,
+                        contentPadding: EdgeInsets.all(0.0),
+                        onChanged: (value) {
+                          userProfileController.updateGeneder(value);
+                        },
+                      ),
+                    ),
+                    SizedBox(width: 78)
+                  ]),
               InkWell(
                 onTap: () async {
                   userProfileController.nameFocus.unfocus();
@@ -382,16 +524,22 @@ class EditUserProfile extends StatelessWidget {
                     firstDate: DateTime(1960),
                     lastDate: DateTime.now(),
                     dateFormat: "dd-MM-yyyy",
-                    itemTextStyle: Get.theme.textTheme.subtitle1!.copyWith(fontSize: 15, fontWeight: FontWeight.w400, letterSpacing: 0, color: Colors.black),
+                    itemTextStyle: Get.theme.textTheme.subtitle1!.copyWith(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0,
+                        color: Colors.black),
                     titleText: 'Select Birth Date',
                     textColor: Get.theme.primaryColor,
                   );
                   if (datePicked != null) {
-                    userProfileController.dateController.text = formatDate(datePicked, [dd, '-', mm, '-', yyyy]);
+                    userProfileController.dateController.text =
+                        formatDate(datePicked, [dd, '-', mm, '-', yyyy]);
                     userProfileController.pickedDate = datePicked;
                     userProfileController.update();
                   } else {
-                    userProfileController.dateController.text = formatDate(DateTime(1994), [dd, '-', mm, '-', yyyy]);
+                    userProfileController.dateController.text =
+                        formatDate(DateTime(1994), [dd, '-', mm, '-', yyyy]);
                     userProfileController.pickedDate = DateTime(1994);
                     userProfileController.update();
                   }
@@ -423,15 +571,18 @@ class EditUserProfile extends StatelessWidget {
                       });
                   String formatTimeOfDay(TimeOfDay tod) {
                     final now = new DateTime.now();
-                    final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
+                    final dt = DateTime(
+                        now.year, now.month, now.day, tod.hour, tod.minute);
                     final format = DateFormat.jm(); //"6:00 AM"
                     return format.format(dt);
                   }
 
                   if (time != null) {
-                    userProfileController.timeController.text = formatTimeOfDay(time);
+                    userProfileController.timeController.text =
+                        formatTimeOfDay(time);
                   } else {
-                    userProfileController.timeController.text = formatTimeOfDay(TimeOfDay(hour: 12, minute: 30));
+                    userProfileController.timeController.text =
+                        formatTimeOfDay(TimeOfDay(hour: 12, minute: 30));
                   }
                 },
                 child: IgnorePointer(
@@ -481,7 +632,8 @@ class EditUserProfile extends StatelessWidget {
                 labelText: 'Pincode',
                 hintText: '',
                 maxlen: 6,
-                keyboardType: TextInputType.numberWithOptions(decimal: false, signed: true),
+                keyboardType: TextInputType.numberWithOptions(
+                    decimal: false, signed: true),
               ),
               SizedBox(
                 height: 70,
@@ -490,7 +642,8 @@ class EditUserProfile extends StatelessWidget {
           );
         }),
       )),
-      bottomSheet: GetBuilder<UserProfileController>(builder: (userProfileController) {
+      bottomSheet:
+          GetBuilder<UserProfileController>(builder: (userProfileController) {
         return CustomBottomButton(
           title: 'Submit',
           onTap: () async {
@@ -504,7 +657,8 @@ class EditUserProfile extends StatelessWidget {
             } else {
               global.showOnlyLoaderDialog(context);
               searchController.update();
-              await userProfileController.updateCurrentUser(global.sp!.getInt("currentUserId") ?? 0);
+              await userProfileController
+                  .updateCurrentUser(global.sp!.getInt("currentUserId") ?? 0);
               global.hideLoader();
             }
           },

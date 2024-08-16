@@ -14,11 +14,13 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+          backgroundColor:
+              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           title: Text(
             'Notifications',
-            style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 18, fontWeight: FontWeight.normal),
-          ).translate(),
+            style: Get.theme.primaryTextTheme.headline6!
+                .copyWith(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(
@@ -35,16 +37,19 @@ class NotificationScreen extends StatelessWidget {
                         Get.defaultDialog(
                             title: '',
                             titlePadding: EdgeInsets.all(0),
-                            content: Text('Are you sure you want to delete all notifications?').translate(),
-                            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                            content: Text(
+                                'Are you sure you want to delete all notifications?'),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8),
                             cancel: TextButton(
                                 onPressed: () {
                                   Get.back();
                                 },
                                 child: Text(
                                   'CANCEL',
-                                  style: TextStyle(color: Get.theme.primaryColor),
-                                ).translate()),
+                                  style:
+                                      TextStyle(color: Get.theme.primaryColor),
+                                )),
                             confirm: TextButton(
                                 onPressed: () {
                                   global.showOnlyLoaderDialog(context);
@@ -54,8 +59,9 @@ class NotificationScreen extends StatelessWidget {
                                 },
                                 child: Text(
                                   'OK',
-                                  style: TextStyle(color: Get.theme.primaryColor),
-                                ).translate()));
+                                  style:
+                                      TextStyle(color: Get.theme.primaryColor),
+                                )));
                       },
                       icon: Icon(
                         Icons.delete,
@@ -67,7 +73,7 @@ class NotificationScreen extends StatelessWidget {
       body: GetBuilder<SettingsController>(builder: (settingsController) {
         return settingsController.notification.isEmpty
             ? Center(
-                child: Text('No Notifications Available').translate(),
+                child: Text('No Notifications Available'),
               )
             : ListView.builder(
                 itemCount: settingsController.notification.length,
@@ -75,64 +81,89 @@ class NotificationScreen extends StatelessWidget {
                   return Card(
                     elevation: 4,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 10),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Row(
-                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(settingsController.notification[index].title!, style: Get.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold)).translate(),
-                                SizedBox(
-                                  width: 5,
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                        settingsController
+                                            .notification[index].title!,
+                                        style: Get.textTheme.bodyText1!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold)),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                  ],
                                 ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.defaultDialog(
+                                        title: '',
+                                        titlePadding: EdgeInsets.all(0),
+                                        content: Text(
+                                            'Are you sure you want to delete  notifications?'),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 0, horizontal: 8),
+                                        cancel: TextButton(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            child: Text(
+                                              'CANCEL',
+                                              style: TextStyle(
+                                                  color:
+                                                      Get.theme.primaryColor),
+                                            )),
+                                        confirm: TextButton(
+                                            onPressed: () {
+                                              global.showOnlyLoaderDialog(
+                                                  context);
+                                              settingsController
+                                                  .deleteNotifications(
+                                                      settingsController
+                                                          .notification[index]
+                                                          .id!);
+                                              global.hideLoader();
+                                              Get.back();
+                                            },
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                  color:
+                                                      Get.theme.primaryColor),
+                                            )));
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                    size: 18,
+                                  ),
+                                )
                               ],
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.defaultDialog(
-                                    title: '',
-                                    titlePadding: EdgeInsets.all(0),
-                                    content: Text('Are you sure you want to delete  notifications?').translate(),
-                                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                                    cancel: TextButton(
-                                        onPressed: () {
-                                          Get.back();
-                                        },
-                                        child: Text(
-                                          'CANCEL',
-                                          style: TextStyle(color: Get.theme.primaryColor),
-                                        ).translate()),
-                                    confirm: TextButton(
-                                        onPressed: () {
-                                          global.showOnlyLoaderDialog(context);
-                                          settingsController.deleteNotifications(settingsController.notification[index].id!);
-                                          global.hideLoader();
-                                          Get.back();
-                                        },
-                                        child: Text(
-                                          'OK',
-                                          style: TextStyle(color: Get.theme.primaryColor),
-                                        ).translate()));
-                              },
-                              child: Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                                size: 18,
-                              ),
+                            Text(
+                              settingsController
+                                  .notification[index].description!,
+                              style: Get.textTheme.bodySmall,
+                            ),
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Text(
+                                  DateConverter.dateTimeStringToDateOnly(
+                                      '${settingsController.notification[index].createdAt!}'),
+                                  style: Get.textTheme.bodySmall!.copyWith(
+                                      fontSize: 10, color: Colors.grey)),
                             )
-                          ],
-                        ),
-                        Text(
-                          settingsController.notification[index].description!,
-                          style: Get.textTheme.bodySmall,
-                        ).translate(),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Text(DateConverter.dateTimeStringToDateOnly('${settingsController.notification[index].createdAt!}'), style: Get.textTheme.bodySmall!.copyWith(fontSize: 10, color: Colors.grey)),
-                        )
-                      ]),
+                          ]),
                     ),
                   );
                 });

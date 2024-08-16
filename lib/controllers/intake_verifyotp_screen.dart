@@ -12,7 +12,9 @@ import 'package:google_translator/google_translator.dart';
 class IntakeVerifyOTPScreen extends StatelessWidget {
   final String phoneNumber;
   final String verificationId;
-  IntakeVerifyOTPScreen({Key? key, required this.phoneNumber, required this.verificationId}) : super(key: key);
+  IntakeVerifyOTPScreen(
+      {Key? key, required this.phoneNumber, required this.verificationId})
+      : super(key: key);
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
@@ -20,11 +22,12 @@ class IntakeVerifyOTPScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+        backgroundColor:
+            Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
         title: Text(
           'Verify Phone',
           style: Get.textTheme.subtitle1,
-        ).translate(),
+        ),
         leading: IconButton(
             onPressed: () {
               Get.delete<LoginController>(force: true);
@@ -47,7 +50,7 @@ class IntakeVerifyOTPScreen extends StatelessWidget {
                   Text(
                     'OTP Send to 91-$phoneNumber',
                     style: TextStyle(color: Colors.green),
-                  ).translate(),
+                  ),
                   SizedBox(
                     height: 30,
                   ),
@@ -65,7 +68,9 @@ class IntakeVerifyOTPScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         try {
-                          if (intakeController.verifyPhoneController.text.length != 6) {
+                          if (intakeController
+                                  .verifyPhoneController.text.length !=
+                              6) {
                             global.showToast(
                               message: 'Please Enter valid OTP',
                               textColor: global.textColor,
@@ -73,12 +78,15 @@ class IntakeVerifyOTPScreen extends StatelessWidget {
                             );
                           } else {
                             print('valid OTP');
-                            PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                            PhoneAuthCredential credential =
+                                PhoneAuthProvider.credential(
                               verificationId: verificationId,
-                              smsCode: intakeController.verifyPhoneController.text,
+                              smsCode:
+                                  intakeController.verifyPhoneController.text,
                             );
                             print('validation id$verificationId');
-                            print('smscode ${intakeController.verifyPhoneController.text}');
+                            print(
+                                'smscode ${intakeController.verifyPhoneController.text}');
                             global.showOnlyLoaderDialog(context);
                             await auth.signInWithCredential(credential);
                             global.hideLoader();
@@ -100,7 +108,7 @@ class IntakeVerifyOTPScreen extends StatelessWidget {
                       child: Text(
                         'SUBMIT',
                         style: TextStyle(color: Colors.black),
-                      ).translate(),
+                      ),
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
@@ -108,8 +116,10 @@ class IntakeVerifyOTPScreen extends StatelessWidget {
                           ),
                         ),
                         padding: MaterialStateProperty.all(EdgeInsets.all(12)),
-                        backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                        textStyle: MaterialStateProperty.all(TextStyle(fontSize: 18, color: Colors.black)),
+                        backgroundColor:
+                            MaterialStateProperty.all(Get.theme.primaryColor),
+                        textStyle: MaterialStateProperty.all(
+                            TextStyle(fontSize: 18, color: Colors.black)),
                       ),
                     ),
                   ),
@@ -128,45 +138,64 @@ class IntakeVerifyOTPScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     'Resend OTP Available in ${intakeController.maxSecond} s',
-                                    style: TextStyle(color: Colors.green, fontWeight: FontWeight.w500),
-                                  ).translate()
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.w500),
+                                  )
                                 ],
                               )
-                            : Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text(
-                                  'Resend OTP Available',
-                                  style: TextStyle(color: Colors.green, fontWeight: FontWeight.w500),
-                                ).translate(),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        intakeController.maxSecond = 60;
-                                        intakeController.second = 0;
-                                        intakeController.update();
-                                        intakeController.timer();
-                                        intakeController.phoneController.text = phoneNumber;
-                                        intakeController.verifyOTP();
-                                      },
-                                      child: Text(
-                                        'Resend OTP on SMS',
-                                        style: TextStyle(color: Colors.black),
-                                      ).translate(),
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    Text(
+                                      'Resend OTP Available',
+                                      style: TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            intakeController.maxSecond = 60;
+                                            intakeController.second = 0;
+                                            intakeController.update();
+                                            intakeController.timer();
+                                            intakeController.phoneController
+                                                .text = phoneNumber;
+                                            intakeController.verifyOTP();
+                                          },
+                                          child: Text(
+                                            'Resend OTP on SMS',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          style: ButtonStyle(
+                                            shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            padding: MaterialStateProperty.all(
+                                                EdgeInsets.only(
+                                                    left: 25, right: 25)),
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Get.theme.primaryColor),
+                                            textStyle:
+                                                MaterialStateProperty.all(
+                                                    TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.black)),
                                           ),
                                         ),
-                                        padding: MaterialStateProperty.all(EdgeInsets.only(left: 25, right: 25)),
-                                        backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                                        textStyle: MaterialStateProperty.all(TextStyle(fontSize: 12, color: Colors.black)),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ]));
+                                      ],
+                                    )
+                                  ]));
                   })
                 ],
               ),

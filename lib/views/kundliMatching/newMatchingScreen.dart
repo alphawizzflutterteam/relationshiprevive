@@ -12,7 +12,8 @@ import '../../widget/commonSmallTextFieldWidget.dart';
 
 class NewMatchingScreen extends StatelessWidget {
   NewMatchingScreen({Key? key}) : super(key: key);
-  final KundliMatchingController kundliMatchingController = Get.find<KundliMatchingController>();
+  final KundliMatchingController kundliMatchingController =
+      Get.find<KundliMatchingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class NewMatchingScreen extends StatelessWidget {
                             child: Text(
                               "Boy's Details",
                               style: Get.theme.primaryTextTheme.subtitle1,
-                            ).translate(),
+                            ),
                           ),
                           CommonSmallTextFieldWidget(
                             controller: kundliMatchingController.cBoysName,
@@ -51,7 +52,8 @@ class NewMatchingScreen extends StatelessWidget {
                             onFieldSubmitted: (p0) {},
                             onTap: () {},
                             inputFormatter: [
-                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp("[a-zA-Z ]")),
                             ],
                           ),
                           CommonSmallTextFieldWidget(
@@ -81,7 +83,8 @@ class NewMatchingScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: CommonSmallTextFieldWidget(
-                              controller: kundliMatchingController.cBoysBirthPlace,
+                              controller:
+                                  kundliMatchingController.cBoysBirthPlace,
                               titleText: "Birth Place",
                               hintText: "Select Your Birth Place",
                               readOnly: true,
@@ -113,7 +116,7 @@ class NewMatchingScreen extends StatelessWidget {
                             child: Text(
                               "Girl's Details",
                               style: Get.theme.primaryTextTheme.subtitle1,
-                            ).translate(),
+                            ),
                           ),
                           CommonSmallTextFieldWidget(
                             controller: kundliMatchingController.cGirlName,
@@ -125,7 +128,8 @@ class NewMatchingScreen extends StatelessWidget {
                             onFieldSubmitted: (p0) {},
                             onTap: () {},
                             inputFormatter: [
-                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp("[a-zA-Z ]")),
                             ],
                           ),
                           CommonSmallTextFieldWidget(
@@ -155,7 +159,8 @@ class NewMatchingScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: CommonSmallTextFieldWidget(
-                              controller: kundliMatchingController.cGirlBirthPlace,
+                              controller:
+                                  kundliMatchingController.cGirlBirthPlace,
                               titleText: "Birth Place",
                               hintText: "Select Your Birth Place",
                               readOnly: true,
@@ -190,7 +195,8 @@ class NewMatchingScreen extends StatelessWidget {
         return Theme(
           data: ThemeData(
             textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(foregroundColor: Get.theme.primaryColor),
+              style:
+                  TextButton.styleFrom(foregroundColor: Get.theme.primaryColor),
             ),
             colorScheme: ColorScheme.light(
               primary: Get.theme.primaryColor,
@@ -214,7 +220,8 @@ class NewMatchingScreen extends StatelessWidget {
         return Theme(
           data: ThemeData(
             textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(foregroundColor: Get.theme.primaryColor),
+              style:
+                  TextButton.styleFrom(foregroundColor: Get.theme.primaryColor),
             ),
             colorScheme: ColorScheme.light(
               primary: Get.theme.primaryColor,
@@ -227,13 +234,15 @@ class NewMatchingScreen extends StatelessWidget {
     );
     if (pickedTime != null) {
       print(pickedTime.format(context)); //output 10:51 PM
-      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+      DateTime parsedTime =
+          DateFormat.jm().parse(pickedTime.format(context).toString());
       //converting to DateTime so that we can further format on different pattern.
       print(parsedTime); //output 1970-01-01 22:53:00.000
       String formattedTime = DateFormat('HH:mm aa').format(parsedTime);
       print(formattedTime); //output 14:59:00
       //DateFormat() is from intl package, you can format the time on any pattern you need.
-      kundliMatchingController.cBoysBirthTime.text = formattedTime; //set the value of text field.
+      kundliMatchingController.cBoysBirthTime.text =
+          formattedTime; //set the value of text field.
       kundliMatchingController.update();
     } else {
       print("Time is not selected");
@@ -251,7 +260,8 @@ class NewMatchingScreen extends StatelessWidget {
         return Theme(
           data: ThemeData(
             textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(foregroundColor: Get.theme.primaryColor),
+              style:
+                  TextButton.styleFrom(foregroundColor: Get.theme.primaryColor),
             ),
             colorScheme: ColorScheme.light(
               primary: Get.theme.primaryColor,
@@ -275,7 +285,8 @@ class NewMatchingScreen extends StatelessWidget {
         return Theme(
           data: ThemeData(
             textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(foregroundColor: Get.theme.primaryColor),
+              style:
+                  TextButton.styleFrom(foregroundColor: Get.theme.primaryColor),
             ),
             colorScheme: ColorScheme.light(
               primary: Get.theme.primaryColor,
@@ -288,13 +299,15 @@ class NewMatchingScreen extends StatelessWidget {
     );
     if (pickedTime != null) {
       print(pickedTime.format(context)); //output 10:51 PM
-      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+      DateTime parsedTime =
+          DateFormat.jm().parse(pickedTime.format(context).toString());
       //converting to DateTime so that we can further format on different pattern.
       print(parsedTime); //output 1970-01-01 22:53:00.000
       String formattedTime = DateFormat('HH:mm:aa').format(parsedTime);
       print(formattedTime); //output 14:59:00
       //DateFormat() is from intl package, you can format the time on any pattern you need.
-      kundliMatchingController.cGirlBirthTime.text = formattedTime; //set the value of text field.
+      kundliMatchingController.cGirlBirthTime.text =
+          formattedTime; //set the value of text field.
       kundliMatchingController.update();
     } else {
       print("Time is not selected");

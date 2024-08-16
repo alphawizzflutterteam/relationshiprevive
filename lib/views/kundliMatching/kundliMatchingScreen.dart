@@ -14,7 +14,8 @@ import '../../widget/commonAppbar.dart';
 
 class KundliMatchingScreen extends StatelessWidget {
   KundliMatchingScreen({Key? key}) : super(key: key);
-  final KundliMatchingController kundliMatchingController = Get.find<KundliMatchingController>();
+  final KundliMatchingController kundliMatchingController =
+      Get.find<KundliMatchingController>();
   final KundliController kundliController = Get.find<KundliController>();
 
   @override
@@ -44,11 +45,13 @@ class KundliMatchingScreen extends StatelessWidget {
                         SizedBox(
                           height: 60,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 8),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
                                 border: Border.all(color: Colors.grey),
                               ),
                               child: TabBar(
@@ -59,51 +62,63 @@ class KundliMatchingScreen extends StatelessWidget {
                                 labelPadding: EdgeInsets.zero,
                                 tabs: [
                                   Obx(
-                                    () => kundliMatchingController.homeTabIndex.value == 0
+                                    () => kundliMatchingController
+                                                .homeTabIndex.value ==
+                                            0
                                         ? Container(
                                             height: Get.height,
                                             width: Get.width,
                                             decoration: BoxDecoration(
                                               color: Get.theme.primaryColor,
-                                              borderRadius: const BorderRadius.only(
+                                              borderRadius:
+                                                  const BorderRadius.only(
                                                 bottomLeft: Radius.circular(8),
                                                 topLeft: Radius.circular(8),
-                                                bottomRight: Radius.circular(12),
+                                                bottomRight:
+                                                    Radius.circular(12),
                                                 topRight: Radius.circular(12),
                                               ),
-                                              border: Border.all(color: Colors.grey),
+                                              border: Border.all(
+                                                  color: Colors.grey),
                                             ),
-                                            child: Center(child: Text('Open Kundli').translate()),
+                                            child: Center(
+                                                child: Text('Open Kundli')),
                                           )
                                         : Center(
-                                            child: Text('Open Kundli').translate(),
+                                            child: Text('Open Kundli'),
                                           ),
                                   ),
                                   Obx(
-                                    () => kundliMatchingController.homeTabIndex.value == 1
+                                    () => kundliMatchingController
+                                                .homeTabIndex.value ==
+                                            1
                                         ? Container(
                                             height: Get.height,
                                             width: Get.width,
                                             decoration: BoxDecoration(
                                               color: Get.theme.primaryColor,
-                                              borderRadius: const BorderRadius.only(
+                                              borderRadius:
+                                                  const BorderRadius.only(
                                                 bottomLeft: Radius.circular(12),
                                                 topLeft: Radius.circular(12),
                                                 bottomRight: Radius.circular(8),
                                                 topRight: Radius.circular(8),
                                               ),
-                                              border: Border.all(color: Colors.grey),
+                                              border: Border.all(
+                                                  color: Colors.grey),
                                             ),
-                                            child: Center(child: Text('New Matching').translate()),
+                                            child: Center(
+                                                child: Text('New Matching')),
                                           )
                                         : Center(
-                                            child: Text('New Matching').translate(),
+                                            child: Text('New Matching'),
                                           ),
                                   ),
                                 ],
                                 onTap: (index) {
                                   global.showOnlyLoaderDialog(Get.context);
-                                  kundliMatchingController.onHomeTabBarIndexChanged(index);
+                                  kundliMatchingController
+                                      .onHomeTabBarIndexChanged(index);
                                   global.hideLoader();
                                 },
                               ),
@@ -111,18 +126,21 @@ class KundliMatchingScreen extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: kundliMatchingController.homeTabIndex.value == 1
-                              ?
+                          child:
+                              kundliMatchingController.homeTabIndex.value == 1
+                                  ?
 //First Tabbar
-                              NewMatchingScreen()
-                              :
+                                  NewMatchingScreen()
+                                  :
 //Second Tabbar
-                              OpenKundliScreen(),
+                                  OpenKundliScreen(),
                         )
                       ],
                     )),
               ),
-              bottomNavigationBar: kundliMatchingController.homeTabIndex.value == 1
+              bottomNavigationBar: kundliMatchingController
+                          .homeTabIndex.value ==
+                      1
                   ? Container(
                       decoration: const BoxDecoration(
                         image: DecorationImage(
@@ -131,24 +149,30 @@ class KundliMatchingScreen extends StatelessWidget {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                        padding:
+                            const EdgeInsets.only(left: 8, right: 8, bottom: 8),
                         child: TextButton(
                           style: TextButton.styleFrom(
                             backgroundColor: Get.theme.primaryColor,
-                            maximumSize: Size(MediaQuery.of(context).size.width, 100),
-                            minimumSize: Size(MediaQuery.of(context).size.width, 48),
+                            maximumSize:
+                                Size(MediaQuery.of(context).size.width, 100),
+                            minimumSize:
+                                Size(MediaQuery.of(context).size.width, 48),
                           ),
                           onPressed: () async {
                             FocusScope.of(context).unfocus();
-                            bool isvalid = kundliMatchingController.isValidData();
+                            bool isvalid =
+                                kundliMatchingController.isValidData();
                             if (!isvalid) {
                               global.showToast(
-                                message: kundliMatchingController.errorMessage ?? "",
+                                message:
+                                    kundliMatchingController.errorMessage ?? "",
                                 textColor: global.textColor,
                                 bgColor: global.toastBackGoundColor,
                               );
                             } else {
-                              await kundliMatchingController.addKundliMatchData();
+                              await kundliMatchingController
+                                  .addKundliMatchData();
                               kundliMatchingController.update();
                               Get.to(() => KudliMatchingResultScreen());
                             }
@@ -156,7 +180,7 @@ class KundliMatchingScreen extends StatelessWidget {
                           child: const Text(
                             "Match Horoscope",
                             style: TextStyle(color: Colors.black),
-                          ).translate(),
+                          ),
                         ),
                       ),
                     )

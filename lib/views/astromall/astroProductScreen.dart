@@ -12,8 +12,14 @@ class AstroProductScreen extends StatelessWidget {
   final String appbarTitle;
   final String sliderImage;
   final int productCategoryId;
-  AstroProductScreen({Key? key, required this.appbarTitle, required this.sliderImage, required this.productCategoryId}) : super(key: key);
-  final AstromallController astromallController = Get.find<AstromallController>();
+  AstroProductScreen(
+      {Key? key,
+      required this.appbarTitle,
+      required this.sliderImage,
+      required this.productCategoryId})
+      : super(key: key);
+  final AstromallController astromallController =
+      Get.find<AstromallController>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +44,16 @@ class AstroProductScreen extends StatelessWidget {
           astromallController.isAllDataLoadedForProduct = false;
           astromallController.productCatId = productCategoryId;
           astromallController.update();
-          await astromallController.getAstromallProduct(productCategoryId, false);
+          await astromallController.getAstromallProduct(
+              productCategoryId, false);
         },
         child: astromallController.astroProduct.isEmpty
             ? Center(
-                child: Text('Product not available').translate(),
+                child: Text('Product not available'),
               )
             : SingleChildScrollView(
-                controller: astromallController.astromallProductScrollController,
+                controller:
+                    astromallController.astromallProductScrollController,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,10 +61,11 @@ class AstroProductScreen extends StatelessWidget {
                     GetBuilder<AstromallController>(builder: (c) {
                       return astromallController.astroProduct.length == 0
                           ? Center(
-                              child: Text('Product not available').translate(),
+                              child: Text('Product not available'),
                             )
                           : GridView.builder(
-                              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                              gridDelegate:
+                                  const SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent: 250,
                                 childAspectRatio: 3 / 3,
                                 crossAxisSpacing: 10,
@@ -65,12 +74,15 @@ class AstroProductScreen extends StatelessWidget {
                               physics: NeverScrollableScrollPhysics(),
                               padding: EdgeInsets.all(8),
                               shrinkWrap: true,
-                              itemCount: astromallController.astroProduct.length,
+                              itemCount:
+                                  astromallController.astroProduct.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () async {
                                     global.showOnlyLoaderDialog(context);
-                                    await astromallController.getproductById(astromallController.astroProduct[index].id);
+                                    await astromallController.getproductById(
+                                        astromallController
+                                            .astroProduct[index].id);
                                     global.hideLoader();
                                     Get.to(() => ProductDetailScreen(
                                           index: index,
@@ -83,46 +95,80 @@ class AstroProductScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.4), BlendMode.darken),
-                                        image: NetworkImage("${global.imgBaseurl}${astromallController.astroProduct[index].productImage}"),
+                                        colorFilter: ColorFilter.mode(
+                                            Colors.black.withOpacity(0.4),
+                                            BlendMode.darken),
+                                        image: NetworkImage(
+                                            "${global.imgBaseurl}${astromallController.astroProduct[index].productImage}"),
                                       ),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
-                                          astromallController.astroProduct[index].name,
+                                          astromallController
+                                              .astroProduct[index].name,
                                           maxLines: 2,
                                           textAlign: TextAlign.start,
-                                          style: Get.textTheme.subtitle1!.copyWith(color: Colors.white, fontSize: 12),
-                                        ).translate(),
+                                          style: Get.textTheme.subtitle1!
+                                              .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                        ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text('${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${astromallController.astroProduct[index].amount}/-', style: Get.textTheme.subtitle1!.copyWith(color: Colors.white, fontSize: 11)),
+                                            Text(
+                                                '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${astromallController.astroProduct[index].amount}/-',
+                                                style: Get.textTheme.subtitle1!
+                                                    .copyWith(
+                                                        color: Colors.white,
+                                                        fontSize: 11)),
                                             SizedBox(
                                               height: 30,
                                               child: TextButton(
                                                   onPressed: () async {
-                                                    global.showOnlyLoaderDialog(context);
-                                                    await astromallController.getproductById(astromallController.astroProduct[index].id);
+                                                    global.showOnlyLoaderDialog(
+                                                        context);
+                                                    await astromallController
+                                                        .getproductById(
+                                                            astromallController
+                                                                .astroProduct[
+                                                                    index]
+                                                                .id);
                                                     global.hideLoader();
-                                                    Get.to(() => ProductDetailScreen(
+                                                    Get.to(() =>
+                                                        ProductDetailScreen(
                                                           index: index,
                                                         ));
                                                   },
                                                   child: Text(
                                                     'Buy',
-                                                    style: Get.textTheme.subtitle1!.copyWith(color: Colors.white, fontSize: 11),
-                                                  ).translate(),
+                                                    style: Get
+                                                        .textTheme.subtitle1!
+                                                        .copyWith(
+                                                            color: Colors.white,
+                                                            fontSize: 11),
+                                                  ),
                                                   style: ButtonStyle(
-                                                    padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                                      side: BorderSide(color: Colors.white),
-                                                      borderRadius: BorderRadius.circular(30.0),
+                                                    padding:
+                                                        MaterialStateProperty
+                                                            .all(EdgeInsets.all(
+                                                                0)),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                            RoundedRectangleBorder(
+                                                      side: BorderSide(
+                                                          color: Colors.white),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30.0),
                                                     )),
                                                   )),
                                             )
@@ -142,7 +188,16 @@ class AstroProductScreen extends StatelessWidget {
                             shrinkWrap: true,
                             itemCount: astromallController.astroProduct.length,
                             itemBuilder: (context, index) {
-                              return astromallController.isMoreDataAvailableForProduct == true && !astromallController.isAllDataLoadedForProduct && astromallController.astroProduct.length - 1 == index ? const CircularProgressIndicator() : const SizedBox();
+                              return astromallController
+                                              .isMoreDataAvailableForProduct ==
+                                          true &&
+                                      !astromallController
+                                          .isAllDataLoadedForProduct &&
+                                      astromallController.astroProduct.length -
+                                              1 ==
+                                          index
+                                  ? const CircularProgressIndicator()
+                                  : const SizedBox();
                             }),
                       ),
                     ),

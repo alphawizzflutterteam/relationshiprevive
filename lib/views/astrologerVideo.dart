@@ -24,7 +24,7 @@ class AstrologerVideoScreen extends StatelessWidget {
             'Advisor Video',
             style: Get.theme.primaryTextTheme.headline6!
                 .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-          ).translate(),
+          ),
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(
@@ -140,7 +140,7 @@ class AstrologerVideoScreen extends StatelessWidget {
                                           .primaryTextTheme
                                           .bodyText1,
                                       textAlign: TextAlign.start,
-                                    ).translate(),
+                                    ),
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           top: 8, bottom: 8),

@@ -28,11 +28,13 @@ class KundaliScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  InkWell(onTap: () => Get.back(), child: Icon(Icons.arrow_back_ios)),
+                  InkWell(
+                      onTap: () => Get.back(),
+                      child: Icon(Icons.arrow_back_ios)),
                   SizedBox(
                     width: 10,
                   ),
-                  Text('Kundli', style: Get.textTheme.subtitle1).translate()
+                  Text('Kundli', style: Get.textTheme.subtitle1)
                 ],
               ),
               SizedBox(
@@ -56,18 +58,24 @@ class KundaliScreen extends StatelessWidget {
                               ),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)),
                               ),
                               hintText: snapshot.data ?? '',
-                              hintStyle: TextStyle(color: Colors.grey, fontSize: 11.8, fontWeight: FontWeight.w500)),
+                              hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 11.8,
+                                  fontWeight: FontWeight.w500)),
                         );
                       }),
                 );
@@ -78,12 +86,13 @@ class KundaliScreen extends StatelessWidget {
                         children: [
                           Container(
                               height: 500,
-                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
                               alignment: Alignment.center,
                               child: Text(
                                 'Kundli not available',
                                 style: TextStyle(fontSize: 18),
-                              ).translate()),
+                              )),
                         ],
                       )
                     : ListView.builder(
@@ -93,20 +102,76 @@ class KundaliScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () async {
-                              DateTime dateBasic = kundliController.searchKundliList[index].birthDate;
-                              int formattedYear = int.parse(DateFormat('yyyy').format(dateBasic));
-                              int formattedDay = int.parse(DateFormat('dd').format(dateBasic));
-                              int formattedMonth = int.parse(DateFormat('MM').format(dateBasic));
-                              int formattedHour = int.parse(DateFormat('HH').format(dateBasic));
-                              int formattedMint = int.parse(DateFormat('mm').format(dateBasic));
+                              DateTime dateBasic = kundliController
+                                  .searchKundliList[index].birthDate;
+                              int formattedYear = int.parse(
+                                  DateFormat('yyyy').format(dateBasic));
+                              int formattedDay =
+                                  int.parse(DateFormat('dd').format(dateBasic));
+                              int formattedMonth =
+                                  int.parse(DateFormat('MM').format(dateBasic));
+                              int formattedHour =
+                                  int.parse(DateFormat('HH').format(dateBasic));
+                              int formattedMint =
+                                  int.parse(DateFormat('mm').format(dateBasic));
                               global.showOnlyLoaderDialog(context);
-                              await kundliController.getReportDescDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: kundliController.searchKundliList[index].latitude, lon: kundliController.searchKundliList[index].longitude, tzone: kundliController.searchKundliList[index].timezone);
-                              await kundliController.getSadesatiDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: kundliController.searchKundliList[index].latitude, lon: kundliController.searchKundliList[index].longitude, tzone: kundliController.searchKundliList[index].timezone);
-                              await kundliController.getKalsarpaDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: kundliController.searchKundliList[index].latitude, lon: kundliController.searchKundliList[index].longitude, tzone: kundliController.searchKundliList[index].timezone);
-                              await kundliController.getGemstoneDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: kundliController.searchKundliList[index].latitude, lon: kundliController.searchKundliList[index].longitude, tzone: kundliController.searchKundliList[index].timezone);
-                              await kundliController.getGeoCodingLatLong(latitude: kundliController.searchKundliList[index].latitude, longitude: kundliController.searchKundliList[index].longitude);
+                              await kundliController.getReportDescDetail(
+                                  day: formattedDay,
+                                  hour: formattedHour,
+                                  min: formattedMint,
+                                  month: formattedMonth,
+                                  year: formattedYear,
+                                  lat: kundliController
+                                      .searchKundliList[index].latitude,
+                                  lon: kundliController
+                                      .searchKundliList[index].longitude,
+                                  tzone: kundliController
+                                      .searchKundliList[index].timezone);
+                              await kundliController.getSadesatiDetail(
+                                  day: formattedDay,
+                                  hour: formattedHour,
+                                  min: formattedMint,
+                                  month: formattedMonth,
+                                  year: formattedYear,
+                                  lat: kundliController
+                                      .searchKundliList[index].latitude,
+                                  lon: kundliController
+                                      .searchKundliList[index].longitude,
+                                  tzone: kundliController
+                                      .searchKundliList[index].timezone);
+                              await kundliController.getKalsarpaDetail(
+                                  day: formattedDay,
+                                  hour: formattedHour,
+                                  min: formattedMint,
+                                  month: formattedMonth,
+                                  year: formattedYear,
+                                  lat: kundliController
+                                      .searchKundliList[index].latitude,
+                                  lon: kundliController
+                                      .searchKundliList[index].longitude,
+                                  tzone: kundliController
+                                      .searchKundliList[index].timezone);
+                              await kundliController.getGemstoneDetail(
+                                  day: formattedDay,
+                                  hour: formattedHour,
+                                  min: formattedMint,
+                                  month: formattedMonth,
+                                  year: formattedYear,
+                                  lat: kundliController
+                                      .searchKundliList[index].latitude,
+                                  lon: kundliController
+                                      .searchKundliList[index].longitude,
+                                  tzone: kundliController
+                                      .searchKundliList[index].timezone);
+                              await kundliController.getGeoCodingLatLong(
+                                  latitude: kundliController
+                                      .searchKundliList[index].latitude,
+                                  longitude: kundliController
+                                      .searchKundliList[index].longitude);
                               global.hideLoader();
-                              Get.to(() => KundliDetailsScreen(userDetails: kundliController.searchKundliList[index]));
+                              Get.to(() => KundliDetailsScreen(
+                                  userDetails: kundliController
+                                      .searchKundliList[index]));
                             },
                             child: Card(
                               elevation: 2,
@@ -118,10 +183,23 @@ class KundaliScreen extends StatelessWidget {
                                 leading: Container(
                                   height: 40,
                                   width: 40,
-                                  decoration: BoxDecoration(color: Colors.primaries[Random().nextInt(Colors.primaries.length)], borderRadius: BorderRadius.circular(7)),
-                                  child: Center(child: Text(kundliController.searchKundliList[index].name[0].toUpperCase(), style: TextStyle(color: Colors.white))),
+                                  decoration: BoxDecoration(
+                                      color: Colors.primaries[Random()
+                                          .nextInt(Colors.primaries.length)],
+                                      borderRadius: BorderRadius.circular(7)),
+                                  child: Center(
+                                      child: Text(
+                                          kundliController
+                                              .searchKundliList[index].name[0]
+                                              .toUpperCase(),
+                                          style:
+                                              TextStyle(color: Colors.white))),
                                 ),
-                                title: Text(kundliController.searchKundliList[index].name, style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.w500)).translate(),
+                                title: Text(
+                                    kundliController
+                                        .searchKundliList[index].name,
+                                    style: Get.textTheme.subtitle1!
+                                        .copyWith(fontWeight: FontWeight.w500)),
                                 subtitle: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,9 +212,11 @@ class KundaliScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      kundliController.searchKundliList[index].birthPlace,
-                                      style: Get.textTheme.subtitle1!.copyWith(fontSize: 12, color: Colors.grey),
-                                    ).translate(),
+                                      kundliController
+                                          .searchKundliList[index].birthPlace,
+                                      style: Get.textTheme.subtitle1!.copyWith(
+                                          fontSize: 12, color: Colors.grey),
+                                    ),
                                   ],
                                 ),
                                 trailing: Row(
@@ -145,15 +225,20 @@ class KundaliScreen extends StatelessWidget {
                                     InkWell(
                                       onTap: () async {
                                         global.showOnlyLoaderDialog(context);
-                                        await kundliController.getKundliListById(index);
+                                        await kundliController
+                                            .getKundliListById(index);
 
                                         global.hideLoader();
-                                        Get.to(() => EditKundliScreen(id: kundliController.searchKundliList[index].id!));
+                                        Get.to(() => EditKundliScreen(
+                                            id: kundliController
+                                                .searchKundliList[index].id!));
                                       },
                                       child: CircleAvatar(
-                                        backgroundColor: Color.fromARGB(255, 235, 231, 231),
+                                        backgroundColor:
+                                            Color.fromARGB(255, 235, 231, 231),
                                         radius: 12,
-                                        child: Icon(Icons.edit, size: 14, color: Colors.black),
+                                        child: Icon(Icons.edit,
+                                            size: 14, color: Colors.black),
                                       ),
                                     ),
                                     SizedBox(
@@ -166,7 +251,7 @@ class KundaliScreen extends StatelessWidget {
                                             title: Text(
                                               "Are you sure you want to permanently delete this kundli?",
                                               style: Get.textTheme.bodyText2,
-                                            ).translate(),
+                                            ),
                                             content: Row(
                                               children: [
                                                 Expanded(
@@ -175,7 +260,7 @@ class KundaliScreen extends StatelessWidget {
                                                     onPressed: () {
                                                       Get.back();
                                                     },
-                                                    child: const Text('NO').translate(),
+                                                    child: const Text('NO'),
                                                   ),
                                                 ),
                                                 const SizedBox(
@@ -185,13 +270,21 @@ class KundaliScreen extends StatelessWidget {
                                                   flex: 4,
                                                   child: ElevatedButton(
                                                     onPressed: () async {
-                                                      global.showOnlyLoaderDialog(context);
-                                                      await kundliController.deleteKundli(kundliController.searchKundliList[index].id!);
-                                                      await kundliController.getKundliList();
+                                                      global
+                                                          .showOnlyLoaderDialog(
+                                                              context);
+                                                      await kundliController
+                                                          .deleteKundli(
+                                                              kundliController
+                                                                  .searchKundliList[
+                                                                      index]
+                                                                  .id!);
+                                                      await kundliController
+                                                          .getKundliList();
                                                       Get.back();
                                                       global.hideLoader();
                                                     },
-                                                    child: const Text('YES').translate(),
+                                                    child: const Text('YES'),
                                                   ),
                                                 ),
                                               ],
@@ -200,9 +293,11 @@ class KundaliScreen extends StatelessWidget {
                                         );
                                       },
                                       child: CircleAvatar(
-                                        backgroundColor: Color.fromARGB(255, 235, 231, 231),
+                                        backgroundColor:
+                                            Color.fromARGB(255, 235, 231, 231),
                                         radius: 12,
-                                        child: Icon(Icons.delete, size: 14, color: Colors.red),
+                                        child: Icon(Icons.delete,
+                                            size: 14, color: Colors.red),
                                       ),
                                     )
                                   ],
@@ -225,7 +320,8 @@ class KundaliScreen extends StatelessWidget {
           child: TextButton(
             style: ButtonStyle(
               padding: MaterialStateProperty.all(EdgeInsets.all(10)),
-              backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
+              backgroundColor:
+                  MaterialStateProperty.all(Get.theme.primaryColor),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7),
@@ -250,8 +346,9 @@ class KundaliScreen extends StatelessWidget {
             child: Text(
               'Create New Kundli',
               textAlign: TextAlign.center,
-              style: Get.theme.primaryTextTheme.subtitle1!.copyWith(fontSize: 12, fontWeight: FontWeight.w500),
-            ).translate(),
+              style: Get.theme.primaryTextTheme.subtitle1!
+                  .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
+            ),
           ),
         ),
       ),

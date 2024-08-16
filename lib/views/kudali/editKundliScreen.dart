@@ -15,7 +15,8 @@ import '../../widget/commonSmallTextFieldWidget.dart';
 class EditKundliScreen extends StatelessWidget {
   final int id;
   KundliModel? userDetails;
-  EditKundliScreen({Key? key, required this.id, this.userDetails}) : super(key: key);
+  EditKundliScreen({Key? key, required this.id, this.userDetails})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +49,12 @@ class EditKundliScreen extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      Text('Edit Kundli', style: Get.textTheme.subtitle1).translate()
+                      Text('Edit Kundli', style: Get.textTheme.subtitle1)
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -95,9 +97,12 @@ class EditKundliScreen extends StatelessWidget {
                                     underline: SizedBox(),
                                     icon: SizedBox(),
                                     alignment: Alignment.bottomLeft,
-                                    value: kundliController.innitialValue(1, ['Male', 'Female', 'Other']),
+                                    value: kundliController.innitialValue(
+                                        1, ['Male', 'Female', 'Other']),
                                     hint: Text('hint'),
-                                    items: ['Male', 'Female', 'Other'].map<DropdownMenuItem<String>>((String value) {
+                                    items: ['Male', 'Female', 'Other']
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
                                       return DropdownMenuItem<String>(
                                           value: value,
                                           child: Center(
@@ -105,7 +110,8 @@ class EditKundliScreen extends StatelessWidget {
                                               width: double.infinity,
                                               child: Text(
                                                 value,
-                                                style: Get.theme.primaryTextTheme.bodyText1,
+                                                style: Get.theme
+                                                    .primaryTextTheme.bodyText1,
                                                 textAlign: TextAlign.start,
                                               ),
                                             ),
@@ -145,7 +151,8 @@ class EditKundliScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: CommonSmallTextFieldWidget(
-                            controller: kundliController.editBirthPlaceController,
+                            controller:
+                                kundliController.editBirthPlaceController,
                             titleText: "",
                             hintText: "Select Your Birth Place",
                             readOnly: true,
@@ -165,10 +172,14 @@ class EditKundliScreen extends StatelessWidget {
                           height: 50,
                           child: TextButton(
                             style: ButtonStyle(
-                              padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                              backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
+                              padding:
+                                  MaterialStateProperty.all(EdgeInsets.all(0)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Get.theme.primaryColor),
                               shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: BorderSide(color: Colors.grey)),
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    side: BorderSide(color: Colors.grey)),
                               ),
                             ),
                             onPressed: () async {
@@ -181,8 +192,9 @@ class EditKundliScreen extends StatelessWidget {
                             child: Text(
                               'Update',
                               textAlign: TextAlign.center,
-                              style: Get.theme.primaryTextTheme.subtitle1!.copyWith(),
-                            ).translate(),
+                              style: Get.theme.primaryTextTheme.subtitle1!
+                                  .copyWith(),
+                            ),
                           ),
                         ),
                       ],
@@ -197,7 +209,8 @@ class EditKundliScreen extends StatelessWidget {
     );
   }
 
-  Future _selectDate(BuildContext context, KundliController kundliController) async {
+  Future _selectDate(
+      BuildContext context, KundliController kundliController) async {
     // ignore: unused_local_variable
     var datePicked = await DatePicker.showSimpleDatePicker(
       context,
@@ -214,13 +227,15 @@ class EditKundliScreen extends StatelessWidget {
       titleText: 'Select Birth Date',
     );
     if (datePicked != null) {
-      kundliController.editBirthDateController.text = formatDate(datePicked, [dd, '-', mm, '-', yyyy]);
+      kundliController.editBirthDateController.text =
+          formatDate(datePicked, [dd, '-', mm, '-', yyyy]);
       kundliController.pickedDate = datePicked;
       kundliController.update();
     }
   }
 
-  Future _boySelectBirthDateTime(BuildContext context, KundliController kundliController) async {
+  Future _boySelectBirthDateTime(
+      BuildContext context, KundliController kundliController) async {
     TimeOfDay? pickedTime = await showTimePicker(
       initialTime: TimeOfDay.now(),
       context: context,
@@ -228,7 +243,9 @@ class EditKundliScreen extends StatelessWidget {
         return Theme(
           data: ThemeData(
             textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(backgroundColor: Get.theme.primaryColor, foregroundColor: Colors.black),
+              style: TextButton.styleFrom(
+                  backgroundColor: Get.theme.primaryColor,
+                  foregroundColor: Colors.black),
             ),
             colorScheme: ColorScheme.light(
               primary: Get.theme.primaryColor,
@@ -241,7 +258,8 @@ class EditKundliScreen extends StatelessWidget {
     );
     if (pickedTime != null) {
       print(pickedTime.format(context)); //output 10:51 PM
-      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+      DateTime parsedTime =
+          DateFormat.jm().parse(pickedTime.format(context).toString());
       //converting to DateTime so that we can further format on different pattern.
       print(parsedTime); //output 1970-01-01 22:53:00.000
       String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
@@ -249,7 +267,8 @@ class EditKundliScreen extends StatelessWidget {
       //DateFormat() is from intl package, you can format the time on any pattern you need.
       // kundliMatchingController.cBoysBirthTime.text = formattedTime; //set the value of text field.
       // kundliMatchingController.update();
-      kundliController.editBirthTimeController.text = pickedTime.format(context);
+      kundliController.editBirthTimeController.text =
+          pickedTime.format(context);
     } else {
       print("Time is not selected");
     }

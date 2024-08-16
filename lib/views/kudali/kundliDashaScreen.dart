@@ -42,11 +42,18 @@ class KundliDashaScreen extends StatelessWidget {
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(left: 10, right: 10),
                             decoration: BoxDecoration(
-                              color: kundliController.dashaTab[index].isSelected ? Color.fromARGB(255, 247, 243, 213) : Colors.transparent,
-                              border: Border.all(color: kundliController.dashaTab[index].isSelected ? Get.theme.primaryColor : Colors.black),
+                              color: kundliController.dashaTab[index].isSelected
+                                  ? Color.fromARGB(255, 247, 243, 213)
+                                  : Colors.transparent,
+                              border: Border.all(
+                                  color: kundliController
+                                          .dashaTab[index].isSelected
+                                      ? Get.theme.primaryColor
+                                      : Colors.black),
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            child: Text(kundliController.dashaTab[index].title, style: TextStyle(fontSize: 13)).translate()),
+                            child: Text(kundliController.dashaTab[index].title,
+                                style: TextStyle(fontSize: 13))),
                       ),
                     );
                   }),

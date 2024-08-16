@@ -12,7 +12,8 @@ import 'astromall/productDetailScreen.dart';
 
 class SearchByNameScreen extends StatelessWidget {
   final int productCategoryId;
-  const SearchByNameScreen({Key? key, required this.productCategoryId}) : super(key: key);
+  const SearchByNameScreen({Key? key, required this.productCategoryId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,8 @@ class SearchByNameScreen extends StatelessWidget {
                     searchController.productSearchText = value;
                     if (value.length > 2) {
                       global.showOnlyLoaderDialog(context);
-                      await searchController.getProductSearchResult(productCategoryId, value);
+                      await searchController.getProductSearchResult(
+                          productCategoryId, value);
                       searchController.update();
                       global.hideLoader();
                     }
@@ -59,9 +61,10 @@ class SearchByNameScreen extends StatelessWidget {
         ],
       ),
       body: GetBuilder<SearchController1>(builder: (searchController) {
-        return searchController.astroCategoryProduct.isEmpty && searchController.productSearchText != ""
+        return searchController.astroCategoryProduct.isEmpty &&
+                searchController.productSearchText != ""
             ? Center(
-                child: Text('Product not available').translate(),
+                child: Text('Product not available'),
               )
             : ListView.builder(
                 itemCount: searchController.astroCategoryProduct.length,
@@ -69,9 +72,11 @@ class SearchByNameScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () async {
-                      AstromallController astromallController = Get.find<AstromallController>();
+                      AstromallController astromallController =
+                          Get.find<AstromallController>();
                       global.showOnlyLoaderDialog(context);
-                      await astromallController.getproductById(searchController.astroCategoryProduct[index].id);
+                      await astromallController.getproductById(
+                          searchController.astroCategoryProduct[index].id);
                       global.hideLoader();
                       Get.to(() => ProductDetailScreen(
                             index: index,
@@ -85,8 +90,10 @@ class SearchByNameScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.4), BlendMode.darken),
-                          image: NetworkImage("${global.imgBaseurl}${searchController.astroCategoryProduct[index].productImage}"),
+                          colorFilter: ColorFilter.mode(
+                              Colors.black.withOpacity(0.4), BlendMode.darken),
+                          image: NetworkImage(
+                              "${global.imgBaseurl}${searchController.astroCategoryProduct[index].productImage}"),
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -99,19 +106,26 @@ class SearchByNameScreen extends StatelessWidget {
                             "${searchController.astroCategoryProduct[index].name}",
                             maxLines: 2,
                             textAlign: TextAlign.start,
-                            style: Get.textTheme.subtitle1!.copyWith(color: Colors.white, fontSize: 12),
-                          ).translate(),
+                            style: Get.textTheme.subtitle1!
+                                .copyWith(color: Colors.white, fontSize: 12),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)}${searchController.astroCategoryProduct[index].amount} /-', style: Get.textTheme.subtitle1!.copyWith(color: Colors.white, fontSize: 11)),
+                              Text(
+                                  '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)}${searchController.astroCategoryProduct[index].amount} /-',
+                                  style: Get.textTheme.subtitle1!.copyWith(
+                                      color: Colors.white, fontSize: 11)),
                               SizedBox(
                                 height: 28,
                                 child: TextButton(
                                     onPressed: () async {
-                                      AstromallController astromallController = Get.find<AstromallController>();
+                                      AstromallController astromallController =
+                                          Get.find<AstromallController>();
                                       global.showOnlyLoaderDialog(context);
-                                      await astromallController.getproductById(searchController.astroCategoryProduct[index].id);
+                                      await astromallController.getproductById(
+                                          searchController
+                                              .astroCategoryProduct[index].id);
                                       global.hideLoader();
                                       Get.to(() => ProductDetailScreen(
                                             index: index,
@@ -119,12 +133,15 @@ class SearchByNameScreen extends StatelessWidget {
                                     },
                                     child: Text(
                                       'Buy',
-                                      style: Get.textTheme.subtitle1!.copyWith(color: Colors.white, fontSize: 11),
-                                    ).translate(),
+                                      style: Get.textTheme.subtitle1!.copyWith(
+                                          color: Colors.white, fontSize: 11),
+                                    ),
                                     style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                      shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
                                         side: BorderSide(color: Colors.white),
-                                        borderRadius: BorderRadius.circular(30.0),
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
                                       )),
                                     )),
                               )

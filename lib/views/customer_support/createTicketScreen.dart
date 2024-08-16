@@ -14,9 +14,16 @@ class CreateTiketScreen extends StatelessWidget {
   final String helpSupportQuestion;
   final int helpSupportQuestionId;
   final String helpSupportSubQuestion;
-  CreateTiketScreen({Key? key, required this.helpSupportQuestion, required this.helpSupportSubQuestion, required this.subject, required this.helpSupportQuestionId}) : super(key: key);
+  CreateTiketScreen(
+      {Key? key,
+      required this.helpSupportQuestion,
+      required this.helpSupportSubQuestion,
+      required this.subject,
+      required this.helpSupportQuestionId})
+      : super(key: key);
 
-  CustomerSupportController customerSupportController = Get.find<CustomerSupportController>();
+  CustomerSupportController customerSupportController =
+      Get.find<CustomerSupportController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +43,25 @@ class CreateTiketScreen extends StatelessWidget {
               children: [
                 Text(
                   'Subject',
-                  style: Get.textTheme.subtitle1!.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
-                ).translate(),
-                Text(helpSupportSubQuestion, style: Get.textTheme.subtitle1!.copyWith(fontSize: 15, color: Colors.grey)).translate(),
+                  style: Get.textTheme.subtitle1!
+                      .copyWith(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                Text(helpSupportSubQuestion,
+                    style: Get.textTheme.subtitle1!
+                        .copyWith(fontSize: 15, color: Colors.grey)),
                 SizedBox(
                   height: 15,
                 ),
                 Text(
                   'Description',
-                  style: Get.textTheme.subtitle1!.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
-                ).translate(),
-                Text('Please mention your complete concern here', style: Get.textTheme.subtitle1!.copyWith(fontSize: 13, color: Colors.grey, fontWeight: FontWeight.w300)).translate(),
+                  style: Get.textTheme.subtitle1!
+                      .copyWith(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                Text('Please mention your complete concern here',
+                    style: Get.textTheme.subtitle1!.copyWith(
+                        fontSize: 13,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w300)),
                 FutureBuilder(
                     future: global.translatedText('Type your concern here...'),
                     builder: (context, snapshot) {
@@ -54,26 +69,31 @@ class CreateTiketScreen extends StatelessWidget {
                         keyboardType: TextInputType.multiline,
                         minLines: 7,
                         maxLines: 7,
-                        controller: customerSupportController.descriptionController,
+                        controller:
+                            customerSupportController.descriptionController,
                         onChanged: (val) {
                           customerSupportController.textLength = val.length;
                           customerSupportController.update();
-                          print('text length : ${customerSupportController.textLength}');
+                          print(
+                              'text length : ${customerSupportController.textLength}');
                         },
                         decoration: InputDecoration(
                           isDense: true,
                           hintText: snapshot.data,
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
                           ),
                         ),
                       );
@@ -82,7 +102,9 @@ class CreateTiketScreen extends StatelessWidget {
                   height: 15,
                   child: Align(
                     alignment: Alignment.bottomRight,
-                    child: Text('${customerSupportController.textLength}/50', style: Get.textTheme.subtitle1!.copyWith(fontSize: 10, color: Colors.grey)),
+                    child: Text('${customerSupportController.textLength}/50',
+                        style: Get.textTheme.subtitle1!
+                            .copyWith(fontSize: 10, color: Colors.grey)),
                   ),
                 )
               ],
@@ -102,20 +124,30 @@ class CreateTiketScreen extends StatelessWidget {
             } else {
               customerSupportController.textLength = 0;
               global.showOnlyLoaderDialog(context);
-              await customerSupportController.createCustomerTickets(subject, helpSupportQuestionId, helpSupportQuestion, helpSupportSubQuestion);
+              await customerSupportController.createCustomerTickets(
+                  subject,
+                  helpSupportQuestionId,
+                  helpSupportQuestion,
+                  helpSupportSubQuestion);
               global.hideLoader();
               Get.to(() => CustomerSupportChat());
             }
           },
           child: Container(
-            color: customerSupportController.textLength < 50 ? Color.fromARGB(255, 196, 191, 191) : Get.theme.primaryColor,
+            color: customerSupportController.textLength < 50
+                ? Color.fromARGB(255, 196, 191, 191)
+                : Get.theme.primaryColor,
             height: 50,
             alignment: Alignment.center,
             width: double.infinity,
             child: Text(
               'Chat with us',
-              style: Get.theme.textTheme.subtitle1!.copyWith(fontSize: 15, fontWeight: FontWeight.w600, letterSpacing: 0, color: Colors.grey),
-            ).translate(),
+              style: Get.theme.textTheme.subtitle1!.copyWith(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0,
+                  color: Colors.grey),
+            ),
           ),
         );
       }),

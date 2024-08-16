@@ -43,8 +43,11 @@ class CommonSmallTextFieldWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 12.0),
                 child: Text(
                   titleText ?? "",
-                  style: Theme.of(context).primaryTextTheme.subtitle1!.copyWith(fontWeight: FontWeight.w500),
-                ).translate(),
+                  style: Theme.of(context)
+                      .primaryTextTheme
+                      .subtitle1!
+                      .copyWith(fontWeight: FontWeight.w500),
+                ),
               ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
@@ -66,7 +69,8 @@ class CommonSmallTextFieldWidget extends StatelessWidget {
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      hintStyle: const TextStyle(fontSize: 14, color: Colors.black),
+                      hintStyle:
+                          const TextStyle(fontSize: 14, color: Colors.black),
                       helperStyle: TextStyle(color: Get.theme.primaryColor),
                       contentPadding: EdgeInsets.all(10.0),
                       enabledBorder: OutlineInputBorder(

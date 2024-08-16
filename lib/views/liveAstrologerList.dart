@@ -26,9 +26,11 @@ class LiveAstrologerListScreen extends StatelessWidget {
   bool? isFromBottom;
   LiveAstrologerListScreen({super.key, this.isFromBottom = false});
 
-  LiveAstrologerController liveAstrologerController = Get.find<LiveAstrologerController>();
+  LiveAstrologerController liveAstrologerController =
+      Get.find<LiveAstrologerController>();
 
-  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
   LiveController liveController = Get.find<LiveController>();
   UpcomingController upcomingController = Get.find<UpcomingController>();
   SplashController splashController = Get.find<SplashController>();
@@ -48,11 +50,13 @@ class LiveAstrologerListScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+          backgroundColor:
+              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           title: Text(
             'Live Astrologers',
-            style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-          ).translate(),
+            style: Get.theme.primaryTextTheme.headline6!
+                .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
+          ),
           leading: isFromBottom == true
               ? const SizedBox()
               : IconButton(
@@ -78,7 +82,8 @@ class LiveAstrologerListScreen extends StatelessWidget {
                 controller: liveAstrologerController.tabController,
                 indicatorColor: Get.theme.primaryColor.withOpacity(0.9),
                 unselectedLabelColor: Colors.black.withOpacity(0.5),
-                labelStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                labelStyle:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                 labelColor: Colors.black,
                 onTap: (index) async {
                   global.showOnlyLoaderDialog(context);
@@ -91,7 +96,7 @@ class LiveAstrologerListScreen extends StatelessWidget {
                     icon: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        Text('Ongoing').translate(),
+                        Text('Ongoing'),
                       ],
                     ),
                   ),
@@ -99,7 +104,7 @@ class LiveAstrologerListScreen extends StatelessWidget {
                     icon: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        Text('Upcoming').translate(),
+                        Text('Upcoming'),
                       ],
                     ),
                   )
@@ -113,39 +118,60 @@ class LiveAstrologerListScreen extends StatelessWidget {
               children: [
                 bottomNavigationController.liveAstrologer.isEmpty
                     ? Center(
-                        child: Text('No astrologers live yet!').translate(),
+                        child: Text('No astrologers live yet!'),
                       )
                     : Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             childAspectRatio: 3.5 / 5,
                             crossAxisSpacing: 7,
                             mainAxisSpacing: 7,
                           ),
-                          itemCount: bottomNavigationController.liveAstrologer.length,
+                          itemCount:
+                              bottomNavigationController.liveAstrologer.length,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                bottomNavigationController.anotherLiveAstrologers = bottomNavigationController.liveAstrologer.where((element) => element.astrologerId != bottomNavigationController.liveAstrologer[index].astrologerId).toList();
+                                bottomNavigationController
+                                        .anotherLiveAstrologers =
+                                    bottomNavigationController.liveAstrologer
+                                        .where((element) =>
+                                            element.astrologerId !=
+                                            bottomNavigationController
+                                                .liveAstrologer[index]
+                                                .astrologerId)
+                                        .toList();
                                 bottomNavigationController.update();
-                                liveController.getWaitList(bottomNavigationController.liveAstrologer[index].channelName);
+                                liveController.getWaitList(
+                                    bottomNavigationController
+                                        .liveAstrologer[index].channelName);
                                 liveController.isImInLive = true;
                                 liveController.isJoinAsChat = false;
                                 liveController.isLeaveCalled = false;
                                 liveController.update();
                                 Get.to(() => LiveAstrologerScreen(
-                                      token: bottomNavigationController.liveAstrologer[index].token,
-                                      channel: bottomNavigationController.liveAstrologer[index].channelName,
-                                      astrologerName: bottomNavigationController.liveAstrologer[index].name,
-                                      astrologerId: bottomNavigationController.liveAstrologer[index].astrologerId,
+                                      token: bottomNavigationController
+                                          .liveAstrologer[index].token,
+                                      channel: bottomNavigationController
+                                          .liveAstrologer[index].channelName,
+                                      astrologerName: bottomNavigationController
+                                          .liveAstrologer[index].name,
+                                      astrologerId: bottomNavigationController
+                                          .liveAstrologer[index].astrologerId,
                                       isFromHome: true,
-                                      charge: bottomNavigationController.liveAstrologer[index].charge,
+                                      charge: bottomNavigationController
+                                          .liveAstrologer[index].charge,
                                       isForLiveCallAcceptDecline: false,
-                                      videoCallCharge: bottomNavigationController.liveAstrologer[index].videoCallRate,
-                                      isFollow: bottomNavigationController.liveAstrologer[index].isFollow!,
+                                      videoCallCharge:
+                                          bottomNavigationController
+                                              .liveAstrologer[index]
+                                              .videoCallRate,
+                                      isFollow: bottomNavigationController
+                                          .liveAstrologer[index].isFollow!,
                                     ));
                               },
                               child: Container(
@@ -156,19 +182,26 @@ class LiveAstrologerListScreen extends StatelessWidget {
                                   border: Border.all(
                                     color: Color.fromARGB(255, 214, 214, 214),
                                   ),
-                                  image: bottomNavigationController.liveAstrologer[index].profileImage == ""
+                                  image: bottomNavigationController
+                                              .liveAstrologer[index]
+                                              .profileImage ==
+                                          ""
                                       ? DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
                                             Images.deafultUser,
                                           ),
-                                          colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.darken))
+                                          colorFilter: ColorFilter.mode(
+                                              Colors.black.withOpacity(0.3),
+                                              BlendMode.darken))
                                       : DecorationImage(
                                           fit: BoxFit.cover,
                                           image: NetworkImage(
                                             '${global.imgBaseurl}${bottomNavigationController.liveAstrologer[index].profileImage}',
                                           ),
-                                          colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.darken)),
+                                          colorFilter: ColorFilter.mode(
+                                              Colors.black.withOpacity(0.3),
+                                              BlendMode.darken)),
                                 ),
                                 padding: EdgeInsets.only(bottom: 20),
                                 alignment: Alignment.center,
@@ -181,7 +214,8 @@ class LiveAstrologerListScreen extends StatelessWidget {
                                         color: Get.theme.primaryColor,
                                         borderRadius: BorderRadius.circular(5),
                                       ),
-                                      padding: EdgeInsets.symmetric(horizontal: 3),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 3),
                                       child: Row(
                                         children: [
                                           CircleAvatar(
@@ -197,7 +231,7 @@ class LiveAstrologerListScreen extends StatelessWidget {
                                               fontSize: 12,
                                               fontWeight: FontWeight.w300,
                                             ),
-                                          ).translate(),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -208,7 +242,7 @@ class LiveAstrologerListScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w300,
                                         color: Colors.white,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -218,7 +252,8 @@ class LiveAstrologerListScreen extends StatelessWidget {
                       ),
                 Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: GetBuilder<UpcomingController>(builder: (upcomingList) {
+                    child:
+                        GetBuilder<UpcomingController>(builder: (upcomingList) {
                       return ListView.builder(
                         itemCount: upcomingController.upComingList.length,
                         itemBuilder: (context, index) {
@@ -228,11 +263,16 @@ class LiveAstrologerListScreen extends StatelessWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () async {
-                                    Get.find<ReviewController>().getReviewData(upcomingController.upComingList[index].id!);
+                                    Get.find<ReviewController>().getReviewData(
+                                        upcomingController
+                                            .upComingList[index].id!);
                                     global.showOnlyLoaderDialog(context);
-                                    await bottomNavigationController.getAstrologerbyId(upcomingController.upComingList[index].id!);
+                                    await bottomNavigationController
+                                        .getAstrologerbyId(upcomingController
+                                            .upComingList[index].id!);
                                     global.hideLoader();
-                                    Get.to(() => AstrologerProfile(index: index));
+                                    Get.to(
+                                        () => AstrologerProfile(index: index));
                                   },
                                   child: Card(
                                     child: Padding(
@@ -242,21 +282,34 @@ class LiveAstrologerListScreen extends StatelessWidget {
                                           Column(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                                                padding: const EdgeInsets.only(
+                                                    top: 10, bottom: 10),
                                                 child: Container(
                                                   height: 65,
                                                   width: 65,
                                                   decoration: BoxDecoration(
-                                                    border: Border.all(color: Get.theme.primaryColor),
-                                                    borderRadius: BorderRadius.circular(7),
+                                                    border: Border.all(
+                                                        color: Get.theme
+                                                            .primaryColor),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            7),
                                                   ),
                                                   child: CircleAvatar(
                                                     radius: 35,
-                                                    backgroundColor: Colors.white,
+                                                    backgroundColor:
+                                                        Colors.white,
                                                     child: CachedNetworkImage(
-                                                      imageUrl: '${global.imgBaseurl}${upcomingController.upComingList[index].profileImage}',
-                                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                      errorWidget: (context, url, error) => Image.asset(
+                                                      imageUrl:
+                                                          '${global.imgBaseurl}${upcomingController.upComingList[index].profileImage}',
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          const Center(
+                                                              child:
+                                                                  CircularProgressIndicator()),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Image.asset(
                                                         Images.deafultUser,
                                                         fit: BoxFit.cover,
                                                         height: 50,
@@ -270,87 +323,152 @@ class LiveAstrologerListScreen extends StatelessWidget {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 15),
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     '${upcomingController.upComingList[index].name}',
-                                                    style: Get.theme.primaryTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.w600, fontSize: 12, color: Colors.black),
-                                                  ).translate(),
+                                                    style: Get
+                                                        .theme
+                                                        .primaryTextTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 12,
+                                                            color:
+                                                                Colors.black),
+                                                  ),
                                                   Text(
                                                     "${DateFormat("dd MMM,EEEE").format(DateTime.now())}",
-                                                    style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
-                                                      fontWeight: FontWeight.w300,
+                                                    style: Get
+                                                        .theme
+                                                        .primaryTextTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w300,
                                                       color: Colors.grey[600],
                                                     ),
                                                   ),
-                                                  upcomingController.upComingList[index].isTimeSlotAvailable == true
+                                                  upcomingController
+                                                              .upComingList[
+                                                                  index]
+                                                              .isTimeSlotAvailable ==
+                                                          true
                                                       ? Container(
                                                           height: 20,
                                                           width: 110,
-                                                          child: ListView.builder(
-                                                              scrollDirection: Axis.horizontal,
-                                                              shrinkWrap: true,
-                                                              itemCount: upcomingController.upComingList[index].availableTimes!.length,
-                                                              itemBuilder: (BuildContext context, int index2) {
-                                                                return (upcomingController.upComingList[index].availableTimes![index2].fromTime != null && upcomingController.upComingList[index].availableTimes![index2].toTime != null)
-                                                                    ? Container(
-                                                                        margin: EdgeInsets.only(left: 2),
-                                                                        padding: EdgeInsets.all(2),
-                                                                        decoration: BoxDecoration(color: Colors.grey[300], border: Border.all(color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(10))),
-                                                                        child: Text(
-                                                                          "${upcomingController.upComingList[index].availableTimes![index2].fromTime} - ${upcomingController.upComingList[index].availableTimes![index2].toTime}",
-                                                                          style: TextStyle(fontSize: 9.5),
-                                                                        ),
-                                                                      )
-                                                                    : Text(
-                                                                        "No Time set yet!",
-                                                                        style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
-                                                                          fontWeight: FontWeight.w300,
-                                                                          color: Colors.red,
-                                                                        ),
-                                                                      ).translate();
-                                                              }),
+                                                          child:
+                                                              ListView.builder(
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .horizontal,
+                                                                  shrinkWrap:
+                                                                      true,
+                                                                  itemCount: upcomingController
+                                                                      .upComingList[
+                                                                          index]
+                                                                      .availableTimes!
+                                                                      .length,
+                                                                  itemBuilder:
+                                                                      (BuildContext
+                                                                              context,
+                                                                          int index2) {
+                                                                    return (upcomingController.upComingList[index].availableTimes![index2].fromTime !=
+                                                                                null &&
+                                                                            upcomingController.upComingList[index].availableTimes![index2].toTime !=
+                                                                                null)
+                                                                        ? Container(
+                                                                            margin:
+                                                                                EdgeInsets.only(left: 2),
+                                                                            padding:
+                                                                                EdgeInsets.all(2),
+                                                                            decoration: BoxDecoration(
+                                                                                color: Colors.grey[300],
+                                                                                border: Border.all(color: Colors.grey),
+                                                                                borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                                            child:
+                                                                                Text(
+                                                                              "${upcomingController.upComingList[index].availableTimes![index2].fromTime} - ${upcomingController.upComingList[index].availableTimes![index2].toTime}",
+                                                                              style: TextStyle(fontSize: 9.5),
+                                                                            ),
+                                                                          )
+                                                                        : Text(
+                                                                            "No Time set yet!",
+                                                                            style:
+                                                                                Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                                                              fontWeight: FontWeight.w300,
+                                                                              color: Colors.red,
+                                                                            ),
+                                                                          );
+                                                                  }),
                                                         )
                                                       : Text(
                                                           "No Time set yet!",
-                                                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
-                                                            fontWeight: FontWeight.w300,
+                                                          style: Get
+                                                              .theme
+                                                              .primaryTextTheme
+                                                              .bodySmall!
+                                                              .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w300,
                                                             color: Colors.red,
                                                           ),
-                                                        ).translate(),
+                                                        ),
                                                 ],
                                               ),
                                             ),
                                           ),
                                           Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
                                             children: [
                                               GestureDetector(
                                                 onTap: () async {
-                                                  global.showOnlyLoaderDialog(Get.context);
+                                                  global.showOnlyLoaderDialog(
+                                                      Get.context);
                                                   String appShareLink;
                                                   String applink;
-                                                  final DynamicLinkParameters parameters = DynamicLinkParameters(
-                                                    uriPrefix: 'https://astroguruupdated.page.link',
-                                                    link: Uri.parse("https://astroguruupdated.page.link/userProfile?screen=astroProfile"),
-                                                    androidParameters: AndroidParameters(
-                                                      packageName: 'com.AstroGuru.app',
+                                                  final DynamicLinkParameters
+                                                      parameters =
+                                                      DynamicLinkParameters(
+                                                    uriPrefix:
+                                                        'https://astroguruupdated.page.link',
+                                                    link: Uri.parse(
+                                                        "https://astroguruupdated.page.link/userProfile?screen=astroProfile"),
+                                                    androidParameters:
+                                                        AndroidParameters(
+                                                      packageName:
+                                                          'com.AstroGuru.app',
                                                       minimumVersion: 1,
                                                     ),
                                                   );
                                                   Uri url;
-                                                  final ShortDynamicLink shortLink = await dynamicLinks.buildShortLink(parameters, shortLinkType: ShortDynamicLinkType.short);
+                                                  final ShortDynamicLink
+                                                      shortLink =
+                                                      await dynamicLinks
+                                                          .buildShortLink(
+                                                              parameters,
+                                                              shortLinkType:
+                                                                  ShortDynamicLinkType
+                                                                      .short);
                                                   url = shortLink.shortUrl;
                                                   appShareLink = url.toString();
                                                   applink = appShareLink;
                                                   global.hideLoader();
 
                                                   await FlutterShare.share(
-                                                    title: 'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
-                                                    text: 'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
+                                                    title:
+                                                        'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
+                                                    text:
+                                                        'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
                                                     linkUrl: '$applink',
                                                   );
                                                 },

@@ -24,7 +24,10 @@ class CreateNewKundki extends StatelessWidget {
         height: Get.height,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.bottomCenter, end: Alignment.topLeft, colors: [Get.theme.primaryColor, Colors.white]),
+          gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topLeft,
+              colors: [Get.theme.primaryColor, Colors.white]),
         ),
         child: SingleChildScrollView(
           child: GetBuilder<KundliController>(builder: (c) {
@@ -43,7 +46,7 @@ class CreateNewKundki extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    Text('Kundli', style: Get.textTheme.subtitle1).translate()
+                    Text('Kundli', style: Get.textTheme.subtitle1)
                   ],
                 ),
                 SizedBox(
@@ -61,7 +64,9 @@ class CreateNewKundki extends StatelessWidget {
                                 radius: 13,
                                 backgroundColor: Get.theme.primaryColor,
                                 child: Icon(
-                                  kundliController.listIcon[kundliController.initialIndex].icon,
+                                  kundliController
+                                      .listIcon[kundliController.initialIndex]
+                                      .icon,
                                   size: 15,
                                   color: Colors.black,
                                 ),
@@ -69,8 +74,10 @@ class CreateNewKundki extends StatelessWidget {
                             : kundliController.initialIndex >= index
                                 ? GestureDetector(
                                     onTap: () {
-                                      kundliController.backStepForCreateKundli(index);
-                                      kundliController.updateIcon(kundliController.initialIndex);
+                                      kundliController
+                                          .backStepForCreateKundli(index);
+                                      kundliController.updateIcon(
+                                          kundliController.initialIndex);
                                     },
                                     child: CircleAvatar(
                                       radius: 10,
@@ -101,12 +108,15 @@ class CreateNewKundki extends StatelessWidget {
                 ),
                 if (kundliController.initialIndex == 0)
                   KundliNameWidget(
-                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))],
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))
+                    ],
                     kundliController: kundliController,
                     onPressed: () {
                       if (!kundliController.isDisable) {
                         kundliController.updateInitialIndex();
-                        kundliController.updateIcon(kundliController.initialIndex);
+                        kundliController
+                            .updateIcon(kundliController.initialIndex);
                       }
                     },
                   ),
@@ -119,7 +129,8 @@ class CreateNewKundki extends StatelessWidget {
                     kundliController: kundliController,
                     onPressed: () {
                       kundliController.updateInitialIndex();
-                      kundliController.updateIcon(kundliController.initialIndex);
+                      kundliController
+                          .updateIcon(kundliController.initialIndex);
                     },
                   ),
                 if (kundliController.initialIndex == 3)
@@ -127,21 +138,24 @@ class CreateNewKundki extends StatelessWidget {
                     kundliController: kundliController,
                     onPressed: () {
                       kundliController.updateInitialIndex();
-                      kundliController.updateIcon(kundliController.initialIndex);
+                      kundliController
+                          .updateIcon(kundliController.initialIndex);
                     },
                   ),
                 if (kundliController.initialIndex == 4)
                   KundliBornPlaceWidget(
                     kundliController: kundliController,
                     onPressed: () async {
-                      if (kundliController.birthKundliPlaceController.text == "") {
+                      if (kundliController.birthKundliPlaceController.text ==
+                          "") {
                         global.showToast(
                           message: 'Please select birth place',
                           textColor: global.textColor,
                           bgColor: global.toastBackGoundColor,
                         );
                       } else {
-                        kundliController.updateIcon(kundliController.initialIndex);
+                        kundliController
+                            .updateIcon(kundliController.initialIndex);
                         global.showOnlyLoaderDialog(context);
                         await kundliController.addKundliData();
                         await kundliController.getKundliList();

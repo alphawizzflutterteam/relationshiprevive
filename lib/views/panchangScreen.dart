@@ -23,11 +23,13 @@ class PanchangScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+          backgroundColor:
+              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           title: Text(
             'Panchang',
-            style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 18, fontWeight: FontWeight.normal),
-          ).translate(),
+            style: Get.theme.primaryTextTheme.headline6!
+                .copyWith(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(
@@ -56,7 +58,9 @@ class PanchangScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Share', style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate(),
+                        child: Text('Share',
+                            style: Get.textTheme.subtitle1!
+                                .copyWith(fontSize: 12)),
                       )
                     ],
                   ),
@@ -75,8 +79,9 @@ class PanchangScreen extends StatelessWidget {
                 children: [
                   Text(
                     'What is Panchang?',
-                    style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
-                  ).translate(),
+                    style: Get.textTheme.subtitle1!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 17),
                     padding: EdgeInsets.all(8),
@@ -84,7 +89,8 @@ class PanchangScreen extends StatelessWidget {
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Text('Panchag is the astrological daily calander based on the indian calendar.Daily panchang is one of the most sought Vedic astrology concepts,which conceptudlise the day\'s tithis , timing etc...').translate(),
+                    child: Text(
+                        'Panchag is the astrological daily calander based on the indian calendar.Daily panchang is one of the most sought Vedic astrology concepts,which conceptudlise the day\'s tithis , timing etc...'),
                   )
                 ],
               ),
@@ -97,7 +103,7 @@ class PanchangScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Enter Location', style: Get.textTheme.subtitle1).translate(),
+                  Text('Enter Location', style: Get.textTheme.subtitle1),
                   SizedBox(
                     height: 10,
                   ),
@@ -114,18 +120,24 @@ class PanchangScreen extends StatelessWidget {
                             isDense: true,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
                             ),
                             hintText: 'New Delhi',
-                            hintStyle: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500)),
+                            hintStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500)),
                       ),
                     ),
                   ),
@@ -144,8 +156,13 @@ class PanchangScreen extends StatelessWidget {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Today\'s Panchang', style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)).translate(),
-                            Text('${panchangController.formattedDate} |  ${kundliController.birthKundliPlaceController.text != "" ? kundliController.birthKundliPlaceController.text : 'New Delhi'}', style: Get.textTheme.bodySmall!.copyWith(color: Colors.grey)).translate(),
+                            Text('Today\'s Panchang',
+                                style: Get.textTheme.subtitle1!
+                                    .copyWith(fontWeight: FontWeight.bold)),
+                            Text(
+                                '${panchangController.formattedDate} |  ${kundliController.birthKundliPlaceController.text != "" ? kundliController.birthKundliPlaceController.text : 'New Delhi'}',
+                                style: Get.textTheme.bodySmall!
+                                    .copyWith(color: Colors.grey)),
                           ],
                         );
                       }),
@@ -156,7 +173,13 @@ class PanchangScreen extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [panchangTime('Sunrise-sunset', Get.theme.primaryColor, Icons.sunny, '${kundliController.kundliBasicPanchangDetail!.sunrise} - ${kundliController.kundliBasicPanchangDetail!.sunset}')],
+                    children: [
+                      panchangTime(
+                          'Sunrise-sunset',
+                          Get.theme.primaryColor,
+                          Icons.sunny,
+                          '${kundliController.kundliBasicPanchangDetail!.sunrise} - ${kundliController.kundliBasicPanchangDetail!.sunset}')
+                    ],
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 18),
@@ -172,48 +195,61 @@ class PanchangScreen extends StatelessWidget {
                           children: [
                             SizedBox(
                               width: 150,
-                              child: Text('Nakshatra').translate(),
+                              child: Text('Nakshatra'),
                             ),
-                            Text('${kundliController.kundliBasicPanchangDetail!.nakshatra}', style: Get.textTheme.bodyText2!.copyWith(color: Colors.grey)).translate(),
+                            Text(
+                                '${kundliController.kundliBasicPanchangDetail!.nakshatra}',
+                                style: Get.textTheme.bodyText2!
+                                    .copyWith(color: Colors.grey)),
                           ],
                         ),
                         Row(
                           children: [
                             SizedBox(
                               width: 150,
-                              child: Text('Yoga').translate(),
+                              child: Text('Yoga'),
                             ),
                             Text(
                               '${kundliController.kundliBasicPanchangDetail!.yog != null ? kundliController.kundliBasicPanchangDetail!.yog : '--'}',
-                              style: Get.textTheme.bodyText2!.copyWith(color: Colors.grey),
-                            ).translate()
+                              style: Get.textTheme.bodyText2!
+                                  .copyWith(color: Colors.grey),
+                            )
                           ],
                         ),
                         Row(
                           children: [
                             SizedBox(
                               width: 150,
-                              child: Text('Tithi').translate(),
+                              child: Text('Tithi'),
                             ),
-                            Text('${kundliController.kundliBasicPanchangDetail!.tithi}', style: Get.textTheme.bodyText2!.copyWith(color: Colors.grey)).translate()
+                            Text(
+                                '${kundliController.kundliBasicPanchangDetail!.tithi}',
+                                style: Get.textTheme.bodyText2!
+                                    .copyWith(color: Colors.grey))
                           ],
                         ),
                         Row(
                           children: [
                             SizedBox(
                               width: 150,
-                              child: Text('weekday').translate(),
+                              child: Text('weekday'),
                             ),
-                            Text('${kundliController.kundliBasicPanchangDetail!.day}', style: Get.textTheme.bodyText2!.copyWith(color: Colors.grey)).translate()
+                            Text(
+                                '${kundliController.kundliBasicPanchangDetail!.day}',
+                                style: Get.textTheme.bodyText2!
+                                    .copyWith(color: Colors.grey))
                           ],
                         ),
                         Row(
                           children: [
                             SizedBox(
                               width: 150,
-                              child: Text('Karan').translate(),
+                              child: Text('Karan'),
                             ),
-                            Text('${kundliController.kundliBasicPanchangDetail!.karan}', style: Get.textTheme.bodyText2!.copyWith(color: Colors.grey)).translate(),
+                            Text(
+                                '${kundliController.kundliBasicPanchangDetail!.karan}',
+                                style: Get.textTheme.bodyText2!
+                                    .copyWith(color: Colors.grey)),
                           ],
                         )
                       ],
@@ -228,7 +264,8 @@ class PanchangScreen extends StatelessWidget {
     );
   }
 
-  Widget panchangTime(String title, Color borderColors, IconData icon, String timeText) {
+  Widget panchangTime(
+      String title, Color borderColors, IconData icon, String timeText) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -237,7 +274,7 @@ class PanchangScreen extends StatelessWidget {
           title,
           style: Get.textTheme.bodySmall!.copyWith(color: Colors.grey),
           textAlign: TextAlign.left,
-        ).translate(),
+        ),
         Container(
           padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
           decoration: BoxDecoration(
@@ -255,7 +292,7 @@ class PanchangScreen extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Text(timeText).translate()
+              Text(timeText)
             ],
           ),
         )
@@ -270,12 +307,17 @@ class PanchangScreen extends StatelessWidget {
         // barrierDismissible: false, // user must tap button for close dialog!
         builder: (BuildContext context) {
           return AlertDialog(
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             title: Column(children: [
               Center(
                 child: Text(
                   "You're all set!",
-                  style: Get.theme.textTheme.headline1!.copyWith(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600, fontStyle: FontStyle.normal),
+                  style: Get.theme.textTheme.headline1!.copyWith(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal),
                 ),
               ),
               DatePickerDialog(
@@ -287,7 +329,8 @@ class PanchangScreen extends StatelessWidget {
               ),
             ]),
             actionsAlignment: MainAxisAlignment.spaceBetween,
-            actionsPadding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
+            actionsPadding:
+                const EdgeInsets.only(bottom: 15, left: 15, right: 15),
           );
         });
   }

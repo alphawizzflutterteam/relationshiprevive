@@ -62,7 +62,9 @@ class DrawerWidget extends StatelessWidget {
                       Container(
                         height: 65,
                         width: 65,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.white),
                         child: Container(
                           height: 140,
                           width: 140,
@@ -77,15 +79,18 @@ class DrawerWidget extends StatelessWidget {
                                     height: 50,
                                   ))
                               : CachedNetworkImage(
-                                  imageUrl: "${global.imgBaseurl}${splashController.currentUser?.profile}",
+                                  imageUrl:
+                                      "${global.imgBaseurl}${splashController.currentUser?.profile}",
                                   imageBuilder: (context, imageProvider) {
                                     return CircleAvatar(
                                       radius: 35,
                                       backgroundColor: Colors.white,
-                                      backgroundImage: NetworkImage("${global.imgBaseurl}${splashController.currentUser?.profile}"),
+                                      backgroundImage: NetworkImage(
+                                          "${global.imgBaseurl}${splashController.currentUser?.profile}"),
                                     );
                                   },
-                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator()),
                                   errorWidget: (context, url, error) {
                                     return CircleAvatar(
                                         radius: 35,
@@ -111,8 +116,9 @@ class DrawerWidget extends StatelessWidget {
                                     : splashController.currentUser!.name == ""
                                         ? "User"
                                         : "${splashController.currentUser!.name}",
-                                style: Get.textTheme.bodyLarge!.copyWith(fontSize: 18),
-                              ).translate(),
+                                style: Get.textTheme.bodyLarge!
+                                    .copyWith(fontSize: 18),
+                              ),
                               SizedBox(
                                 width: 5,
                               ),
@@ -122,7 +128,10 @@ class DrawerWidget extends StatelessWidget {
                               )
                             ],
                           ),
-                          splashController.currentUser == null ? const SizedBox() : Text('${splashController.currentUser!.countryCode}-${splashController.currentUser!.contactNo}')
+                          splashController.currentUser == null
+                              ? const SizedBox()
+                              : Text(
+                                  '${splashController.currentUser!.countryCode}-${splashController.currentUser!.contactNo}')
                         ],
                       ),
                       IconButton(
@@ -136,17 +145,21 @@ class DrawerWidget extends StatelessWidget {
               ),
               GestureDetector(
                   onTap: () async {
-                    final BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+                    final BottomNavigationController
+                        bottomNavigationController =
+                        Get.find<BottomNavigationController>();
                     bottomNavigationController.astrologerList = [];
                     bottomNavigationController.astrologerList.clear();
                     bottomNavigationController.isAllDataLoaded = false;
                     bottomNavigationController.update();
                     global.showOnlyLoaderDialog(context);
-                    await bottomNavigationController.getAstrologerList(isLazyLoading: false);
+                    await bottomNavigationController.getAstrologerList(
+                        isLazyLoading: false);
                     global.hideLoader();
                     Get.to(() => GetReportScreen());
                   },
-                  child: _drawerItem(icon: Icons.note_alt, title: 'Get Report')),
+                  child:
+                      _drawerItem(icon: Icons.note_alt, title: 'Get Report')),
               GetBuilder<BottomNavigationController>(builder: (navController) {
                 return GestureDetector(
                     onTap: () async {
@@ -155,11 +168,14 @@ class DrawerWidget extends StatelessWidget {
                       navController.astrologerList.clear();
                       navController.isAllDataLoaded = false;
                       navController.update();
-                      await navController.getAstrologerList(isLazyLoading: false);
+                      await navController.getAstrologerList(
+                          isLazyLoading: false);
                       global.hideLoader();
                       navController.setBottomIndex(1, 0);
                     },
-                    child: _drawerItem(icon: Icons.circle_rounded, title: 'Chat With Astrologers'));
+                    child: _drawerItem(
+                        icon: Icons.circle_rounded,
+                        title: 'Chat With Astrologers'));
               }),
               GetBuilder<CounsellorController>(builder: (counsellorController) {
                 return GestureDetector(
@@ -172,46 +188,64 @@ class DrawerWidget extends StatelessWidget {
                       Get.to(() => CounsellorScreen());
                       //navController.setBottomIndex(2, 0);
                     },
-                    child: _drawerItem(icon: Icons.person_outline, title: 'Chat With Counsellors'));
+                    child: _drawerItem(
+                        icon: Icons.person_outline,
+                        title: 'Chat With Counsellors'));
               }),
               GestureDetector(
                   onTap: () async {
                     bool isLogin = await global.isLogin();
                     if (isLogin) {
-                      final FollowAstrologerController followAstrologerController = Get.find<FollowAstrologerController>();
+                      final FollowAstrologerController
+                          followAstrologerController =
+                          Get.find<FollowAstrologerController>();
                       followAstrologerController.followedAstrologer.clear();
                       followAstrologerController.isAllDataLoaded = false;
                       global.showOnlyLoaderDialog(context);
-                      await followAstrologerController.getFollowedAstrologerList(false);
+                      await followAstrologerController
+                          .getFollowedAstrologerList(false);
                       global.hideLoader();
                       Get.to(() => MyFollowingScreen());
                     }
                   },
-                  child: _drawerItem(icon: Icons.verified_user, title: 'My Following')),
+                  child: _drawerItem(
+                      icon: Icons.verified_user, title: 'My Following')),
               GetBuilder<HomeController>(builder: (homeController) {
                 return GestureDetector(
                     onTap: () async {
                       DateTime datePanchang = DateTime.now();
-                      int formattedYear = int.parse(DateFormat('yyyy').format(datePanchang));
-                      int formattedDay = int.parse(DateFormat('dd').format(datePanchang));
-                      int formattedMonth = int.parse(DateFormat('MM').format(datePanchang));
-                      int formattedHour = int.parse(DateFormat('HH').format(datePanchang));
-                      int formattedMint = int.parse(DateFormat('mm').format(datePanchang));
+                      int formattedYear =
+                          int.parse(DateFormat('yyyy').format(datePanchang));
+                      int formattedDay =
+                          int.parse(DateFormat('dd').format(datePanchang));
+                      int formattedMonth =
+                          int.parse(DateFormat('MM').format(datePanchang));
+                      int formattedHour =
+                          int.parse(DateFormat('HH').format(datePanchang));
+                      int formattedMint =
+                          int.parse(DateFormat('mm').format(datePanchang));
                       global.showOnlyLoaderDialog(context);
                       await homeController.getBlog();
                       await homeController.getAstrologyVideos();
-                      await panchangController.getPanchangDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear);
+                      await panchangController.getPanchangDetail(
+                          day: formattedDay,
+                          hour: formattedHour,
+                          min: formattedMint,
+                          month: formattedMonth,
+                          year: formattedYear);
                       global.hideLoader();
                       Get.to(() => FreeServiceScreen());
                     },
-                    child: _drawerItem(icon: Icons.usb_rounded, title: 'Free Services'));
+                    child: _drawerItem(
+                        icon: Icons.usb_rounded, title: 'Free Services'));
               }),
               GetBuilder<ThemeController>(builder: (themeController) {
                 return GestureDetector(
                     onTap: () async {
                       Get.to(() => ColorPickerPage());
                     },
-                    child: _drawerItem(icon: Icons.brightness_2, title: 'Theme'));
+                    child:
+                        _drawerItem(icon: Icons.brightness_2, title: 'Theme'));
               }),
               GestureDetector(
                   onTap: () async {
@@ -221,22 +255,27 @@ class DrawerWidget extends StatelessWidget {
                       );
                     }
                   },
-                  child: _drawerItem(icon: Icons.person, title: 'Sign Up as Astrologer')),
+                  child: _drawerItem(
+                      icon: Icons.person, title: 'Sign Up as Astrologer')),
               global.currentUserId != null
                   ? GestureDetector(
                       onTap: () async {
-                        SettingsController settingsController = Get.find<SettingsController>();
+                        SettingsController settingsController =
+                            Get.find<SettingsController>();
                         global.showOnlyLoaderDialog(context);
                         await settingsController.getBlockAstrologerList();
                         global.hideLoader();
                         Get.to(() => SettingListScreen());
                       },
-                      child: _drawerItem(icon: Icons.settings, title: 'Settings'))
+                      child:
+                          _drawerItem(icon: Icons.settings, title: 'Settings'))
                   : GestureDetector(
                       onTap: () {
                         Get.off(() => LoginScreen());
                       },
-                      child: _drawerItem(icon: Icons.arrow_circle_right_outlined, title: 'Login')),
+                      child: _drawerItem(
+                          icon: Icons.arrow_circle_right_outlined,
+                          title: 'Login')),
               SizedBox(
                 height: 50,
               ),
@@ -261,8 +300,9 @@ class DrawerWidget extends StatelessWidget {
         ),
         Text(
           title,
-          style: Get.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.normal, fontSize: 13),
-        ).translate(),
+          style: Get.textTheme.bodyText1!
+              .copyWith(fontWeight: FontWeight.normal, fontSize: 13),
+        ),
       ]),
     );
   }

@@ -38,7 +38,7 @@ class HelpDetailTileWidget extends StatelessWidget {
           Text(
             '$subject',
             style: TextStyle(fontWeight: FontWeight.bold),
-          ).translate(),
+          ),
           FutureBuilder(
             future: global.showHtml(
               html: text,
@@ -71,7 +71,11 @@ class HelpDetailTileWidget extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('See image here', style: TextStyle(decoration: TextDecoration.underline, fontSize: 13, color: Colors.blue)).translate(),
+                        Text('See image here',
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 13,
+                                color: Colors.blue)),
                         SizedBox(
                           width: 10,
                         ),
@@ -88,7 +92,9 @@ class HelpDetailTileWidget extends StatelessWidget {
               ? Center(
                   child: Column(
                     children: [
-                      Text('Still need help?', style: Get.textTheme.subtitle1!.copyWith(fontSize: 10)).translate(),
+                      Text('Still need help?',
+                          style:
+                              Get.textTheme.subtitle1!.copyWith(fontSize: 10)),
                       GestureDetector(
                         onTap: () {
                           Get.to(() => CreateTiketScreen(
@@ -103,16 +109,21 @@ class HelpDetailTileWidget extends StatelessWidget {
                           width: 100,
                           padding: const EdgeInsets.all(4),
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Get.theme.primaryColor),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Get.theme.primaryColor),
                           child: FittedBox(
                             child: Text(
                               'Chat with us',
-                              style: Get.textTheme.subtitle1!.copyWith(fontSize: 13),
-                            ).translate(),
+                              style: Get.textTheme.subtitle1!
+                                  .copyWith(fontSize: 13),
+                            ),
                           ),
                         ),
                       ),
-                      Text('Wait time - 5 min', style: Get.textTheme.subtitle1!.copyWith(fontSize: 10)).translate(),
+                      Text('Wait time - 5 min',
+                          style:
+                              Get.textTheme.subtitle1!.copyWith(fontSize: 10)),
                     ],
                   ),
                 )

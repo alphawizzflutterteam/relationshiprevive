@@ -2,6 +2,7 @@
 //flutter
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:AstroGuru/controllers/bottomNavigationController.dart';
@@ -226,7 +227,11 @@ void main() async {
   HttpOverrides.global = PostHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  String? token = await FirebaseMessaging.instance.getToken();
+
+  log('${token}');
 
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
@@ -278,6 +283,7 @@ CustomerSupportController customerSupportController =
     Get.put(CustomerSupportController());
 ChatController chatController = Get.put(ChatController());
 CallController callController = Get.put(CallController());
+
 void handleLinkData(PendingDynamicLinkData? data) async {
   final Uri uri = data!.link;
   String? screen;
@@ -448,6 +454,7 @@ class _MyAppState extends State<MyApp> {
         callController.update();
       } else {
         try {
+          print('body ${message.data}');
           if (message.data.isNotEmpty) {
             var messageData = json.decode((message.data['body']));
             print('body $messageData');

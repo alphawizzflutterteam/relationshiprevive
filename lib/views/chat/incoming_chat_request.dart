@@ -40,7 +40,7 @@ class IncomingChatRequest extends StatelessWidget {
               Text(
                 "Incoming chat request from",
                 style: Get.textTheme.bodyText1,
-              ).translate(),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -57,7 +57,7 @@ class IncomingChatRequest extends StatelessWidget {
                   Text(
                     '${global.getSystemFlagValue(global.systemFlagNameList.appName)}',
                     style: Get.textTheme.headline5,
-                  ).translate(),
+                  ),
                 ],
               )
             ],
@@ -76,8 +76,10 @@ class IncomingChatRequest extends StatelessWidget {
                       )
                     : CachedNetworkImage(
                         imageUrl: '${global.imgBaseurl}$profile',
-                        imageBuilder: (context, imageProvider) => CircleAvatar(radius: 48, backgroundImage: imageProvider),
-                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                            radius: 48, backgroundImage: imageProvider),
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => Image.asset(
                           Images.deafultUser,
                           fit: BoxFit.fill,
@@ -92,7 +94,7 @@ class IncomingChatRequest extends StatelessWidget {
               Text(
                 astrologerName == "" ? 'Astrologer' : astrologerName ?? "",
                 style: Get.textTheme.headline5,
-              ).translate(),
+              ),
             ],
           ),
           Column(
@@ -100,7 +102,8 @@ class IncomingChatRequest extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () async {
                   await chatController.acceptedChat(chatId);
-                  global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'Start simple chat timer');
+                  global.callOnFcmApiSendPushNotifications(
+                      fcmTokem: [fcmToken], title: 'Start simple chat timer');
                   chatController.isInchat = true;
                   chatController.isEndChat = false;
                   TimerController timerController = Get.find<TimerController>();
@@ -117,10 +120,11 @@ class IncomingChatRequest extends StatelessWidget {
                       ));
                 },
                 icon: Icon(Icons.chat),
-                label: Text("Start chat").translate(),
+                label: Text("Start chat"),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.green),
-                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 10, horizontal: 30)),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 30)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
@@ -136,8 +140,10 @@ class IncomingChatRequest extends StatelessWidget {
                   global.showOnlyLoaderDialog(context);
                   await chatController.rejectedChat(chatId);
                   global.hideLoader();
-                  global.callOnFcmApiSendPushNotifications(fcmTokem: [fcmToken], title: 'End chat from customer');
-                  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+                  global.callOnFcmApiSendPushNotifications(
+                      fcmTokem: [fcmToken], title: 'End chat from customer');
+                  BottomNavigationController bottomNavigationController =
+                      Get.find<BottomNavigationController>();
                   bottomNavigationController.setIndex(0, 0);
                   Get.to(() => BottomNavigationBarScreen(
                         index: 0,
@@ -145,8 +151,9 @@ class IncomingChatRequest extends StatelessWidget {
                 },
                 child: Text(
                   "Reject Chat Request",
-                  style: Get.textTheme.bodyText2!.copyWith(color: Colors.red, fontSize: 12),
-                ).translate(),
+                  style: Get.textTheme.bodyText2!
+                      .copyWith(color: Colors.red, fontSize: 12),
+                ),
               ),
             ],
           )

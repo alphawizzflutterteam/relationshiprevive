@@ -37,11 +37,19 @@ class GeneralReport extends StatelessWidget {
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(left: 10, right: 10),
                             decoration: BoxDecoration(
-                              color: kundliController.reportTab[index].isSelected ? Color.fromARGB(255, 247, 243, 213) : Colors.transparent,
-                              border: Border.all(color: kundliController.reportTab[index].isSelected ? Get.theme.primaryColor : Colors.black),
+                              color:
+                                  kundliController.reportTab[index].isSelected
+                                      ? Color.fromARGB(255, 247, 243, 213)
+                                      : Colors.transparent,
+                              border: Border.all(
+                                  color: kundliController
+                                          .reportTab[index].isSelected
+                                      ? Get.theme.primaryColor
+                                      : Colors.black),
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            child: Text(kundliController.reportTab[index].title, style: TextStyle(fontSize: 13)).translate()),
+                            child: Text(kundliController.reportTab[index].title,
+                                style: TextStyle(fontSize: 13))),
                       ),
                     );
                   });
@@ -64,11 +72,14 @@ class GeneralReport extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Description', style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)).translate(),
+                    Text('Description',
+                        style: Get.textTheme.subtitle1!
+                            .copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(
                       height: 10,
                     ),
-                    Text('${kundliController.generalDesc}', style: Get.textTheme.subtitle1!.copyWith(fontSize: 14)).translate()
+                    Text('${kundliController.generalDesc}',
+                        style: Get.textTheme.subtitle1!.copyWith(fontSize: 14))
                   ],
                 ),
               ),

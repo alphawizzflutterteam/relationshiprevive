@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison, unnecessary_statements
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:AstroGuru/controllers/splashController.dart';
@@ -61,8 +62,11 @@ class UserProfileController extends GetxController {
   Future<File> getImageFileFromAssets(String path) async {
     final byteData = await rootBundle.load('assets/$path');
 
-    final file = await File('${(await getApplicationDocumentsDirectory()).path}/$path').create(recursive: true);
-    await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    final file =
+        await File('${(await getApplicationDocumentsDirectory()).path}/$path')
+            .create(recursive: true);
+    await file.writeAsBytes(byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
 
     return file;
   }
@@ -72,12 +76,17 @@ class UserProfileController extends GetxController {
       nameController.text = splashController.currentUser!.name!;
       profile = splashController.currentUser!.profile ?? "";
       updateGeneder(splashController.currentUser!.gender!);
-      dateController.text = formatDate(splashController.currentUser!.birthDate!, [dd, '-', mm, '-', yyyy]);
+      dateController.text = formatDate(
+          splashController.currentUser!.birthDate!, [dd, '-', mm, '-', yyyy]);
       timeController.text = splashController.currentUser!.birthTime!;
       placeBirthController.text = splashController.currentUser!.birthPlace!;
-      currentAddressController.text = splashController.currentUser!.addressLine1!;
+      currentAddressController.text =
+          splashController.currentUser!.addressLine1!;
       addressController.text = splashController.currentUser!.location!;
-      pinController.text = splashController.currentUser!.pincode.toString() == "null" ? "" : splashController.currentUser!.pincode.toString();
+      pinController.text =
+          splashController.currentUser!.pincode.toString() == "null"
+              ? ""
+              : splashController.currentUser!.pincode.toString();
       imageFile = null;
       userFile = null;
       update();
@@ -121,7 +130,8 @@ class UserProfileController extends GetxController {
   Future<XFile?> openCamera(Color color, {bool isProfile = true}) async {
     try {
       final ImagePicker picker = ImagePicker();
-      XFile? _selectedImage = await picker.pickImage(source: ImageSource.camera);
+      XFile? _selectedImage =
+          await picker.pickImage(source: ImageSource.camera);
 
       if (_selectedImage != null) {
         print("cropped file :- $_selectedImage");
@@ -129,7 +139,8 @@ class UserProfileController extends GetxController {
       }
     } catch (e) {
       // ignore: avoid_print
-      print("Exception - user_profile_controller.dart - openCamera():" + e.toString());
+      print("Exception - user_profile_controller.dart - openCamera():" +
+          e.toString());
     }
     return null;
   }
@@ -141,17 +152,23 @@ class UserProfileController extends GetxController {
       "gender": gender,
       "birthTime": timeController.text == "" ? null : timeController.text,
       "birthDate": pickedDate == null ? null : pickedDate!.toIso8601String(),
-      "birthPlace": placeBirthController.text == "" ? null : placeBirthController.text,
-      "addressLine1": currentAddressController.text == "" ? null : currentAddressController.text,
+      "birthPlace":
+          placeBirthController.text == "" ? null : placeBirthController.text,
+      "addressLine1": currentAddressController.text == ""
+          ? null
+          : currentAddressController.text,
       "addressLine2": null,
       "location": addressController.text == "" ? null : addressController.text,
-      "pincode": pinController.text == "" ? null : int.parse(pinController.text),
+      "pincode":
+          pinController.text == "" ? null : int.parse(pinController.text),
       "profile": profile == "" ? null : profile,
     };
     try {
       await global.checkBody().then((result) async {
         if (result) {
-          await apiHelper.updateUserProfile(id, basicDetails).then((result) async {
+          await apiHelper
+              .updateUserProfile(id, basicDetails)
+              .then((result) async {
             if (result.status == "200") {
               global.showToast(
                 message: 'Your Profile has been updated',

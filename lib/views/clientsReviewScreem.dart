@@ -16,11 +16,13 @@ class ClientsReviewScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+          backgroundColor:
+              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           title: Text(
             'Clients Testimonials',
-            style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-          ).translate(),
+            style: Get.theme.primaryTextTheme.headline6!
+                .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
+          ),
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(
@@ -61,19 +63,23 @@ class ClientsReviewScreen extends StatelessWidget {
                                     ),
                                   )
                                 : CachedNetworkImage(
-                                    imageUrl: '${global.imgBaseurl}${homeController.clientReviews[index].profile}',
-                                    imageBuilder: (context, imageProvider) => Container(
+                                    imageUrl:
+                                        '${global.imgBaseurl}${homeController.clientReviews[index].profile}',
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
                                       height: 40,
                                       width: 40,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
                                         color: Get.theme.primaryColor,
                                         image: DecorationImage(
-                                          image: NetworkImage("${global.imgBaseurl}${homeController.clientReviews[index].profile}"),
+                                          image: NetworkImage(
+                                              "${global.imgBaseurl}${homeController.clientReviews[index].profile}"),
                                         ),
                                       ),
                                     ),
-                                    errorWidget: (context, url, error) => Container(
+                                    errorWidget: (context, url, error) =>
+                                        Container(
                                       height: 40,
                                       width: 40,
                                       decoration: BoxDecoration(
@@ -86,25 +92,37 @@ class ClientsReviewScreen extends StatelessWidget {
                                     ),
                                   ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10, bottom: 10),
                               child: Column(
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: Text(
                                       // ignore: unnecessary_null_comparison
-                                      (homeController.clientReviews[index].name != null && homeController.clientReviews[index].name != '') ? "${homeController.clientReviews[index].name}" : 'User',
-                                      style: Get.theme.primaryTextTheme.subtitle2!.copyWith(
+                                      (homeController.clientReviews[index]
+                                                      .name !=
+                                                  null &&
+                                              homeController
+                                                      .clientReviews[index]
+                                                      .name !=
+                                                  '')
+                                          ? "${homeController.clientReviews[index].name}"
+                                          : 'User',
+                                      style: Get
+                                          .theme.primaryTextTheme.subtitle2!
+                                          .copyWith(
                                         fontWeight: FontWeight.w400,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ),
                                   Text(
                                     '${homeController.clientReviews[index].location}',
-                                    style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                    style: Get.theme.primaryTextTheme.bodySmall!
+                                        .copyWith(
                                       fontWeight: FontWeight.w300,
                                     ),
-                                  ).translate(),
+                                  ),
                                 ],
                               ),
                             ),
@@ -119,7 +137,7 @@ class ClientsReviewScreen extends StatelessWidget {
                             fontWeight: FontWeight.w300,
                             fontSize: 13,
                           ),
-                        ).translate(),
+                        ),
                       ],
                     ),
                   );

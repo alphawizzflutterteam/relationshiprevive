@@ -49,7 +49,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: titleStyle,
-      ).translate(),
+      ),
       actions: actions,
     );
   }

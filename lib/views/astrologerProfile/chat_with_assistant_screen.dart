@@ -37,7 +37,8 @@ class ChatWithAstrologerAssistantScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+            backgroundColor:
+                Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
             title: GestureDetector(
               onTap: () async {},
               child: Text(
@@ -46,7 +47,7 @@ class ChatWithAstrologerAssistantScreen extends StatelessWidget {
                   fontSize: 18,
                   fontWeight: FontWeight.normal,
                 ),
-              ).translate(),
+              ),
             ),
             leading: IconButton(
               onPressed: () async {
@@ -67,68 +68,131 @@ class ChatWithAstrologerAssistantScreen extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                GetBuilder<AstrologerAssistantController>(builder: (astrologerAssistantController) {
+                GetBuilder<AstrologerAssistantController>(
+                    builder: (astrologerAssistantController) {
                   return Column(
                     children: [
                       Expanded(
-                        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                            stream: astrologerAssistantController.getChatMessages(fireBasechatId, global.currentUserId),
+                        child: StreamBuilder<
+                                QuerySnapshot<Map<String, dynamic>>>(
+                            stream:
+                                astrologerAssistantController.getChatMessages(
+                                    fireBasechatId, global.currentUserId),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState.name == "waiting") {
-                                return Center(child: CircularProgressIndicator());
+                                return Center(
+                                    child: CircularProgressIndicator());
                               } else {
                                 if (snapshot.hasError) {
-                                  return Text('snapShotError :- ${snapshot.error}');
+                                  return Text(
+                                      'snapShotError :- ${snapshot.error}');
                                 } else {
                                   List<ChatMessageModel> messageList = [];
                                   for (var res in snapshot.data!.docs) {
-                                    messageList.add(ChatMessageModel.fromJson(res.data()));
+                                    messageList.add(
+                                        ChatMessageModel.fromJson(res.data()));
                                   }
                                   print(messageList.length);
                                   return ListView.builder(
-                                      padding: const EdgeInsets.only(bottom: 50),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 50),
                                       itemCount: messageList.length,
                                       shrinkWrap: true,
                                       reverse: true,
                                       itemBuilder: (context, index) {
-                                        ChatMessageModel message = messageList[index];
-                                        astrologerAssistantController.isMe = message.userId1 == '${global.currentUserId}';
+                                        ChatMessageModel message =
+                                            messageList[index];
+                                        astrologerAssistantController.isMe =
+                                            message.userId1 ==
+                                                '${global.currentUserId}';
                                         return Row(
-                                          mainAxisAlignment: astrologerAssistantController.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              astrologerAssistantController.isMe
+                                                  ? MainAxisAlignment.end
+                                                  : MainAxisAlignment.start,
                                           children: [
                                             Container(
                                               decoration: BoxDecoration(
-                                                color: astrologerAssistantController.isMe ? Colors.grey[300] : Get.theme.primaryColor,
+                                                color:
+                                                    astrologerAssistantController
+                                                            .isMe
+                                                        ? Colors.grey[300]
+                                                        : Get
+                                                            .theme.primaryColor,
                                                 borderRadius: BorderRadius.only(
-                                                  topLeft: const Radius.circular(12),
-                                                  topRight: const Radius.circular(12),
-                                                  bottomLeft: astrologerAssistantController.isMe ? const Radius.circular(0) : const Radius.circular(12),
-                                                  bottomRight: astrologerAssistantController.isMe ? const Radius.circular(0) : const Radius.circular(12),
+                                                  topLeft:
+                                                      const Radius.circular(12),
+                                                  topRight:
+                                                      const Radius.circular(12),
+                                                  bottomLeft:
+                                                      astrologerAssistantController
+                                                              .isMe
+                                                          ? const Radius
+                                                              .circular(0)
+                                                          : const Radius
+                                                              .circular(12),
+                                                  bottomRight:
+                                                      astrologerAssistantController
+                                                              .isMe
+                                                          ? const Radius
+                                                              .circular(0)
+                                                          : const Radius
+                                                              .circular(12),
                                                 ),
                                               ),
                                               width: 140,
-                                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                                              margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 16),
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16,
+                                                      horizontal: 8),
                                               child: Column(
-                                                crossAxisAlignment: astrologerAssistantController.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    astrologerAssistantController
+                                                            .isMe
+                                                        ? CrossAxisAlignment.end
+                                                        : CrossAxisAlignment
+                                                            .start,
                                                 children: [
                                                   Text(
                                                     messageList[index].message!,
                                                     style: const TextStyle(
                                                       color: Colors.black,
                                                     ),
-                                                    textAlign: astrologerAssistantController.isMe ? TextAlign.end : TextAlign.start,
+                                                    textAlign:
+                                                        astrologerAssistantController
+                                                                .isMe
+                                                            ? TextAlign.end
+                                                            : TextAlign.start,
                                                   ),
-                                                  messageList[index].createdAt != null
+                                                  messageList[index]
+                                                              .createdAt !=
+                                                          null
                                                       ? Padding(
-                                                          padding: const EdgeInsets.only(top: 8.0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  top: 8.0),
                                                           child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .end,
                                                             children: [
-                                                              Text(DateFormat().add_jm().format(messageList[index].createdAt!),
-                                                                  style: const TextStyle(
-                                                                    color: Colors.grey,
-                                                                    fontSize: 9.5,
+                                                              Text(
+                                                                  DateFormat()
+                                                                      .add_jm()
+                                                                      .format(messageList[
+                                                                              index]
+                                                                          .createdAt!),
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                    fontSize:
+                                                                        9.5,
                                                                   )),
                                                             ],
                                                           ),
@@ -152,14 +216,16 @@ class ChatWithAstrologerAssistantScreen extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.only(top: 8),
                     padding: const EdgeInsets.all(8),
-                    child: GetBuilder<AstrologerAssistantController>(builder: (astrologerAssistantController) {
+                    child: GetBuilder<AstrologerAssistantController>(
+                        builder: (astrologerAssistantController) {
                       return Row(
                         children: [
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(30.0)),
                               ),
                               height: 50,
                               child: TextField(
@@ -169,12 +235,16 @@ class ChatWithAstrologerAssistantScreen extends StatelessWidget {
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                                    borderSide: BorderSide(color: Get.theme.primaryColor),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(30.0)),
+                                    borderSide: BorderSide(
+                                        color: Get.theme.primaryColor),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                                    borderSide: BorderSide(color: Get.theme.primaryColor),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(30.0)),
+                                    borderSide: BorderSide(
+                                        color: Get.theme.primaryColor),
                                   ),
                                 ),
                               ),
@@ -201,7 +271,10 @@ class ChatWithAstrologerAssistantScreen extends StatelessWidget {
                                 child: InkWell(
                                   onTap: () {
                                     if (messageController.text != "") {
-                                      astrologerAssistantController.sendMessage(messageController.text, fireBasechatId, astrologerId);
+                                      astrologerAssistantController.sendMessage(
+                                          messageController.text,
+                                          fireBasechatId,
+                                          astrologerId);
                                       messageController.clear();
                                     }
                                   },

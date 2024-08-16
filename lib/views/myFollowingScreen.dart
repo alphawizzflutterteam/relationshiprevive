@@ -25,27 +25,36 @@ class MyFollowingScreen extends StatelessWidget {
             )),
         body: RefreshIndicator(
           onRefresh: () async {
-            FollowAstrologerController followAstrologerController = Get.find<FollowAstrologerController>();
+            FollowAstrologerController followAstrologerController =
+                Get.find<FollowAstrologerController>();
             followAstrologerController.followedAstrologer.clear();
             followAstrologerController.isAllDataLoaded = false;
             followAstrologerController.update();
             await followAstrologerController.getFollowedAstrologerList(false);
           },
-          child: GetBuilder<FollowAstrologerController>(builder: (followAstrologerController) {
+          child: GetBuilder<FollowAstrologerController>(
+              builder: (followAstrologerController) {
             return followAstrologerController.followedAstrologer.length == 0
                 ? Center(
-                    child: Text("You have not followed any astrologer yet!").translate(),
+                    child: Text("You have not followed any astrologer yet!"),
                   )
                 : ListView.builder(
-                    itemCount: followAstrologerController.followedAstrologer.length,
+                    itemCount:
+                        followAstrologerController.followedAstrologer.length,
                     controller: followAstrologerController.scrollController,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () async {
-                          Get.find<ReviewController>().getReviewData(followAstrologerController.followedAstrologer[index].id!);
+                          Get.find<ReviewController>().getReviewData(
+                              followAstrologerController
+                                  .followedAstrologer[index].id!);
                           global.showOnlyLoaderDialog(context);
-                          BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
-                          await bottomNavigationController.getAstrologerbyId(followAstrologerController.followedAstrologer[index].id!);
+                          BottomNavigationController
+                              bottomNavigationController =
+                              Get.find<BottomNavigationController>();
+                          await bottomNavigationController.getAstrologerbyId(
+                              followAstrologerController
+                                  .followedAstrologer[index].id!);
                           global.hideLoader();
                           Get.to(() => AstrologerProfile(
                                 index: index,
@@ -61,20 +70,32 @@ class MyFollowingScreen extends StatelessWidget {
                                     Column(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 10),
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
                                           child: Container(
                                             height: 65,
                                             width: 65,
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), border: Border.all(color: Get.theme.primaryColor)),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(7),
+                                                border: Border.all(
+                                                    color: Get
+                                                        .theme.primaryColor)),
                                             child: CircleAvatar(
                                               radius: 35,
                                               backgroundColor: Colors.white,
                                               child: CachedNetworkImage(
                                                 height: 55,
                                                 width: 55,
-                                                imageUrl: '${global.imgBaseurl}${followAstrologerController.followedAstrologer[index].profileImage}',
-                                                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                errorWidget: (context, url, error) => Image.asset(
+                                                imageUrl:
+                                                    '${global.imgBaseurl}${followAstrologerController.followedAstrologer[index].profileImage}',
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                        child:
+                                                            CircularProgressIndicator()),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Image.asset(
                                                   Images.deafultUser,
                                                   fit: BoxFit.cover,
                                                   height: 50,
@@ -96,47 +117,66 @@ class MyFollowingScreen extends StatelessWidget {
                                           ),
                                           onRatingUpdate: (rating) {},
                                         ),
-                                        followAstrologerController.followedAstrologer[index].totalOrder == 0 || followAstrologerController.followedAstrologer[index].totalOrder == null
+                                        followAstrologerController
+                                                        .followedAstrologer[
+                                                            index]
+                                                        .totalOrder ==
+                                                    0 ||
+                                                followAstrologerController
+                                                        .followedAstrologer[
+                                                            index]
+                                                        .totalOrder ==
+                                                    null
                                             ? SizedBox()
                                             : Text(
                                                 '${followAstrologerController.followedAstrologer[index].totalOrder} orders',
-                                                style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                                style: Get.theme
+                                                    .primaryTextTheme.bodySmall!
+                                                    .copyWith(
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 9,
                                                 ),
-                                              ).translate()
+                                              )
                                       ],
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               '${followAstrologerController.followedAstrologer[index].name}',
-                                            ).translate(),
+                                            ),
                                             Text(
                                               '${followAstrologerController.followedAstrologer[index].allSkill}',
-                                              style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                              style: Get.theme.primaryTextTheme
+                                                  .bodySmall!
+                                                  .copyWith(
                                                 fontWeight: FontWeight.w300,
                                                 color: Colors.grey[600],
                                               ),
-                                            ).translate(),
+                                            ),
                                             Text(
                                               '${followAstrologerController.followedAstrologer[index].languageKnown}',
-                                              style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                              style: Get.theme.primaryTextTheme
+                                                  .bodySmall!
+                                                  .copyWith(
                                                 fontWeight: FontWeight.w300,
                                                 color: Colors.grey[600],
                                               ),
-                                            ).translate(),
+                                            ),
                                             Text(
                                               'Experience : ${followAstrologerController.followedAstrologer[index].experienceInYears} Years',
-                                              style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                              style: Get.theme.primaryTextTheme
+                                                  .bodySmall!
+                                                  .copyWith(
                                                 fontWeight: FontWeight.w300,
                                                 color: Colors.grey[600],
                                               ),
-                                            ).translate(),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -148,12 +188,19 @@ class MyFollowingScreen extends StatelessWidget {
                                         ),
                                         TextButton(
                                           style: ButtonStyle(
-                                            padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                            fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
-                                            backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 241, 234, 202)),
+                                            padding: MaterialStateProperty.all(
+                                                EdgeInsets.all(0)),
+                                            fixedSize:
+                                                MaterialStateProperty.all(
+                                                    Size.fromWidth(90)),
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Color.fromARGB(
+                                                        255, 241, 234, 202)),
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(10),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                                 side: BorderSide(
                                                   color: Get.theme.primaryColor,
                                                 ),
@@ -164,17 +211,25 @@ class MyFollowingScreen extends StatelessWidget {
                                             Get.dialog(
                                               AlertDialog(
                                                 title: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       'Unfollow',
-                                                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-                                                    ).translate(),
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                    ),
                                                     Text(
                                                       "Are you sure you want to unfollow ${followAstrologerController.followedAstrologer[index].name} ?",
-                                                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal),
-                                                    ).translate(),
+                                                      style: TextStyle(
+                                                          fontSize: 13,
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                    ),
                                                   ],
                                                 ),
                                                 content: Row(
@@ -185,19 +240,26 @@ class MyFollowingScreen extends StatelessWidget {
                                                           onPressed: () {
                                                             Get.back();
                                                           },
-                                                          child: Text('No').translate()),
+                                                          child: Text('No')),
                                                     ),
                                                     const SizedBox(width: 10),
                                                     Expanded(
                                                       flex: 4,
                                                       child: ElevatedButton(
                                                         onPressed: () async {
-                                                          global.showOnlyLoaderDialog(context);
-                                                          await followAstrologerController.unFollowAstrologer(followAstrologerController.followedAstrologer[index].id!);
+                                                          global
+                                                              .showOnlyLoaderDialog(
+                                                                  context);
+                                                          await followAstrologerController
+                                                              .unFollowAstrologer(
+                                                                  followAstrologerController
+                                                                      .followedAstrologer[
+                                                                          index]
+                                                                      .id!);
                                                           Get.back();
                                                           global.hideLoader();
                                                         },
-                                                        child: Text('Yes').translate(),
+                                                        child: Text('Yes'),
                                                       ),
                                                     ),
                                                   ],
@@ -207,8 +269,9 @@ class MyFollowingScreen extends StatelessWidget {
                                           },
                                           child: Text(
                                             'Unfollow',
-                                            style: Get.theme.primaryTextTheme.bodySmall,
-                                          ).translate(),
+                                            style: Get.theme.primaryTextTheme
+                                                .bodySmall,
+                                          ),
                                         ),
                                       ],
                                     )
@@ -216,7 +279,16 @@ class MyFollowingScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            followAstrologerController.isMoreDataAvailable == true && !followAstrologerController.isAllDataLoaded && followAstrologerController.followedAstrologer.length - 1 == index ? const CircularProgressIndicator() : const SizedBox(),
+                            followAstrologerController.isMoreDataAvailable ==
+                                        true &&
+                                    !followAstrologerController
+                                        .isAllDataLoaded &&
+                                    followAstrologerController
+                                                .followedAstrologer.length -
+                                            1 ==
+                                        index
+                                ? const CircularProgressIndicator()
+                                : const SizedBox(),
                           ],
                         ),
                       );

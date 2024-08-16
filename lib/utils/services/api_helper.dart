@@ -283,20 +283,21 @@ class APIHelper {
       int? startIndex,
       int? fetchRecords}) async {
     try {
-      final response = await http.post(Uri.parse('$baseUrl/getAstrologer'),
-          headers: await global.getApiHeaders(true),
-          body: json.encode({
-            "userId": global.user.id,
-            "astrologerCategoryId": catId,
-            "filterData": {
-              "skills": skills,
-              "languageKnown": language,
-              "gender": gender
-            },
-            "sortBy": sortingKey,
-            "startIndex": startIndex,
-            "fetchRecord": fetchRecords,
-          }));
+      final response =
+          await http.post(Uri.parse('$baseUrl/getRandomAstrologer'),
+              headers: await global.getApiHeaders(true),
+              body: json.encode({
+                "userId": global.user.id,
+                "astrologerCategoryId": catId,
+                "filterData": {
+                  "skills": skills,
+                  "languageKnown": language,
+                  "gender": gender
+                },
+                "sortBy": sortingKey,
+                "startIndex": startIndex,
+                "fetchRecord": fetchRecords,
+              }));
       dynamic recordList;
       print('json body ${json.encode({
             "userId": global.user.id,
@@ -1005,6 +1006,8 @@ class APIHelper {
       print('edit profile body:- ${jsonEncode(basicDetails)}');
       print(response);
       dynamic recordList;
+      log('${response.body}');
+
       if (response.statusCode == 200) {
         recordList = json.decode(response.body);
       } else {
@@ -1126,7 +1129,7 @@ class APIHelper {
       );
       dynamic recordList;
       if (response.statusCode == 200) {
-        recordList = json.decode(response.body)['recordList'];
+        return recordList = json.decode(response.body);
       } else {
         recordList = null;
       }
@@ -1418,6 +1421,8 @@ class APIHelper {
               body: json.encode(
                 {"callId": callId},
               ));
+
+      log('${response}');
       print('done : $response');
       dynamic recordList;
       if (response.statusCode == 200) {

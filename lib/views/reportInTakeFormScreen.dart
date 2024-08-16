@@ -39,17 +39,20 @@ class ReportInTakeForm extends StatelessWidget {
   }) : super(key: key);
   ReportController reportController = Get.find<ReportController>();
   RazorPayController razorPay = Get.find<RazorPayController>();
-  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+        backgroundColor:
+            Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
         title: Text(
           'Report intake Form',
-          style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-        ).translate(),
+          style: Get.theme.primaryTextTheme.headline6!
+              .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
+        ),
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: Icon(
@@ -62,11 +65,14 @@ class ReportInTakeForm extends StatelessWidget {
             onTap: () async {
               bool isLogin = await global.isLogin();
               if (isLogin) {
-                CustomerSupportController customerSupportController = Get.find<CustomerSupportController>();
-                AstrologerAssistantController astrologerAssistantController = Get.find<AstrologerAssistantController>();
+                CustomerSupportController customerSupportController =
+                    Get.find<CustomerSupportController>();
+                AstrologerAssistantController astrologerAssistantController =
+                    Get.find<AstrologerAssistantController>();
                 global.showOnlyLoaderDialog(context);
                 await customerSupportController.getCustomerTickets();
-                await astrologerAssistantController.getChatWithAstrologerAssisteant();
+                await astrologerAssistantController
+                    .getChatWithAstrologerAssisteant();
                 global.hideLoader();
                 Get.to(() => CustomerSupportChat());
               }
@@ -91,13 +97,17 @@ class ReportInTakeForm extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 15),
-                Text('Report Type:', style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)).translate(),
+                Text('Report Type:',
+                    style: Get.textTheme.subtitle1!
+                        .copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: 15),
-                Text('$reportType', style: Get.textTheme.subtitle1).translate(),
+                Text('$reportType', style: Get.textTheme.subtitle1),
                 SizedBox(height: 15),
                 TextFieldWidget(
                   controller: reportController.fristNameController,
-                  inputFormatter: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))],
+                  inputFormatter: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))
+                  ],
                   labelText: 'First Name',
                   focusNode: reportController.firstNamefocus,
                 ),
@@ -105,7 +115,9 @@ class ReportInTakeForm extends StatelessWidget {
                   controller: reportController.lastNameController,
                   labelText: 'Last name',
                   focusNode: reportController.lastNamefocus,
-                  inputFormatter: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))],
+                  inputFormatter: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -126,9 +138,12 @@ class ReportInTakeForm extends StatelessWidget {
                               keyboardType: TextInputType.phone,
                               cursorColor: global.coursorColor,
                               focusNode: reportController.phonefocus,
-                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
                               decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
                                   hintText: snapshot.data,
                                   errorText: null,
                                   hintStyle: TextStyle(
@@ -138,49 +153,53 @@ class ReportInTakeForm extends StatelessWidget {
                                     fontWeight: FontWeight.w400,
                                   ),
                                   counterText: ''),
-                              initialCountryCode: reportController.countryCode ?? 'IN',
+                              initialCountryCode:
+                                  reportController.countryCode ?? 'IN',
                               onChanged: (phone) {
                                 print('length ${phone.number.length}');
                               },
                             );
                           })),
                 ),
-                Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  TextFieldLabelWidget(
-                    label: 'Gender',
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: RadioListTile(
-                      title: Text("Male").translate(),
-                      value: "male",
-                      groupValue: reportController.gender,
-                      dense: true,
-                      activeColor: Get.theme.primaryColor,
-                      contentPadding: EdgeInsets.all(0.0),
-                      onChanged: (value) {
-                        reportController.updateGeneder(value);
-                      },
-                    ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: RadioListTile(
-                      title: Text("Female").translate(),
-                      value: "female",
-                      groupValue: reportController.gender,
-                      activeColor: Get.theme.primaryColor,
-                      contentPadding: EdgeInsets.all(0.0),
-                      dense: true,
-                      onChanged: (value) {
-                        reportController.updateGeneder(value);
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 78,
-                  )
-                ]),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFieldLabelWidget(
+                        label: 'Gender',
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: RadioListTile(
+                          title: Text("Male"),
+                          value: "male",
+                          groupValue: reportController.gender,
+                          dense: true,
+                          activeColor: Get.theme.primaryColor,
+                          contentPadding: EdgeInsets.all(0.0),
+                          onChanged: (value) {
+                            reportController.updateGeneder(value);
+                          },
+                        ),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: RadioListTile(
+                          title: Text("Female"),
+                          value: "female",
+                          groupValue: reportController.gender,
+                          activeColor: Get.theme.primaryColor,
+                          contentPadding: EdgeInsets.all(0.0),
+                          dense: true,
+                          onChanged: (value) {
+                            reportController.updateGeneder(value);
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 78,
+                      )
+                    ]),
                 InkWell(
                   onTap: () async {
                     reportController.firstNamefocus.unfocus();
@@ -202,7 +221,9 @@ class ReportInTakeForm extends StatelessWidget {
                       textColor: Get.theme.primaryColor,
                     );
                     if (datePicked != null) {
-                      reportController.dobController.text = DateConverter.isoStringToLocalDateOnly(datePicked.toIso8601String());
+                      reportController.dobController.text =
+                          DateConverter.isoStringToLocalDateOnly(
+                              datePicked.toIso8601String());
                       reportController.selctedDate = datePicked;
                       reportController.update();
                     } else {}
@@ -235,15 +256,18 @@ class ReportInTakeForm extends StatelessWidget {
                         });
                     String formatTimeOfDay(TimeOfDay tod) {
                       final now = new DateTime.now();
-                      final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
+                      final dt = DateTime(
+                          now.year, now.month, now.day, tod.hour, tod.minute);
                       final format = DateFormat.jm(); //"6:00 AM"
                       return format.format(dt);
                     }
 
                     if (time != null) {
-                      reportController.birthTimeController.text = formatTimeOfDay(time);
+                      reportController.birthTimeController.text =
+                          formatTimeOfDay(time);
                     } else {
-                      reportController.birthTimeController.text = formatTimeOfDay(TimeOfDay(hour: 12, minute: 30));
+                      reportController.birthTimeController.text =
+                          formatTimeOfDay(TimeOfDay(hour: 12, minute: 30));
                     }
                   },
                   child: IgnorePointer(
@@ -273,7 +297,13 @@ class ReportInTakeForm extends StatelessWidget {
                   label: 'Marital Status',
                 ),
                 DropDownWidget(
-                  item: ['single', 'Married', 'Divorced', 'Separated', 'Widowed'],
+                  item: [
+                    'single',
+                    'Married',
+                    'Divorced',
+                    'Separated',
+                    'Widowed'
+                  ],
                   hint: 'Select Marital Status',
                   callId: 1,
                 ),
@@ -281,7 +311,9 @@ class ReportInTakeForm extends StatelessWidget {
                   controller: reportController.ocucupationController,
                   labelText: 'Occupation',
                   focusNode: reportController.occupationfocus,
-                  inputFormatter: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))],
+                  inputFormatter: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))
+                  ],
                 ),
                 TextFieldLabelWidget(
                   label: 'I want answer in',
@@ -301,7 +333,9 @@ class ReportInTakeForm extends StatelessWidget {
                           reportController.occupationfocus.unfocus();
                           reportController.partnerDetails(value!);
                         }),
-                    Text("Enter Partner's Details", style: Get.textTheme.subtitle1!.copyWith(fontSize: 12, decoration: TextDecoration.underline)).translate()
+                    Text("Enter Partner's Details",
+                        style: Get.textTheme.subtitle1!.copyWith(
+                            fontSize: 12, decoration: TextDecoration.underline))
                   ],
                 ),
                 if (reportController.isEnterPartnerDetails)
@@ -309,7 +343,9 @@ class ReportInTakeForm extends StatelessWidget {
                     controller: reportController.partnerNameController,
                     labelText: "Partner's Name",
                     focusNode: reportController.partnerNamefocus,
-                    inputFormatter: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))],
+                    inputFormatter: [
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))
+                    ],
                   ),
                 if (reportController.isEnterPartnerDetails)
                   InkWell(
@@ -329,7 +365,9 @@ class ReportInTakeForm extends StatelessWidget {
                         titleText: "Partner's Date of Birth",
                       );
                       if (datePicked != null) {
-                        reportController.partnerDobController.text = DateConverter.isoStringToLocalDateOnly(datePicked.toIso8601String());
+                        reportController.partnerDobController.text =
+                            DateConverter.isoStringToLocalDateOnly(
+                                datePicked.toIso8601String());
                         reportController.selctedPartnerDate = datePicked;
                         reportController.update();
                       }
@@ -345,16 +383,20 @@ class ReportInTakeForm extends StatelessWidget {
                   InkWell(
                     onTap: () async {
                       reportController.partnerNamefocus.unfocus();
-                      final time = await showTimePicker(context: context, initialTime: TimeOfDay(hour: 12, minute: 30));
+                      final time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay(hour: 12, minute: 30));
                       String formatTimeOfDay(TimeOfDay tod) {
                         final now = new DateTime.now();
-                        final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
+                        final dt = DateTime(
+                            now.year, now.month, now.day, tod.hour, tod.minute);
                         final format = DateFormat.jm(); //"6:00 AM"
                         return format.format(dt);
                       }
 
                       if (time != null) {
-                        reportController.partnerBirthController.text = formatTimeOfDay(time);
+                        reportController.partnerBirthController.text =
+                            formatTimeOfDay(time);
                       }
                     },
                     child: IgnorePointer(
@@ -438,14 +480,16 @@ class ReportInTakeForm extends StatelessWidget {
             } else {
               Get.dialog(
                 AlertDialog(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   titlePadding: const EdgeInsets.all(8),
                   title: Column(
                     children: [
                       Text(
                         "Are you sure you want to get report?",
-                        style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
-                      ).translate(),
+                        style: Get.textTheme.subtitle1!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
                       const Divider()
                     ],
                   ),
@@ -453,21 +497,27 @@ class ReportInTakeForm extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Date of Birth', style: Get.textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold)).translate(),
+                      Text('Date of Birth',
+                          style: Get.textTheme.bodySmall!
+                              .copyWith(fontWeight: FontWeight.bold)),
                       Text(
                         reportController.dobController.text,
                         style: TextStyle(fontSize: 12),
                       ),
-                      Text('Time of Birth', style: Get.textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold)).translate(),
+                      Text('Time of Birth',
+                          style: Get.textTheme.bodySmall!
+                              .copyWith(fontWeight: FontWeight.bold)),
                       Text(
                         reportController.birthTimeController.text,
                         style: TextStyle(fontSize: 12),
                       ),
-                      Text('Place of Birth', style: Get.textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold)).translate(),
+                      Text('Place of Birth',
+                          style: Get.textTheme.bodySmall!
+                              .copyWith(fontWeight: FontWeight.bold)),
                       Text(
                         reportController.placeController.text,
                         style: TextStyle(fontSize: 12),
-                      ).translate(),
+                      ),
                       Row(
                         children: [
                           Expanded(
@@ -476,11 +526,14 @@ class ReportInTakeForm extends StatelessWidget {
                               onPressed: () {
                                 Get.back();
                               },
-                              child: Text('Cancel').translate(),
+                              child: Text('Cancel'),
                               style: ButtonStyle(
-                                maximumSize: MaterialStateProperty.all(Size(80, 40)),
-                                backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                                foregroundColor: MaterialStateProperty.all(Colors.black),
+                                maximumSize:
+                                    MaterialStateProperty.all(Size(80, 40)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Get.theme.primaryColor),
+                                foregroundColor:
+                                    MaterialStateProperty.all(Colors.black),
                               ),
                             ),
                           ),
@@ -492,15 +545,19 @@ class ReportInTakeForm extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 global.showOnlyLoaderDialog(context);
-                                await reportController.addGetReportFormData(astrologerId, reportId);
+                                await reportController.addGetReportFormData(
+                                    astrologerId, reportId);
                                 global.hideLoader();
                                 Get.back();
                               },
-                              child: Text('Confirm').translate(),
+                              child: Text('Confirm'),
                               style: ButtonStyle(
-                                maximumSize: MaterialStateProperty.all(Size(80, 40)),
-                                backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                                foregroundColor: MaterialStateProperty.all(Colors.black),
+                                maximumSize:
+                                    MaterialStateProperty.all(Size(80, 40)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Get.theme.primaryColor),
+                                foregroundColor:
+                                    MaterialStateProperty.all(Colors.black),
                               ),
                             ),
                           ),

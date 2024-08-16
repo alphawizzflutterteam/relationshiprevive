@@ -98,7 +98,7 @@ class AstrologerProfile extends BaseRoute {
                         "$astrologerName",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
-                      ).translate(),
+                      ),
                     ),
                   ],
                 ),
@@ -112,7 +112,7 @@ class AstrologerProfile extends BaseRoute {
                     fontSize: 12,
                   ),
                   textAlign: TextAlign.center,
-                ).translate(),
+                ),
               ),
               Container(
                 width: Get.width,
@@ -137,7 +137,7 @@ class AstrologerProfile extends BaseRoute {
                         child: Text(
                           "Cancel",
                           style: TextStyle(color: Colors.black),
-                        ).translate(),
+                        ),
                       ),
                     ),
                     GestureDetector(
@@ -257,7 +257,7 @@ class AstrologerProfile extends BaseRoute {
                         child: Text(
                           "Join Waitlist",
                           style: TextStyle(color: Colors.black),
-                        ).translate(),
+                        ),
                       ),
                     )
                   ],
@@ -283,7 +283,7 @@ class AstrologerProfile extends BaseRoute {
               'Profile',
               style: Get.theme.primaryTextTheme.headline6!
                   .copyWith(fontSize: 18, fontWeight: FontWeight.normal),
-            ).translate(),
+            ),
             leading: IconButton(
               onPressed: () {
                 Get.back();
@@ -374,7 +374,7 @@ class AstrologerProfile extends BaseRoute {
                                   style: Get.textTheme.subtitle1!.copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400))
-                              .translate(),
+                              ,
                         )
                       ],
                     ),
@@ -406,7 +406,7 @@ class AstrologerProfile extends BaseRoute {
                               Text(
                                 'You have blocked the astrologer',
                                 style: TextStyle(color: Colors.white),
-                              ).translate(),
+                              ),
                               GetBuilder<SettingsController>(
                                   builder: (settingsController) {
                                 return TextButton(
@@ -436,7 +436,7 @@ class AstrologerProfile extends BaseRoute {
                                   child: Text(
                                     'Unblock',
                                     style: Get.theme.primaryTextTheme.bodySmall,
-                                  ).translate(),
+                                  ),
                                 );
                               })
                             ],
@@ -512,7 +512,7 @@ class AstrologerProfile extends BaseRoute {
                                                         fontSize: 10,
                                                         color: Colors.black),
                                                 textAlign: TextAlign.center,
-                                              ).translate(),
+                                              ),
                                             ),
                                           )
                                         : Padding(
@@ -562,7 +562,7 @@ class AstrologerProfile extends BaseRoute {
                                                                   Colors.black),
                                                       textAlign:
                                                           TextAlign.center,
-                                                    ).translate(),
+                                                    ),
                                                   ),
                                                 );
                                               }),
@@ -582,7 +582,7 @@ class AstrologerProfile extends BaseRoute {
                                             Text(
                                               bottomController
                                                   .astrologerbyId[0].name!,
-                                            ).translate(),
+                                            ),
                                             SizedBox(
                                               width: 10,
                                             ),
@@ -604,7 +604,7 @@ class AstrologerProfile extends BaseRoute {
                                                   fontWeight: FontWeight.w300,
                                                   color: Colors.grey[600],
                                                 ),
-                                              ).translate(),
+                                              ),
                                         bottomController.astrologerbyId[0]
                                                     .currentCity ==
                                                 ""
@@ -619,7 +619,7 @@ class AstrologerProfile extends BaseRoute {
                                                   fontWeight: FontWeight.w300,
                                                   color: Colors.grey[600],
                                                 ),
-                                              ).translate(),
+                                              ),
                                         bottomController.astrologerbyId[0]
                                                     .languageKnown ==
                                                 ""
@@ -634,7 +634,7 @@ class AstrologerProfile extends BaseRoute {
                                                   fontWeight: FontWeight.w300,
                                                   color: Colors.grey[600],
                                                 ),
-                                              ).translate(),
+                                              ),
                                         Text(
                                           'Experience : ${bottomController.astrologerbyId[0].experienceInYears} Years',
                                           style: Get
@@ -643,7 +643,7 @@ class AstrologerProfile extends BaseRoute {
                                             fontWeight: FontWeight.w300,
                                             color: Colors.grey[600],
                                           ),
-                                        ).translate(),
+                                        ),
                                         Row(
                                           children: [
                                             bottomController.astrologerbyId[0]
@@ -661,7 +661,7 @@ class AstrologerProfile extends BaseRoute {
                                                       color: Color.fromARGB(
                                                           255, 167, 1, 1),
                                                     ),
-                                                  ).translate()
+                                                  )
                                                 : const SizedBox(),
                                             SizedBox(
                                               width: bottomController
@@ -693,7 +693,7 @@ class AstrologerProfile extends BaseRoute {
                                                     : Color.fromARGB(
                                                         255, 167, 1, 1),
                                               ),
-                                            ).translate(),
+                                            ),
                                           ],
                                         ),
                                       ],
@@ -732,7 +732,7 @@ class AstrologerProfile extends BaseRoute {
                                                   'Report & Block',
                                                   style:
                                                       TextStyle(fontSize: 18),
-                                                ).translate(),
+                                                ),
                                               ],
                                             ),
                                             content: SizedBox(
@@ -789,15 +789,14 @@ class AstrologerProfile extends BaseRoute {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
-                                                    ).translate(),
+                                                    ),
                                                   ),
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
                                                   Center(
                                                       child: Text(
-                                                              'Reason for blocking*')
-                                                          .translate()),
+                                                          'Reason for blocking*')),
                                                   FutureBuilder(
                                                       future: global.translatedText(
                                                           'Write your reason...'),
@@ -873,8 +872,7 @@ class AstrologerProfile extends BaseRoute {
                                                       global.hideLoader();
                                                       Get.back();
                                                     },
-                                                    child: Text('Submit')
-                                                        .translate(),
+                                                    child: Text('Submit'),
                                                     style: ButtonStyle(
                                                       backgroundColor:
                                                           MaterialStateProperty
@@ -890,7 +888,7 @@ class AstrologerProfile extends BaseRoute {
                                                     '*You can unblock the astrologer from settings section.',
                                                     style:
                                                         TextStyle(fontSize: 12),
-                                                  ).translate(),
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -913,9 +911,8 @@ class AstrologerProfile extends BaseRoute {
                                           PopupMenuItem(
                                             child: bottomNavigationController
                                                     .astrologerbyId[0].isBlock!
-                                                ? Text('Unblock').translate()
-                                                : Text('Report & Block')
-                                                    .translate(),
+                                                ? Text('Unblock')
+                                                : Text('Report & Block'),
                                             value: bottomNavigationController
                                                     .astrologerbyId[0].isBlock!
                                                 ? "unblock"
@@ -1199,7 +1196,7 @@ class AstrologerProfile extends BaseRoute {
                                   userProfileController.isShowMore ? null : 2,
                               style: Get.textTheme.subtitle1!
                                   .copyWith(fontSize: 14),
-                            ).translate(),
+                            ),
                             InkWell(
                                 onTap: () {
                                   userProfileController.showMoreText();
@@ -1209,7 +1206,7 @@ class AstrologerProfile extends BaseRoute {
                                       ? "Show less"
                                       : "..Show More",
                                   style: TextStyle(color: Colors.blue),
-                                ).translate())
+                                ))
                           ],
                         );
                       }),
@@ -1229,7 +1226,7 @@ class AstrologerProfile extends BaseRoute {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Rating & Reviews').translate(),
+                              Text('Rating & Reviews'),
                               GestureDetector(
                                   onTap: () {
                                     reviewController.reviewList.isNotEmpty
@@ -1294,7 +1291,7 @@ class AstrologerProfile extends BaseRoute {
                                           fontWeight: FontWeight.w300,
                                           fontSize: 9,
                                         ),
-                                      ).translate(),
+                                      ),
                                     ],
                                   )
                                 ],
@@ -1470,7 +1467,7 @@ class AstrologerProfile extends BaseRoute {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('User Reviews').translate(),
+                            Text('User Reviews'),
                             GestureDetector(
                               onTap: () {
                                 showModalBottomSheet(
@@ -1490,7 +1487,7 @@ class AstrologerProfile extends BaseRoute {
                                 'View All',
                                 style: Get.textTheme.bodyText2!
                                     .copyWith(fontSize: 12, color: Colors.grey),
-                              ).translate(),
+                              ),
                             )
                           ],
                         ),
@@ -1536,7 +1533,7 @@ class AstrologerProfile extends BaseRoute {
                             'See all reviews',
                             style: Get.textTheme.subtitle1!
                                 .copyWith(color: Colors.green),
-                          ).translate(),
+                          ),
                         )
                       : SizedBox(),
                 ),
@@ -1552,7 +1549,7 @@ class AstrologerProfile extends BaseRoute {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Check Similar advisor').translate(),
+                                  Text('Check Similar advisor'),
                                   InkWell(
                                     onTap: () {
                                       showDialog(
@@ -1567,7 +1564,7 @@ class AstrologerProfile extends BaseRoute {
                                                     'People who spoke to this Consultant, also spoke to these Consultants. You may try them out!',
                                                     style:
                                                         Get.textTheme.bodyText2,
-                                                  ).translate(),
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   width: 80,
@@ -1578,8 +1575,7 @@ class AstrologerProfile extends BaseRoute {
                                                       onPressed: () {
                                                         Get.back();
                                                       },
-                                                      child: Text('Ok')
-                                                          .translate(),
+                                                      child: Text('Ok'),
                                                       style: ButtonStyle(
                                                         maximumSize:
                                                             MaterialStateProperty
@@ -1724,7 +1720,7 @@ class AstrologerProfile extends BaseRoute {
                                                             FontWeight.w400,
                                                         letterSpacing: 0,
                                                       ),
-                                                    ).translate(),
+                                                    ),
                                                     Text(
                                                       '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${bottomNavigationController.astrologerbyId[0].similiarConsultant![index].charge}/min',
                                                       textAlign:
@@ -1737,7 +1733,7 @@ class AstrologerProfile extends BaseRoute {
                                                             FontWeight.w300,
                                                         letterSpacing: 0,
                                                       ),
-                                                    ).translate(),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -1807,7 +1803,7 @@ class AstrologerProfile extends BaseRoute {
                                               Text(
                                                 'You can chat with astrologer\'s assistant only when you have taken a paid session with the atrologer',
                                                 style: Get.textTheme.bodyText2,
-                                              ).translate(),
+                                              ),
                                               Center(
                                                 child: SizedBox(
                                                   width: 80,
@@ -1816,7 +1812,7 @@ class AstrologerProfile extends BaseRoute {
                                                       Get.back();
                                                     },
                                                     child:
-                                                        Text('Ok').translate(),
+                                                        Text('Ok'),
                                                     style: ButtonStyle(
                                                       maximumSize:
                                                           MaterialStateProperty
@@ -1892,7 +1888,7 @@ class AstrologerProfile extends BaseRoute {
                                                       .spaceBetween,
                                               children: [
                                                 Text('Send ${bottomNavigationController.astrologerbyId[0].name} a Gift')
-                                                    .translate(),
+                                                    ,
                                                 InkWell(
                                                     onTap: () {
                                                       Get.back();
@@ -2003,7 +1999,7 @@ class AstrologerProfile extends BaseRoute {
                                                                           .bodyText2!
                                                                           .copyWith(
                                                                               fontSize: 12))
-                                                                  .translate(),
+                                                                  ,
                                                               Text(
                                                                   '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${giftController.giftList[index].amount}',
                                                                   style: Get
@@ -2039,7 +2035,7 @@ class AstrologerProfile extends BaseRoute {
                                                                 .copyWith(
                                                                     fontSize:
                                                                         12))
-                                                        .translate(),
+                                                        ,
                                                     Text(
                                                         '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)}${global.splashController.currentUser?.walletAmount.toString()}'),
                                                   ],
@@ -2051,7 +2047,7 @@ class AstrologerProfile extends BaseRoute {
                                                       child: Text('Recharge',
                                                               style: TextStyle(
                                                                   fontSize: 10))
-                                                          .translate(),
+                                                          ,
                                                       style: ButtonStyle(
                                                           padding: MaterialStateProperty
                                                               .all<EdgeInsets>(
@@ -2095,7 +2091,7 @@ class AstrologerProfile extends BaseRoute {
                                                       child: Text('Send Gift',
                                                               style: TextStyle(
                                                                   fontSize: 10))
-                                                          .translate(),
+                                                          ,
                                                       style: ButtonStyle(
                                                           padding:
                                                               MaterialStateProperty.all<EdgeInsets>(
@@ -2201,8 +2197,8 @@ class AstrologerProfile extends BaseRoute {
                                             SizedBox(
                                               width: 20,
                                             ),
-                                            Text('Follow ${bottomNavigationController.astrologerbyId[0].name}')
-                                                .translate()
+                                            Text(
+                                                'Follow ${bottomNavigationController.astrologerbyId[0].name}')
                                           ],
                                         ),
                                         Text(
@@ -2211,7 +2207,7 @@ class AstrologerProfile extends BaseRoute {
                                               .copyWith(
                                                   fontSize: 12,
                                                   color: Colors.grey),
-                                        ).translate(),
+                                        ),
                                         Align(
                                           alignment: Alignment.bottomRight,
                                           child: GetBuilder<
@@ -2249,7 +2245,7 @@ class AstrologerProfile extends BaseRoute {
                                                           fontSize: 10,
                                                           color: Colors.grey),
                                                   textAlign: TextAlign.center,
-                                                ).translate(),
+                                                ),
                                               ),
                                             );
                                           }),
@@ -2342,25 +2338,25 @@ class AstrologerProfile extends BaseRoute {
                                                 "Chat",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(color: Colors.white),
-                                              ).translate()
+                                              )
                                             : Text(
                                                 "Chat",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(color: Colors.grey),
-                                              ).translate(),
+                                              ),
                                         bottomNavigationController.astrologerbyId[0].chatStatus == "Offline"
                                             ? Text(
                                                 "Currently Offline",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(color: Colors.red, fontSize: 11, fontWeight: FontWeight.bold),
-                                              ).translate()
+                                              )
                                             : bottomNavigationController.astrologerbyId[0].chatStatus == "Online"
                                                 ? SizedBox()
                                                 : Text(
                                                     bottomNavigationController.astrologerbyId[0].chatWaitTime!.difference(DateTime.now()).inMinutes > 0 ? "Wait till - ${bottomNavigationController.astrologerbyId[0].chatWaitTime!.difference(DateTime.now()).inMinutes} min" : "Wait till",
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(color: Colors.red, fontSize: 11, fontWeight: FontWeight.bold),
-                                                  ).translate(),
+                                                  ),
                                       ],
                                     ),
                                   ],
@@ -2493,13 +2489,13 @@ class AstrologerProfile extends BaseRoute {
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white),
-                                              ).translate()
+                                              )
                                             : Text(
                                                 "Call",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.grey),
-                                              ).translate(),
+                                              ),
                                         bottomNavigationController
                                                     .astrologerbyId[0]
                                                     .callStatus ==
@@ -2512,7 +2508,7 @@ class AstrologerProfile extends BaseRoute {
                                                     fontSize: 11,
                                                     fontWeight:
                                                         FontWeight.bold),
-                                              ).translate()
+                                              )
                                             : bottomNavigationController
                                                         .astrologerbyId[0]
                                                         .callStatus ==
@@ -2536,7 +2532,7 @@ class AstrologerProfile extends BaseRoute {
                                                         fontSize: 11,
                                                         fontWeight:
                                                             FontWeight.bold),
-                                                  ).translate(),
+                                                  ),
                                       ],
                                     ),
                                   ],
@@ -2577,7 +2573,7 @@ class AstrologerProfile extends BaseRoute {
                   color: Colors.grey,
                 ),
                 SizedBox(width: 5),
-                Text(s).translate(),
+                Text(s),
               ],
             ),
             Icon(
@@ -2611,7 +2607,7 @@ class AstrologerProfile extends BaseRoute {
                     SizedBox(
                       width: 5,
                     ),
-                    Text('Rating and Reviews').translate(),
+                    Text('Rating and Reviews'),
                   ],
                 ),
               ],
@@ -2665,11 +2661,11 @@ class AstrologerProfile extends BaseRoute {
                                   SizedBox(
                                     width: Get.width * 0.85,
                                     child: minBalance != ''
-                                        ? Text('Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start $type with $astrologer ',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.red))
-                                            .translate()
+                                        ? Text(
+                                            'Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start $type with $astrologer ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red))
                                         : const SizedBox(),
                                   ),
                                   GestureDetector(
@@ -2689,9 +2685,8 @@ class AstrologerProfile extends BaseRoute {
                                 padding:
                                     const EdgeInsets.only(top: 8.0, bottom: 5),
                                 child: Text('Recharge Now',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500))
-                                    .translate(),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500)),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -2704,9 +2699,8 @@ class AstrologerProfile extends BaseRoute {
                                   ),
                                   Expanded(
                                       child: Text(
-                                              'Tip:90% users rechage for 10 mins or more.',
-                                              style: TextStyle(fontSize: 12))
-                                          .translate())
+                                          'Tip:90% users rechage for 10 mins or more.',
+                                          style: TextStyle(fontSize: 12)))
                                 ],
                               ),
                             ],

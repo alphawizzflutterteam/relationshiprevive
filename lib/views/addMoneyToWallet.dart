@@ -34,7 +34,7 @@ class AddmoneyToWallet extends BaseRoute {
                 Text(
                   'Available Balance',
                   style: TextStyle(color: Colors.grey),
-                ).translate(),
+                ),
                 Text(
                     '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${splashController.currentUser!.walletAmount.toString()}',
                     style: Get.textTheme.subtitle1!

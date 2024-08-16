@@ -8,7 +8,8 @@ class DropDownWidget extends StatelessWidget {
   final List<String> item;
   final String? hint;
   final callId;
-  DropDownWidget({Key? key, required this.item, this.hint, this.callId}) : super(key: key);
+  DropDownWidget({Key? key, required this.item, this.hint, this.callId})
+      : super(key: key);
   DropDownController dropDownController = Get.find<DropDownController>();
 
   @override
@@ -21,6 +22,7 @@ class DropDownWidget extends StatelessWidget {
             color: Get.theme.primaryColor,
           ),
           alignment: Alignment.bottomLeft,
+          dropdownColor: Get.theme.cardColor,
           value: dropDownController.innitialValue(callId, item),
           hint: Text(hint ?? 'hint'),
           items: item.map<DropdownMenuItem<String>>((String value) {

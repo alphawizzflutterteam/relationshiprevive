@@ -34,7 +34,8 @@ class AddressScreen extends StatelessWidget {
             children: [
               SizedBox(
                 width: Get.width,
-                child: GetBuilder<AstromallController>(builder: (astromallController) {
+                child: GetBuilder<AstromallController>(
+                    builder: (astromallController) {
                   return TextButton(
                     onPressed: () async {
                       await astromallController.removeData();
@@ -43,11 +44,14 @@ class AddressScreen extends StatelessWidget {
                     child: Text(
                       'Add new address',
                       style: Get.textTheme.headline6,
-                    ).translate(),
+                    ),
                     style: ButtonStyle(
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(8)),
                       shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.black)),
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(color: Colors.black)),
                       ),
                     ),
                   );
@@ -56,7 +60,7 @@ class AddressScreen extends StatelessWidget {
               GetBuilder<AstromallController>(builder: (astromallController) {
                 return astromallController.userAddress.isEmpty
                     ? Center(
-                        child: Text('Please add your address').translate(),
+                        child: Text('Please add your address'),
                       )
                     : ListView.builder(
                         itemCount: astromallController.userAddress.length,
@@ -70,45 +74,69 @@ class AddressScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(14.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       flex: 2,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Text('${astromallController.userAddress[index].name}').translate(),
-                                          Text('${astromallController.userAddress[index].flatNo},${astromallController.userAddress[index].locality},${astromallController.userAddress[index].city},${astromallController.userAddress[index].state},${astromallController.userAddress[index].country}').translate(),
-                                          Text('${astromallController.userAddress[index].pincode}'),
-                                          Text('${astromallController.userAddress[index].phoneNumber}'),
-                                          if (astromallController.userAddress[index].phoneNumber2 != "") Text('${astromallController.userAddress[index].phoneNumber2}'),
+                                          Text(
+                                              '${astromallController.userAddress[index].name}'),
+                                          Text(
+                                              '${astromallController.userAddress[index].flatNo},${astromallController.userAddress[index].locality},${astromallController.userAddress[index].city},${astromallController.userAddress[index].state},${astromallController.userAddress[index].country}'),
+                                          Text(
+                                              '${astromallController.userAddress[index].pincode}'),
+                                          Text(
+                                              '${astromallController.userAddress[index].phoneNumber}'),
+                                          if (astromallController
+                                                  .userAddress[index]
+                                                  .phoneNumber2 !=
+                                              "")
+                                            Text(
+                                                '${astromallController.userAddress[index].phoneNumber2}'),
                                         ],
                                       ),
                                     ),
                                     Expanded(
                                       flex: 1,
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           InkWell(
                                               onTap: () async {
-                                                global.showOnlyLoaderDialog(context);
-                                                await astromallController.getEditAddress(index);
+                                                global.showOnlyLoaderDialog(
+                                                    context);
+                                                await astromallController
+                                                    .getEditAddress(index);
                                                 astromallController.update();
                                                 global.hideLoader();
-                                                Get.to(() => AddNewAddressScreen(
-                                                      id: astromallController.userAddress[index].id,
+                                                Get.to(() =>
+                                                    AddNewAddressScreen(
+                                                      id: astromallController
+                                                          .userAddress[index]
+                                                          .id,
                                                     ));
                                               },
                                               child: Icon(Icons.edit)),
                                           TextButton(
                                             style: ButtonStyle(
-                                              padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                              fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
-                                              backgroundColor: MaterialStateProperty.all(Colors.white),
+                                              padding:
+                                                  MaterialStateProperty.all(
+                                                      EdgeInsets.all(0)),
+                                              fixedSize:
+                                                  MaterialStateProperty.all(
+                                                      Size.fromWidth(90)),
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.white),
                                               shape: MaterialStateProperty.all(
                                                 RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                   side: BorderSide(
                                                     color: Colors.green,
                                                   ),
@@ -116,20 +144,39 @@ class AddressScreen extends StatelessWidget {
                                               ),
                                             ),
                                             onPressed: () async {
-                                              double charge = double.parse(astromallController.astroProductbyId[0].amount.toString());
-                                              if (charge <= global.splashController.currentUser!.walletAmount!) {
-                                                Get.to(() => OrderPurchaseScreen(amount: double.parse(astromallController.astroProductbyId[0].amount.toString())));
+                                              double charge = double.parse(
+                                                  astromallController
+                                                      .astroProductbyId[0]
+                                                      .amount
+                                                      .toString());
+                                              if (charge <=
+                                                  global
+                                                      .splashController
+                                                      .currentUser!
+                                                      .walletAmount!) {
+                                                Get.to(() => OrderPurchaseScreen(
+                                                    amount: double.parse(
+                                                        astromallController
+                                                            .astroProductbyId[0]
+                                                            .amount
+                                                            .toString())));
                                               } else {
-                                                global.showOnlyLoaderDialog(context);
-                                                await walletController.getAmount();
+                                                global.showOnlyLoaderDialog(
+                                                    context);
+                                                await walletController
+                                                    .getAmount();
                                                 global.hideLoader();
-                                                openBottomSheetRechrage(context, charge.toString());
+                                                openBottomSheetRechrage(
+                                                    context, charge.toString());
                                               }
                                             },
                                             child: Text(
                                               'Select',
-                                              style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.green),
-                                            ).translate(),
+                                              style: Get.theme.primaryTextTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      color: Colors.green),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -175,11 +222,19 @@ class AddressScreen extends StatelessWidget {
                             children: [
                               SizedBox(
                                 width: Get.width * 0.85,
-                                child: minBalance != '' ? Text('Minimum balance ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance is required to get product', style: TextStyle(fontWeight: FontWeight.w500, color: Colors.red)).translate() : const SizedBox(),
+                                child: minBalance != ''
+                                    ? Text(
+                                        'Minimum balance ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance is required to get product',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.red))
+                                    : const SizedBox(),
                               ),
                               GestureDetector(
                                 child: Padding(
-                                  padding: minBalance == '' ? const EdgeInsets.only(top: 8) : const EdgeInsets.only(top: 0),
+                                  padding: minBalance == ''
+                                      ? const EdgeInsets.only(top: 8)
+                                      : const EdgeInsets.only(top: 0),
                                   child: Icon(Icons.close, size: 18),
                                 ),
                                 onTap: () {
@@ -190,16 +245,21 @@ class AddressScreen extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0, bottom: 5),
-                            child: Text('Recharge Now', style: TextStyle(fontWeight: FontWeight.w500)).translate(),
+                            child: Text('Recharge Now',
+                                style: TextStyle(fontWeight: FontWeight.w500)),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(right: 5),
-                                child: Icon(Icons.lightbulb_rounded, color: Get.theme.primaryColor, size: 13),
+                                child: Icon(Icons.lightbulb_rounded,
+                                    color: Get.theme.primaryColor, size: 13),
                               ),
-                              Expanded(child: Text('Tip:90% users recharge for 10 mins or more.', style: TextStyle(fontSize: 12)).translate())
+                              Expanded(
+                                  child: Text(
+                                      'Tip:90% users recharge for 10 mins or more.',
+                                      style: TextStyle(fontSize: 12)))
                             ],
                           ),
                         ],
@@ -211,7 +271,8 @@ class AddressScreen extends StatelessWidget {
             ),
             Expanded(
                 child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       childAspectRatio: 3.8 / 2.3,
                       crossAxisSpacing: 1,
@@ -225,7 +286,10 @@ class AddressScreen extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           Get.delete<RazorPayController>();
-                          Get.to(() => PaymentInformationScreen(flag: 0, amount: double.parse(walletController.payment[index])));
+                          Get.to(() => PaymentInformationScreen(
+                              flag: 0,
+                              amount: double.parse(
+                                  walletController.payment[index])));
                         },
                         child: Container(
                           margin: const EdgeInsets.all(8.0),

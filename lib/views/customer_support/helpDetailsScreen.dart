@@ -11,8 +11,15 @@ class HelpDetailsScreen extends StatelessWidget {
   final int helpSupportQuestionId;
   final int index;
   final String helpSupportQuestion;
-  HelpDetailsScreen({Key? key, required this.title, required this.helpSupportQuestion, required this.index, required this.helpSupportQuestionId}) : super(key: key);
-  final CustomerSupportController customerSupportController = Get.find<CustomerSupportController>();
+  HelpDetailsScreen(
+      {Key? key,
+      required this.title,
+      required this.helpSupportQuestion,
+      required this.index,
+      required this.helpSupportQuestionId})
+      : super(key: key);
+  final CustomerSupportController customerSupportController =
+      Get.find<CustomerSupportController>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +29,10 @@ class HelpDetailsScreen extends StatelessWidget {
           child: CommonAppBar(
             title: 'Help and Support',
           )),
-      body: customerSupportController.helpAndSupportQuestion[index].answers!.isNotEmpty
+      body: customerSupportController
+              .helpAndSupportQuestion[index].answers!.isNotEmpty
           ? Center(
-              child: Text('Answers not Available').translate(),
+              child: Text('Answers not Available'),
             )
           : SingleChildScrollView(
               child: Column(
@@ -37,19 +45,26 @@ class HelpDetailsScreen extends StatelessWidget {
                     child: Text(
                       title,
                       style: Get.textTheme.subtitle2!.copyWith(fontSize: 18),
-                    ).translate(),
+                    ),
                   ),
                   ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: customerSupportController.helpSupportSubCat.length,
+                      itemCount:
+                          customerSupportController.helpSupportSubCat.length,
                       itemBuilder: (context, i) {
                         return HelpDetailTileWidget(
-                          subject: customerSupportController.helpSupportSubCat[i].title ?? "",
+                          subject: customerSupportController
+                                  .helpSupportSubCat[i].title ??
+                              "",
                           isImage: false,
                           helpSupportQuestionId: helpSupportQuestionId,
-                          isChatWithUs: customerSupportController.helpSupportSubCat[i].isChatWithus ?? 0,
-                          text: customerSupportController.helpSupportSubCat[i].description ?? "",
+                          isChatWithUs: customerSupportController
+                                  .helpSupportSubCat[i].isChatWithus ??
+                              0,
+                          text: customerSupportController
+                                  .helpSupportSubCat[i].description ??
+                              "",
                           ontap: () {},
                           helpSupportQuestion: helpSupportQuestion,
                           helpSupportSubQuestion: title,

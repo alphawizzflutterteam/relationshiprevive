@@ -17,7 +17,8 @@ class CustomerSupportChat extends StatelessWidget {
       length: 2,
       child: WillPopScope(
         onWillPop: () async {
-          BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+          BottomNavigationController bottomNavigationController =
+              Get.find<BottomNavigationController>();
           bottomNavigationController.setIndex(0, 0);
           Get.to(() => BottomNavigationBarScreen(
                 index: 0,
@@ -35,8 +36,14 @@ class CustomerSupportChat extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               TabBar(indicatorColor: Get.theme.primaryColor, tabs: [
-                Container(height: 35, alignment: Alignment.center, child: Text('Customer Support').translate()),
-                Container(height: 35, alignment: Alignment.center, child: Text('Astrologer Assistant').translate()),
+                Container(
+                    height: 35,
+                    alignment: Alignment.center,
+                    child: Text('Customer Support')),
+                Container(
+                    height: 35,
+                    alignment: Alignment.center,
+                    child: Text('Astrologer Assistant')),
               ]),
               Expanded(
                 child: TabBarView(children: [

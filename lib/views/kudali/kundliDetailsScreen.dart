@@ -21,7 +21,8 @@ import '../../utils/images.dart';
 // ignore: must_be_immutable
 class KundliDetailsScreen extends BaseRoute {
   final KundliModel? userDetails;
-  KundliDetailsScreen({a, o, this.userDetails}) : super(a: a, o: o, r: 'KundliDetailsScreen');
+  KundliDetailsScreen({a, o, this.userDetails})
+      : super(a: a, o: o, r: 'KundliDetailsScreen');
   final KundliController kundliController = Get.find<KundliController>();
   final ReviewController reviewController = Get.find<ReviewController>();
   SplashController splashController = Get.find<SplashController>();
@@ -30,11 +31,13 @@ class KundliDetailsScreen extends BaseRoute {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+        backgroundColor:
+            Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
         title: Text(
           'Kundli',
-          style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 18, fontWeight: FontWeight.normal),
-        ).translate(),
+          style: Get.theme.primaryTextTheme.headline6!
+              .copyWith(fontSize: 18, fontWeight: FontWeight.normal),
+        ),
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: Icon(
@@ -65,7 +68,9 @@ class KundliDetailsScreen extends BaseRoute {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Share', style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate(),
+                      child: Text('Share',
+                          style:
+                              Get.textTheme.subtitle1!.copyWith(fontSize: 12)),
                     )
                   ],
                 ),
@@ -92,22 +97,99 @@ class KundliDetailsScreen extends BaseRoute {
                     InkWell(
                       onTap: () async {
                         DateTime dateBasic = userDetails!.birthDate;
-                        int formattedYear = int.parse(DateFormat('yyyy').format(dateBasic));
-                        int formattedDay = int.parse(DateFormat('dd').format(dateBasic));
-                        int formattedMonth = int.parse(DateFormat('MM').format(dateBasic));
-                        int formattedHour = int.parse(DateFormat('HH').format(dateBasic));
-                        int formattedMint = int.parse(DateFormat('mm').format(dateBasic));
+                        int formattedYear =
+                            int.parse(DateFormat('yyyy').format(dateBasic));
+                        int formattedDay =
+                            int.parse(DateFormat('dd').format(dateBasic));
+                        int formattedMonth =
+                            int.parse(DateFormat('MM').format(dateBasic));
+                        int formattedHour =
+                            int.parse(DateFormat('HH').format(dateBasic));
+                        int formattedMint =
+                            int.parse(DateFormat('mm').format(dateBasic));
 
                         global.showOnlyLoaderDialog(context);
-                        await kundliController.getBasicDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getBasicPanchangDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getBasicAvakhadaDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getSadesatiDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getKalsarpaDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getGemstoneDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getChartPlanetsDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getVimshattariDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getReportDescDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
+                        await kundliController.getBasicDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getBasicPanchangDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getBasicAvakhadaDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getSadesatiDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getKalsarpaDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getGemstoneDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getChartPlanetsDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getVimshattariDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getReportDescDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
                         kundliController.update();
                         global.hideLoader();
                         kundliController.changeTapIndex(0);
@@ -115,24 +197,44 @@ class KundliDetailsScreen extends BaseRoute {
                       child: Container(
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: kundliController.kundliTabInitialIndex == 0 ? Get.theme.primaryColor : Colors.transparent,
+                          color: kundliController.kundliTabInitialIndex == 0
+                              ? Get.theme.primaryColor
+                              : Colors.transparent,
                           border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(5.0), bottomLeft: Radius.circular(5.0)),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5.0),
+                              bottomLeft: Radius.circular(5.0)),
                         ),
-                        child: Text('Basic', textAlign: TextAlign.center, style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate(),
+                        child: Text('Basic',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.subtitle1!
+                                .copyWith(fontSize: 12)),
                       ),
                     ),
                     InkWell(
                       onTap: () async {
                         DateTime dateBasic = userDetails!.birthDate;
-                        int formattedYear = int.parse(DateFormat('yyyy').format(dateBasic));
-                        int formattedDay = int.parse(DateFormat('dd').format(dateBasic));
-                        int formattedMonth = int.parse(DateFormat('MM').format(dateBasic));
-                        int formattedHour = int.parse(DateFormat('HH').format(dateBasic));
-                        int formattedMint = int.parse(DateFormat('mm').format(dateBasic));
+                        int formattedYear =
+                            int.parse(DateFormat('yyyy').format(dateBasic));
+                        int formattedDay =
+                            int.parse(DateFormat('dd').format(dateBasic));
+                        int formattedMonth =
+                            int.parse(DateFormat('MM').format(dateBasic));
+                        int formattedHour =
+                            int.parse(DateFormat('HH').format(dateBasic));
+                        int formattedMint =
+                            int.parse(DateFormat('mm').format(dateBasic));
 
                         global.showOnlyLoaderDialog(context);
-                        await kundliController.getChartPlanetsDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
+                        await kundliController.getChartPlanetsDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
                         kundliController.update();
                         global.hideLoader();
                         kundliController.changeTapIndex(1);
@@ -140,10 +242,17 @@ class KundliDetailsScreen extends BaseRoute {
                       child: Container(
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: kundliController.kundliTabInitialIndex == 1 ? Get.theme.primaryColor : Colors.transparent,
-                          border: Border.symmetric(vertical: BorderSide.none, horizontal: BorderSide(color: Colors.grey)),
+                          color: kundliController.kundliTabInitialIndex == 1
+                              ? Get.theme.primaryColor
+                              : Colors.transparent,
+                          border: Border.symmetric(
+                              vertical: BorderSide.none,
+                              horizontal: BorderSide(color: Colors.grey)),
                         ),
-                        child: Text('Charts', textAlign: TextAlign.center, style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate(),
+                        child: Text('Charts',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.subtitle1!
+                                .copyWith(fontSize: 12)),
                       ),
                     ),
                     InkWell(
@@ -153,10 +262,15 @@ class KundliDetailsScreen extends BaseRoute {
                       child: Container(
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: kundliController.kundliTabInitialIndex == 2 ? Get.theme.primaryColor : Colors.transparent,
+                          color: kundliController.kundliTabInitialIndex == 2
+                              ? Get.theme.primaryColor
+                              : Colors.transparent,
                           border: Border.all(color: Colors.grey),
                         ),
-                        child: Text('KP', textAlign: TextAlign.center, style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate(),
+                        child: Text('KP',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.subtitle1!
+                                .copyWith(fontSize: 12)),
                       ),
                     ),
                     Expanded(
@@ -168,23 +282,43 @@ class KundliDetailsScreen extends BaseRoute {
                         child: Container(
                           padding: EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                            color: kundliController.kundliTabInitialIndex == 3 ? Get.theme.primaryColor : Colors.transparent,
-                            border: Border.symmetric(vertical: BorderSide.none, horizontal: BorderSide(color: Colors.grey)),
+                            color: kundliController.kundliTabInitialIndex == 3
+                                ? Get.theme.primaryColor
+                                : Colors.transparent,
+                            border: Border.symmetric(
+                                vertical: BorderSide.none,
+                                horizontal: BorderSide(color: Colors.grey)),
                           ),
-                          child: Text('Ashtakvarga', textAlign: TextAlign.center, style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate(),
+                          child: Text('Ashtakvarga',
+                              textAlign: TextAlign.center,
+                              style: Get.textTheme.subtitle1!
+                                  .copyWith(fontSize: 12)),
                         ),
                       ),
                     ),
                     InkWell(
                       onTap: () async {
                         DateTime dateBasic = userDetails!.birthDate;
-                        int formattedYear = int.parse(DateFormat('yyyy').format(dateBasic));
-                        int formattedDay = int.parse(DateFormat('dd').format(dateBasic));
-                        int formattedMonth = int.parse(DateFormat('MM').format(dateBasic));
-                        int formattedHour = int.parse(DateFormat('HH').format(dateBasic));
-                        int formattedMint = int.parse(DateFormat('mm').format(dateBasic));
+                        int formattedYear =
+                            int.parse(DateFormat('yyyy').format(dateBasic));
+                        int formattedDay =
+                            int.parse(DateFormat('dd').format(dateBasic));
+                        int formattedMonth =
+                            int.parse(DateFormat('MM').format(dateBasic));
+                        int formattedHour =
+                            int.parse(DateFormat('HH').format(dateBasic));
+                        int formattedMint =
+                            int.parse(DateFormat('mm').format(dateBasic));
                         global.showOnlyLoaderDialog(context);
-                        await kundliController.getVimshattariDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
+                        await kundliController.getVimshattariDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
                         kundliController.update();
                         global.hideLoader();
                         kundliController.changeTapIndex(4);
@@ -192,24 +326,58 @@ class KundliDetailsScreen extends BaseRoute {
                       child: Container(
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: kundliController.kundliTabInitialIndex == 4 ? Get.theme.primaryColor : Colors.transparent,
+                          color: kundliController.kundliTabInitialIndex == 4
+                              ? Get.theme.primaryColor
+                              : Colors.transparent,
                           border: Border.all(color: Colors.grey),
                         ),
-                        child: Text('Dasha', textAlign: TextAlign.center, style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate(),
+                        child: Text('Dasha',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.subtitle1!
+                                .copyWith(fontSize: 12)),
                       ),
                     ),
                     InkWell(
                       onTap: () async {
                         DateTime dateBasic = userDetails!.birthDate;
-                        int formattedYear = int.parse(DateFormat('yyyy').format(dateBasic));
-                        int formattedDay = int.parse(DateFormat('dd').format(dateBasic));
-                        int formattedMonth = int.parse(DateFormat('MM').format(dateBasic));
-                        int formattedHour = int.parse(DateFormat('HH').format(dateBasic));
-                        int formattedMint = int.parse(DateFormat('mm').format(dateBasic));
+                        int formattedYear =
+                            int.parse(DateFormat('yyyy').format(dateBasic));
+                        int formattedDay =
+                            int.parse(DateFormat('dd').format(dateBasic));
+                        int formattedMonth =
+                            int.parse(DateFormat('MM').format(dateBasic));
+                        int formattedHour =
+                            int.parse(DateFormat('HH').format(dateBasic));
+                        int formattedMint =
+                            int.parse(DateFormat('mm').format(dateBasic));
                         global.showOnlyLoaderDialog(context);
-                        await kundliController.getSadesatiDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getKalsarpaDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
-                        await kundliController.getGemstoneDetail(day: formattedDay, hour: formattedHour, min: formattedMint, month: formattedMonth, year: formattedYear, lat: userDetails!.latitude, lon: userDetails!.longitude, tzone: userDetails!.timezone);
+                        await kundliController.getSadesatiDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getKalsarpaDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
+                        await kundliController.getGemstoneDetail(
+                            day: formattedDay,
+                            hour: formattedHour,
+                            min: formattedMint,
+                            month: formattedMonth,
+                            year: formattedYear,
+                            lat: userDetails!.latitude,
+                            lon: userDetails!.longitude,
+                            tzone: userDetails!.timezone);
                         kundliController.update();
                         global.hideLoader();
                         kundliController.changeTapIndex(5);
@@ -217,11 +385,18 @@ class KundliDetailsScreen extends BaseRoute {
                       child: Container(
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: kundliController.kundliTabInitialIndex == 5 ? Get.theme.primaryColor : Colors.transparent,
+                          color: kundliController.kundliTabInitialIndex == 5
+                              ? Get.theme.primaryColor
+                              : Colors.transparent,
                           border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.only(topRight: Radius.circular(5.0), bottomRight: Radius.circular(5.0)),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(5.0),
+                              bottomRight: Radius.circular(5.0)),
                         ),
-                        child: Text('Report', textAlign: TextAlign.center, style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate(),
+                        child: Text('Report',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.subtitle1!
+                                .copyWith(fontSize: 12)),
                       ),
                     ),
                   ],
@@ -232,11 +407,21 @@ class KundliDetailsScreen extends BaseRoute {
                       userDetails: userDetails,
                     )
                   : SizedBox(),
-              kundliController.kundliTabInitialIndex == 1 ? ChartsScreen() : SizedBox(),
-              kundliController.kundliTabInitialIndex == 2 ? KPScreen() : SizedBox(),
-              kundliController.kundliTabInitialIndex == 3 ? AshtakvargaScreen() : SizedBox(),
-              kundliController.kundliTabInitialIndex == 4 ? KundliDashaScreen(userModel: userDetails) : SizedBox(),
-              kundliController.kundliTabInitialIndex == 5 ? KundliReportScreen() : SizedBox(),
+              kundliController.kundliTabInitialIndex == 1
+                  ? ChartsScreen()
+                  : SizedBox(),
+              kundliController.kundliTabInitialIndex == 2
+                  ? KPScreen()
+                  : SizedBox(),
+              kundliController.kundliTabInitialIndex == 3
+                  ? AshtakvargaScreen()
+                  : SizedBox(),
+              kundliController.kundliTabInitialIndex == 4
+                  ? KundliDashaScreen(userModel: userDetails)
+                  : SizedBox(),
+              kundliController.kundliTabInitialIndex == 5
+                  ? KundliReportScreen()
+                  : SizedBox(),
             ],
           ),
         );

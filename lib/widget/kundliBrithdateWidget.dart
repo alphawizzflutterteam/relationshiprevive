@@ -8,7 +8,9 @@ import 'package:google_translator/google_translator.dart';
 class KundliBirthDateWidget extends StatelessWidget {
   final KundliController kundliController;
   final VoidCallback onPressed;
-  KundliBirthDateWidget({Key? key, required this.kundliController, required this.onPressed}) : super(key: key);
+  KundliBirthDateWidget(
+      {Key? key, required this.kundliController, required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +40,12 @@ class KundliBirthDateWidget extends StatelessWidget {
           child: TextButton(
             style: ButtonStyle(
               padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-              backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
+              backgroundColor:
+                  MaterialStateProperty.all(Get.theme.primaryColor),
               shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: BorderSide(color: Colors.grey)),
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: BorderSide(color: Colors.grey)),
               ),
             ),
             onPressed: onPressed,
@@ -48,7 +53,7 @@ class KundliBirthDateWidget extends StatelessWidget {
               'Next',
               textAlign: TextAlign.center,
               style: Get.theme.primaryTextTheme.subtitle1,
-            ).translate(),
+            ),
           ),
         ),
       ],

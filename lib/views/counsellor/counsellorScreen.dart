@@ -27,8 +27,11 @@ class CounsellorScreen extends StatelessWidget {
           appBar: CustomAppBar(
             onBackPressed: () {},
             scaffoldKey: drawerKey,
-            title: counsellor.isCall ? 'Call With Counsellors' : 'Chat With Counsellors',
-            titleStyle: Get.theme.primaryTextTheme.subtitle2!.copyWith(fontWeight: FontWeight.w300),
+            title: counsellor.isCall
+                ? 'Call With Counsellors'
+                : 'Chat With Counsellors',
+            titleStyle: Get.theme.primaryTextTheme.subtitle2!
+                .copyWith(fontWeight: FontWeight.w300),
             bgColor: Get.theme.primaryColor,
             actions: [
               InkWell(
@@ -42,7 +45,8 @@ class CounsellorScreen extends StatelessWidget {
                     global.splashController.currentUser?.walletAmount != null
                         ? Container(
                             padding: EdgeInsets.all(2),
-                            margin: EdgeInsets.symmetric(vertical: 17, horizontal: 10),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 17, horizontal: 10),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.black),
                               borderRadius: BorderRadius.circular(5),
@@ -65,7 +69,8 @@ class CounsellorScreen extends StatelessWidget {
               counsellor.isAllDataLoaded = false;
               await counsellor.getCounsellorsData(false);
             },
-            child: GetBuilder<CounsellorController>(builder: (counsellorController) {
+            child: GetBuilder<CounsellorController>(
+                builder: (counsellorController) {
               return counsellorController.isCall
                   ? CallWithCounsellors(
                       counsellorController: counsellorController,
@@ -78,7 +83,8 @@ class CounsellorScreen extends StatelessWidget {
           bottomSheet: Container(
             alignment: Alignment.bottomCenter,
             height: 40,
-            child: GetBuilder<CounsellorController>(builder: (counsellorController) {
+            child: GetBuilder<CounsellorController>(
+                builder: (counsellorController) {
               return Container(
                 margin: EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -96,32 +102,46 @@ class CounsellorScreen extends StatelessWidget {
                         global.showOnlyLoaderDialog(context);
                         await counsellor.getCounsellorsData(false);
                         global.hideLoader();
-                        counsellorController.setBottomTab(chat: true, call: false);
+                        counsellorController.setBottomTab(
+                            chat: true, call: false);
                       },
                       child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                           decoration: BoxDecoration(
-                            color: counsellorController.isChat ? Get.theme.primaryColor : Colors.transparent,
-                            border: Border.all(color: counsellorController.isChat ? Colors.grey : Colors.transparent),
+                            color: counsellorController.isChat
+                                ? Get.theme.primaryColor
+                                : Colors.transparent,
+                            border: Border.all(
+                                color: counsellorController.isChat
+                                    ? Colors.grey
+                                    : Colors.transparent),
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Text('Chat').translate()),
+                          child: Text('Chat')),
                     ),
                     GestureDetector(
                       onTap: () async {
                         global.showOnlyLoaderDialog(context);
                         await counsellor.getCounsellorsData(false);
                         global.hideLoader();
-                        counsellorController.setBottomTab(chat: false, call: true);
+                        counsellorController.setBottomTab(
+                            chat: false, call: true);
                       },
                       child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                           decoration: BoxDecoration(
-                            color: counsellorController.isCall ? Get.theme.primaryColor : Colors.transparent,
-                            border: Border.all(color: counsellorController.isCall ? Colors.grey : Colors.transparent),
+                            color: counsellorController.isCall
+                                ? Get.theme.primaryColor
+                                : Colors.transparent,
+                            border: Border.all(
+                                color: counsellorController.isCall
+                                    ? Colors.grey
+                                    : Colors.transparent),
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Text("Call").translate()),
+                          child: Text("Call")),
                     )
                   ],
                 ),

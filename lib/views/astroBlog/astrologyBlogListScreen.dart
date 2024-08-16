@@ -21,11 +21,13 @@ class AstrologyBlogScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+          backgroundColor:
+              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           title: Text(
             'Astrology Blog',
-            style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-          ).translate(),
+            style: Get.theme.primaryTextTheme.headline6!
+                .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
+          ),
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(
@@ -60,17 +62,25 @@ class AstrologyBlogScreen extends StatelessWidget {
                 itemBuilder: (BuildContext ctx, index) {
                   return GestureDetector(
                     onTap: () async {
-                      HomeController homeController = Get.find<HomeController>();
+                      HomeController homeController =
+                          Get.find<HomeController>();
                       global.showOnlyLoaderDialog(context);
-                      await homeController.incrementBlogViewer(blogController.astrologyBlogs[index].id);
-                      homeController.homeBlogVideo(blogController.astrologyBlogs[index].blogImage);
+                      await homeController.incrementBlogViewer(
+                          blogController.astrologyBlogs[index].id);
+                      homeController.homeBlogVideo(
+                          blogController.astrologyBlogs[index].blogImage);
                       global.hideLoader();
                       Get.to(() => AstrologyBlogDetailScreen(
-                            image: "${blogController.astrologyBlogs[index].blogImage}",
+                            image:
+                                "${blogController.astrologyBlogs[index].blogImage}",
                             title: blogController.astrologyBlogs[index].title,
-                            description: blogController.astrologyBlogs[index].description!,
-                            extension: blogController.astrologyBlogs[index].extension ?? "",
-                            controller: homeController.homeVideoPlayerController,
+                            description: blogController
+                                .astrologyBlogs[index].description!,
+                            extension: blogController
+                                    .astrologyBlogs[index].extension ??
+                                "",
+                            controller:
+                                homeController.homeVideoPlayerController,
                           ));
                     },
                     child: Column(
@@ -84,33 +94,56 @@ class AstrologyBlogScreen extends StatelessWidget {
                               Stack(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                                    child: blogController.astrologyBlogs[index].blogImage == ""
+                                    borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(5),
+                                        topRight: Radius.circular(5)),
+                                    child: blogController.astrologyBlogs[index]
+                                                .blogImage ==
+                                            ""
                                         ? Image.asset(
                                             Images.blog,
                                             height: 180,
-                                            width: MediaQuery.of(context).size.width,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
                                             fit: BoxFit.fill,
                                           )
-                                        : blogController.astrologyBlogs[index].extension == 'mp4' || blogController.astrologyBlogs[index].extension == 'gif'
+                                        : blogController.astrologyBlogs[index]
+                                                        .extension ==
+                                                    'mp4' ||
+                                                blogController
+                                                        .astrologyBlogs[index]
+                                                        .extension ==
+                                                    'gif'
                                             ? Stack(
                                                 alignment: Alignment.center,
                                                 children: [
                                                   CachedNetworkImage(
-                                                    imageUrl: '${global.imgBaseurl}${blogController.astrologyBlogs[index].previewImage}',
-                                                    imageBuilder: (context, imageProvider) => Container(
+                                                    imageUrl:
+                                                        '${global.imgBaseurl}${blogController.astrologyBlogs[index].previewImage}',
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        Container(
                                                       height: 180,
                                                       width: Get.width,
                                                       decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(10),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
                                                         image: DecorationImage(
                                                           fit: BoxFit.fill,
                                                           image: imageProvider,
                                                         ),
                                                       ),
                                                     ),
-                                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                    errorWidget: (context, url, error) => Image.asset(
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        const Center(
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Image.asset(
                                                       Images.blog,
                                                       height: 180,
                                                       width: Get.width,
@@ -125,18 +158,30 @@ class AstrologyBlogScreen extends StatelessWidget {
                                                 ],
                                               )
                                             : CachedNetworkImage(
-                                                imageUrl: '${global.imgBaseurl}${blogController.astrologyBlogs[index].blogImage}',
-                                                imageBuilder: (context, imageProvider) => Image.network(
+                                                imageUrl:
+                                                    '${global.imgBaseurl}${blogController.astrologyBlogs[index].blogImage}',
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Image.network(
                                                   "${global.imgBaseurl}${blogController.astrologyBlogs[index].blogImage}",
                                                   height: 180,
-                                                  width: MediaQuery.of(context).size.width,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
                                                   fit: BoxFit.fill,
                                                 ),
-                                                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                errorWidget: (context, url, error) => Image.asset(
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                        child:
+                                                            CircularProgressIndicator()),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Image.asset(
                                                   Images.blog,
                                                   height: 180,
-                                                  width: MediaQuery.of(context).size.width,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),
@@ -146,16 +191,23 @@ class AstrologyBlogScreen extends StatelessWidget {
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           padding: EdgeInsets.zero,
-                                          backgroundColor: Colors.white.withOpacity(0.5),
+                                          backgroundColor:
+                                              Colors.white.withOpacity(0.5),
                                           elevation: 0,
-                                          minimumSize: const Size(50, 30), //height
-                                          maximumSize: const Size(60, 30), //width
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
+                                          minimumSize:
+                                              const Size(50, 30), //height
+                                          maximumSize:
+                                              const Size(60, 30), //width
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0)),
                                         ),
                                         onPressed: () {},
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             const Icon(
                                               Icons.visibility,
@@ -163,10 +215,13 @@ class AstrologyBlogScreen extends StatelessWidget {
                                               color: Colors.black,
                                             ),
                                             Padding(
-                                              padding: EdgeInsets.only(left: 5.0),
+                                              padding:
+                                                  EdgeInsets.only(left: 5.0),
                                               child: Text(
                                                 "${blogController.astrologyBlogs[index].viewer}",
-                                                style: TextStyle(fontSize: 12, color: Colors.black),
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.black),
                                               ),
                                             )
                                           ],
@@ -181,22 +236,32 @@ class AstrologyBlogScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      blogController.astrologyBlogs[index].title,
-                                      style: Theme.of(context).primaryTextTheme.bodyText1,
+                                      blogController
+                                          .astrologyBlogs[index].title,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .bodyText1,
                                       textAlign: TextAlign.start,
-                                    ).translate(),
+                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 8, bottom: 8),
+                                      padding: const EdgeInsets.only(
+                                          top: 8, bottom: 8),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            blogController.astrologyBlogs[index].author,
-                                            style: Theme.of(context).primaryTextTheme.subtitle2,
-                                          ).translate(),
+                                            blogController
+                                                .astrologyBlogs[index].author,
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .subtitle2,
+                                          ),
                                           Text(
                                             "${DateFormat("MMM d,yyyy").format(DateTime.parse(blogController.astrologyBlogs[index].createdAt))}",
-                                            style: Theme.of(context).primaryTextTheme.subtitle2,
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .subtitle2,
                                           )
                                         ],
                                       ),
@@ -207,7 +272,12 @@ class AstrologyBlogScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        blogController.isMoreDataAvailable == true && !blogController.isAllDataLoaded && blogController.astrologyBlogs.length - 1 == index ? const CircularProgressIndicator() : const SizedBox(),
+                        blogController.isMoreDataAvailable == true &&
+                                !blogController.isAllDataLoaded &&
+                                blogController.astrologyBlogs.length - 1 ==
+                                    index
+                            ? const CircularProgressIndicator()
+                            : const SizedBox(),
                         const SizedBox(
                           height: 20,
                         ),

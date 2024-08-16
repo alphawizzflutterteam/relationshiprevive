@@ -15,10 +15,13 @@ class ViewReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
-        title: Text('View Report').translate(),
+        backgroundColor:
+            Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+        title: Text('View Report'),
       ),
-      body: SfPdfViewer.network('${global.imgBaseurl}${historyController.reportHistoryList[index!].reportFile}', enableDocumentLinkAnnotation: false),
+      body: SfPdfViewer.network(
+          '${global.imgBaseurl}${historyController.reportHistoryList[index!].reportFile}',
+          enableDocumentLinkAnnotation: false),
     );
   }
 }

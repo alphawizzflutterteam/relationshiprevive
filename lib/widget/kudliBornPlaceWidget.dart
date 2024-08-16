@@ -8,7 +8,9 @@ import 'package:AstroGuru/utils/global.dart' as global;
 class KundliBornPlaceWidget extends StatelessWidget {
   final KundliController kundliController;
   final VoidCallback? onPressed;
-  const KundliBornPlaceWidget({Key? key, required this.kundliController, this.onPressed}) : super(key: key);
+  const KundliBornPlaceWidget(
+      {Key? key, required this.kundliController, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +42,24 @@ class KundliBornPlaceWidget extends StatelessWidget {
                           isDense: true,
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
                           hintText: snapshot.data ?? '',
-                          hintStyle: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500)),
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500)),
                     );
                   }),
             ),
@@ -69,9 +77,12 @@ class KundliBornPlaceWidget extends StatelessWidget {
           child: TextButton(
             style: ButtonStyle(
               padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-              backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
+              backgroundColor:
+                  MaterialStateProperty.all(Get.theme.primaryColor),
               shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: BorderSide(color: Colors.grey)),
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: BorderSide(color: Colors.grey)),
               ),
             ),
             onPressed: onPressed,
@@ -79,7 +90,7 @@ class KundliBornPlaceWidget extends StatelessWidget {
               'Submit',
               textAlign: TextAlign.center,
               style: Get.theme.primaryTextTheme.subtitle1,
-            ).translate(),
+            ),
           ),
         ),
       ],

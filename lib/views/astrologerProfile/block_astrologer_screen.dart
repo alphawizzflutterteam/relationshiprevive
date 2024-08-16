@@ -25,24 +25,31 @@ class BlockAstrologerScreen extends StatelessWidget {
             )),
         body: RefreshIndicator(
           onRefresh: () async {
-            SettingsController settingsController = Get.find<SettingsController>();
+            SettingsController settingsController =
+                Get.find<SettingsController>();
             await settingsController.getBlockAstrologerList();
           },
           child: GetBuilder<SettingsController>(builder: (settingsController) {
             return settingsController.blockedAstroloer.isEmpty
                 ? Center(
-                    child: Text("You have not Blocked any astrologer yet!").translate(),
+                    child: Text("You have not Blocked any astrologer yet!"),
                   )
                 : ListView.builder(
                     itemCount: settingsController.blockedAstroloer.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () async {
-                          Get.find<ReviewController>().getReviewData(settingsController.blockedAstroloer[index].id!);
+                          Get.find<ReviewController>().getReviewData(
+                              settingsController.blockedAstroloer[index].id!);
                           global.showOnlyLoaderDialog(context);
-                          BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
-                          print('block astrologer id ${settingsController.blockedAstroloer[index].astrologerId!}');
-                          await bottomNavigationController.getAstrologerbyId(settingsController.blockedAstroloer[index].astrologerId!);
+                          BottomNavigationController
+                              bottomNavigationController =
+                              Get.find<BottomNavigationController>();
+                          print(
+                              'block astrologer id ${settingsController.blockedAstroloer[index].astrologerId!}');
+                          await bottomNavigationController.getAstrologerbyId(
+                              settingsController
+                                  .blockedAstroloer[index].astrologerId!);
                           global.hideLoader();
                           Get.to(() => AstrologerProfile(
                                 index: index,
@@ -60,16 +67,26 @@ class BlockAstrologerScreen extends StatelessWidget {
                                       child: Container(
                                         height: 65,
                                         width: 65,
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), border: Border.all(color: Get.theme.primaryColor)),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(7),
+                                            border: Border.all(
+                                                color: Get.theme.primaryColor)),
                                         child: CircleAvatar(
                                           radius: 35,
                                           backgroundColor: Colors.white,
                                           child: CachedNetworkImage(
                                             height: 55,
                                             width: 55,
-                                            imageUrl: '${global.imgBaseurl}${settingsController.blockedAstroloer[index].profile}',
-                                            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                            errorWidget: (context, url, error) => Image.asset(
+                                            imageUrl:
+                                                '${global.imgBaseurl}${settingsController.blockedAstroloer[index].profile}',
+                                            placeholder: (context, url) =>
+                                                const Center(
+                                                    child:
+                                                        CircularProgressIndicator()),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Image.asset(
                                               Images.deafultUser,
                                               fit: BoxFit.cover,
                                               height: 50,
@@ -95,34 +112,42 @@ class BlockAstrologerScreen extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           '${settingsController.blockedAstroloer[index].astrologerName}',
-                                        ).translate(),
+                                        ),
                                         Text(
                                           '${settingsController.blockedAstroloer[index].allSkill}',
-                                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(
                                             fontWeight: FontWeight.w300,
                                             color: Colors.grey[600],
                                           ),
-                                        ).translate(),
+                                        ),
                                         Text(
                                           '${settingsController.blockedAstroloer[index].languageKnown}',
-                                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(
                                             fontWeight: FontWeight.w300,
                                             color: Colors.grey[600],
                                           ),
-                                        ).translate(),
+                                        ),
                                         Text(
                                           'Experience : ${settingsController.blockedAstroloer[index].experienceInYears} Years',
-                                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(
                                             fontWeight: FontWeight.w300,
                                             color: Colors.grey[600],
                                           ),
-                                        ).translate(),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -134,11 +159,14 @@ class BlockAstrologerScreen extends StatelessWidget {
                                     ),
                                     TextButton(
                                       style: ButtonStyle(
-                                        padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                        fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
+                                        padding: MaterialStateProperty.all(
+                                            EdgeInsets.all(0)),
+                                        fixedSize: MaterialStateProperty.all(
+                                            Size.fromWidth(90)),
                                         shape: MaterialStateProperty.all(
                                           RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             side: BorderSide(
                                               color: Colors.red,
                                             ),
@@ -148,19 +176,21 @@ class BlockAstrologerScreen extends StatelessWidget {
                                       onPressed: () async {
                                         Get.dialog(AlertDialog(
                                           title: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "Unblock",
                                                 style: Get.textTheme.subtitle1,
-                                              ).translate(),
+                                              ),
                                               Text(
                                                 "Are you sure you want to Unblock ${settingsController.blockedAstroloer[index].astrologerName} ?",
                                                 style: Get.textTheme.bodyText2,
-                                              ).translate(),
+                                              ),
                                             ],
                                           ),
-                                          contentPadding: const EdgeInsets.all(8),
+                                          contentPadding:
+                                              const EdgeInsets.all(8),
                                           content: Row(
                                             children: [
                                               Expanded(
@@ -169,7 +199,7 @@ class BlockAstrologerScreen extends StatelessWidget {
                                                   onPressed: () {
                                                     Get.back();
                                                   },
-                                                  child: Text('No').translate(),
+                                                  child: Text('No'),
                                                 ),
                                               ),
                                               const SizedBox(
@@ -179,12 +209,18 @@ class BlockAstrologerScreen extends StatelessWidget {
                                                 flex: 4,
                                                 child: ElevatedButton(
                                                   onPressed: () async {
-                                                    global.showOnlyLoaderDialog(context);
-                                                    await settingsController.unblockAstrologer(settingsController.blockedAstroloer[index].astrologerId!);
+                                                    global.showOnlyLoaderDialog(
+                                                        context);
+                                                    await settingsController
+                                                        .unblockAstrologer(
+                                                            settingsController
+                                                                .blockedAstroloer[
+                                                                    index]
+                                                                .astrologerId!);
                                                     Get.back();
                                                     global.hideLoader();
                                                   },
-                                                  child: Text('YES').translate(),
+                                                  child: Text('YES'),
                                                 ),
                                               ),
                                             ],
@@ -193,8 +229,10 @@ class BlockAstrologerScreen extends StatelessWidget {
                                       },
                                       child: Text(
                                         'Unblock',
-                                        style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.red),
-                                      ).translate(),
+                                        style: Get
+                                            .theme.primaryTextTheme.bodySmall!
+                                            .copyWith(color: Colors.red),
+                                      ),
                                     ),
                                   ],
                                 )

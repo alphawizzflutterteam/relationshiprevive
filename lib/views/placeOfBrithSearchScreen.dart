@@ -18,17 +18,20 @@ import '../widget/commonAppbar.dart';
 class PlaceOfBirthSearchScreen extends StatelessWidget {
   final int? flagId;
   PlaceOfBirthSearchScreen({Key? key, this.flagId}) : super(key: key);
-  UserProfileController userProfileController = Get.find<UserProfileController>();
+  UserProfileController userProfileController =
+      Get.find<UserProfileController>();
   KundliController kundliController = Get.find<KundliController>();
   IntakeController callIntakeController = Get.find<IntakeController>();
   ReportController reportController = Get.find<ReportController>();
-  KundliMatchingController kundliMatchingController = Get.find<KundliMatchingController>();
+  KundliMatchingController kundliMatchingController =
+      Get.find<KundliMatchingController>();
   CallController callController = Get.find<CallController>();
-  SearchController searchController = Get.find<SearchController>();
+  SearchController searchController = Get.put(SearchController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(56),
         child: CommonAppBar(
@@ -37,7 +40,8 @@ class PlaceOfBirthSearchScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: GetBuilder<SearchPlaceController>(builder: (searchPlaceController) {
+        child:
+            GetBuilder<SearchPlaceController>(builder: (searchPlaceController) {
           return Column(
             children: [
               FutureBuilder(
@@ -58,18 +62,24 @@ class PlaceOfBirthSearchScreen extends StatelessWidget {
                             ),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
-                              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
-                              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
-                              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0)),
                             ),
                             hintText: snapshot.data ?? 'Search City',
-                            hintStyle: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500)),
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500)),
                       ),
                     );
                   }),
@@ -84,9 +94,13 @@ class PlaceOfBirthSearchScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      title: Text(searchPlaceController.predictions[index].description ?? "null"),
+                      title: Text(searchPlaceController
+                              .predictions[index].description ??
+                          "null"),
                       onTap: () async {
-                        List<Location> location = await locationFromAddress(searchPlaceController.predictions[index].description.toString());
+                        List<Location> location = await locationFromAddress(
+                            searchPlaceController.predictions[index].description
+                                .toString());
                         kundliController.lat = location[0].latitude;
                         kundliController.long = location[0].longitude;
 
@@ -94,40 +108,64 @@ class PlaceOfBirthSearchScreen extends StatelessWidget {
                         kundliMatchingController.long = location[0].longitude;
                         print('${location[0].latitude} :- location');
                         print('${location[0].longitude} :- location');
-                        await kundliController.getGeoCodingLatLong(latitude: location[0].latitude, longitude: location[0].latitude);
-                        searchPlaceController.searchController.text = searchPlaceController.predictions[index].description!;
+                        await kundliController.getGeoCodingLatLong(
+                            latitude: location[0].latitude,
+                            longitude: location[0].latitude);
+                        searchPlaceController.searchController.text =
+                            searchPlaceController
+                                .predictions[index].description!;
                         searchPlaceController.update();
-                        kundliController.birthKundliPlaceController.text = searchPlaceController.predictions[index].description!;
+                        kundliController.birthKundliPlaceController.text =
+                            searchPlaceController
+                                .predictions[index].description!;
                         kundliController.update();
 
-                        kundliController.editBirthPlaceController.text = searchPlaceController.predictions[index].description!;
+                        kundliController.editBirthPlaceController.text =
+                            searchPlaceController
+                                .predictions[index].description!;
                         kundliController.update();
                         if (flagId == 1) {
-                          kundliMatchingController.cBoysBirthPlace.text = searchPlaceController.predictions[index].description!;
+                          kundliMatchingController.cBoysBirthPlace.text =
+                              searchPlaceController
+                                  .predictions[index].description!;
                           kundliMatchingController.update();
                         }
                         if (flagId == 2) {
-                          kundliMatchingController.cGirlBirthPlace.text = searchPlaceController.predictions[index].description!;
+                          kundliMatchingController.cGirlBirthPlace.text =
+                              searchPlaceController
+                                  .predictions[index].description!;
                           kundliMatchingController.update();
                         }
                         if (flagId == 4) {
-                          userProfileController.addressController.text = searchPlaceController.predictions[index].description!;
+                          userProfileController.addressController.text =
+                              searchPlaceController
+                                  .predictions[index].description!;
                         }
                         if (flagId == 3) {
-                          userProfileController.placeBirthController.text = searchPlaceController.predictions[index].description!;
+                          userProfileController.placeBirthController.text =
+                              searchPlaceController
+                                  .predictions[index].description!;
                         }
                         if (flagId == 5) {
-                          callIntakeController.placeController.text = searchPlaceController.predictions[index].description!;
+                          callIntakeController.placeController.text =
+                              searchPlaceController
+                                  .predictions[index].description!;
                         }
                         if (flagId == 6) {
-                          callIntakeController.partnerPlaceController.text = searchPlaceController.predictions[index].description!;
+                          callIntakeController.partnerPlaceController.text =
+                              searchPlaceController
+                                  .predictions[index].description!;
                         }
                         if (flagId == 7) {
-                          reportController.placeController.text = searchPlaceController.predictions[index].description!;
+                          reportController.placeController.text =
+                              searchPlaceController
+                                  .predictions[index].description!;
                           reportController.update();
                         }
                         if (flagId == 8) {
-                          reportController.partnerPlaceController.text = searchPlaceController.predictions[index].description!;
+                          reportController.partnerPlaceController.text =
+                              searchPlaceController
+                                  .predictions[index].description!;
                           reportController.update();
                         }
                         callIntakeController.update();

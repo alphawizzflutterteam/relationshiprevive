@@ -25,7 +25,8 @@ class SearchLiveAstrologer extends StatelessWidget {
   SearchLiveAstrologer({Key? key}) : super(key: key);
 
   ReportController reportController = Get.find<ReportController>();
-  ReportFilterTabController reportFilter = Get.find<ReportFilterTabController>();
+  ReportFilterTabController reportFilter =
+      Get.find<ReportFilterTabController>();
   SkillController skillController = Get.find<SkillController>();
   LanguageController languageController = Get.find<LanguageController>();
 
@@ -75,11 +76,15 @@ class SearchLiveAstrologer extends StatelessWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () async {
-                print('search astro id:- ${upcomingController.searchUpComing[index].id!}');
-                Get.find<ReviewController>().getReviewData(upcomingController.searchUpComing[index].id!);
-                BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+                print(
+                    'search astro id:- ${upcomingController.searchUpComing[index].id!}');
+                Get.find<ReviewController>().getReviewData(
+                    upcomingController.searchUpComing[index].id!);
+                BottomNavigationController bottomNavigationController =
+                    Get.find<BottomNavigationController>();
                 global.showOnlyLoaderDialog(context);
-                await bottomNavigationController.getAstrologerbyId(upcomingController.searchUpComing[index].id!);
+                await bottomNavigationController.getAstrologerbyId(
+                    upcomingController.searchUpComing[index].id!);
                 global.hideLoader();
                 Get.to(() => AstrologerProfile(
                       index: index,
@@ -98,16 +103,20 @@ class SearchLiveAstrologer extends StatelessWidget {
                               height: 65,
                               width: 65,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Get.theme.primaryColor),
+                                border:
+                                    Border.all(color: Get.theme.primaryColor),
                                 borderRadius: BorderRadius.circular(7),
                               ),
                               child: CircleAvatar(
                                 radius: 35,
                                 backgroundColor: Colors.white,
                                 child: CachedNetworkImage(
-                                  imageUrl: '${global.imgBaseurl}${upcomingController.searchUpComing[index].profileImage}',
-                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) => Image.asset(
+                                  imageUrl:
+                                      '${global.imgBaseurl}${upcomingController.searchUpComing[index].profileImage}',
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
                                     Images.deafultUser,
                                     fit: BoxFit.cover,
                                     height: 50,
@@ -127,50 +136,90 @@ class SearchLiveAstrologer extends StatelessWidget {
                             children: [
                               Text(
                                 '${upcomingController.searchUpComing[index].name}',
-                                style: Get.theme.primaryTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.w600, fontSize: 12, color: Colors.black),
-                              ).translate(),
+                                style: Get.theme.primaryTextTheme.bodySmall!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                        color: Colors.black),
+                              ),
                               Text(
                                 "${DateFormat("dd MMM,EEEE").format(DateTime.now())}",
-                                style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                style: Get.theme.primaryTextTheme.bodySmall!
+                                    .copyWith(
                                   fontWeight: FontWeight.w300,
                                   color: Colors.grey[600],
                                 ),
                               ),
-                              upcomingController.searchUpComing[index].isTimeSlotAvailable == true
+                              upcomingController.searchUpComing[index]
+                                          .isTimeSlotAvailable ==
+                                      true
                                   ? Container(
                                       height: 20,
                                       width: 110,
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           shrinkWrap: true,
-                                          itemCount: upcomingController.searchUpComing[index].availableTimes!.length,
-                                          itemBuilder: (BuildContext context, int index2) {
-                                            return (upcomingController.searchUpComing[index].availableTimes![index2].fromTime != null && upcomingController.searchUpComing[index].availableTimes![index2].toTime != null)
+                                          itemCount: upcomingController
+                                              .searchUpComing[index]
+                                              .availableTimes!
+                                              .length,
+                                          itemBuilder: (BuildContext context,
+                                              int index2) {
+                                            return (upcomingController
+                                                            .searchUpComing[
+                                                                index]
+                                                            .availableTimes![
+                                                                index2]
+                                                            .fromTime !=
+                                                        null &&
+                                                    upcomingController
+                                                            .searchUpComing[
+                                                                index]
+                                                            .availableTimes![
+                                                                index2]
+                                                            .toTime !=
+                                                        null)
                                                 ? Container(
-                                                    margin: EdgeInsets.only(left: 2),
+                                                    margin: EdgeInsets.only(
+                                                        left: 2),
                                                     padding: EdgeInsets.all(2),
-                                                    decoration: BoxDecoration(color: Colors.grey[300], border: Border.all(color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.grey[300],
+                                                        border: Border.all(
+                                                            color: Colors.grey),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10))),
                                                     child: Text(
                                                       "${upcomingController.searchUpComing[index].availableTimes![index2].fromTime} - ${upcomingController.searchUpComing[index].availableTimes![index2].toTime}",
-                                                      style: TextStyle(fontSize: 9.5),
+                                                      style: TextStyle(
+                                                          fontSize: 9.5),
                                                     ),
                                                   )
                                                 : Text(
                                                     "No Time set yet!",
-                                                    style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
-                                                      fontWeight: FontWeight.w300,
+                                                    style: Get
+                                                        .theme
+                                                        .primaryTextTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w300,
                                                       color: Colors.red,
                                                     ),
-                                                  ).translate();
+                                                  );
                                           }),
                                     )
                                   : Text(
                                       "No Time set yet!",
-                                      style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                      style: Get
+                                          .theme.primaryTextTheme.bodySmall!
+                                          .copyWith(
                                         fontWeight: FontWeight.w300,
                                         color: Colors.red,
                                       ),
-                                    ).translate(),
+                                    ),
                             ],
                           ),
                         ),
@@ -184,24 +233,32 @@ class SearchLiveAstrologer extends StatelessWidget {
                               global.showOnlyLoaderDialog(Get.context);
                               String appShareLink;
                               String applink;
-                              final DynamicLinkParameters parameters = DynamicLinkParameters(
+                              final DynamicLinkParameters parameters =
+                                  DynamicLinkParameters(
                                 uriPrefix: 'https://astroguruupdated.page.link',
-                                link: Uri.parse("https://astroguruupdated.page.link/userProfile?screen=astroProfile"),
+                                link: Uri.parse(
+                                    "https://astroguruupdated.page.link/userProfile?screen=astroProfile"),
                                 androidParameters: AndroidParameters(
                                   packageName: 'com.AstroGuru.app',
                                   minimumVersion: 1,
                                 ),
                               );
                               Uri url;
-                              final ShortDynamicLink shortLink = await global.dynamicLinks.buildShortLink(parameters, shortLinkType: ShortDynamicLinkType.short);
+                              final ShortDynamicLink shortLink = await global
+                                  .dynamicLinks
+                                  .buildShortLink(parameters,
+                                      shortLinkType:
+                                          ShortDynamicLinkType.short);
                               url = shortLink.shortUrl;
                               appShareLink = url.toString();
                               applink = appShareLink;
                               global.hideLoader();
 
                               await FlutterShare.share(
-                                title: 'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
-                                text: 'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
+                                title:
+                                    'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
+                                text:
+                                    'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
                                 linkUrl: '$applink',
                               );
                             },

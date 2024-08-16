@@ -19,9 +19,16 @@ class CallHistoryDetailScreen extends BaseRoute {
   final int astrologerId;
   final String astrologerProfile;
   final int index;
-  CallHistoryDetailScreen({a, o, required this.astrologerId, required this.astrologerProfile, required this.index}) : super(a: a, o: o, r: 'callHistoryDetailScreen');
+  CallHistoryDetailScreen(
+      {a,
+      o,
+      required this.astrologerId,
+      required this.astrologerProfile,
+      required this.index})
+      : super(a: a, o: o, r: 'callHistoryDetailScreen');
   final HistoryController historyController = Get.find<HistoryController>();
-  final BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  final BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,8 @@ class CallHistoryDetailScreen extends BaseRoute {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+          backgroundColor:
+              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           title: GestureDetector(
             onTap: () async {
               Get.find<ReviewController>().getReviewData(astrologerId);
@@ -49,8 +57,11 @@ class CallHistoryDetailScreen extends BaseRoute {
                 Container(
                   height: 40,
                   width: 40,
-                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(7)),
-                  child: astrologerProfile == "" || historyController.callHistoryListById.isEmpty
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(7)),
+                  child: astrologerProfile == "" ||
+                          historyController.callHistoryListById.isEmpty
                       ? Image.asset(
                           Images.deafultUser,
                           height: 40,
@@ -58,7 +69,8 @@ class CallHistoryDetailScreen extends BaseRoute {
                         )
                       : CachedNetworkImage(
                           imageUrl: '${global.imgBaseurl}$astrologerProfile',
-                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
                           errorWidget: (context, url, error) => Image.asset(
                             Images.deafultUser,
                             height: 40,
@@ -70,12 +82,15 @@ class CallHistoryDetailScreen extends BaseRoute {
                   width: 10,
                 ),
                 Text(
-                  historyController.callHistoryListById.isEmpty ? "" : historyController.callHistoryListById[0].astrologerName!,
+                  historyController.callHistoryListById.isEmpty
+                      ? ""
+                      : historyController
+                          .callHistoryListById[0].astrologerName!,
                   style: Get.theme.primaryTextTheme.headline6!.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.normal,
                   ),
-                ).translate(),
+                ),
               ],
             ),
           ),
@@ -93,7 +108,7 @@ class CallHistoryDetailScreen extends BaseRoute {
         ),
         body: historyController.callHistoryListById.isEmpty
             ? Center(
-                child: Text('No Details Found').translate(),
+                child: Text('No Details Found'),
               )
             : Container(
                 width: Get.width,
@@ -115,15 +130,20 @@ class CallHistoryDetailScreen extends BaseRoute {
                           children: [
                             Text(
                               'Appoinment Schedule:',
-                              style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
-                            ).translate(),
-                            Text('Expert Name: ${historyController.callHistoryListById[0].astrologerName}').translate(),
+                              style: Get.textTheme.subtitle1!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                                'Expert Name: ${historyController.callHistoryListById[0].astrologerName}'),
                             Text(
                               "${DateFormat("dd MMM yy, hh:mm a").format(DateTime.parse(historyController.callHistoryListById[0].createdAt.toString()))}",
                             ),
-                            Text('Duration: ${historyController.callHistoryListById[0].totalMin ?? 0} Minutes').translate(),
-                            Text('Price: ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.callHistoryListById[0].callRate}').translate(),
-                            Text('Deduction: ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.callHistoryListById[0].deduction}').translate()
+                            Text(
+                                'Duration: ${historyController.callHistoryListById[0].totalMin ?? 0} Minutes'),
+                            Text(
+                                'Price: ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.callHistoryListById[0].callRate}'),
+                            Text(
+                                'Deduction: ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.callHistoryListById[0].deduction}')
                           ],
                         ),
                       ),
@@ -131,7 +151,8 @@ class CallHistoryDetailScreen extends BaseRoute {
                     Card(
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
-                        child: GetBuilder<HistoryController>(builder: (historyController) {
+                        child: GetBuilder<HistoryController>(
+                            builder: (historyController) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -140,24 +161,40 @@ class CallHistoryDetailScreen extends BaseRoute {
                                   onPressed: () async {
                                     try {
                                       if (historyController.isPlay) {
-                                        await historyController.audioPlayer.pause();
-                                        await historyController.audioPlayer2.pause();
+                                        await historyController.audioPlayer
+                                            .pause();
+                                        await historyController.audioPlayer2
+                                            .pause();
                                       } else {
                                         print('startPlay');
 
-                                        await historyController.audioPlayer.play(UrlSource("https://storage.googleapis.com/astroguru_bucket/${historyController.callHistoryListById[0].sId}_${historyController.callHistoryListById[0].channelName}.m3u8"));
-                                        if (historyController.callHistoryListById[index].sId1 != null && historyController.callHistoryListById[index].sId1 != "") {
-                                          await historyController.audioPlayer2.play(UrlSource("https://storage.googleapis.com/astroguru_bucket/${historyController.callHistoryListById[0].sId1}_${historyController.callHistoryListById[0].channelName}.m3u8"));
+                                        await historyController.audioPlayer
+                                            .play(UrlSource(
+                                                "https://storage.googleapis.com/astroguru_bucket/${historyController.callHistoryListById[0].sId}_${historyController.callHistoryListById[0].channelName}.m3u8"));
+                                        if (historyController
+                                                    .callHistoryListById[index]
+                                                    .sId1 !=
+                                                null &&
+                                            historyController
+                                                    .callHistoryListById[index]
+                                                    .sId1 !=
+                                                "") {
+                                          await historyController.audioPlayer2
+                                              .play(UrlSource(
+                                                  "https://storage.googleapis.com/astroguru_bucket/${historyController.callHistoryListById[0].sId1}_${historyController.callHistoryListById[0].channelName}.m3u8"));
                                         }
                                       }
-                                      historyController.isPlay = !historyController.isPlay;
+                                      historyController.isPlay =
+                                          !historyController.isPlay;
                                       historyController.update();
                                     } catch (e) {
                                       print('audio Exception :- $e');
                                     }
                                   },
                                   icon: Icon(
-                                    historyController.isPlay ? Icons.pause : Icons.play_arrow,
+                                    historyController.isPlay
+                                        ? Icons.pause
+                                        : Icons.play_arrow,
                                     color: Colors.black,
                                   ),
                                 ),
@@ -167,19 +204,24 @@ class CallHistoryDetailScreen extends BaseRoute {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Slider(
-                                    value: historyController.position.inSeconds.toDouble(),
-                                    max: historyController.duration.inSeconds.toDouble(),
+                                    value: historyController.position.inSeconds
+                                        .toDouble(),
+                                    max: historyController.duration.inSeconds
+                                        .toDouble(),
                                     min: 0,
                                     onChanged: (_) {},
                                   ),
                                   Container(
                                     width: Get.width - 180,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           '${Duration(
-                                            seconds: historyController.position.inSeconds.toInt(),
+                                            seconds: historyController
+                                                .position.inSeconds
+                                                .toInt(),
                                           ).toString().split(".")[0]}',
                                           style: TextStyle(fontSize: 10),
                                         ),
@@ -198,7 +240,8 @@ class CallHistoryDetailScreen extends BaseRoute {
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.only(left: 5),
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 6),
                                   decoration: BoxDecoration(
                                     color: Get.theme.primaryColor,
                                     borderRadius: BorderRadius.circular(15),

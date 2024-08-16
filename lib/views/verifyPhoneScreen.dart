@@ -11,7 +11,9 @@ import 'package:google_translator/google_translator.dart';
 class VerifyPhoneScreen extends StatelessWidget {
   final String phoneNumber;
   final String verificationId;
-  VerifyPhoneScreen({Key? key, required this.phoneNumber, required this.verificationId}) : super(key: key);
+  VerifyPhoneScreen(
+      {Key? key, required this.phoneNumber, required this.verificationId})
+      : super(key: key);
   final LoginController loginController = Get.find<LoginController>();
   final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -24,7 +26,7 @@ class VerifyPhoneScreen extends StatelessWidget {
         title: Text(
           'Verify Phone',
           style: Get.textTheme.subtitle1,
-        ).translate(),
+        ),
         leading: IconButton(
             onPressed: () {
               Get.delete<LoginController>(force: true);
@@ -46,7 +48,7 @@ class VerifyPhoneScreen extends StatelessWidget {
                 Text(
                   'OTP Send to ${loginController.countryCode}-$phoneNumber',
                   style: TextStyle(color: Colors.green),
-                ).translate(),
+                ),
                 SizedBox(
                   height: 30,
                 ),
@@ -76,7 +78,8 @@ class VerifyPhoneScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       try {
-                        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                        PhoneAuthCredential credential =
+                            PhoneAuthProvider.credential(
                           verificationId: verificationId,
                           smsCode: loginController.smsCode,
                         );
@@ -84,7 +87,8 @@ class VerifyPhoneScreen extends StatelessWidget {
                         print('smscode ${loginController.smsCode}');
                         global.showOnlyLoaderDialog(context);
                         await auth.signInWithCredential(credential);
-                        await loginController.loginAndSignupUser(int.parse(phoneNumber));
+                        await loginController
+                            .loginAndSignupUser(int.parse(phoneNumber));
                       } catch (e) {
                         global.hideLoader();
 
@@ -99,7 +103,7 @@ class VerifyPhoneScreen extends StatelessWidget {
                     child: Text(
                       'SUBMIT',
                       style: TextStyle(color: Colors.black),
-                    ).translate(),
+                    ),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
@@ -107,8 +111,10 @@ class VerifyPhoneScreen extends StatelessWidget {
                         ),
                       ),
                       padding: MaterialStateProperty.all(EdgeInsets.all(12)),
-                      backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                      textStyle: MaterialStateProperty.all(TextStyle(fontSize: 18, color: Colors.black)),
+                      backgroundColor:
+                          MaterialStateProperty.all(Get.theme.primaryColor),
+                      textStyle: MaterialStateProperty.all(
+                          TextStyle(fontSize: 18, color: Colors.black)),
                     ),
                   ),
                 ),
@@ -127,45 +133,62 @@ class VerifyPhoneScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   'Resend OTP Available in ${loginController.maxSecond} s',
-                                  style: TextStyle(color: Colors.green, fontWeight: FontWeight.w500),
-                                ).translate()
+                                  style: TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.w500),
+                                )
                               ],
                             )
-                          : Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                              Text(
-                                'Resend OTP Available',
-                                style: TextStyle(color: Colors.green, fontWeight: FontWeight.w500),
-                              ).translate(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      loginController.maxSecond = 60;
-                                      loginController.second = 0;
-                                      loginController.update();
-                                      loginController.timer();
-                                      loginController.phoneController.text = phoneNumber;
-                                      loginController.verifyOTP();
-                                    },
-                                    child: Text(
-                                      'Resend OTP on SMS',
-                                      style: TextStyle(color: Colors.black),
-                                    ).translate(),
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10),
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                  Text(
+                                    'Resend OTP Available',
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          loginController.maxSecond = 60;
+                                          loginController.second = 0;
+                                          loginController.update();
+                                          loginController.timer();
+                                          loginController.phoneController.text =
+                                              phoneNumber;
+                                          loginController.verifyOTP();
+                                        },
+                                        child: Text(
+                                          'Resend OTP on SMS',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        style: ButtonStyle(
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          padding: MaterialStateProperty.all(
+                                              EdgeInsets.only(
+                                                  left: 25, right: 25)),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Get.theme.primaryColor),
+                                          textStyle: MaterialStateProperty.all(
+                                              TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.black)),
                                         ),
                                       ),
-                                      padding: MaterialStateProperty.all(EdgeInsets.only(left: 25, right: 25)),
-                                      backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                                      textStyle: MaterialStateProperty.all(TextStyle(fontSize: 12, color: Colors.black)),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ]));
+                                    ],
+                                  )
+                                ]));
                 })
               ],
             ),

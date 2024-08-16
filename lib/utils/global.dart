@@ -523,7 +523,7 @@ showOnlyLoaderDialog(context) {
     builder: (BuildContext context) {
       return Dialog(
         elevation: 0,
-        //backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Row(
@@ -532,9 +532,9 @@ showOnlyLoaderDialog(context) {
                 color: Get.theme.primaryColor,
               ),
               const SizedBox(
-                width: 10,
+                width: 20,
               ),
-              const Text('please wait').translate()
+              const Text('please wait')
             ],
           ),
         ),
@@ -585,7 +585,7 @@ Future<bool> checkBody() async {
                 child: Text(
                   'No internet available',
                   textAlign: TextAlign.start,
-                ).translate(),
+                ),
               ),
             ),
             GestureDetector(
@@ -603,7 +603,7 @@ Future<bool> checkBody() async {
                   child: Text(
                     'Retry',
                     style: TextStyle(color: Get.theme.primaryColor),
-                  ).translate(),
+                  ),
                 ),
               ),
             )
@@ -789,6 +789,7 @@ Future getDeviceData() async {
     deviceManufacturer = androidInfo!.manufacturer;
     deviceId = androidInfo!.id;
     fcmToken = await FirebaseMessaging.instance.getToken();
+    log('=========Device Token======= ${fcmToken}');
     //appVersion = getAppVersion();
 
     ///await getCurrentLocation(),

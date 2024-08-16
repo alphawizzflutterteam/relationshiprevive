@@ -24,7 +24,7 @@ class AstrologerNewsScreen extends StatelessWidget {
             'Relationship Revive in News',
             style: Get.theme.primaryTextTheme.headline6!
                 .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-          ).translate(),
+          ),
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(
@@ -104,7 +104,7 @@ class AstrologerNewsScreen extends StatelessWidget {
                                         .primaryTextTheme
                                         .bodyText1,
                                     textAlign: TextAlign.start,
-                                  ).translate(),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 8, bottom: 8),
@@ -115,16 +115,15 @@ class AstrologerNewsScreen extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                                  homeController
-                                                      .astroNews[index].channel,
-                                                  style: Theme.of(context)
-                                                      .primaryTextTheme
-                                                      .subtitle2!
-                                                      .copyWith(
-                                                          color: Colors.grey,
-                                                          fontWeight: FontWeight
-                                                              .normal))
-                                              .translate(),
+                                              homeController
+                                                  .astroNews[index].channel,
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .subtitle2!
+                                                  .copyWith(
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.normal)),
                                           Text(
                                             "${DateFormat("MMM d,yyyy").format(DateTime.parse(homeController.astroNews[index].newsDate.toString()))}",
                                             style: Theme.of(context)

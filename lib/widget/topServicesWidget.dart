@@ -7,7 +7,13 @@ class TopServicesWidget extends StatelessWidget {
   final String text;
   final Color color;
   final void Function() onTap;
-  const TopServicesWidget({Key? key, required this.icon, required this.text, required this.color, required this.onTap}) : super(key: key);
+  const TopServicesWidget(
+      {Key? key,
+      required this.icon,
+      required this.text,
+      required this.color,
+      required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,9 @@ class TopServicesWidget extends StatelessWidget {
                 size: 15,
               ),
               const SizedBox(width: 10),
-              FittedBox(child: Text(text, style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate())
+              FittedBox(
+                  child: Text(text,
+                      style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)))
             ],
           ),
         ),

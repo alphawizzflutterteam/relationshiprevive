@@ -12,7 +12,8 @@ import '../../widget/commonAppbar.dart';
 
 class AstromallScreen extends StatelessWidget {
   AstromallScreen({Key? key}) : super(key: key);
-  final AstromallController astromallController = Get.find<AstromallController>();
+  final AstromallController astromallController =
+      Get.find<AstromallController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +31,8 @@ class AstromallScreen extends StatelessWidget {
         },
         child: GetBuilder<AstromallController>(builder: (c) {
           return SingleChildScrollView(
-            physics: ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            physics:
+                ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             controller: astromallController.astromallCatScrollController,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -48,20 +50,28 @@ class AstromallScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () async {
                                 astromallController.astroProduct.clear();
-                                astromallController.isAllDataLoadedForProduct = false;
-                                astromallController.productCatId = astromallController.astroCategory[0].id;
+                                astromallController.isAllDataLoadedForProduct =
+                                    false;
+                                astromallController.productCatId =
+                                    astromallController.astroCategory[0].id;
                                 astromallController.update();
                                 global.showOnlyLoaderDialog(Get.context);
-                                await astromallController.getAstromallProduct(astromallController.astroCategory[0].id, false);
+                                await astromallController.getAstromallProduct(
+                                    astromallController.astroCategory[0].id,
+                                    false);
                                 global.hideLoader();
                                 Get.to(() => AstroProductScreen(
-                                      appbarTitle: astromallController.astroCategory[0].name,
-                                      productCategoryId: astromallController.astroCategory[0].id,
-                                      sliderImage: "${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}",
+                                      appbarTitle: astromallController
+                                          .astroCategory[0].name,
+                                      productCategoryId: astromallController
+                                          .astroCategory[0].id,
+                                      sliderImage:
+                                          "${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}",
                                     ));
                               },
                               child: CachedNetworkImage(
-                                imageUrl: '${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}',
+                                imageUrl:
+                                    '${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}',
                                 imageBuilder: (context, imageProvider) {
                                   return Container(
                                     height: Get.height * 0.2,
@@ -76,7 +86,8 @@ class AstromallScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
                                 errorWidget: (context, url, error) => Card(
                                   child: Image.asset(
                                     Images.blog,
@@ -90,20 +101,28 @@ class AstromallScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () async {
                                 astromallController.astroProduct.clear();
-                                astromallController.isAllDataLoadedForProduct = false;
-                                astromallController.productCatId = astromallController.astroCategory[1].id;
+                                astromallController.isAllDataLoadedForProduct =
+                                    false;
+                                astromallController.productCatId =
+                                    astromallController.astroCategory[1].id;
                                 astromallController.update();
                                 global.showOnlyLoaderDialog(Get.context);
-                                await astromallController.getAstromallProduct(astromallController.astroCategory[1].id, false);
+                                await astromallController.getAstromallProduct(
+                                    astromallController.astroCategory[1].id,
+                                    false);
                                 global.hideLoader();
                                 Get.to(() => AstroProductScreen(
-                                      appbarTitle: astromallController.astroCategory[1].name,
-                                      productCategoryId: astromallController.astroCategory[1].id,
-                                      sliderImage: "${global.imgBaseurl}${astromallController.astroCategory[1].categoryImage}",
+                                      appbarTitle: astromallController
+                                          .astroCategory[1].name,
+                                      productCategoryId: astromallController
+                                          .astroCategory[1].id,
+                                      sliderImage:
+                                          "${global.imgBaseurl}${astromallController.astroCategory[1].categoryImage}",
                                     ));
                               },
                               child: CachedNetworkImage(
-                                imageUrl: '${global.imgBaseurl}${astromallController.astroCategory[1].categoryImage}',
+                                imageUrl:
+                                    '${global.imgBaseurl}${astromallController.astroCategory[1].categoryImage}',
                                 imageBuilder: (context, imageProvider) {
                                   return Container(
                                     height: Get.height * 0.2,
@@ -118,7 +137,8 @@ class AstromallScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
                                 errorWidget: (context, url, error) => Card(
                                   child: Image.asset(
                                     Images.blog,
@@ -132,20 +152,28 @@ class AstromallScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () async {
                                 astromallController.astroProduct.clear();
-                                astromallController.isAllDataLoadedForProduct = false;
-                                astromallController.productCatId = astromallController.astroCategory[2].id;
+                                astromallController.isAllDataLoadedForProduct =
+                                    false;
+                                astromallController.productCatId =
+                                    astromallController.astroCategory[2].id;
                                 astromallController.update();
                                 global.showOnlyLoaderDialog(Get.context);
-                                await astromallController.getAstromallProduct(astromallController.astroCategory[2].id, false);
+                                await astromallController.getAstromallProduct(
+                                    astromallController.astroCategory[2].id,
+                                    false);
                                 global.hideLoader();
                                 Get.to(() => AstroProductScreen(
-                                      appbarTitle: astromallController.astroCategory[2].name,
-                                      productCategoryId: astromallController.astroCategory[2].id,
-                                      sliderImage: "${global.imgBaseurl}${astromallController.astroCategory[2].categoryImage}",
+                                      appbarTitle: astromallController
+                                          .astroCategory[2].name,
+                                      productCategoryId: astromallController
+                                          .astroCategory[2].id,
+                                      sliderImage:
+                                          "${global.imgBaseurl}${astromallController.astroCategory[2].categoryImage}",
                                     ));
                               },
                               child: CachedNetworkImage(
-                                imageUrl: '${global.imgBaseurl}${astromallController.astroCategory[2].categoryImage}',
+                                imageUrl:
+                                    '${global.imgBaseurl}${astromallController.astroCategory[2].categoryImage}',
                                 imageBuilder: (context, imageProvider) {
                                   return Container(
                                     height: Get.height * 0.2,
@@ -160,7 +188,8 @@ class AstromallScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
                                 errorWidget: (context, url, error) => Card(
                                   child: Image.asset(
                                     Images.blog,
@@ -183,20 +212,28 @@ class AstromallScreen extends StatelessWidget {
                               GestureDetector(
                                 onTap: () async {
                                   astromallController.astroProduct.clear();
-                                  astromallController.isAllDataLoadedForProduct = false;
-                                  astromallController.productCatId = astromallController.astroCategory[0].id;
+                                  astromallController
+                                      .isAllDataLoadedForProduct = false;
+                                  astromallController.productCatId =
+                                      astromallController.astroCategory[0].id;
                                   astromallController.update();
                                   global.showOnlyLoaderDialog(Get.context);
-                                  await astromallController.getAstromallProduct(astromallController.astroCategory[0].id, false);
+                                  await astromallController.getAstromallProduct(
+                                      astromallController.astroCategory[0].id,
+                                      false);
                                   global.hideLoader();
                                   Get.to(() => AstroProductScreen(
-                                        appbarTitle: astromallController.astroCategory[0].name,
-                                        productCategoryId: astromallController.astroCategory[0].id,
-                                        sliderImage: "${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}",
+                                        appbarTitle: astromallController
+                                            .astroCategory[0].name,
+                                        productCategoryId: astromallController
+                                            .astroCategory[0].id,
+                                        sliderImage:
+                                            "${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}",
                                       ));
                                 },
                                 child: CachedNetworkImage(
-                                  imageUrl: '${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}',
+                                  imageUrl:
+                                      '${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}',
                                   imageBuilder: (context, imageProvider) {
                                     return Container(
                                       height: Get.height * 0.2,
@@ -211,7 +248,8 @@ class AstromallScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator()),
                                   errorWidget: (context, url, error) => Card(
                                     child: Image.asset(
                                       Images.blog,
@@ -225,20 +263,28 @@ class AstromallScreen extends StatelessWidget {
                               GestureDetector(
                                 onTap: () async {
                                   astromallController.astroProduct.clear();
-                                  astromallController.isAllDataLoadedForProduct = false;
-                                  astromallController.productCatId = astromallController.astroCategory[1].id;
+                                  astromallController
+                                      .isAllDataLoadedForProduct = false;
+                                  astromallController.productCatId =
+                                      astromallController.astroCategory[1].id;
                                   astromallController.update();
                                   global.showOnlyLoaderDialog(Get.context);
-                                  await astromallController.getAstromallProduct(astromallController.astroCategory[1].id, false);
+                                  await astromallController.getAstromallProduct(
+                                      astromallController.astroCategory[1].id,
+                                      false);
                                   global.hideLoader();
                                   Get.to(() => AstroProductScreen(
-                                        appbarTitle: astromallController.astroCategory[1].name,
-                                        productCategoryId: astromallController.astroCategory[1].id,
-                                        sliderImage: "${global.imgBaseurl}${astromallController.astroCategory[1].categoryImage}",
+                                        appbarTitle: astromallController
+                                            .astroCategory[1].name,
+                                        productCategoryId: astromallController
+                                            .astroCategory[1].id,
+                                        sliderImage:
+                                            "${global.imgBaseurl}${astromallController.astroCategory[1].categoryImage}",
                                       ));
                                 },
                                 child: CachedNetworkImage(
-                                  imageUrl: '${global.imgBaseurl}${astromallController.astroCategory[1].categoryImage}',
+                                  imageUrl:
+                                      '${global.imgBaseurl}${astromallController.astroCategory[1].categoryImage}',
                                   imageBuilder: (context, imageProvider) {
                                     return Container(
                                       height: Get.height * 0.2,
@@ -253,7 +299,8 @@ class AstromallScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator()),
                                   errorWidget: (context, url, error) => Card(
                                     child: Image.asset(
                                       Images.blog,
@@ -275,27 +322,40 @@ class AstromallScreen extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () async {
                                       astromallController.astroProduct.clear();
-                                      astromallController.isAllDataLoadedForProduct = false;
-                                      astromallController.productCatId = astromallController.astroCategory[0].id;
+                                      astromallController
+                                          .isAllDataLoadedForProduct = false;
+                                      astromallController.productCatId =
+                                          astromallController
+                                              .astroCategory[0].id;
                                       astromallController.update();
                                       global.showOnlyLoaderDialog(Get.context);
-                                      await astromallController.getAstromallProduct(astromallController.astroCategory[0].id, false);
+                                      await astromallController
+                                          .getAstromallProduct(
+                                              astromallController
+                                                  .astroCategory[0].id,
+                                              false);
                                       global.hideLoader();
                                       Get.to(() => AstroProductScreen(
-                                            appbarTitle: astromallController.astroCategory[0].name,
-                                            productCategoryId: astromallController.astroCategory[0].id,
-                                            sliderImage: "${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}",
+                                            appbarTitle: astromallController
+                                                .astroCategory[0].name,
+                                            productCategoryId:
+                                                astromallController
+                                                    .astroCategory[0].id,
+                                            sliderImage:
+                                                "${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}",
                                           ));
                                     },
                                     child: CachedNetworkImage(
-                                      imageUrl: '${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}',
+                                      imageUrl:
+                                          '${global.imgBaseurl}${astromallController.astroCategory[0].categoryImage}',
                                       imageBuilder: (context, imageProvider) {
                                         return Container(
                                           height: Get.height * 0.2,
                                           width: Get.width,
                                           margin: const EdgeInsets.all(6),
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: imageProvider,
@@ -303,8 +363,12 @@ class AstromallScreen extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) => Card(
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) =>
+                                          Card(
                                         child: Image.asset(
                                           Images.blog,
                                           height: Get.height * 0.15,
@@ -325,7 +389,8 @@ class AstromallScreen extends StatelessWidget {
                       height: 40,
                       child: IgnorePointer(
                           child: FutureBuilder(
-                              future: global.translatedText("Let's find what you're looking for..."),
+                              future: global.translatedText(
+                                  "Let's find what you're looking for..."),
                               builder: (context, snapshot) {
                                 return TextField(
                                   decoration: InputDecoration(
@@ -335,19 +400,28 @@ class AstromallScreen extends StatelessWidget {
                                         color: Get.theme.iconTheme.color,
                                       ),
                                       border: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black),
-                                        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                        borderSide:
+                                            BorderSide(color: Colors.black),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(25.0)),
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black),
-                                        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                        borderSide:
+                                            BorderSide(color: Colors.black),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(25.0)),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black),
-                                        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                        borderSide:
+                                            BorderSide(color: Colors.black),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(25.0)),
                                       ),
                                       hintText: snapshot.data,
-                                      hintStyle: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500)),
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500)),
                                 );
                               })),
                     ),
@@ -355,7 +429,12 @@ class AstromallScreen extends StatelessWidget {
                 ),
                 GetBuilder<AstromallController>(builder: (c) {
                   return GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 250, childAspectRatio: 3 / 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 250,
+                              childAspectRatio: 3 / 3,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10),
                       physics: NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.all(8),
                       shrinkWrap: true,
@@ -365,21 +444,30 @@ class AstromallScreen extends StatelessWidget {
                           onTap: () async {
                             global.showOnlyLoaderDialog(context);
                             astromallController.astroProduct.clear();
-                            astromallController.isAllDataLoadedForProduct = false;
-                            astromallController.productCatId = astromallController.astroCategory[index].id;
+                            astromallController.isAllDataLoadedForProduct =
+                                false;
+                            astromallController.productCatId =
+                                astromallController.astroCategory[index].id;
                             astromallController.update();
-                            await astromallController.getAstromallProduct(astromallController.astroCategory[index].id, false);
+                            await astromallController.getAstromallProduct(
+                                astromallController.astroCategory[index].id,
+                                false);
                             global.hideLoader();
                             Get.to(() => AstroProductScreen(
-                                  appbarTitle: astromallController.astroCategory[index].name,
-                                  productCategoryId: astromallController.astroCategory[index].id,
-                                  sliderImage: "${global.imgBaseurl}${astromallController.astroCategory[index].categoryImage}",
+                                  appbarTitle: astromallController
+                                      .astroCategory[index].name,
+                                  productCategoryId: astromallController
+                                      .astroCategory[index].id,
+                                  sliderImage:
+                                      "${global.imgBaseurl}${astromallController.astroCategory[index].categoryImage}",
                                 ));
                           },
                           child: Container(
                             alignment: Alignment.bottomCenter,
                             height: 300,
-                            padding: index == 1 ? EdgeInsets.all(0) : EdgeInsets.all(10),
+                            padding: index == 1
+                                ? EdgeInsets.all(0)
+                                : EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -387,7 +475,8 @@ class AstromallScreen extends StatelessWidget {
                                   Colors.black.withOpacity(0.4),
                                   BlendMode.darken,
                                 ),
-                                image: NetworkImage("${global.imgBaseurl}${astromallController.astroCategory[index].categoryImage}"),
+                                image: NetworkImage(
+                                    "${global.imgBaseurl}${astromallController.astroCategory[index].categoryImage}"),
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -399,18 +488,26 @@ class AstromallScreen extends StatelessWidget {
                                         child: Padding(
                                             padding: const EdgeInsets.all(10.0),
                                             child: Text(
-                                              astromallController.astroCategory[index].name,
+                                              astromallController
+                                                  .astroCategory[index].name,
                                               textAlign: TextAlign.center,
-                                              style: Get.textTheme.subtitle1!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                                            ).translate()),
+                                              style: Get.textTheme.subtitle1!
+                                                  .copyWith(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            )),
                                       ),
                                     ],
                                   )
                                 : Text(
-                                    astromallController.astroCategory[index].name,
+                                    astromallController
+                                        .astroCategory[index].name,
                                     textAlign: TextAlign.center,
-                                    style: Get.textTheme.subtitle1!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                                  ).translate(),
+                                    style: Get.textTheme.subtitle1!.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                           ),
                         );
                       });
@@ -423,7 +520,14 @@ class AstromallScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: astromallController.astroCategory.length,
                         itemBuilder: (context, index) {
-                          return astromallController.isMoreDataAvailable == true && !astromallController.isAllDataLoaded && astromallController.astroCategory.length - 1 == index ? const CircularProgressIndicator() : const SizedBox();
+                          return astromallController.isMoreDataAvailable ==
+                                      true &&
+                                  !astromallController.isAllDataLoaded &&
+                                  astromallController.astroCategory.length -
+                                          1 ==
+                                      index
+                              ? const CircularProgressIndicator()
+                              : const SizedBox();
                         }),
                   ),
                 )

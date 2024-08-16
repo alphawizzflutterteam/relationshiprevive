@@ -39,7 +39,8 @@ class SearchAstrologerScreen extends StatelessWidget {
   SearchAstrologerScreen({Key? key, this.type = 'Chat'}) : super(key: key);
   final ChatController chatController = ChatController();
   WalletController walletController = Get.find<WalletController>();
-  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
   CallController callController = Get.find<CallController>();
   SearchController1 searchControllerr = Get.find<SearchController1>();
   HistoryController historyController = Get.find<HistoryController>();
@@ -57,10 +58,12 @@ class SearchAstrologerScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           elevation: 1,
-          backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+          backgroundColor:
+              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           leading: IconButton(
             onPressed: () {
-              SearchController1 searchController = Get.find<SearchController1>();
+              SearchController1 searchController =
+                  Get.find<SearchController1>();
               searchController.serachTextController.clear();
               searchController.searchText = "";
               searchController.update();
@@ -73,7 +76,8 @@ class SearchAstrologerScreen extends StatelessWidget {
           ),
           title: GetBuilder<SearchController1>(builder: (searchController) {
             return FutureBuilder(
-                future: global.translatedText('Search astrologers, astromall products'),
+                future: global
+                    .translatedText('Search astrologers, astromall products'),
                 builder: (context, snapdhot) {
                   return TextField(
                       controller: searchController.serachTextController,
@@ -88,7 +92,8 @@ class SearchAstrologerScreen extends StatelessWidget {
                           searchController.isAllDataLoadedForAstromall = false;
                           searchController.searchString = value;
                           searchController.update();
-                          await searchController.getSearchResult(value, null, false);
+                          await searchController.getSearchResult(
+                              value, null, false);
                           global.hideLoader();
                         }
                         searchController.update();
@@ -97,17 +102,20 @@ class SearchAstrologerScreen extends StatelessWidget {
                       decoration: InputDecoration(
                           hintText: snapdhot.data,
                           hintStyle: TextStyle(fontSize: 12),
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
-                          suffix: searchController.serachTextController.text != ""
-                              ? GestureDetector(
-                                  child: Icon(Icons.close),
-                                  onTap: () {
-                                    searchController.serachTextController.clear();
-                                    searchController.searchText = '';
-                                    searchControllerr.update();
-                                  },
-                                )
-                              : SizedBox()));
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none),
+                          suffix:
+                              searchController.serachTextController.text != ""
+                                  ? GestureDetector(
+                                      child: Icon(Icons.close),
+                                      onTap: () {
+                                        searchController.serachTextController
+                                            .clear();
+                                        searchController.searchText = '';
+                                        searchControllerr.update();
+                                      },
+                                    )
+                                  : SizedBox()));
                 });
           }),
         ),
@@ -122,58 +130,64 @@ class SearchAstrologerScreen extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      Text('Top Services').translate(),
+                      Text('Top Services'),
                       SizedBox(
                         height: 8,
                       ),
                       FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                          TopServicesWidget(
-                            icon: Icons.phone,
-                            color: Color.fromARGB(255, 212, 228, 241),
-                            text: 'Call',
-                            onTap: () {
-                              BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
-                              bottomNavigationController.setIndex(3, 0);
-                              Get.to(() => BottomNavigationBarScreen(
-                                    index: 3,
-                                  ));
-                            },
-                          ),
-                          TopServicesWidget(
-                            icon: Icons.chat,
-                            color: Color.fromARGB(255, 238, 221, 236),
-                            text: 'Chat',
-                            onTap: () {
-                              BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
-                              bottomNavigationController.setIndex(1, 0);
-                              Get.to(() => BottomNavigationBarScreen(
-                                    index: 1,
-                                  ));
-                            },
-                          ),
-                          TopServicesWidget(
-                            icon: Icons.live_tv,
-                            color: Color.fromARGB(255, 235, 236, 221),
-                            text: 'Live',
-                            onTap: () {
-                              Get.to(() => LiveAstrologerListScreen());
-                            },
-                          ),
-                          TopServicesWidget(
-                              icon: Icons.shopping_bag,
-                              color: Color.fromARGB(255, 223, 240, 221),
-                              text: 'Astromall',
-                              onTap: () {
-                                Get.to(() => AstromallScreen());
-                              })
-                        ]),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TopServicesWidget(
+                                icon: Icons.phone,
+                                color: Color.fromARGB(255, 212, 228, 241),
+                                text: 'Call',
+                                onTap: () {
+                                  BottomNavigationController
+                                      bottomNavigationController =
+                                      Get.find<BottomNavigationController>();
+                                  bottomNavigationController.setIndex(3, 0);
+                                  Get.to(() => BottomNavigationBarScreen(
+                                        index: 3,
+                                      ));
+                                },
+                              ),
+                              TopServicesWidget(
+                                icon: Icons.chat,
+                                color: Color.fromARGB(255, 238, 221, 236),
+                                text: 'Chat',
+                                onTap: () {
+                                  BottomNavigationController
+                                      bottomNavigationController =
+                                      Get.find<BottomNavigationController>();
+                                  bottomNavigationController.setIndex(1, 0);
+                                  Get.to(() => BottomNavigationBarScreen(
+                                        index: 1,
+                                      ));
+                                },
+                              ),
+                              TopServicesWidget(
+                                icon: Icons.live_tv,
+                                color: Color.fromARGB(255, 235, 236, 221),
+                                text: 'Live',
+                                onTap: () {
+                                  Get.to(() => LiveAstrologerListScreen());
+                                },
+                              ),
+                              TopServicesWidget(
+                                  icon: Icons.shopping_bag,
+                                  color: Color.fromARGB(255, 223, 240, 221),
+                                  text: 'Astromall',
+                                  onTap: () {
+                                    Get.to(() => AstromallScreen());
+                                  })
+                            ]),
                       ),
                       SizedBox(
                         height: 15,
                       ),
-                      Text('Quick Link').translate(),
+                      Text('Quick Link'),
                       SizedBox(
                         height: 5,
                       ),
@@ -190,12 +204,17 @@ class SearchAstrologerScreen extends StatelessWidget {
                                 historyController.walletTransactionList.clear();
                                 historyController.walletAllDataLoaded = false;
                                 historyController.update();
-                                await historyController.getPaymentLogs(global.currentUserId!, false);
-                                await historyController.getWalletTransaction(global.currentUserId!, false);
-                                BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+                                await historyController.getPaymentLogs(
+                                    global.currentUserId!, false);
+                                await historyController.getWalletTransaction(
+                                    global.currentUserId!, false);
+                                BottomNavigationController
+                                    bottomNavigationController =
+                                    Get.find<BottomNavigationController>();
                                 bottomNavigationController.setIndex(4, 0);
                                 callController.setTabIndex(0);
-                                Get.to(() => BottomNavigationBarScreen(index: 4));
+                                Get.to(
+                                    () => BottomNavigationBarScreen(index: 4));
                               }
                             },
                           ),
@@ -205,11 +224,17 @@ class SearchAstrologerScreen extends StatelessWidget {
                             onTap: () async {
                               bool isLogin = await global.isLogin();
                               if (isLogin) {
-                                CustomerSupportController customerSupportController = Get.find<CustomerSupportController>();
-                                AstrologerAssistantController astrologerAssistantController = Get.find<AstrologerAssistantController>();
+                                CustomerSupportController
+                                    customerSupportController =
+                                    Get.find<CustomerSupportController>();
+                                AstrologerAssistantController
+                                    astrologerAssistantController =
+                                    Get.find<AstrologerAssistantController>();
                                 global.showOnlyLoaderDialog(context);
-                                await customerSupportController.getCustomerTickets();
-                                await astrologerAssistantController.getChatWithAstrologerAssisteant();
+                                await customerSupportController
+                                    .getCustomerTickets();
+                                await astrologerAssistantController
+                                    .getChatWithAstrologerAssisteant();
                                 global.hideLoader();
                                 Get.to(() => CustomerSupportChat());
                               }
@@ -225,11 +250,15 @@ class SearchAstrologerScreen extends StatelessWidget {
                                 historyController.callHistoryList.clear();
                                 historyController.callAllDataLoaded = false;
                                 historyController.update();
-                                await historyController.getCallHistory(global.currentUserId!, false);
-                                BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+                                await historyController.getCallHistory(
+                                    global.currentUserId!, false);
+                                BottomNavigationController
+                                    bottomNavigationController =
+                                    Get.find<BottomNavigationController>();
                                 bottomNavigationController.setIndex(4, 1);
                                 callController.setTabIndex(1);
-                                Get.to(() => BottomNavigationBarScreen(index: 4));
+                                Get.to(
+                                    () => BottomNavigationBarScreen(index: 4));
                               }
                             },
                           ),
@@ -239,7 +268,8 @@ class SearchAstrologerScreen extends StatelessWidget {
                             onTap: () async {
                               bool isLogin = await global.isLogin();
                               if (isLogin) {
-                                SplashController splashController = Get.find<SplashController>();
+                                SplashController splashController =
+                                    Get.find<SplashController>();
                                 global.showOnlyLoaderDialog(context);
                                 await splashController.getCurrentUserData();
                                 global.hideLoader();
@@ -271,10 +301,13 @@ class SearchAstrologerScreen extends StatelessWidget {
                                   searchController.astrologerList.clear();
                                   searchController.astroProduct.clear();
                                   searchController.isAllDataLoaded = false;
-                                  searchController.isAllDataLoadedForAstromall = false;
-                                  searchController.searchString = searchController.searchText;
+                                  searchController.isAllDataLoadedForAstromall =
+                                      false;
+                                  searchController.searchString =
+                                      searchController.searchText;
                                   searchController.update();
-                                  searchController.getSearchResult(searchController.searchText, null, false);
+                                  searchController.getSearchResult(
+                                      searchController.searchText, null, false);
                                   global.hideLoader();
                                 },
                                 child: Padding(
@@ -282,13 +315,25 @@ class SearchAstrologerScreen extends StatelessWidget {
                                   child: Container(
                                       alignment: Alignment.center,
                                       margin: const EdgeInsets.only(top: 10),
-                                      padding: EdgeInsets.only(left: 10, right: 10),
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
                                       decoration: BoxDecoration(
-                                        color: searchController.searchData[index].isSelected ? Color.fromARGB(255, 247, 243, 213) : Colors.transparent,
-                                        border: Border.all(color: searchController.searchData[index].isSelected ? Get.theme.primaryColor : Colors.black),
+                                        color: searchController
+                                                .searchData[index].isSelected
+                                            ? Color.fromARGB(255, 247, 243, 213)
+                                            : Colors.transparent,
+                                        border: Border.all(
+                                            color: searchController
+                                                    .searchData[index]
+                                                    .isSelected
+                                                ? Get.theme.primaryColor
+                                                : Colors.black),
                                         borderRadius: BorderRadius.circular(30),
                                       ),
-                                      child: Text(searchController.searchData[index].title, style: TextStyle(fontSize: 13)).translate()),
+                                      child: Text(
+                                          searchController
+                                              .searchData[index].title,
+                                          style: TextStyle(fontSize: 13))),
                                 ),
                               );
                             });
@@ -299,15 +344,23 @@ class SearchAstrologerScreen extends StatelessWidget {
                             child: searchController.astrologerList.isEmpty
                                 ? searchResultNotFound()
                                 : ListView.builder(
-                                    itemCount: searchController.astrologerList.length,
+                                    itemCount:
+                                        searchController.astrologerList.length,
                                     shrinkWrap: true,
-                                    controller: searchController.searchScrollController,
+                                    controller:
+                                        searchController.searchScrollController,
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () async {
-                                          Get.find<ReviewController>().getReviewData(searchController.astrologerList[index].id!);
+                                          Get.find<ReviewController>()
+                                              .getReviewData(searchController
+                                                  .astrologerList[index].id!);
                                           global.showOnlyLoaderDialog(context);
-                                          await bottomNavigationController.getAstrologerbyId(searchController.astrologerList[index].id!);
+                                          await bottomNavigationController
+                                              .getAstrologerbyId(
+                                                  searchController
+                                                      .astrologerList[index]
+                                                      .id!);
                                           global.hideLoader();
                                           Get.to(() => AstrologerProfile(
                                                 index: index,
@@ -317,7 +370,8 @@ class SearchAstrologerScreen extends StatelessWidget {
                                           children: [
                                             Card(
                                               child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: Row(
                                                   children: [
                                                     Column(
@@ -325,30 +379,60 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                         Stack(
                                                           children: [
                                                             Padding(
-                                                              padding: const EdgeInsets.only(top: 10),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      top: 10),
                                                               child: Container(
                                                                 height: 65,
                                                                 width: 65,
-                                                                decoration: BoxDecoration(
-                                                                  border: Border.all(color: Get.theme.primaryColor),
-                                                                  borderRadius: BorderRadius.circular(7),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: Get
+                                                                          .theme
+                                                                          .primaryColor),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              7),
                                                                 ),
-                                                                child: CircleAvatar(
+                                                                child:
+                                                                    CircleAvatar(
                                                                   radius: 36,
-                                                                  backgroundColor: Get.theme.primaryColor,
-                                                                  child: CircleAvatar(
+                                                                  backgroundColor: Get
+                                                                      .theme
+                                                                      .primaryColor,
+                                                                  child:
+                                                                      CircleAvatar(
                                                                     radius: 35,
-                                                                    backgroundColor: Colors.white,
-                                                                    child: CachedNetworkImage(
-                                                                      height: 55,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    child:
+                                                                        CachedNetworkImage(
+                                                                      height:
+                                                                          55,
                                                                       width: 55,
-                                                                      imageUrl: '${global.imgBaseurl}${searchController.astrologerList[index].profileImage}',
-                                                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                                      errorWidget: (context, url, error) => Image.asset(
-                                                                        Images.deafultUser,
-                                                                        fit: BoxFit.cover,
-                                                                        height: 50,
-                                                                        width: 40,
+                                                                      imageUrl:
+                                                                          '${global.imgBaseurl}${searchController.astrologerList[index].profileImage}',
+                                                                      placeholder: (context,
+                                                                              url) =>
+                                                                          const Center(
+                                                                              child: CircularProgressIndicator()),
+                                                                      errorWidget: (context,
+                                                                              url,
+                                                                              error) =>
+                                                                          Image
+                                                                              .asset(
+                                                                        Images
+                                                                            .deafultUser,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                        height:
+                                                                            50,
+                                                                        width:
+                                                                            40,
                                                                       ),
                                                                     ),
                                                                   ),
@@ -358,7 +442,8 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                             Positioned(
                                                                 right: 0,
                                                                 top: 2,
-                                                                child: Image.asset(
+                                                                child:
+                                                                    Image.asset(
                                                                   Images.right,
                                                                   height: 18,
                                                                 ))
@@ -367,84 +452,188 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                         RatingBar.builder(
                                                           initialRating: 0,
                                                           itemCount: 5,
-                                                          allowHalfRating: false,
+                                                          allowHalfRating:
+                                                              false,
                                                           itemSize: 15,
                                                           ignoreGestures: true,
-                                                          itemBuilder: (context, _) => Icon(
+                                                          itemBuilder:
+                                                              (context, _) =>
+                                                                  Icon(
                                                             Icons.star,
-                                                            color: Get.theme.primaryColor,
+                                                            color: Get.theme
+                                                                .primaryColor,
                                                           ),
-                                                          onRatingUpdate: (rating) {},
+                                                          onRatingUpdate:
+                                                              (rating) {},
                                                         ),
-                                                        searchController.astrologerList[index].totalOrder == 0 || searchController.astrologerList[index].totalOrder == null
+                                                        searchController
+                                                                        .astrologerList[
+                                                                            index]
+                                                                        .totalOrder ==
+                                                                    0 ||
+                                                                searchController
+                                                                        .astrologerList[
+                                                                            index]
+                                                                        .totalOrder ==
+                                                                    null
                                                             ? SizedBox()
                                                             : Text(
                                                                 '${searchController.astrologerList[index].totalOrder} orders',
-                                                                style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
-                                                                  fontWeight: FontWeight.w300,
+                                                                style: Get
+                                                                    .theme
+                                                                    .primaryTextTheme
+                                                                    .bodySmall!
+                                                                    .copyWith(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300,
                                                                   fontSize: 9,
                                                                 ),
-                                                              ).translate()
+                                                              )
                                                       ],
                                                     ),
                                                     Expanded(
                                                       child: Padding(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 10),
                                                         child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
                                                           children: [
                                                             Text(
-                                                              searchController.astrologerList[index].name!,
-                                                            ).translate(),
-                                                            searchController.astrologerList[index].allSkill == ""
+                                                              searchController
+                                                                  .astrologerList[
+                                                                      index]
+                                                                  .name!,
+                                                            ),
+                                                            searchController
+                                                                        .astrologerList[
+                                                                            index]
+                                                                        .allSkill ==
+                                                                    ""
                                                                 ? const SizedBox()
                                                                 : Text(
-                                                                    searchController.astrologerList[index].allSkill ?? "",
-                                                                    style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
-                                                                      fontWeight: FontWeight.w300,
-                                                                      color: Colors.grey[600],
+                                                                    searchController
+                                                                            .astrologerList[index]
+                                                                            .allSkill ??
+                                                                        "",
+                                                                    style: Get
+                                                                        .theme
+                                                                        .primaryTextTheme
+                                                                        .bodySmall!
+                                                                        .copyWith(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w300,
+                                                                      color: Colors
+                                                                              .grey[
+                                                                          600],
                                                                     ),
-                                                                  ).translate(),
-                                                            searchController.astrologerList[index].languageKnown == ""
+                                                                  ),
+                                                            searchController
+                                                                        .astrologerList[
+                                                                            index]
+                                                                        .languageKnown ==
+                                                                    ""
                                                                 ? const SizedBox()
                                                                 : Text(
-                                                                    searchController.astrologerList[index].languageKnown!,
-                                                                    style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
-                                                                      fontWeight: FontWeight.w300,
-                                                                      color: Colors.grey[600],
+                                                                    searchController
+                                                                        .astrologerList[
+                                                                            index]
+                                                                        .languageKnown!,
+                                                                    style: Get
+                                                                        .theme
+                                                                        .primaryTextTheme
+                                                                        .bodySmall!
+                                                                        .copyWith(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w300,
+                                                                      color: Colors
+                                                                              .grey[
+                                                                          600],
                                                                     ),
-                                                                  ).translate(),
+                                                                  ),
                                                             Text(
                                                               'Experience  : ${searchController.astrologerList[index].experienceInYears}',
-                                                              style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
-                                                                fontWeight: FontWeight.w300,
-                                                                color: Colors.grey[600],
+                                                              style: Get
+                                                                  .theme
+                                                                  .primaryTextTheme
+                                                                  .bodySmall!
+                                                                  .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                                color: Colors
+                                                                    .grey[600],
                                                               ),
-                                                            ).translate(),
+                                                            ),
                                                             Row(
                                                               children: [
-                                                                searchController.astrologerList[index].isFreeAvailable == true
+                                                                searchController
+                                                                            .astrologerList[index]
+                                                                            .isFreeAvailable ==
+                                                                        true
                                                                     ? Text(
                                                                         'FREE',
-                                                                        style: Get.theme.textTheme.subtitle1!.copyWith(
-                                                                          fontSize: 12,
-                                                                          fontWeight: FontWeight.w500,
-                                                                          letterSpacing: 0,
-                                                                          color: Color.fromARGB(255, 167, 1, 1),
+                                                                        style: Get
+                                                                            .theme
+                                                                            .textTheme
+                                                                            .subtitle1!
+                                                                            .copyWith(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          letterSpacing:
+                                                                              0,
+                                                                          color: Color.fromARGB(
+                                                                              255,
+                                                                              167,
+                                                                              1,
+                                                                              1),
                                                                         ),
-                                                                      ).translate()
+                                                                      )
                                                                     : const SizedBox(),
                                                                 SizedBox(
-                                                                  width: searchController.astrologerList[index].isFreeAvailable == true ? 10 : 0,
+                                                                  width: searchController
+                                                                              .astrologerList[index]
+                                                                              .isFreeAvailable ==
+                                                                          true
+                                                                      ? 10
+                                                                      : 0,
                                                                 ),
                                                                 Text(
                                                                   '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${searchController.astrologerList[index].charge}/min',
-                                                                  style: Get.theme.textTheme.subtitle1!.copyWith(
-                                                                    fontSize: 12,
-                                                                    fontWeight: FontWeight.w500,
-                                                                    decoration: searchController.astrologerList[index].isFreeAvailable == true ? TextDecoration.lineThrough : null,
-                                                                    color: searchController.astrologerList[index].isFreeAvailable == true ? Colors.grey : Color.fromARGB(255, 167, 1, 1),
-                                                                    letterSpacing: 0,
+                                                                  style: Get
+                                                                      .theme
+                                                                      .textTheme
+                                                                      .subtitle1!
+                                                                      .copyWith(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    decoration: searchController.astrologerList[index].isFreeAvailable ==
+                                                                            true
+                                                                        ? TextDecoration
+                                                                            .lineThrough
+                                                                        : null,
+                                                                    color: searchController.astrologerList[index].isFreeAvailable ==
+                                                                            true
+                                                                        ? Colors
+                                                                            .grey
+                                                                        : Color.fromARGB(
+                                                                            255,
+                                                                            167,
+                                                                            1,
+                                                                            1),
+                                                                    letterSpacing:
+                                                                        0,
                                                                   ),
                                                                 ),
                                                               ],
@@ -457,37 +646,78 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                       children: [
                                                         type == 'Chat'
                                                             ? TextButton(
-                                                                style: ButtonStyle(
-                                                                  padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                                                  fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
-                                                                  backgroundColor: searchController.astrologerList[index].chatStatus == "Online"
-                                                                      ? MaterialStateProperty.all(Colors.green)
-                                                                      : searchController.astrologerList[index].chatStatus == "Offline"
-                                                                          ? MaterialStateProperty.all(Colors.red)
-                                                                          : MaterialStateProperty.all(Colors.red),
-                                                                  shape: MaterialStateProperty.all(
+                                                                style:
+                                                                    ButtonStyle(
+                                                                  padding: MaterialStateProperty.all(
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0)),
+                                                                  fixedSize: MaterialStateProperty
+                                                                      .all(Size
+                                                                          .fromWidth(
+                                                                              90)),
+                                                                  backgroundColor: searchController
+                                                                              .astrologerList[
+                                                                                  index]
+                                                                              .chatStatus ==
+                                                                          "Online"
+                                                                      ? MaterialStateProperty.all(
+                                                                          Colors
+                                                                              .green)
+                                                                      : searchController.astrologerList[index].chatStatus ==
+                                                                              "Offline"
+                                                                          ? MaterialStateProperty.all(Colors
+                                                                              .red)
+                                                                          : MaterialStateProperty.all(
+                                                                              Colors.red),
+                                                                  shape:
+                                                                      MaterialStateProperty
+                                                                          .all(
                                                                     RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadius.circular(10),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                                onPressed: () async {
-                                                                  bool isLogin = await global.isLogin();
+                                                                onPressed:
+                                                                    () async {
+                                                                  bool isLogin =
+                                                                      await global
+                                                                          .isLogin();
                                                                   if (isLogin) {
-                                                                    if (type == 'Chat') {
-                                                                      double charge = searchController.astrologerList[index].charge != null ? double.parse(searchController.astrologerList[index].charge.toString()) : 0;
-                                                                      if (charge * 5 <= global.splashController.currentUser!.walletAmount! || searchController.astrologerList[index].isFreeAvailable == true) {
-                                                                        await bottomNavigationController.checkAlreadyInReq(searchController.astrologerList[index].id!);
-                                                                        if (bottomNavigationController.isUserAlreadyInChatReq == false) {
-                                                                          if (searchController.astrologerList[index].chatStatus == "Online" || searchController.astrologerList[index].chatStatus == "Wait Time") {
+                                                                    if (type ==
+                                                                        'Chat') {
+                                                                      double charge = searchController.astrologerList[index].charge !=
+                                                                              null
+                                                                          ? double.parse(searchController
+                                                                              .astrologerList[index]
+                                                                              .charge
+                                                                              .toString())
+                                                                          : 0;
+                                                                      if (charge * 5 <=
+                                                                              global
+                                                                                  .splashController.currentUser!.walletAmount! ||
+                                                                          searchController.astrologerList[index].isFreeAvailable ==
+                                                                              true) {
+                                                                        await bottomNavigationController.checkAlreadyInReq(searchController
+                                                                            .astrologerList[index]
+                                                                            .id!);
+                                                                        if (bottomNavigationController.isUserAlreadyInChatReq ==
+                                                                            false) {
+                                                                          if (searchController.astrologerList[index].chatStatus == "Online" ||
+                                                                              searchController.astrologerList[index].chatStatus ==
+                                                                                  "Wait Time") {
                                                                             global.showOnlyLoaderDialog(context);
 
-                                                                            if (searchController.astrologerList[index].chatWaitTime != null) {
+                                                                            if (searchController.astrologerList[index].chatWaitTime !=
+                                                                                null) {
                                                                               if (searchController.astrologerList[index].chatWaitTime!.difference(DateTime.now()).inMinutes < 0) {
                                                                                 await bottomNavigationController.changeOfflineStatus(searchController.astrologerList[index].id, "Online");
                                                                               }
                                                                             }
-                                                                            await Get.to(() => CallIntakeFormScreen(
+                                                                            await Get.to(() =>
+                                                                                CallIntakeFormScreen(
                                                                                   type: type,
                                                                                   // index: index,
                                                                                   astrologerId: searchController.astrologerList[index].id!,
@@ -496,7 +726,8 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                                                   isFreeAvailable: searchController.astrologerList[index].isFreeAvailable!,
                                                                                 ));
                                                                             global.hideLoader();
-                                                                          } else if (searchController.astrologerList[index].chatStatus == "Offline") {
+                                                                          } else if (searchController.astrologerList[index].chatStatus ==
+                                                                              "Offline") {
                                                                             bottomNavigationController.dialogForJoinInWaitListForListPageOnly(
                                                                               context,
                                                                               searchController.astrologerList[index].name!,
@@ -508,53 +739,108 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                                             );
                                                                           }
                                                                         } else {
-                                                                          bottomNavigationController.dialogForNotCreatingSession(context);
+                                                                          bottomNavigationController
+                                                                              .dialogForNotCreatingSession(context);
                                                                         }
                                                                       } else {
-                                                                        global.showOnlyLoaderDialog(context);
-                                                                        await walletController.getAmount();
-                                                                        global.hideLoader();
-                                                                        openBottomSheetRechrage(context, (charge * 5).toString(), 'chat', '${searchController.astrologerList[index].name!}');
+                                                                        global.showOnlyLoaderDialog(
+                                                                            context);
+                                                                        await walletController
+                                                                            .getAmount();
+                                                                        global
+                                                                            .hideLoader();
+                                                                        openBottomSheetRechrage(
+                                                                            context,
+                                                                            (charge * 5).toString(),
+                                                                            'chat',
+                                                                            '${searchController.astrologerList[index].name!}');
                                                                       }
                                                                     }
                                                                   }
                                                                 },
                                                                 child: Text(
                                                                   '$type',
-                                                                  style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.white),
-                                                                ).translate(),
+                                                                  style: Get
+                                                                      .theme
+                                                                      .primaryTextTheme
+                                                                      .bodySmall!
+                                                                      .copyWith(
+                                                                          color:
+                                                                              Colors.white),
+                                                                ),
                                                               )
                                                             : TextButton(
-                                                                style: ButtonStyle(
-                                                                  padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                                                  fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
-                                                                  backgroundColor: searchController.astrologerList[index].callStatus == "Online"
-                                                                      ? MaterialStateProperty.all(Colors.green)
-                                                                      : searchController.astrologerList[index].callStatus == "Offline"
-                                                                          ? MaterialStateProperty.all(Colors.red)
-                                                                          : MaterialStateProperty.all(Colors.red),
-                                                                  shape: MaterialStateProperty.all(
+                                                                style:
+                                                                    ButtonStyle(
+                                                                  padding: MaterialStateProperty.all(
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0)),
+                                                                  fixedSize: MaterialStateProperty
+                                                                      .all(Size
+                                                                          .fromWidth(
+                                                                              90)),
+                                                                  backgroundColor: searchController
+                                                                              .astrologerList[
+                                                                                  index]
+                                                                              .callStatus ==
+                                                                          "Online"
+                                                                      ? MaterialStateProperty.all(
+                                                                          Colors
+                                                                              .green)
+                                                                      : searchController.astrologerList[index].callStatus ==
+                                                                              "Offline"
+                                                                          ? MaterialStateProperty.all(Colors
+                                                                              .red)
+                                                                          : MaterialStateProperty.all(
+                                                                              Colors.red),
+                                                                  shape:
+                                                                      MaterialStateProperty
+                                                                          .all(
                                                                     RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadius.circular(10),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                                onPressed: () async {
-                                                                  bool isLogin = await global.isLogin();
+                                                                onPressed:
+                                                                    () async {
+                                                                  bool isLogin =
+                                                                      await global
+                                                                          .isLogin();
                                                                   if (isLogin) {
-                                                                    if (type == 'Call') {
-                                                                      double charge = searchController.astrologerList[index].charge != null ? double.parse(searchController.astrologerList[index].charge.toString()) : 0;
-                                                                      if (charge * 5 <= global.splashController.currentUser!.walletAmount! || searchController.astrologerList[index].isFreeAvailable == true) {
-                                                                        await bottomNavigationController.checkAlreadyInReqForCall(searchController.astrologerList[index].id!);
-                                                                        if (bottomNavigationController.isUserAlreadyInCallReq == false) {
-                                                                          if (searchController.astrologerList[index].callStatus == "Online" || searchController.astrologerList[index].callStatus == "Wait Time") {
+                                                                    if (type ==
+                                                                        'Call') {
+                                                                      double charge = searchController.astrologerList[index].charge !=
+                                                                              null
+                                                                          ? double.parse(searchController
+                                                                              .astrologerList[index]
+                                                                              .charge
+                                                                              .toString())
+                                                                          : 0;
+                                                                      if (charge * 5 <=
+                                                                              global
+                                                                                  .splashController.currentUser!.walletAmount! ||
+                                                                          searchController.astrologerList[index].isFreeAvailable ==
+                                                                              true) {
+                                                                        await bottomNavigationController.checkAlreadyInReqForCall(searchController
+                                                                            .astrologerList[index]
+                                                                            .id!);
+                                                                        if (bottomNavigationController.isUserAlreadyInCallReq ==
+                                                                            false) {
+                                                                          if (searchController.astrologerList[index].callStatus == "Online" ||
+                                                                              searchController.astrologerList[index].callStatus ==
+                                                                                  "Wait Time") {
                                                                             global.showOnlyLoaderDialog(context);
-                                                                            if (searchController.astrologerList[index].callWaitTime != null) {
+                                                                            if (searchController.astrologerList[index].callWaitTime !=
+                                                                                null) {
                                                                               if (searchController.astrologerList[index].callWaitTime!.difference(DateTime.now()).inMinutes < 0) {
                                                                                 await bottomNavigationController.changeOfflineCallStatus(searchController.astrologerList[index].id, "Online");
                                                                               }
                                                                             }
-                                                                            await Get.to(() => CallIntakeFormScreen(
+                                                                            await Get.to(() =>
+                                                                                CallIntakeFormScreen(
                                                                                   astrologerProfile: searchController.astrologerList[index].profileImage ?? '',
                                                                                   type: "Call",
                                                                                   astrologerId: searchController.astrologerList[index].id!,
@@ -563,7 +849,8 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                                                 ));
 
                                                                             global.hideLoader();
-                                                                          } else if (searchController.astrologerList[index].callStatus == "Offline") {
+                                                                          } else if (searchController.astrologerList[index].callStatus ==
+                                                                              "Offline") {
                                                                             bottomNavigationController.dialogForJoinInWaitListForListPageOnly(
                                                                               context,
                                                                               searchController.astrologerList[index].name ?? '',
@@ -575,44 +862,93 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                                             );
                                                                           }
                                                                         } else {
-                                                                          bottomNavigationController.dialogForNotCreatingSession(context);
+                                                                          bottomNavigationController
+                                                                              .dialogForNotCreatingSession(context);
                                                                         }
                                                                       } else {
-                                                                        global.showOnlyLoaderDialog(context);
-                                                                        await walletController.getAmount();
-                                                                        global.hideLoader();
-                                                                        openBottomSheetRechrage(context, (charge * 5).toString(), 'call', '${searchController.astrologerList[index].name!}');
+                                                                        global.showOnlyLoaderDialog(
+                                                                            context);
+                                                                        await walletController
+                                                                            .getAmount();
+                                                                        global
+                                                                            .hideLoader();
+                                                                        openBottomSheetRechrage(
+                                                                            context,
+                                                                            (charge * 5).toString(),
+                                                                            'call',
+                                                                            '${searchController.astrologerList[index].name!}');
                                                                       }
                                                                     }
                                                                   }
                                                                 },
                                                                 child: Text(
                                                                   '$type',
-                                                                  style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.white),
-                                                                ).translate(),
+                                                                  style: Get
+                                                                      .theme
+                                                                      .primaryTextTheme
+                                                                      .bodySmall!
+                                                                      .copyWith(
+                                                                          color:
+                                                                              Colors.white),
+                                                                ),
                                                               ),
                                                         type == "Chat"
-                                                            ? searchController.astrologerList[index].chatStatus == "Offline"
+                                                            ? searchController
+                                                                        .astrologerList[
+                                                                            index]
+                                                                        .chatStatus ==
+                                                                    "Offline"
                                                                 ? Text(
                                                                     "Currently Offline",
-                                                                    style: TextStyle(color: Colors.red, fontSize: 09),
-                                                                  ).translate()
-                                                                : searchController.astrologerList[index].chatStatus == "Wait Time"
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        fontSize:
+                                                                            09),
+                                                                  )
+                                                                : searchController
+                                                                            .astrologerList[
+                                                                                index]
+                                                                            .chatStatus ==
+                                                                        "Wait Time"
                                                                     ? Text(
-                                                                        searchController.astrologerList[index].chatWaitTime!.difference(DateTime.now()).inMinutes > 0 ? "Wait till - ${searchController.astrologerList[index].chatWaitTime!.difference(DateTime.now()).inMinutes} min" : "Wait till",
-                                                                        style: TextStyle(color: Colors.red, fontSize: 09),
-                                                                      ).translate()
+                                                                        searchController.astrologerList[index].chatWaitTime!.difference(DateTime.now()).inMinutes >
+                                                                                0
+                                                                            ? "Wait till - ${searchController.astrologerList[index].chatWaitTime!.difference(DateTime.now()).inMinutes} min"
+                                                                            : "Wait till",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.red,
+                                                                            fontSize: 09),
+                                                                      )
                                                                     : SizedBox()
-                                                            : searchController.astrologerList[index].callStatus == "Offline"
+                                                            : searchController
+                                                                        .astrologerList[
+                                                                            index]
+                                                                        .callStatus ==
+                                                                    "Offline"
                                                                 ? Text(
                                                                     "Currently Offline",
-                                                                    style: TextStyle(color: Colors.red, fontSize: 09),
-                                                                  ).translate()
-                                                                : searchController.astrologerList[index].callStatus == "Wait Time"
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        fontSize:
+                                                                            09),
+                                                                  )
+                                                                : searchController
+                                                                            .astrologerList[index]
+                                                                            .callStatus ==
+                                                                        "Wait Time"
                                                                     ? Text(
-                                                                        searchController.astrologerList[index].callWaitTime!.difference(DateTime.now()).inMinutes > 0 ? "Wait till - ${searchController.astrologerList[index].callWaitTime!.difference(DateTime.now()).inMinutes} min" : "Wait till",
-                                                                        style: TextStyle(color: Colors.red, fontSize: 09),
-                                                                      ).translate()
+                                                                        searchController.astrologerList[index].callWaitTime!.difference(DateTime.now()).inMinutes >
+                                                                                0
+                                                                            ? "Wait till - ${searchController.astrologerList[index].callWaitTime!.difference(DateTime.now()).inMinutes} min"
+                                                                            : "Wait till",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.red,
+                                                                            fontSize: 09),
+                                                                      )
                                                                     : SizedBox()
                                                       ],
                                                     ),
@@ -620,7 +956,18 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            searchController.isMoreDataAvailable == true && !searchController.isAllDataLoaded && searchController.astrologerList.length - 1 == index ? const CircularProgressIndicator() : const SizedBox(),
+                                            searchController
+                                                            .isMoreDataAvailable ==
+                                                        true &&
+                                                    !searchController
+                                                        .isAllDataLoaded &&
+                                                    searchController
+                                                                .astrologerList
+                                                                .length -
+                                                            1 ==
+                                                        index
+                                                ? const CircularProgressIndicator()
+                                                : const SizedBox(),
                                             if (index == 2 - 1)
                                               const SizedBox(
                                                 height: 30,
@@ -635,39 +982,63 @@ class SearchAstrologerScreen extends StatelessWidget {
                             child: searchController.astroProduct.isEmpty
                                 ? searchResultNotFound()
                                 : ListView.builder(
-                                    itemCount: searchController.astroProduct.length,
+                                    itemCount:
+                                        searchController.astroProduct.length,
                                     shrinkWrap: true,
-                                    controller: searchController.searchAstromallScrollController,
+                                    controller: searchController
+                                        .searchAstromallScrollController,
                                     padding: const EdgeInsets.all(10),
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () async {
-                                          AstromallController astromallController = Get.find<AstromallController>();
+                                          AstromallController
+                                              astromallController =
+                                              Get.find<AstromallController>();
                                           global.showOnlyLoaderDialog(context);
-                                          print('selected product id:- ${searchController.astroProduct[index].id}');
-                                          await astromallController.getproductById(searchController.astroProduct[index].id);
+                                          print(
+                                              'selected product id:- ${searchController.astroProduct[index].id}');
+                                          await astromallController
+                                              .getproductById(searchController
+                                                  .astroProduct[index].id);
                                           global.hideLoader();
-                                          Get.to(() => ProductDetailScreen(index: index));
+                                          Get.to(() => ProductDetailScreen(
+                                              index: index));
                                         },
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Card(
                                               child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: Row(
                                                   children: [
                                                     CircleAvatar(
                                                       radius: 38,
-                                                      backgroundColor: Get.theme.primaryColor,
+                                                      backgroundColor: Get
+                                                          .theme.primaryColor,
                                                       child: CircleAvatar(
                                                         radius: 35,
-                                                        backgroundColor: Colors.white,
-                                                        child: CachedNetworkImage(
-                                                          imageUrl: '${global.imgBaseurl}${searchController.astroProduct[index].productImage}',
-                                                          imageBuilder: (context, imageProvider) => CircleAvatar(radius: 35, backgroundImage: imageProvider),
-                                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                          errorWidget: (context, url, error) => Image.asset(
+                                                        backgroundColor:
+                                                            Colors.white,
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          imageUrl:
+                                                              '${global.imgBaseurl}${searchController.astroProduct[index].productImage}',
+                                                          imageBuilder: (context,
+                                                                  imageProvider) =>
+                                                              CircleAvatar(
+                                                                  radius: 35,
+                                                                  backgroundImage:
+                                                                      imageProvider),
+                                                          placeholder: (context,
+                                                                  url) =>
+                                                              const Center(
+                                                                  child:
+                                                                      CircularProgressIndicator()),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              Image.asset(
                                                             Images.deafultUser,
                                                             fit: BoxFit.cover,
                                                             height: 50,
@@ -681,27 +1052,47 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                     ),
                                                     Expanded(
                                                       child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
-                                                          Text(searchController.astroProduct[index].name).translate(),
+                                                          Text(searchController
+                                                              .astroProduct[
+                                                                  index]
+                                                              .name),
                                                           Text(
                                                             '${searchController.astroProduct[index].features}',
-                                                            style: Get.textTheme.bodySmall,
-                                                          ).translate(),
+                                                            style: Get.textTheme
+                                                                .bodySmall,
+                                                          ),
                                                           Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             children: [
                                                               Text(
                                                                 'Starting from: ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)}${searchController.astroProduct[index].amount}/-',
-                                                                style: Get.textTheme.bodySmall,
-                                                              ).translate(),
+                                                                style: Get
+                                                                    .textTheme
+                                                                    .bodySmall,
+                                                              ),
                                                               Container(
-                                                                padding: const EdgeInsets.all(5),
-                                                                decoration: BoxDecoration(
-                                                                  border: Border.all(color: Colors.grey, width: 2),
-                                                                  borderRadius: BorderRadius.circular(12),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width: 2),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12),
                                                                 ),
-                                                                child: Text('Buy Now').translate(),
+                                                                child: Text(
+                                                                    'Buy Now'),
                                                               )
                                                             ],
                                                           ),
@@ -712,7 +1103,17 @@ class SearchAstrologerScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            searchController.isMoreDataAvailableForAstromall == true && !searchController.isAllDataLoadedForAstromall && searchController.astroProduct.length - 1 == index ? const CircularProgressIndicator() : const SizedBox(),
+                                            searchController.isMoreDataAvailableForAstromall ==
+                                                        true &&
+                                                    !searchController
+                                                        .isAllDataLoadedForAstromall &&
+                                                    searchController
+                                                                .astroProduct
+                                                                .length -
+                                                            1 ==
+                                                        index
+                                                ? const CircularProgressIndicator()
+                                                : const SizedBox(),
                                           ],
                                         ),
                                       );
@@ -743,61 +1144,66 @@ class SearchAstrologerScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Text('oops! No result found').translate(),
-          Text('try searching something else').translate(),
+          Text('oops! No result found'),
+          Text('try searching something else'),
           Text(
             'Popular Searches',
             style: Get.textTheme.bodySmall!.copyWith(color: Colors.grey),
-          ).translate(),
+          ),
           FittedBox(
-            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              PopularSearchWidget(
-                icon: Icons.phone,
-                color: Color.fromARGB(255, 212, 228, 241),
-                text: 'Call',
-                onTap: () {
-                  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
-                  bottomNavigationController.setIndex(3, 0);
-                  Get.to(() => BottomNavigationBarScreen(
-                        index: 3,
-                      ));
-                },
-              ),
-              PopularSearchWidget(
-                icon: Icons.chat,
-                color: Color.fromARGB(255, 238, 221, 236),
-                text: 'Chat',
-                onTap: () {
-                  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
-                  bottomNavigationController.setIndex(1, 0);
-                  Get.to(() => BottomNavigationBarScreen(
-                        index: 1,
-                      ));
-                },
-              ),
-              PopularSearchWidget(
-                icon: Icons.live_tv,
-                color: Color.fromARGB(255, 235, 236, 221),
-                text: 'Live',
-                onTap: () {
-                  Get.to(() => LiveAstrologerListScreen());
-                },
-              ),
-              PopularSearchWidget(
-                  icon: Icons.shopping_bag,
-                  color: Color.fromARGB(255, 223, 240, 221),
-                  text: 'Astromall',
-                  onTap: () {
-                    Get.to(() => AstromallScreen());
-                  })
-            ]),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PopularSearchWidget(
+                    icon: Icons.phone,
+                    color: Color.fromARGB(255, 212, 228, 241),
+                    text: 'Call',
+                    onTap: () {
+                      BottomNavigationController bottomNavigationController =
+                          Get.find<BottomNavigationController>();
+                      bottomNavigationController.setIndex(3, 0);
+                      Get.to(() => BottomNavigationBarScreen(
+                            index: 3,
+                          ));
+                    },
+                  ),
+                  PopularSearchWidget(
+                    icon: Icons.chat,
+                    color: Color.fromARGB(255, 238, 221, 236),
+                    text: 'Chat',
+                    onTap: () {
+                      BottomNavigationController bottomNavigationController =
+                          Get.find<BottomNavigationController>();
+                      bottomNavigationController.setIndex(1, 0);
+                      Get.to(() => BottomNavigationBarScreen(
+                            index: 1,
+                          ));
+                    },
+                  ),
+                  PopularSearchWidget(
+                    icon: Icons.live_tv,
+                    color: Color.fromARGB(255, 235, 236, 221),
+                    text: 'Live',
+                    onTap: () {
+                      Get.to(() => LiveAstrologerListScreen());
+                    },
+                  ),
+                  PopularSearchWidget(
+                      icon: Icons.shopping_bag,
+                      color: Color.fromARGB(255, 223, 240, 221),
+                      text: 'Astromall',
+                      onTap: () {
+                        Get.to(() => AstromallScreen());
+                      })
+                ]),
           ),
         ],
       ),
     );
   }
 
-  void openBottomSheetRechrage(BuildContext context, String minBalance, String type, String astrologer) {
+  void openBottomSheetRechrage(
+      BuildContext context, String minBalance, String type, String astrologer) {
     Get.bottomSheet(
       Container(
         height: 250,
@@ -819,15 +1225,24 @@ class SearchAstrologerScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
                                     width: Get.width * 0.85,
-                                    child: minBalance != '' ? Text('Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start $type with $astrologer ', style: TextStyle(fontWeight: FontWeight.w500, color: Colors.red)).translate() : const SizedBox(),
+                                    child: minBalance != ''
+                                        ? Text(
+                                            'Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start $type with $astrologer ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red))
+                                        : const SizedBox(),
                                   ),
                                   GestureDetector(
                                     child: Padding(
-                                      padding: minBalance == '' ? const EdgeInsets.only(top: 8) : const EdgeInsets.only(top: 0),
+                                      padding: minBalance == ''
+                                          ? const EdgeInsets.only(top: 8)
+                                          : const EdgeInsets.only(top: 0),
                                       child: Icon(Icons.close, size: 18),
                                     ),
                                     onTap: () {
@@ -837,17 +1252,25 @@ class SearchAstrologerScreen extends StatelessWidget {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 8.0, bottom: 5),
-                                child: Text('Recharge Now', style: TextStyle(fontWeight: FontWeight.w500)).translate(),
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, bottom: 5),
+                                child: Text('Recharge Now',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500)),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 5),
-                                    child: Icon(Icons.lightbulb_rounded, color: Get.theme.primaryColor, size: 13),
+                                    child: Icon(Icons.lightbulb_rounded,
+                                        color: Get.theme.primaryColor,
+                                        size: 13),
                                   ),
-                                  Expanded(child: Text('Tip:90% users recharge for 10 mins or more.', style: TextStyle(fontSize: 12)).translate())
+                                  Expanded(
+                                      child: Text(
+                                          'Tip:90% users recharge for 10 mins or more.',
+                                          style: TextStyle(fontSize: 12)))
                                 ],
                               ),
                             ],
@@ -861,7 +1284,8 @@ class SearchAstrologerScreen extends StatelessWidget {
             ),
             Expanded(
                 child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       childAspectRatio: 3.8 / 2.3,
                       crossAxisSpacing: 1,
@@ -875,7 +1299,10 @@ class SearchAstrologerScreen extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           Get.delete<RazorPayController>();
-                          Get.to(() => PaymentInformationScreen(flag: 0, amount: double.parse(walletController.payment[index])));
+                          Get.to(() => PaymentInformationScreen(
+                              flag: 0,
+                              amount: double.parse(
+                                  walletController.payment[index])));
                         },
                         child: Container(
                           margin: const EdgeInsets.all(8.0),

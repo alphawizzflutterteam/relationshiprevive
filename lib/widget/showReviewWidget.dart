@@ -21,7 +21,8 @@ class ShowReviewWidget extends StatelessWidget {
     required this.index,
   }) : super(key: key);
   ReviewController reviewController = Get.find<ReviewController>();
-  BottomNavigationController bottomController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomController =
+      Get.find<BottomNavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +46,27 @@ class ShowReviewWidget extends StatelessWidget {
                             children: [
                               CircleAvatar(
                                 radius: 22,
-                                child: reviewController.reviewList[index].profile == ""
+                                child: reviewController
+                                            .reviewList[index].profile ==
+                                        ""
                                     ? CircleAvatar(
                                         backgroundColor: Colors.white,
-                                        backgroundImage: AssetImage(Images.deafultUser),
+                                        backgroundImage:
+                                            AssetImage(Images.deafultUser),
                                       )
                                     : CachedNetworkImage(
-                                        imageUrl: '${global.imgBaseurl}${reviewController.reviewList[index].profile}',
+                                        imageUrl:
+                                            '${global.imgBaseurl}${reviewController.reviewList[index].profile}',
                                         imageBuilder: (context, imageProvider) {
                                           return CircleAvatar(
                                             backgroundColor: Colors.white,
                                             backgroundImage: imageProvider,
                                           );
                                         },
-                                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                                child:
+                                                    CircularProgressIndicator()),
                                         errorWidget: (context, url, error) {
                                           return CircleAvatar(
                                               backgroundColor: Colors.white,
@@ -73,12 +81,13 @@ class ShowReviewWidget extends StatelessWidget {
                               SizedBox(
                                 width: 10,
                               ),
-                              Text(reviewController.reviewList[index].name != '' &&
-                                          // ignore: unnecessary_null_comparison
-                                          reviewController.reviewList[index].name != null
-                                      ? reviewController.reviewList[index].name
-                                      : 'Unknown')
-                                  .translate()
+                              Text(reviewController.reviewList[index].name !=
+                                          '' &&
+                                      // ignore: unnecessary_null_comparison
+                                      reviewController.reviewList[index].name !=
+                                          null
+                                  ? reviewController.reviewList[index].name
+                                  : 'Unknown')
                             ],
                           ),
                           PopupMenuButton(
@@ -91,27 +100,34 @@ class ShowReviewWidget extends StatelessWidget {
                                 if (isLogin) {
                                   if (value == 'block') {
                                     global.showOnlyLoaderDialog(context);
-                                    reviewController.blockAstrologerReview(reviewController.reviewList[index].id!, 1, null);
+                                    reviewController.blockAstrologerReview(
+                                        reviewController.reviewList[index].id!,
+                                        1,
+                                        null);
                                     global.hideLoader();
                                   } else {
                                     global.showOnlyLoaderDialog(context);
-                                    reviewController.blockAstrologerReview(reviewController.reviewList[index].id!, null, 1);
+                                    reviewController.blockAstrologerReview(
+                                        reviewController.reviewList[index].id!,
+                                        null,
+                                        1);
                                     global.hideLoader();
                                   }
                                 }
                               },
                               itemBuilder: (context) => [
                                     PopupMenuItem(
-                                      child: Text('Report review').translate(),
+                                      child: Text('Report review'),
                                       value: 'report',
                                     ),
                                     PopupMenuItem(
                                         child: Text(
                                           'Block review',
-                                          style: Get.textTheme.subtitle1!.copyWith(
+                                          style:
+                                              Get.textTheme.subtitle1!.copyWith(
                                             color: Colors.red,
                                           ),
-                                        ).translate(),
+                                        ),
                                         value: 'block'),
                                   ])
                         ],
@@ -120,28 +136,39 @@ class ShowReviewWidget extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           RatingBar(
-                            initialRating: reviewController.reviewList[index].rating,
+                            initialRating:
+                                reviewController.reviewList[index].rating,
                             itemCount: 5,
                             allowHalfRating: true,
                             itemSize: 15,
                             ignoreGestures: true,
                             ratingWidget: RatingWidget(
-                              full: const Icon(Icons.grade, color: Colors.yellow),
-                              half: const Icon(Icons.star_half, color: Colors.yellow),
-                              empty: const Icon(Icons.grade, color: Colors.grey),
+                              full:
+                                  const Icon(Icons.grade, color: Colors.yellow),
+                              half: const Icon(Icons.star_half,
+                                  color: Colors.yellow),
+                              empty:
+                                  const Icon(Icons.grade, color: Colors.grey),
                             ),
                             onRatingUpdate: (rating) {},
                           ),
                           SizedBox(
                             width: 10,
                           ),
-                          Text(DateConverter.isoStringToLocalDateOnly(reviewController.reviewList[index].updatedAt.toIso8601String()), style: Get.textTheme.subtitle1!.copyWith(color: Colors.grey, fontSize: 10))
+                          Text(
+                              DateConverter.isoStringToLocalDateOnly(
+                                  reviewController.reviewList[index].updatedAt
+                                      .toIso8601String()),
+                              style: Get.textTheme.subtitle1!
+                                  .copyWith(color: Colors.grey, fontSize: 10))
                         ],
                       ),
                       SizedBox(
                         height: 5,
                       ),
-                      Text(reviewController.reviewList[index].review, style: Get.textTheme.subtitle1!.copyWith(fontSize: 13)).translate(),
+                      Text(reviewController.reviewList[index].review,
+                          style:
+                              Get.textTheme.subtitle1!.copyWith(fontSize: 13)),
                       reviewController.reviewList[index].reply == ""
                           ? const SizedBox()
                           : Container(
@@ -155,11 +182,15 @@ class ShowReviewWidget extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(astologername, style: Get.textTheme.subtitle1!.copyWith(fontSize: 16)).translate(),
+                                  Text(astologername,
+                                      style: Get.textTheme.subtitle1!
+                                          .copyWith(fontSize: 16)),
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text(reviewController.reviewList[index].reply, style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate()
+                                  Text(reviewController.reviewList[index].reply,
+                                      style: Get.textTheme.subtitle1!
+                                          .copyWith(fontSize: 12))
                                 ],
                               ),
                             )

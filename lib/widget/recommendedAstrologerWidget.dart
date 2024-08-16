@@ -13,7 +13,8 @@ import '../controllers/razorPayController.dart';
 
 // ignore: must_be_immutable
 class RecommendedAstrologerWidget extends StatelessWidget {
-  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
   WalletController walletController = Get.find<WalletController>();
   final List astrologerList;
   RecommendedAstrologerWidget({
@@ -43,7 +44,7 @@ class RecommendedAstrologerWidget extends StatelessWidget {
                 style: Get.theme.primaryTextTheme.subtitle2!.copyWith(
                   fontWeight: FontWeight.w300,
                 ),
-              ).translate(),
+              ),
               InkWell(
                 onTap: () {
                   Get.back();
@@ -87,10 +88,16 @@ class RecommendedAstrologerWidget extends StatelessWidget {
                               radius: 35,
                               backgroundColor: Colors.white,
                               child: CachedNetworkImage(
-                                imageUrl: '${global.imgBaseurl}${bottomNavigationController.astrologerList[index].profileImage}',
-                                imageBuilder: (context, imageProvider) => CircleAvatar(radius: 35, backgroundImage: imageProvider),
-                                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                errorWidget: (context, url, error) => Image.asset(
+                                imageUrl:
+                                    '${global.imgBaseurl}${bottomNavigationController.astrologerList[index].profileImage}',
+                                imageBuilder: (context, imageProvider) =>
+                                    CircleAvatar(
+                                        radius: 35,
+                                        backgroundImage: imageProvider),
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
                                   Images.deafultUser,
                                   fit: BoxFit.cover,
                                   height: 50,
@@ -101,14 +108,15 @@ class RecommendedAstrologerWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          bottomNavigationController.astrologerList[index].name!,
+                          bottomNavigationController
+                              .astrologerList[index].name!,
                           textAlign: TextAlign.center,
                           style: Get.theme.textTheme.subtitle1!.copyWith(
                             fontSize: 13,
                             fontWeight: FontWeight.w400,
                             letterSpacing: 0,
                           ),
-                        ).translate(),
+                        ),
                         Text(
                           '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${bottomNavigationController.astrologerList[index].charge}/min',
                           textAlign: TextAlign.center,
@@ -117,16 +125,20 @@ class RecommendedAstrologerWidget extends StatelessWidget {
                             fontWeight: FontWeight.w300,
                             letterSpacing: 0,
                           ),
-                        ).translate(),
+                        ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6).copyWith(top: 5),
+                          padding: const EdgeInsets.symmetric(horizontal: 6)
+                              .copyWith(top: 5),
                           child: SizedBox(
                             height: 30,
                             child: TextButton(
                               style: ButtonStyle(
-                                padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
-                                backgroundColor: MaterialStateProperty.all(Colors.white),
+                                padding: MaterialStateProperty.all(
+                                    EdgeInsets.all(0)),
+                                fixedSize: MaterialStateProperty.all(
+                                    Size.fromWidth(90)),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
@@ -140,14 +152,26 @@ class RecommendedAstrologerWidget extends StatelessWidget {
                                 print("object");
                                 bool isLogin = await global.isLogin();
                                 if (isLogin) {
-                                  double charge = double.parse(bottomNavigationController.astrologerList[index].charge.toString());
-                                  if (charge * 5 <= global.splashController.currentUser!.walletAmount!) {
+                                  double charge = double.parse(
+                                      bottomNavigationController
+                                          .astrologerList[index].charge
+                                          .toString());
+                                  if (charge * 5 <=
+                                      global.splashController.currentUser!
+                                          .walletAmount!) {
                                     global.showOnlyLoaderDialog(context);
                                     await Get.to(() => CallIntakeFormScreen(
                                           type: "Call",
-                                          astrologerId: bottomNavigationController.astrologerList[index].id!,
-                                          astrologerName: bottomNavigationController.astrologerList[index].name!,
-                                          astrologerProfile: bottomNavigationController.astrologerList[index].profileImage!,
+                                          astrologerId:
+                                              bottomNavigationController
+                                                  .astrologerList[index].id!,
+                                          astrologerName:
+                                              bottomNavigationController
+                                                  .astrologerList[index].name!,
+                                          astrologerProfile:
+                                              bottomNavigationController
+                                                  .astrologerList[index]
+                                                  .profileImage!,
                                         ));
                                     Get.back();
                                     global.hideLoader();
@@ -155,14 +179,18 @@ class RecommendedAstrologerWidget extends StatelessWidget {
                                     global.showOnlyLoaderDialog(context);
                                     await walletController.getAmount();
                                     global.hideLoader();
-                                    openBottomSheetRechrage(context, (charge * 5).toString(), '${bottomNavigationController.astrologerList[index].name!}');
+                                    openBottomSheetRechrage(
+                                        context,
+                                        (charge * 5).toString(),
+                                        '${bottomNavigationController.astrologerList[index].name!}');
                                   }
                                 }
                               },
                               child: Text(
                                 'Call',
-                                style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.green),
-                              ).translate(),
+                                style: Get.theme.primaryTextTheme.bodySmall!
+                                    .copyWith(color: Colors.green),
+                              ),
                             ),
                           ),
                         ),
@@ -178,7 +206,8 @@ class RecommendedAstrologerWidget extends StatelessWidget {
     );
   }
 
-  void openBottomSheetRechrage(BuildContext context, String minBalance, String astrologer) {
+  void openBottomSheetRechrage(
+      BuildContext context, String minBalance, String astrologer) {
     Get.bottomSheet(
       Container(
         height: 250,
@@ -200,15 +229,24 @@ class RecommendedAstrologerWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
                                     width: Get.width * 0.85,
-                                    child: minBalance != '' ? Text('Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start call with $astrologer ', style: TextStyle(fontWeight: FontWeight.w500, color: Colors.red)).translate() : const SizedBox(),
+                                    child: minBalance != ''
+                                        ? Text(
+                                            'Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start call with $astrologer ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red))
+                                        : const SizedBox(),
                                   ),
                                   GestureDetector(
                                     child: Padding(
-                                      padding: minBalance == '' ? const EdgeInsets.only(top: 8) : const EdgeInsets.only(top: 0),
+                                      padding: minBalance == ''
+                                          ? const EdgeInsets.only(top: 8)
+                                          : const EdgeInsets.only(top: 0),
                                       child: Icon(Icons.close, size: 18),
                                     ),
                                     onTap: () {
@@ -218,17 +256,25 @@ class RecommendedAstrologerWidget extends StatelessWidget {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 8.0, bottom: 5),
-                                child: Text('Recharge Now', style: TextStyle(fontWeight: FontWeight.w500)).translate(),
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, bottom: 5),
+                                child: Text('Recharge Now',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500)),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 5),
-                                    child: Icon(Icons.lightbulb_rounded, color: Get.theme.primaryColor, size: 13),
+                                    child: Icon(Icons.lightbulb_rounded,
+                                        color: Get.theme.primaryColor,
+                                        size: 13),
                                   ),
-                                  Expanded(child: Text('Tip:90% users recharge for 10 mins or more.', style: TextStyle(fontSize: 12)).translate())
+                                  Expanded(
+                                      child: Text(
+                                          'Tip:90% users recharge for 10 mins or more.',
+                                          style: TextStyle(fontSize: 12)))
                                 ],
                               ),
                             ],
@@ -242,7 +288,8 @@ class RecommendedAstrologerWidget extends StatelessWidget {
             ),
             Expanded(
                 child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       childAspectRatio: 3.8 / 2.3,
                       crossAxisSpacing: 1,
@@ -256,7 +303,10 @@ class RecommendedAstrologerWidget extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           Get.delete<RazorPayController>();
-                          Get.to(() => PaymentInformationScreen(flag: 0, amount: double.parse(walletController.payment[index])));
+                          Get.to(() => PaymentInformationScreen(
+                              flag: 0,
+                              amount: double.parse(
+                                  walletController.payment[index])));
                         },
                         child: Container(
                           margin: const EdgeInsets.all(8.0),

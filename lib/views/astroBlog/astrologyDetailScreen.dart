@@ -15,7 +15,15 @@ class AstrologyBlogDetailScreen extends StatelessWidget {
   final String extension;
   final VideoPlayerController? controller;
   final VoidCallback? ontap;
-  const AstrologyBlogDetailScreen({Key? key, this.ontap, this.controller, required this.extension, required this.title, required this.description, required this.image}) : super(key: key);
+  const AstrologyBlogDetailScreen(
+      {Key? key,
+      this.ontap,
+      this.controller,
+      required this.extension,
+      required this.title,
+      required this.description,
+      required this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +56,11 @@ class AstrologyBlogDetailScreen extends StatelessWidget {
                               width: 35,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 5, right: 10, top: 5, bottom: 5),
-                              child: Text('Share', style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)).translate(),
+                              padding: const EdgeInsets.only(
+                                  left: 5, right: 10, top: 5, bottom: 5),
+                              child: Text('Share',
+                                  style: Get.textTheme.subtitle1!
+                                      .copyWith(fontSize: 12)),
                             )
                           ],
                         ),
@@ -64,8 +75,11 @@ class AstrologyBlogDetailScreen extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300, color: Colors.black),
-                ).translate(),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: ClipRRect(
@@ -78,14 +92,16 @@ class AstrologyBlogDetailScreen extends StatelessWidget {
                             fit: BoxFit.fill,
                           )
                         : extension == "mp4" || extension == 'gif'
-                            ? GetBuilder<HomeController>(builder: (homeController) {
+                            ? GetBuilder<HomeController>(
+                                builder: (homeController) {
                                 return Column(
                                   children: [
                                     Stack(
                                       alignment: Alignment.center,
                                       children: [
                                         ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: SizedBox(
                                             height: 230,
                                             width: Get.width,
@@ -94,10 +110,13 @@ class AstrologyBlogDetailScreen extends StatelessWidget {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            homeController.blogplayPauseVideo(controller!);
+                                            homeController.blogplayPauseVideo(
+                                                controller!);
                                           },
                                           child: Icon(
-                                            controller!.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                                            controller!.value.isPlaying
+                                                ? Icons.pause
+                                                : Icons.play_arrow,
                                             size: 40,
                                             color: Colors.white,
                                           ),
@@ -107,21 +126,26 @@ class AstrologyBlogDetailScreen extends StatelessWidget {
                                     VideoProgressIndicator(
                                       controller!,
                                       allowScrubbing: true,
-                                      colors: VideoProgressColors(backgroundColor: Colors.grey, playedColor: Colors.red),
+                                      colors: VideoProgressColors(
+                                          backgroundColor: Colors.grey,
+                                          playedColor: Colors.red),
                                     )
                                   ],
                                 );
                               })
                             : CachedNetworkImage(
                                 imageUrl: '${global.imgBaseurl}$image',
-                                imageBuilder: (context, imageProvider) => Image.network(
+                                imageBuilder: (context, imageProvider) =>
+                                    Image.network(
                                   '${global.imgBaseurl}$image',
                                   height: 230,
                                   fit: BoxFit.fill,
                                   width: MediaQuery.of(context).size.width,
                                 ),
-                                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                errorWidget: (context, url, error) => Image.asset(
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
                                   Images.blog,
                                   height: 230,
                                   width: MediaQuery.of(context).size.width,

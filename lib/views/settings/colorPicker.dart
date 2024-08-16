@@ -17,7 +17,8 @@ class ColorPickerPage extends StatefulWidget {
   _ColorPickerPageState createState() => _ColorPickerPageState();
 }
 
-class _ColorPickerPageState extends State<ColorPickerPage> with SingleTickerProviderStateMixin {
+class _ColorPickerPageState extends State<ColorPickerPage>
+    with SingleTickerProviderStateMixin {
   List<Color> fullMaterialColors = [
     Color(0xffffc107),
     Color(0xff3342ae),
@@ -56,7 +57,8 @@ class _ColorPickerPageState extends State<ColorPickerPage> with SingleTickerProv
     Colors.grey,
     Colors.blueGrey,
   ];
-  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
 
   @override
   void initState() {
@@ -80,8 +82,9 @@ class _ColorPickerPageState extends State<ColorPickerPage> with SingleTickerProv
                 backgroundColor: themeController.pickColor,
                 title: Text(
                   'Theme',
-                  style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 18, fontWeight: FontWeight.normal),
-                ).translate(),
+                  style: Get.theme.primaryTextTheme.headline6!
+                      .copyWith(fontSize: 18, fontWeight: FontWeight.normal),
+                ),
                 leading: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -111,18 +114,21 @@ class _ColorPickerPageState extends State<ColorPickerPage> with SingleTickerProv
                   children: [
                     Expanded(
                       child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4,
                             crossAxisSpacing: 15.0,
                             mainAxisSpacing: 15.0,
                           ),
                           itemCount: fullMaterialColors.length,
                           //shrinkWrap: true,
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 20),
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
-                                themeController.setPickColor(fullMaterialColors[index]);
+                                themeController
+                                    .setPickColor(fullMaterialColors[index]);
                               },
                               child: Stack(
                                 fit: StackFit.expand,
@@ -137,12 +143,14 @@ class _ColorPickerPageState extends State<ColorPickerPage> with SingleTickerProv
                                       width: 200,
                                       height: 200,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15.0),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
                                         color: fullMaterialColors[index],
                                       ),
                                     ),
                                   ),
-                                  fullMaterialColors[index].value == themeController.pickColor.value
+                                  fullMaterialColors[index].value ==
+                                          themeController.pickColor.value
                                       ? Icon(
                                           Icons.check,
                                           color: Colors.white,

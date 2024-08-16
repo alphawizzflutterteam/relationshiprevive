@@ -113,7 +113,7 @@ class SettingListScreen extends StatelessWidget {
                                           : "${splashController.currentUser!.name}",
                                   style: Get.textTheme.bodyLarge!
                                       .copyWith(fontSize: 18),
-                                ).translate(),
+                                ),
                                 SizedBox(
                                   width: 5,
                                 ),
@@ -171,7 +171,7 @@ class SettingListScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                 ),
-                              ).translate(),
+                              ),
                             ),
                           ),
                         ),
@@ -200,7 +200,7 @@ class SettingListScreen extends StatelessWidget {
                               child: Text(
                                 "Notifications",
                                 style: Get.theme.primaryTextTheme.subtitle1,
-                              ).translate(),
+                              ),
                             ),
                           ),
                           Icon(Icons.notifications_active_outlined)
@@ -231,7 +231,7 @@ class SettingListScreen extends StatelessWidget {
                             child: Text(
                               "Terms and Condition",
                               style: Get.theme.primaryTextTheme.subtitle1,
-                            ).translate(),
+                            ),
                           ),
                         ),
                         Icon(Icons.privacy_tip_outlined)
@@ -261,7 +261,7 @@ class SettingListScreen extends StatelessWidget {
                             child: Text(
                               "Privacy Policy",
                               style: Get.theme.primaryTextTheme.subtitle1,
-                            ).translate(),
+                            ),
                           ),
                         ),
                         Icon(Icons.privacy_tip_outlined)
@@ -280,7 +280,7 @@ class SettingListScreen extends StatelessWidget {
                       title: Text(
                         "Are you sure you want to logout?",
                         style: Get.textTheme.subtitle1,
-                      ).translate(),
+                      ),
                       content: Row(
                         children: [
                           Expanded(
@@ -289,7 +289,7 @@ class SettingListScreen extends StatelessWidget {
                               onPressed: () {
                                 Get.back();
                               },
-                              child: Text('No').translate(),
+                              child: Text('No'),
                             ),
                           ),
                           const SizedBox(
@@ -309,7 +309,7 @@ class SettingListScreen extends StatelessWidget {
                                 historyController.walletTransactionList.clear();
                                 global.logoutUser();
                               },
-                              child: Text('YES').translate(),
+                              child: Text('YES'),
                             ),
                           ),
                         ],
@@ -331,7 +331,7 @@ class SettingListScreen extends StatelessWidget {
                             child: Text(
                               "Logout My Account",
                               style: Get.theme.primaryTextTheme.subtitle1,
-                            ).translate(),
+                            ),
                           ),
                         ),
                         Icon(Icons.logout)
@@ -353,7 +353,7 @@ class SettingListScreen extends StatelessWidget {
                           title: Text(
                             "Are you sure you want to delete this Account?",
                             style: Get.textTheme.subtitle1,
-                          ).translate(),
+                          ),
                           content: Row(
                             children: [
                               Expanded(
@@ -362,7 +362,7 @@ class SettingListScreen extends StatelessWidget {
                                   onPressed: () {
                                     Get.back();
                                   },
-                                  child: Text('No').translate(),
+                                  child: Text('No'),
                                 ),
                               ),
                               const SizedBox(
@@ -379,7 +379,7 @@ class SettingListScreen extends StatelessWidget {
                                     global.logoutUser();
                                     global.hideLoader();
                                   },
-                                  child: Text('YES').translate(),
+                                  child: Text('YES'),
                                 ),
                               ),
                             ],
@@ -405,7 +405,7 @@ class SettingListScreen extends StatelessWidget {
                                     color: Colors.red,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500),
-                              ).translate(),
+                              ),
                             ),
                           ),
                           Icon(Icons.delete, color: Colors.red)

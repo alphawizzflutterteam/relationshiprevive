@@ -15,7 +15,8 @@ import 'package:AstroGuru/utils/global.dart' as global;
 import '../utils/date_converter.dart';
 
 class IntakeController extends GetxController {
-  BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomNavigationController =
+      Get.find<BottomNavigationController>();
 
   TextEditingController nameController = TextEditingController();
   TextEditingController dobController = TextEditingController();
@@ -143,33 +144,47 @@ class IntakeController extends GetxController {
     IntakeModel intakeModel = isEnterPartnerDetails == true
         ? IntakeModel(
             name: nameController.text,
-            birthDate: selctedDate == null ? DateTime(1994) : DateTime.parse(selctedDate.toString()),
+            birthDate: selctedDate == null
+                ? DateTime(1994)
+                : DateTime.parse(selctedDate.toString()),
             birthPlace: placeController.text,
             birthTime: birthTimeController.text,
             countryCode: countryCode ?? "+91",
             gender: gender,
             maritalStatus: dropDownController.maritalStatus ?? "Single",
-            occupation: ocupationController.text == "" ? null : ocupationController.text,
+            occupation: ocupationController.text == ""
+                ? null
+                : ocupationController.text,
             partnerBirthDate: isEnterPartnerDetails == true
                 ? selctedPartnerDate == null
                     ? DateTime(1994)
                     : DateTime.parse(selctedPartnerDate.toString())
                 : null,
-            partnerBirthPlace: partnerPlaceController.text == "" ? null : partnerPlaceController.text,
-            partnerBirthTime: partnerBirthController.text == "" ? null : partnerBirthController.text,
-            partnerName: partnerNameController.text == "" ? null : partnerNameController.text,
+            partnerBirthPlace: partnerPlaceController.text == ""
+                ? null
+                : partnerPlaceController.text,
+            partnerBirthTime: partnerBirthController.text == ""
+                ? null
+                : partnerBirthController.text,
+            partnerName: partnerNameController.text == ""
+                ? null
+                : partnerNameController.text,
             phoneNumber: phoneController.text,
             topicOfConcern: dropDownController.topic ?? 'Study',
           )
         : IntakeModel(
             name: nameController.text,
-            birthDate: selctedDate == null ? DateTime(1994) : DateTime.parse(selctedDate.toString()),
+            birthDate: selctedDate == null
+                ? DateTime(1994)
+                : DateTime.parse(selctedDate.toString()),
             birthPlace: placeController.text,
             birthTime: birthTimeController.text,
             countryCode: countryCode ?? "+91",
             gender: gender,
             maritalStatus: dropDownController.maritalStatus ?? "Single",
-            occupation: ocupationController.text == "" ? null : ocupationController.text,
+            occupation: ocupationController.text == ""
+                ? null
+                : ocupationController.text,
             phoneNumber: phoneController.text,
             topicOfConcern: dropDownController.topic ?? 'Study',
           );
@@ -205,16 +220,23 @@ class IntakeController extends GetxController {
                 nameController.text = intakeData[0].name ?? "";
                 phoneController.text = intakeData[0].phoneNumber ?? "";
                 gender = intakeData[0].gender ?? "male";
-                dobController.text = DateConverter.isoStringToLocalDateOnly(intakeData[0].birthDate!.toIso8601String());
+                dobController.text = DateConverter.isoStringToLocalDateOnly(
+                    intakeData[0].birthDate!.toIso8601String());
                 birthTimeController.text = intakeData[0].birthTime ?? "";
                 placeController.text = intakeData[0].birthPlace ?? "";
                 countryCode = intakeData[0].countryCode ?? "IN";
 
                 ocupationController.text = intakeData[0].occupation ?? "";
                 partnerNameController.text = intakeData[0].partnerName ?? "";
-                partnerBirthController.text = intakeData[0].partnerBirthTime ?? "";
-                partnerDobController.text = intakeData[0].partnerBirthDate == null ? "" : DateConverter.isoStringToLocalDateOnly(intakeData[0].partnerBirthDate!.toIso8601String());
-                partnerPlaceController.text = intakeData[0].partnerBirthPlace ?? "";
+                partnerBirthController.text =
+                    intakeData[0].partnerBirthTime ?? "";
+                partnerDobController.text =
+                    intakeData[0].partnerBirthDate == null
+                        ? ""
+                        : DateConverter.isoStringToLocalDateOnly(
+                            intakeData[0].partnerBirthDate!.toIso8601String());
+                partnerPlaceController.text =
+                    intakeData[0].partnerBirthPlace ?? "";
               }
               update();
             } else {

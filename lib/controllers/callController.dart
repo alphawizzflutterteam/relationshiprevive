@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:AstroGuru/utils/services/api_helper.dart';
+import 'package:AstroGuru/views/call/incoming_call_request.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -74,6 +75,7 @@ class CallController extends GetxController
     update();
   }
 
+  int? callId;
   sendCallRequest(int astrologerId, bool isFreeSession) async {
     try {
       await global.checkBody().then((result) async {
@@ -81,12 +83,24 @@ class CallController extends GetxController
           await apiHelper
               .sendAstrologerCallRequest(astrologerId, isFreeSession)
               .then((result) {
-            if (result.status == "200") {
+            callId = result['data'];
+            if (result.status.toString() == "200") {
+              callId = result['data'];
               global.showToast(
                 message: 'Sending call request..',
                 textColor: global.textColor,
                 bgColor: global.toastBackGoundColor,
               );
+
+              /*Get.to(() => IncomingCallRequest(
+                    astrologerId: astrologerId,
+                    astrologerName: 'Advisor',
+                    astrologerProfile: "",
+                    token: '',
+                    channel: '',
+                    callId: 123,
+                    fcmToken: "",
+                  ));*/
             } else {
               global.showToast(
                 message: 'Failed to send call request',

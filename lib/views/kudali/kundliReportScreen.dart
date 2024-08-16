@@ -15,9 +15,18 @@ class KundliReportScreen extends StatelessWidget {
       child: Column(
         children: [
           TabBar(indicatorColor: Get.theme.primaryColor, tabs: [
-            Container(height: 35, alignment: Alignment.center, child: Text('General', style: TextStyle(fontSize: 13)).translate()),
-            Container(height: 35, alignment: Alignment.center, child: Text('Remedies', style: TextStyle(fontSize: 13)).translate()),
-            Container(height: 35, alignment: Alignment.center, child: Text('Dosha', style: TextStyle(fontSize: 13)).translate()),
+            Container(
+                height: 35,
+                alignment: Alignment.center,
+                child: Text('General', style: TextStyle(fontSize: 13))),
+            Container(
+                height: 35,
+                alignment: Alignment.center,
+                child: Text('Remedies', style: TextStyle(fontSize: 13))),
+            Container(
+                height: 35,
+                alignment: Alignment.center,
+                child: Text('Dosha', style: TextStyle(fontSize: 13))),
           ]),
           SizedBox(
             height: Get.height - 184,

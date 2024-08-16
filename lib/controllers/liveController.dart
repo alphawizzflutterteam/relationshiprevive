@@ -32,7 +32,8 @@ class LiveController extends GetxController {
   String? astrologerFcmToken;
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   int historyIndex = 0;
-  CollectionReference userChatCollectionRef = FirebaseFirestore.instance.collection("chats2");
+  CollectionReference userChatCollectionRef =
+      FirebaseFirestore.instance.collection("chats2");
   APIHelper apiHelper = APIHelper();
   String? appShareLinkForLiveSreaming;
   int totalCompletedTime = 0;
@@ -47,19 +48,30 @@ class LiveController extends GetxController {
   String joinUserName = global.user.name ?? "User";
   String joinUserProfile = global.user.profile ?? "";
 
-  Future uploadMessage(String idUser, int astrologerId, MessageModelLive anonymous) async {
+  Future uploadMessage(
+      String idUser, int astrologerId, MessageModelLive anonymous) async {
     try {
       final int globalId = global.user.id!;
       log('live chat ID');
-      final refMessages = userChatCollectionRef.doc(idUser).collection('userschat').doc(globalId.toString()).collection('messages');
-      final refMessages1 = userChatCollectionRef.doc(idUser).collection('userschat').doc(astrologerId.toString()).collection('messages');
+      final refMessages = userChatCollectionRef
+          .doc(idUser)
+          .collection('userschat')
+          .doc(globalId.toString())
+          .collection('messages');
+      final refMessages1 = userChatCollectionRef
+          .doc(idUser)
+          .collection('userschat')
+          .doc(astrologerId.toString())
+          .collection('messages');
       final newMessage1 = anonymous;
       final newMessage2 = anonymous;
-      var messageResult = await refMessages.add(newMessage1.toJson()).catchError((e) {
+      var messageResult =
+          await refMessages.add(newMessage1.toJson()).catchError((e) {
         print('send mess exception $e');
       });
       newMessage2.isRead = false;
-      var message1Result = await refMessages1.add(newMessage2.toJson()).catchError((e) {
+      var message1Result =
+          await refMessages1.add(newMessage2.toJson()).catchError((e) {
         print('send mess exception $e');
       });
       return {
@@ -98,19 +110,28 @@ class LiveController extends GetxController {
     }
   }
 
-  Future<void> createLiveAstrologerShareLink(String astrologerName, int astrologerId, String token, String channelName, double charge, double videoCallCharge) async {
+  Future<void> createLiveAstrologerShareLink(
+      String astrologerName,
+      int astrologerId,
+      String token,
+      String channelName,
+      double charge,
+      double videoCallCharge) async {
     try {
       String appShareLink;
       final DynamicLinkParameters parameters = DynamicLinkParameters(
         uriPrefix: 'https://astroguruupdated.page.link',
-        link: Uri.parse("https://astroguruupdated.page.link/userProfile?screen=liveStreaming&token='$token'&astrologerName=$astrologerName&astrologerId=$astrologerId&channelName=$channelName&charge=$charge&videoCallCharge=$videoCallCharge"),
+        link: Uri.parse(
+            "https://astroguruupdated.page.link/userProfile?screen=liveStreaming&token='$token'&astrologerName=$astrologerName&astrologerId=$astrologerId&channelName=$channelName&charge=$charge&videoCallCharge=$videoCallCharge"),
         androidParameters: AndroidParameters(
           packageName: 'com.AstroGuru.app',
           minimumVersion: 1,
         ),
       );
       Uri url;
-      final ShortDynamicLink shortLink = await dynamicLinks.buildShortLink(parameters, shortLinkType: ShortDynamicLinkType.short);
+      final ShortDynamicLink shortLink = await dynamicLinks.buildShortLink(
+          parameters,
+          shortLinkType: ShortDynamicLinkType.short);
       url = shortLink.shortUrl;
       appShareLink = url.toString();
       appShareLinkForLiveSreaming = appShareLink;
@@ -131,7 +152,9 @@ class LiveController extends GetxController {
       await global.checkBody().then((result) async {
         if (result) {
           global.showOnlyLoaderDialog(Get.context);
-          await apiHelper.updateStatusForWaitList(id: id, status: status).then((result) {
+          await apiHelper
+              .updateStatusForWaitList(id: id, status: status)
+              .then((result) {
             global.hideLoader();
             if (result.status == "200") {
             } else {
@@ -149,20 +172,27 @@ class LiveController extends GetxController {
     }
   }
 
-  Future<dynamic> cutPaymentForLive(int userId, int timeInSecond, int astrologerId, String transactionType, String chatId, {String? sId1, String? sId2, String? channelName}) async {
+  Future<dynamic> cutPaymentForLive(int userId, int timeInSecond,
+      int astrologerId, String transactionType, String chatId,
+      {String? sId1, String? sId2, String? channelName}) async {
     try {
       print("SIDCut payment called");
       print('SID1:- $sId1');
       print('SID2:- $sId2');
       await global.checkBody().then((result) async {
         if (result) {
-          await apiHelper.cutPaymentForLiveStream(userId, astrologerId, timeInSecond, transactionType, chatId, sId1: sId1, sId2: sId2, channelName: channelName).then((result) {
+          await apiHelper
+              .cutPaymentForLiveStream(
+                  userId, astrologerId, timeInSecond, transactionType, chatId,
+                  sId1: sId1, sId2: sId2, channelName: channelName)
+              .then((result) {
             if (result.status == "200") {
               print("cutPaymentForLive +  ${result.recordList}");
               if (result.recordList.length != 0) {
                 callId = result.recordList['callId'];
                 print('after call');
-                double deductedMoney = double.parse(result.recordList['deduction'].toString());
+                double deductedMoney =
+                    double.parse(result.recordList['deduction'].toString());
                 update();
                 print('deducted call Id $callId');
                 print('deducted money $deductedMoney');
@@ -212,14 +242,26 @@ class LiveController extends GetxController {
     }
   }
 
-  accpetDeclineContfirmationDialogForLiveStreaming({String? astroName, int? astroId, String? token, String? channel, String? requestType, int? id, double? charge, double? videoCallCharge, String? astrologerFcmToken2, String? astrologerProfile, bool? isFollow}) {
+  accpetDeclineContfirmationDialogForLiveStreaming(
+      {String? astroName,
+      int? astroId,
+      String? token,
+      String? channel,
+      String? requestType,
+      int? id,
+      double? charge,
+      double? videoCallCharge,
+      String? astrologerFcmToken2,
+      String? astrologerProfile,
+      bool? isFollow}) {
     BuildContext context = Get.context!;
     showDialog(
         context: context,
         // barrierDismissible: false, // user must tap button for close dialog!
         builder: (BuildContext context) {
           return AlertDialog(
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             content: Container(
               height: 150,
               child: Column(
@@ -240,7 +282,7 @@ class LiveController extends GetxController {
                       "$astroName is available for call",
                       style: TextStyle(color: Colors.grey, fontSize: 14),
                       textAlign: TextAlign.center,
-                    ).translate(),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 10),
@@ -254,12 +296,15 @@ class LiveController extends GetxController {
                           child: Container(
                             height: 40,
                             width: 100,
-                            decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(50)),
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(50)),
                             child: Center(
                               child: Text(
                                 "Decline",
-                                style: TextStyle(color: Colors.white, fontSize: 13),
-                              ).translate(),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 13),
+                              ),
                             ),
                           ),
                         ),
@@ -271,14 +316,18 @@ class LiveController extends GetxController {
                               Get.back();
                               Get.back();
                               await updateWaitListStatus(id!, "Running");
-                              int index5 = waitList.indexWhere((element) => element.id == id);
+                              int index5 = waitList
+                                  .indexWhere((element) => element.id == id);
                               if (index5 != -1) {
-                                endTime = DateTime.now().millisecondsSinceEpoch + 1000 * int.parse(waitList[index5].time);
+                                endTime =
+                                    DateTime.now().millisecondsSinceEpoch +
+                                        1000 * int.parse(waitList[index5].time);
                               }
                               await global.callOnFcmApiSendPushNotifications(
                                   fcmTokem: ["$astrologerFcmToken"],
                                   title: "For timer and session start for live",
-                                  subTitle: "For timer and session start for live",
+                                  subTitle:
+                                      "For timer and session start for live",
                                   sendData: {
                                     "waitListId": id,
                                     "channelName": channel,
@@ -289,21 +338,33 @@ class LiveController extends GetxController {
                                 await liveController.getLiveuserData(channel!);
                               }
                               List<String> otherJoinUsersFcmTokens = [];
-                              print("liveController.liveUsers " + liveController.liveUsers.toString());
+                              print("liveController.liveUsers " +
+                                  liveController.liveUsers.toString());
                               if (liveController.liveUsers.isNotEmpty) {
-                                for (var i = 0; i < liveController.liveUsers.length; i++) {
-                                  if (liveController.liveUsers[i].fcmToken != null) {
-                                    otherJoinUsersFcmTokens.add(liveController.liveUsers[i].fcmToken!);
+                                for (var i = 0;
+                                    i < liveController.liveUsers.length;
+                                    i++) {
+                                  if (liveController.liveUsers[i].fcmToken !=
+                                      null) {
+                                    otherJoinUsersFcmTokens.add(
+                                        liveController.liveUsers[i].fcmToken!);
                                   }
                                 }
                               }
-                              print("otherJoinUsersFcmTokens" + otherJoinUsersFcmTokens.toString());
-                              await global.callOnFcmApiSendPushNotifications(fcmTokem: otherJoinUsersFcmTokens, title: "For starting the timer in other audions for video and audio", subTitle: "For starting the timer in other audions for video and audio", sendData: {
-                                "waitListId": id,
-                                "channelName": channel,
-                                "profile": global.user.profile,
-                                "name": global.user.name ?? "user",
-                              });
+                              print("otherJoinUsersFcmTokens" +
+                                  otherJoinUsersFcmTokens.toString());
+                              await global.callOnFcmApiSendPushNotifications(
+                                  fcmTokem: otherJoinUsersFcmTokens,
+                                  title:
+                                      "For starting the timer in other audions for video and audio",
+                                  subTitle:
+                                      "For starting the timer in other audions for video and audio",
+                                  sendData: {
+                                    "waitListId": id,
+                                    "channelName": channel,
+                                    "profile": global.user.profile,
+                                    "name": global.user.name ?? "user",
+                                  });
                               //here we will call the methods for sending all other users notification for timer start.
                               isLeaveCalled = false;
                               update();
@@ -325,9 +386,12 @@ class LiveController extends GetxController {
                             } else {
                               Get.back();
                               await updateWaitListStatus(id!, "Running");
-                              int index5 = waitList.indexWhere((element) => element.id == id);
+                              int index5 = waitList
+                                  .indexWhere((element) => element.id == id);
                               if (index5 != -1) {
-                                endTime = DateTime.now().millisecondsSinceEpoch + 1000 * int.parse(waitList[index5].time);
+                                endTime =
+                                    DateTime.now().millisecondsSinceEpoch +
+                                        1000 * int.parse(waitList[index5].time);
                               }
                               isJoinAsChat = true;
                               chatId = "${global.user.id}" + "_" + "$astroId";
@@ -342,23 +406,30 @@ class LiveController extends GetxController {
                                     "waitListId": id,
                                     "liveChatSUserName": global.user.name,
                                   });
-                              timer2 = Timer.periodic(Duration(seconds: 1), (timer) {
-                                print("totalCompletedTimeForChat:" + totalCompletedTimeForChat.toString());
-                                totalCompletedTimeForChat = totalCompletedTimeForChat + 1;
+                              timer2 =
+                                  Timer.periodic(Duration(seconds: 1), (timer) {
+                                print("totalCompletedTimeForChat:" +
+                                    totalCompletedTimeForChat.toString());
+                                totalCompletedTimeForChat =
+                                    totalCompletedTimeForChat + 1;
                                 update();
                               });
-                              await startRecord(channel!, global.localLiveUid!, token!);
+                              await startRecord(
+                                  channel!, global.localLiveUid!, token!);
                             }
                           },
                           child: Container(
                             height: 40,
                             width: 100,
-                            decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(50)),
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(50)),
                             child: Center(
                               child: Text(
                                 "Accept",
-                                style: TextStyle(color: Colors.white, fontSize: 13),
-                              ).translate(),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 13),
+                              ),
                             ),
                           ),
                         ),
@@ -369,19 +440,31 @@ class LiveController extends GetxController {
               ),
             ),
             actionsAlignment: MainAxisAlignment.spaceBetween,
-            actionsPadding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
+            actionsPadding:
+                const EdgeInsets.only(bottom: 15, left: 15, right: 15),
           );
         });
   }
 
-  Future<dynamic> addToWaitList(String channel, String requestType, int astrologerId) async {
+  Future<dynamic> addToWaitList(
+      String channel, String requestType, int astrologerId) async {
     try {
       await global.checkBody().then((result) async {
         if (result) {
           global.showOnlyLoaderDialog(Get.context);
           print(global.user.name);
           String? fcmToken = await FirebaseMessaging.instance.getToken();
-          await apiHelper.addToWaitlist(channel: channel, requestType: requestType, time: "1000", userId: global.currentUserId, userName: "${global.user.name}", userProfile: "${global.user.profile}", userFcmToken: "$fcmToken", astrologerId: astrologerId).then((result) async {
+          await apiHelper
+              .addToWaitlist(
+                  channel: channel,
+                  requestType: requestType,
+                  time: "1000",
+                  userId: global.currentUserId,
+                  userName: "${global.user.name}",
+                  userProfile: "${global.user.profile}",
+                  userFcmToken: "$fcmToken",
+                  astrologerId: astrologerId)
+              .then((result) async {
             global.hideLoader();
             if (result.status == "200") {
               await getWaitList(channel);
@@ -495,11 +578,14 @@ class LiveController extends GetxController {
     await callController.agoraStartRecording(channel, localUserId, token);
   }
 
-  Future<dynamic> getRtmToken(String appId, String appCertificate, String chatId, String channelName) async {
+  Future<dynamic> getRtmToken(String appId, String appCertificate,
+      String chatId, String channelName) async {
     try {
       await global.checkBody().then((result) async {
         if (result) {
-          await apiHelper.generateRtmToken(appId, appCertificate, chatId, channelName).then((result) {
+          await apiHelper
+              .generateRtmToken(appId, appCertificate, chatId, channelName)
+              .then((result) {
             if (result.status == "200") {
               global.agoraChatToken = result.recordList['rtmToken'];
             } else {
@@ -531,7 +617,8 @@ class LiveController extends GetxController {
                 bgColor: global.toastBackGoundColor,
               );
               print('Live session end length');
-              final BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+              final BottomNavigationController bottomNavigationController =
+                  Get.find<BottomNavigationController>();
               global.showOnlyLoaderDialog(Get.context);
               await bottomNavigationController.getLiveAstrologerList();
               global.hideLoader();

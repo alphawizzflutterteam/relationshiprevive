@@ -6,7 +6,9 @@ class QuickLinnkWidget extends StatelessWidget {
   final String image;
   final String text;
   final void Function() onTap;
-  const QuickLinnkWidget({Key? key, required this.image, required this.text, required this.onTap}) : super(key: key);
+  const QuickLinnkWidget(
+      {Key? key, required this.image, required this.text, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class QuickLinnkWidget extends StatelessWidget {
               text,
               style: Get.textTheme.subtitle1!.copyWith(fontSize: 12),
               textAlign: TextAlign.center,
-            ).translate())
+            ))
           ],
         ),
       ),

@@ -7,7 +7,13 @@ class ContainerListTileWidget extends StatelessWidget {
   final String doshText;
   final String title;
   final String subTitle;
-  const ContainerListTileWidget({Key? key, required this.title, required this.subTitle, required this.doshText, required this.color}) : super(key: key);
+  const ContainerListTileWidget(
+      {Key? key,
+      required this.title,
+      required this.subTitle,
+      required this.doshText,
+      required this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +31,14 @@ class ContainerListTileWidget extends StatelessWidget {
           child: Text(
             doshText,
             style: TextStyle(color: Colors.white),
-          ).translate(),
+          ),
         ),
-        title: Text(title, style: title == '' ? TextStyle(fontSize: 0) : Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.w500)).translate(),
-        subtitle: Text(subTitle, style: Get.textTheme.bodySmall).translate(),
+        title: Text(title,
+            style: title == ''
+                ? TextStyle(fontSize: 0)
+                : Get.textTheme.subtitle1!
+                    .copyWith(fontWeight: FontWeight.w500)),
+        subtitle: Text(subTitle, style: Get.textTheme.bodySmall),
       ),
     );
   }

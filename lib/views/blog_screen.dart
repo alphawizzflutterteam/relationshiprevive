@@ -37,7 +37,7 @@ class BlogScreen extends StatelessWidget {
             '$title',
             style: Get.theme.primaryTextTheme.headline6!
                 .copyWith(fontSize: 18, fontWeight: FontWeight.normal),
-          ).translate(),
+          ),
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(
@@ -67,9 +67,8 @@ class BlogScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('Share',
-                                style: Get.textTheme.subtitle1!
-                                    .copyWith(fontSize: 12))
-                            .translate(),
+                            style: Get.textTheme.subtitle1!
+                                .copyWith(fontSize: 12)),
                       )
                     ],
                   ),
@@ -116,7 +115,7 @@ class BlogScreen extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: Get.width * 0.7,
-                        child: Text('$videoTitle').translate(),
+                        child: Text('$videoTitle'),
                       ),
                       Text(
                         '$date',

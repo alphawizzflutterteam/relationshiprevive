@@ -29,21 +29,25 @@ class GetReportScreen extends StatelessWidget {
   GetReportScreen({Key? key}) : super(key: key);
 
   ReportController reportController = Get.find<ReportController>();
-  ReportFilterTabController reportFilter = Get.find<ReportFilterTabController>();
+  ReportFilterTabController reportFilter =
+      Get.find<ReportFilterTabController>();
   SkillController skillController = Get.find<SkillController>();
   LanguageController languageController = Get.find<LanguageController>();
-  BottomNavigationController bottomController = Get.find<BottomNavigationController>();
+  BottomNavigationController bottomController =
+      Get.find<BottomNavigationController>();
   WalletController walletController = Get.find<WalletController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+        backgroundColor:
+            Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
         title: Text(
           'Get Detailed Report',
-          style: Get.theme.primaryTextTheme.headline6!.copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-        ).translate(),
+          style: Get.theme.primaryTextTheme.headline6!
+              .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
+        ),
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: Icon(
@@ -89,21 +93,27 @@ class GetReportScreen extends StatelessWidget {
           bottomController.update();
           await bottomController.getAstrologerList(isLazyLoading: false);
         },
-        child: GetBuilder<BottomNavigationController>(builder: (bottomNavigationController) {
+        child: GetBuilder<BottomNavigationController>(
+            builder: (bottomNavigationController) {
           return bottomNavigationController.astrologerList.isEmpty
               ? Center(
-                  child: Text('Astrologer not Available').translate(),
+                  child: Text('Astrologer not Available'),
                 )
               : ListView.builder(
                   itemCount: bottomNavigationController.astrologerList.length,
                   shrinkWrap: true,
-                  controller: bottomNavigationController.getReportscrollController,
+                  controller:
+                      bottomNavigationController.getReportscrollController,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () async {
-                        Get.find<ReviewController>().getReviewData(bottomNavigationController.astrologerList[index].id!);
+                        Get.find<ReviewController>().getReviewData(
+                            bottomNavigationController
+                                .astrologerList[index].id!);
                         global.showOnlyLoaderDialog(context);
-                        await bottomNavigationController.getAstrologerbyId(bottomNavigationController.astrologerList[index].id!);
+                        await bottomNavigationController.getAstrologerbyId(
+                            bottomNavigationController
+                                .astrologerList[index].id!);
                         global.hideLoader();
                         Get.to(() => AstrologerProfile(
                               index: index,
@@ -121,23 +131,35 @@ class GetReportScreen extends StatelessWidget {
                                       Stack(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 10),
+                                            padding:
+                                                const EdgeInsets.only(top: 10),
                                             child: Container(
                                               height: 65,
                                               width: 65,
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), border: Border.all(color: Get.theme.primaryColor)),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(7),
+                                                  border: Border.all(
+                                                      color: Get
+                                                          .theme.primaryColor)),
                                               child: CircleAvatar(
                                                 radius: 35,
                                                 backgroundColor: Colors.white,
                                                 child: CachedNetworkImage(
                                                   height: 55,
                                                   width: 55,
-                                                  imageUrl: '${global.imgBaseurl}${bottomNavigationController.astrologerList[index].profileImage}',
-                                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                  errorWidget: (context, url, error) {
+                                                  imageUrl:
+                                                      '${global.imgBaseurl}${bottomNavigationController.astrologerList[index].profileImage}',
+                                                  placeholder: (context, url) =>
+                                                      const Center(
+                                                          child:
+                                                              CircularProgressIndicator()),
+                                                  errorWidget:
+                                                      (context, url, error) {
                                                     return CircleAvatar(
                                                         radius: 35,
-                                                        backgroundColor: Colors.white,
+                                                        backgroundColor:
+                                                            Colors.white,
                                                         child: Image.asset(
                                                           Images.deafultUser,
                                                           fit: BoxFit.fill,
@@ -180,56 +202,73 @@ class GetReportScreen extends StatelessWidget {
                                           ),
                                           Text(
                                             '${bottomNavigationController.astrologerList[index].totalOrder} orders',
-                                            style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                            style: Get.theme.primaryTextTheme
+                                                .bodySmall!
+                                                .copyWith(
                                               fontWeight: FontWeight.w300,
                                               fontSize: 9,
                                             ),
-                                          ).translate(),
+                                          ),
                                         ],
                                       )
                                     ],
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            bottomNavigationController.astrologerList[index].name!,
-                                          ).translate(),
+                                            bottomNavigationController
+                                                .astrologerList[index].name!,
+                                          ),
                                           Text(
-                                            bottomNavigationController.astrologerList[index].allSkill!,
-                                            style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                            bottomNavigationController
+                                                .astrologerList[index]
+                                                .allSkill!,
+                                            style: Get.theme.primaryTextTheme
+                                                .bodySmall!
+                                                .copyWith(
                                               fontWeight: FontWeight.w300,
                                               color: Colors.grey[600],
                                             ),
-                                          ).translate(),
+                                          ),
                                           Text(
-                                            bottomNavigationController.astrologerList[index].languageKnown!,
-                                            style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                            bottomNavigationController
+                                                .astrologerList[index]
+                                                .languageKnown!,
+                                            style: Get.theme.primaryTextTheme
+                                                .bodySmall!
+                                                .copyWith(
                                               fontWeight: FontWeight.w300,
                                               color: Colors.grey[600],
                                             ),
-                                          ).translate(),
+                                          ),
                                           Text(
                                             'Expireance: ${bottomNavigationController.astrologerList[index].experienceInYears} Years',
-                                            style: Get.theme.primaryTextTheme.bodySmall!.copyWith(
+                                            style: Get.theme.primaryTextTheme
+                                                .bodySmall!
+                                                .copyWith(
                                               fontWeight: FontWeight.w300,
                                               color: Colors.grey[600],
                                             ),
-                                          ).translate(),
+                                          ),
                                           Row(
                                             children: [
                                               Text(
                                                 '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${bottomNavigationController.astrologerList[index].reportRate}/report',
-                                                style: Get.theme.textTheme.subtitle1!.copyWith(
+                                                style: Get
+                                                    .theme.textTheme.subtitle1!
+                                                    .copyWith(
                                                   color: Colors.black54,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w500,
                                                   letterSpacing: 0,
                                                 ),
-                                              ).translate(),
+                                              ),
                                             ],
                                           ),
                                         ],
@@ -240,44 +279,78 @@ class GetReportScreen extends StatelessWidget {
                                     children: [
                                       TextButton(
                                         style: ButtonStyle(
-                                          padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                                          fixedSize: MaterialStateProperty.all(Size.fromWidth(90)),
-                                          backgroundColor: MaterialStateProperty.all(Colors.green),
+                                          padding: MaterialStateProperty.all(
+                                              EdgeInsets.all(0)),
+                                          fixedSize: MaterialStateProperty.all(
+                                              Size.fromWidth(90)),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.green),
                                           shape: MaterialStateProperty.all(
                                             RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                             ),
                                           ),
                                         ),
                                         onPressed: () async {
                                           bool isLogin = await global.isLogin();
                                           if (isLogin) {
-                                            double charge = double.parse(bottomNavigationController.astrologerList[index].reportRate.toString());
-                                            if (charge <= global.splashController.currentUser!.walletAmount!) {
-                                              global.showOnlyLoaderDialog(context);
-                                              reportController.searchString = null;
-                                              reportController.reportTypeList = [];
-                                              reportController.reportTypeList.clear();
-                                              reportController.isAllDataLoaded = false;
+                                            double charge = double.parse(
+                                                bottomNavigationController
+                                                    .astrologerList[index]
+                                                    .reportRate
+                                                    .toString());
+                                            if (charge <=
+                                                global
+                                                    .splashController
+                                                    .currentUser!
+                                                    .walletAmount!) {
+                                              global.showOnlyLoaderDialog(
+                                                  context);
+                                              reportController.searchString =
+                                                  null;
+                                              reportController.reportTypeList =
+                                                  [];
+                                              reportController.reportTypeList
+                                                  .clear();
+                                              reportController.isAllDataLoaded =
+                                                  false;
                                               reportController.update();
-                                              await reportController.getReportTypes(null, false);
+                                              await reportController
+                                                  .getReportTypes(null, false);
                                               global.hideLoader();
                                               Get.to(() => ReportTypeScreen(
-                                                    astrologerId: bottomNavigationController.astrologerList[index].id!,
-                                                    astrologerName: bottomNavigationController.astrologerList[index].name!,
+                                                    astrologerId:
+                                                        bottomNavigationController
+                                                            .astrologerList[
+                                                                index]
+                                                            .id!,
+                                                    astrologerName:
+                                                        bottomNavigationController
+                                                            .astrologerList[
+                                                                index]
+                                                            .name!,
                                                   ));
                                             } else {
-                                              global.showOnlyLoaderDialog(context);
-                                              await walletController.getAmount();
+                                              global.showOnlyLoaderDialog(
+                                                  context);
+                                              await walletController
+                                                  .getAmount();
                                               global.hideLoader();
-                                              openBottomSheetRechrage(context, charge.toString(), '${bottomNavigationController.astrologerList[index].name!}');
+                                              openBottomSheetRechrage(
+                                                  context,
+                                                  charge.toString(),
+                                                  '${bottomNavigationController.astrologerList[index].name!}');
                                             }
                                           }
                                         },
                                         child: Text(
                                           'Get report',
-                                          style: Get.theme.primaryTextTheme.bodySmall!.copyWith(color: Colors.white),
-                                        ).translate(),
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(color: Colors.white),
+                                        ),
                                       ),
                                     ],
                                   )
@@ -285,8 +358,19 @@ class GetReportScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          bottomNavigationController.isMoreDataAvailable == true && !bottomNavigationController.isAllDataLoaded && bottomNavigationController.astrologerList.length - 1 == index ? const CircularProgressIndicator() : const SizedBox(),
-                          index == bottomNavigationController.astrologerList.length - 1
+                          bottomNavigationController.isMoreDataAvailable ==
+                                      true &&
+                                  !bottomNavigationController.isAllDataLoaded &&
+                                  bottomNavigationController
+                                              .astrologerList.length -
+                                          1 ==
+                                      index
+                              ? const CircularProgressIndicator()
+                              : const SizedBox(),
+                          index ==
+                                  bottomNavigationController
+                                          .astrologerList.length -
+                                      1
                               ? const SizedBox(
                                   height: 50,
                                 )
@@ -316,71 +400,123 @@ class GetReportScreen extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return SingleChildScrollView(
-                          child: GetBuilder<ReportController>(builder: (report) {
+                          child:
+                              GetBuilder<ReportController>(builder: (report) {
                             return SizedBox(
-                              child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 8, top: 8),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text('Sort by').translate(),
-                                      IconButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          icon: Icon(Icons.close))
-                                    ],
-                                  ),
-                                ),
-                                ListView.builder(
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: reportController.reportSorting.length,
-                                    itemBuilder: (context, index) {
-                                      return Column(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, right: 8, top: 8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          GestureDetector(
-                                            onTap: () async {
-                                              for (var i = 0; i < reportController.reportSorting.length; i++) {
-                                                if (reportController.reportSorting[i].isSeledted == false) {
-                                                  if (i == index) {
-                                                    reportController.reportSorting[index].isSeledted = true;
-                                                    reportController.update();
-                                                    print('aif ${reportController.reportSorting[index].name} ${reportController.reportSorting[index].isSeledted}');
-                                                  } else {
-                                                    reportController.reportSorting[i].isSeledted = false;
-                                                    print('else ${reportController.reportSorting[i].name} ${reportController.reportSorting[i].isSeledted}');
-                                                  }
-                                                } else {
-                                                  reportController.reportSorting[i].isSeledted = false;
-                                                  print('else ${reportController.reportSorting[i].name} ${reportController.reportSorting[i].isSeledted}');
-                                                }
-                                              }
-                                              print('if ${reportController.reportSorting[index].isSeledted} ${reportController.reportSorting[index].name}');
-                                              if (reportController.reportSorting[index].isSeledted == true) {
-                                                global.showOnlyLoaderDialog(context);
-                                                await reportController.getAstrologerSorting(reportController.reportSorting[index].value!);
-                                                global.hideLoader();
-                                              }
-                                              Get.back();
-                                              reportController.update();
-                                            },
-                                            child: Container(
-                                              color: reportController.reportSorting[index].isSeledted == true ? Colors.grey.shade200 : Colors.transparent,
-                                              child: Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(left: 15, top: 8, bottom: 8),
-                                                    child: Text(reportController.reportSorting[index].name!).translate(),
-                                                  )),
-                                            ),
-                                          ),
-                                          Divider(height: 0)
+                                          Text('Sort by'),
+                                          IconButton(
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              icon: Icon(Icons.close))
                                         ],
-                                      );
-                                    })
-                              ]),
+                                      ),
+                                    ),
+                                    ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: reportController
+                                            .reportSorting.length,
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  for (var i = 0;
+                                                      i <
+                                                          reportController
+                                                              .reportSorting
+                                                              .length;
+                                                      i++) {
+                                                    if (reportController
+                                                            .reportSorting[i]
+                                                            .isSeledted ==
+                                                        false) {
+                                                      if (i == index) {
+                                                        reportController
+                                                            .reportSorting[
+                                                                index]
+                                                            .isSeledted = true;
+                                                        reportController
+                                                            .update();
+                                                        print(
+                                                            'aif ${reportController.reportSorting[index].name} ${reportController.reportSorting[index].isSeledted}');
+                                                      } else {
+                                                        reportController
+                                                            .reportSorting[i]
+                                                            .isSeledted = false;
+                                                        print(
+                                                            'else ${reportController.reportSorting[i].name} ${reportController.reportSorting[i].isSeledted}');
+                                                      }
+                                                    } else {
+                                                      reportController
+                                                          .reportSorting[i]
+                                                          .isSeledted = false;
+                                                      print(
+                                                          'else ${reportController.reportSorting[i].name} ${reportController.reportSorting[i].isSeledted}');
+                                                    }
+                                                  }
+                                                  print(
+                                                      'if ${reportController.reportSorting[index].isSeledted} ${reportController.reportSorting[index].name}');
+                                                  if (reportController
+                                                          .reportSorting[index]
+                                                          .isSeledted ==
+                                                      true) {
+                                                    global.showOnlyLoaderDialog(
+                                                        context);
+                                                    await reportController
+                                                        .getAstrologerSorting(
+                                                            reportController
+                                                                .reportSorting[
+                                                                    index]
+                                                                .value!);
+                                                    global.hideLoader();
+                                                  }
+                                                  Get.back();
+                                                  reportController.update();
+                                                },
+                                                child: Container(
+                                                  color: reportController
+                                                              .reportSorting[
+                                                                  index]
+                                                              .isSeledted ==
+                                                          true
+                                                      ? Colors.grey.shade200
+                                                      : Colors.transparent,
+                                                  child: Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 15,
+                                                                top: 8,
+                                                                bottom: 8),
+                                                        child: Text(
+                                                            reportController
+                                                                .reportSorting[
+                                                                    index]
+                                                                .name!),
+                                                      )),
+                                                ),
+                                              ),
+                                              Divider(height: 0)
+                                            ],
+                                          );
+                                        })
+                                  ]),
                             );
                           }),
                         );
@@ -395,7 +531,7 @@ class GetReportScreen extends StatelessWidget {
                     SizedBox(
                       width: 15,
                     ),
-                    Text('SORT').translate()
+                    Text('SORT')
                   ],
                 ),
               ),
@@ -421,7 +557,7 @@ class GetReportScreen extends StatelessWidget {
                     SizedBox(
                       width: 15,
                     ),
-                    Text('Filter').translate()
+                    Text('Filter')
                   ],
                 ),
               ),
@@ -449,7 +585,7 @@ class GetReportScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('Sort & Filter').translate(),
+                        Text('Sort & Filter'),
                         Expanded(
                           child: Align(
                             alignment: Alignment.topRight,
@@ -494,7 +630,10 @@ class GetReportScreen extends StatelessWidget {
                             return RotatedBox(
                               quarterTurns: -1,
                               child: Container(
-                                color: reportFilter.selectedFilterIndex.value == ind ? Colors.white : Colors.grey[50],
+                                color: reportFilter.selectedFilterIndex.value ==
+                                        ind
+                                    ? Colors.white
+                                    : Colors.grey[50],
                                 height: 50,
                                 child: Row(
                                   children: [
@@ -505,17 +644,23 @@ class GetReportScreen extends StatelessWidget {
                                           topRight: Radius.circular(5),
                                           bottomRight: Radius.circular(5),
                                         ),
-                                        color: reportFilter.selectedFilterIndex.value == ind ? Colors.white : Colors.black,
+                                        color: reportFilter.selectedFilterIndex
+                                                    .value ==
+                                                ind
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                     ),
                                     Container(
-                                      width: MediaQuery.of(context).size.width * 0.25,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
                                       alignment: Alignment.centerLeft,
-                                      padding: EdgeInsets.symmetric(horizontal: 8),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
                                       child: Text(
                                         reportFilter.reportFilter[ind],
                                         style: TextStyle(color: Colors.black54),
-                                      ).translate(),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -538,21 +683,27 @@ class GetReportScreen extends StatelessWidget {
                           child: GetBuilder<SkillController>(
                             builder: (c) {
                               return Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                                   child: ListView.builder(
-                                      itemCount: skillController.skillList.length,
+                                      itemCount:
+                                          skillController.skillList.length,
                                       padding: EdgeInsets.zero,
                                       itemBuilder: (context, index) {
                                         return CheckboxListTile(
-                                          controlAffinity: ListTileControlAffinity.leading,
+                                          controlAffinity:
+                                              ListTileControlAffinity.leading,
                                           contentPadding: EdgeInsets.zero,
                                           activeColor: Colors.black,
-                                          value: skillController.skillList[index].isSelected,
+                                          value: skillController
+                                              .skillList[index].isSelected,
                                           onChanged: (value) {
-                                            skillController.skillList[index].isSelected = value!;
+                                            skillController.skillList[index]
+                                                .isSelected = value!;
                                             skillController.update();
                                           },
-                                          title: Text(skillController.skillList[index].name).translate(),
+                                          title: Text(skillController
+                                              .skillList[index].name),
                                         );
                                       }));
                             },
@@ -564,21 +715,29 @@ class GetReportScreen extends StatelessWidget {
                           child: GetBuilder<LanguageController>(
                             builder: (c) {
                               return Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                                   child: ListView.builder(
-                                      itemCount: languageController.languageList.length,
+                                      itemCount: languageController
+                                          .languageList.length,
                                       padding: EdgeInsets.zero,
                                       itemBuilder: (context, index) {
                                         return CheckboxListTile(
-                                          controlAffinity: ListTileControlAffinity.leading,
+                                          controlAffinity:
+                                              ListTileControlAffinity.leading,
                                           contentPadding: EdgeInsets.zero,
                                           activeColor: Colors.black,
-                                          value: languageController.languageList[index].isSelected,
+                                          value: languageController
+                                              .languageList[index].isSelected,
                                           onChanged: (value) {
-                                            languageController.languageList[index].isSelected = value!;
+                                            languageController
+                                                .languageList[index]
+                                                .isSelected = value!;
                                             languageController.update();
                                           },
-                                          title: Text(languageController.languageList[index].languageName).translate(),
+                                          title: Text(languageController
+                                              .languageList[index]
+                                              .languageName),
                                         );
                                       }));
                             },
@@ -588,22 +747,29 @@ class GetReportScreen extends StatelessWidget {
                           child: RotatedBox(
                               quarterTurns: -1,
                               child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                                   child: ListView.builder(
                                       itemCount: reportFilter.gender.length,
                                       padding: EdgeInsets.zero,
                                       itemBuilder: (context, index) {
-                                        return GetBuilder<ReportFilterTabController>(builder: (filterController) {
+                                        return GetBuilder<
+                                                ReportFilterTabController>(
+                                            builder: (filterController) {
                                           return CheckboxListTile(
-                                            controlAffinity: ListTileControlAffinity.leading,
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
                                             contentPadding: EdgeInsets.zero,
                                             activeColor: Colors.black,
-                                            value: reportFilter.gender[index].isCheck,
+                                            value: reportFilter
+                                                .gender[index].isCheck,
                                             onChanged: (value) {
-                                              reportFilter.gender[index].isCheck = value!;
+                                              reportFilter.gender[index]
+                                                  .isCheck = value!;
                                               reportFilter.update();
                                             },
-                                            title: Text(reportFilter.gender[index].name).translate(),
+                                            title: Text(reportFilter
+                                                .gender[index].name),
                                           );
                                         });
                                       }))),
@@ -620,7 +786,8 @@ class GetReportScreen extends StatelessWidget {
               children: [
                 Divider(thickness: 2),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Row(
@@ -636,17 +803,24 @@ class GetReportScreen extends StatelessWidget {
                               reportController.sortingFilter = null;
                               reportFilter.genderFilterList = [];
                               bottomController.astrologerList.clear();
-                              for (var i = 0; i < skillController.skillList.length; i++) {
+                              for (var i = 0;
+                                  i < skillController.skillList.length;
+                                  i++) {
                                 skillController.skillList[i].isSelected = false;
 
                                 skillController.update();
                               }
-                              for (var i = 0; i < languageController.languageList.length; i++) {
-                                languageController.languageList[i].isSelected = false;
+                              for (var i = 0;
+                                  i < languageController.languageList.length;
+                                  i++) {
+                                languageController.languageList[i].isSelected =
+                                    false;
 
                                 languageController.update();
                               }
-                              for (var i = 0; i < reportFilter.gender.length; i++) {
+                              for (var i = 0;
+                                  i < reportFilter.gender.length;
+                                  i++) {
                                 reportFilter.gender[i].isCheck = false;
 
                                 reportFilter.update();
@@ -663,7 +837,7 @@ class GetReportScreen extends StatelessWidget {
                             child: Text(
                               'Reset',
                               style: TextStyle(color: Colors.black54),
-                            ).translate(),
+                            ),
                           ),
                         )),
                         Expanded(child: GetBuilder<SkillController>(
@@ -679,35 +853,59 @@ class GetReportScreen extends StatelessWidget {
                                   reportController.sortingFilter = null;
                                   reportFilter.genderFilterList = [];
 
-                                  for (var i = 0; i < skillController.skillList.length; i++) {
-                                    if (skillController.skillList[i].isSelected == true) {
-                                      skillController.skillFilterList.add(skillController.skillList[i].id!);
+                                  for (var i = 0;
+                                      i < skillController.skillList.length;
+                                      i++) {
+                                    if (skillController
+                                            .skillList[i].isSelected ==
+                                        true) {
+                                      skillController.skillFilterList.add(
+                                          skillController.skillList[i].id!);
                                       skillController.update();
                                     }
                                   }
-                                  for (var i = 0; i < reportFilter.gender.length; i++) {
-                                    if (reportFilter.gender[i].isCheck == true) {
-                                      reportFilter.genderFilterList.add(reportFilter.gender[i].name);
+                                  for (var i = 0;
+                                      i < reportFilter.gender.length;
+                                      i++) {
+                                    if (reportFilter.gender[i].isCheck ==
+                                        true) {
+                                      reportFilter.genderFilterList
+                                          .add(reportFilter.gender[i].name);
                                       reportFilter.update();
                                     }
                                   }
-                                  for (var i = 0; i < languageController.languageList.length; i++) {
-                                    if (languageController.languageList[i].isSelected == true) {
-                                      languageController.languageFilterList.add(languageController.languageList[i].id!);
+                                  for (var i = 0;
+                                      i <
+                                          languageController
+                                              .languageList.length;
+                                      i++) {
+                                    if (languageController
+                                            .languageList[i].isSelected ==
+                                        true) {
+                                      languageController.languageFilterList.add(
+                                          languageController
+                                              .languageList[i].id!);
                                       languageController.update();
                                     }
                                   }
                                   bottomController.astrologerList = [];
-                                  bottomController.getAstrologerList(skills: skillController.skillFilterList, language: languageController.languageFilterList, gender: reportFilter.genderFilterList);
+                                  bottomController.getAstrologerList(
+                                      skills: skillController.skillFilterList,
+                                      language:
+                                          languageController.languageFilterList,
+                                      gender: reportFilter.genderFilterList);
 
                                   global.hideLoader();
                                   global.hideLoader();
                                 },
-                                child: Text('Apply').translate(),
+                                child: Text('Apply'),
                                 style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-                                  backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                                  foregroundColor: MaterialStateProperty.all(Colors.black),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(8)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Get.theme.primaryColor),
+                                  foregroundColor:
+                                      MaterialStateProperty.all(Colors.black),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -740,7 +938,8 @@ class GetReportScreen extends StatelessWidget {
     );
   }
 
-  void openBottomSheetRechrage(BuildContext context, String minBalance, String astrologer) {
+  void openBottomSheetRechrage(
+      BuildContext context, String minBalance, String astrologer) {
     Get.bottomSheet(
       Container(
         height: 250,
@@ -762,15 +961,24 @@ class GetReportScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
                                     width: Get.width * 0.85,
-                                    child: minBalance != '' ? Text('Minimum balance ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance is required to get report from $astrologer ', style: TextStyle(fontWeight: FontWeight.w500, color: Colors.red)).translate() : const SizedBox(),
+                                    child: minBalance != ''
+                                        ? Text(
+                                            'Minimum balance ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance is required to get report from $astrologer ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red))
+                                        : const SizedBox(),
                                   ),
                                   GestureDetector(
                                     child: Padding(
-                                      padding: minBalance == '' ? const EdgeInsets.only(top: 8) : const EdgeInsets.only(top: 0),
+                                      padding: minBalance == ''
+                                          ? const EdgeInsets.only(top: 8)
+                                          : const EdgeInsets.only(top: 0),
                                       child: Icon(Icons.close, size: 18),
                                     ),
                                     onTap: () {
@@ -780,17 +988,25 @@ class GetReportScreen extends StatelessWidget {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 8.0, bottom: 5),
-                                child: Text('Recharge Now', style: TextStyle(fontWeight: FontWeight.w500)).translate(),
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, bottom: 5),
+                                child: Text('Recharge Now',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500)),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 5),
-                                    child: Icon(Icons.lightbulb_rounded, color: Get.theme.primaryColor, size: 13),
+                                    child: Icon(Icons.lightbulb_rounded,
+                                        color: Get.theme.primaryColor,
+                                        size: 13),
                                   ),
-                                  Expanded(child: Text('Tip:90% users recharge for 10 mins or more.', style: TextStyle(fontSize: 12)).translate())
+                                  Expanded(
+                                      child: Text(
+                                          'Tip:90% users recharge for 10 mins or more.',
+                                          style: TextStyle(fontSize: 12)))
                                 ],
                               ),
                             ],
@@ -804,7 +1020,8 @@ class GetReportScreen extends StatelessWidget {
             ),
             Expanded(
                 child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       childAspectRatio: 3.8 / 2.3,
                       crossAxisSpacing: 1,
@@ -818,7 +1035,10 @@ class GetReportScreen extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           Get.delete<RazorPayController>();
-                          Get.to(() => PaymentInformationScreen(flag: 0, amount: double.parse(walletController.payment[index])));
+                          Get.to(() => PaymentInformationScreen(
+                              flag: 0,
+                              amount: double.parse(
+                                  walletController.payment[index])));
                         },
                         child: Container(
                           margin: const EdgeInsets.all(8.0),

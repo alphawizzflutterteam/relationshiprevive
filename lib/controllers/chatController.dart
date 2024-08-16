@@ -17,7 +17,8 @@ import '../utils/date_converter.dart';
 import '../model/chat_message_model.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class ChatController extends GetxController with GetSingleTickerProviderStateMixin {
+class ChatController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   var categoryList = <AstrologerCategoryModel>[];
   int isSelected = 0.obs();
   TabController? categoryTab;
@@ -38,7 +39,8 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
 
   String agoraAstrologerUserId = "";
   ChatMessageModel chatmessage = ChatMessageModel();
-  CollectionReference userChatCollectionRef = FirebaseFirestore.instance.collection("chats");
+  CollectionReference userChatCollectionRef =
+      FirebaseFirestore.instance.collection("chats");
   bool showBottomAcceptChat = false;
   int? bottomAstrologerId;
   String bottomAstrologerName = "Astrologer";
@@ -55,7 +57,8 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
   void onInit() async {
     await _init();
     super.onInit();
-    categoryTab = TabController(vsync: this, length: categoryList.length, initialIndex: isSelected);
+    categoryTab = TabController(
+        vsync: this, length: categoryList.length, initialIndex: isSelected);
   }
 
   @override
@@ -72,7 +75,8 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
   shareChat(String chatId, String astrologer) async {
     try {
       pdf = pw.Document();
-      List<ChatMessageModel?>? messageList = await getShareMessages(chatId: chatId);
+      List<ChatMessageModel?>? messageList =
+          await getShareMessages(chatId: chatId);
       pdf.addPage(
         pw.Page(
           build: (pw.Context context) => pw.Column(
@@ -80,16 +84,29 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
               children: List.generate(messageList!.length, (index) {
                 ChatMessageModel message = messageList[index]!;
                 isMeForShare = message.userId1 == '${global.currentUserId}';
-                return isMeForShare ? pw.Text('${DateConverter.dateToDateAndTime(messageList[index]!.createdAt!)}:${global.user.name}:${messageList[index]!.message}') : pw.Text('${DateConverter.dateToDateAndTime(messageList[index]!.createdAt!)}:$astrologer:${messageList[index]!.message}');
+                return isMeForShare
+                    ? pw.Text(
+                        '${DateConverter.dateToDateAndTime(messageList[index]!.createdAt!)}:${global.user.name}:${messageList[index]!.message}')
+                    : pw.Text(
+                        '${DateConverter.dateToDateAndTime(messageList[index]!.createdAt!)}:$astrologer:${messageList[index]!.message}');
               })),
         ),
       );
       String fileName = DateTime.now().microsecondsSinceEpoch.toString();
-      final temp = Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
+      final temp = Platform.isAndroid
+          ? await getExternalStorageDirectory()
+          : await getApplicationDocumentsDirectory();
       final path = '${temp!.path}/$fileName.pdf';
       File(path).writeAsBytesSync(await pdf.save());
       print('path $path');
-      await FlutterShare.shareFile(filePath: path, title: '${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}', text: "Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career.Check my chat with $astrologer.You should also try and see your future first chat is Free!").then((value) {}).catchError((e) {
+      await FlutterShare.shareFile(
+              filePath: path,
+              title:
+                  '${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
+              text:
+                  "Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career.Check my chat with $astrologer.You should also try and see your future first chat is Free!")
+          .then((value) {})
+          .catchError((e) {
         print(e);
       });
     } catch (e) {
@@ -99,17 +116,32 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
 
   Future<List<ChatMessageModel?>?> getShareMessages({String? chatId}) async {
     try {
-      Stream<List<ChatMessageModel>> m = FirebaseFirestore.instance.collection('chats/$chatId/userschat').doc('${global.currentUserId}').collection('messages').orderBy("createdAt", descending: false).snapshots().map((reviews) => reviews.docs.map((review) => ChatMessageModel.fromJson(review.data())).toList());
+      Stream<List<ChatMessageModel>> m = FirebaseFirestore.instance
+          .collection('chats/$chatId/userschat')
+          .doc('${global.currentUserId}')
+          .collection('messages')
+          .orderBy("createdAt", descending: false)
+          .snapshots()
+          .map((reviews) => reviews.docs
+              .map((review) => ChatMessageModel.fromJson(review.data()))
+              .toList());
       print(m.length);
       List<ChatMessageModel> mm = await m.first;
       return mm.isNotEmpty ? mm : [];
     } catch (err) {
-      print("Exception - apiHelper.dart - getShareMessages() ${err.toString()}");
+      print(
+          "Exception - apiHelper.dart - getShareMessages() ${err.toString()}");
       return null;
     }
   }
 
-  showBottomAcceptChatRequest({required int astrologerId, required int chatId, required String astroName, required String fcmToken, required String astroProfile, required String firebaseChatId}) async {
+  showBottomAcceptChatRequest(
+      {required int astrologerId,
+      required int chatId,
+      required String astroName,
+      required String fcmToken,
+      required String astroProfile,
+      required String firebaseChatId}) async {
     showBottomAcceptChat = true;
     bottomAstrologerId = astrologerId;
     bottomAstrologerName = astroName;
@@ -140,11 +172,11 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
           await apiHelper.getAstrologerCategory().then((result) {
             if (result.status == "200") {
               categoryList = result.recordList;
-              categoryList[0] = AstrologerCategoryModel(
+              /*categoryList[0] = AstrologerCategoryModel(
                 image: '',
                 name: 'All',
                 id: 1,
-              );
+              );*/
               update();
             } else {
               global.showToast(
@@ -166,7 +198,9 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
     try {
       await global.checkBody().then((result) async {
         if (result) {
-          await apiHelper.sendAstrologerChatRequest(astrologerId, isFreeSession).then((result) {
+          await apiHelper
+              .sendAstrologerChatRequest(astrologerId, isFreeSession)
+              .then((result) {
             if (result.status == "200") {
               global.showToast(
                 message: 'Sending chat request..',
@@ -189,9 +223,16 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
   }
 
   bool isMe = true;
-  Stream<QuerySnapshot<Map<String, dynamic>>>? getChatMessages(String firebaseChatId, int? currentUserId) {
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getChatMessages(
+      String firebaseChatId, int? currentUserId) {
     try {
-      Stream<QuerySnapshot<Map<String, dynamic>>> data = FirebaseFirestore.instance.collection('chats/$firebaseChatId/userschat').doc('$currentUserId').collection('messages').orderBy("createdAt", descending: true).snapshots(); //orderBy("createdAt", descending: true)
+      Stream<QuerySnapshot<Map<String, dynamic>>> data = FirebaseFirestore
+          .instance
+          .collection('chats/$firebaseChatId/userschat')
+          .doc('$currentUserId')
+          .collection('messages')
+          .orderBy("createdAt", descending: true)
+          .snapshots(); //orderBy("createdAt", descending: true)
       return data;
     } catch (err) {
       print("Exception - apiHelper.dart - getChatMessages()" + err.toString());
@@ -199,7 +240,8 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
     }
   }
 
-  Future<void> sendMessage(String message, String chatId, int partnerId, bool isEndMessage) async {
+  Future<void> sendMessage(
+      String message, String chatId, int partnerId, bool isEndMessage) async {
     try {
       if (message.trim() != '') {
         ChatMessageModel chatMessage = ChatMessageModel(
@@ -220,27 +262,50 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
     }
   }
 
-  Future uploadMessage(String idUser, String partnerId, ChatMessageModel anonymous) async {
+  Future uploadMessage(
+      String idUser, String partnerId, ChatMessageModel anonymous) async {
     try {
       final String globalId = global.currentUserId.toString();
-      final refMessages = userChatCollectionRef.doc(idUser).collection('userschat').doc(globalId).collection('messages');
-      final refMessages1 = userChatCollectionRef.doc(idUser).collection('userschat').doc(partnerId).collection('messages');
+      final refMessages = userChatCollectionRef
+          .doc(idUser)
+          .collection('userschat')
+          .doc(globalId)
+          .collection('messages');
+      final refMessages1 = userChatCollectionRef
+          .doc(idUser)
+          .collection('userschat')
+          .doc(partnerId)
+          .collection('messages');
       final newMessage1 = anonymous;
 
       final newMessage2 = anonymous;
       newMessage2.messageId = refMessages1.id;
 
-      var messageResult = await refMessages.add(newMessage1.toJson()).catchError((e) {
+      var messageResult =
+          await refMessages.add(newMessage1.toJson()).catchError((e) {
         print('send mess exception' + e);
       });
       newMessage1.messageId = messageResult.id;
-      await userChatCollectionRef.doc(idUser).collection('userschat').doc(globalId).collection('messages').doc(newMessage1.messageId).update({"messageId": newMessage1.messageId});
+      await userChatCollectionRef
+          .doc(idUser)
+          .collection('userschat')
+          .doc(globalId)
+          .collection('messages')
+          .doc(newMessage1.messageId)
+          .update({"messageId": newMessage1.messageId});
 
       newMessage2.isRead = false;
-      var message1Result = await refMessages1.add(newMessage2.toJson()).catchError((e) {
+      var message1Result =
+          await refMessages1.add(newMessage2.toJson()).catchError((e) {
         print('send mess exception' + e);
       });
-      await userChatCollectionRef.doc(idUser).collection('userschat').doc(partnerId).collection('messages').doc(newMessage1.messageId).update({"messageId": newMessage1.messageId});
+      await userChatCollectionRef
+          .doc(idUser)
+          .collection('userschat')
+          .doc(partnerId)
+          .collection('messages')
+          .doc(newMessage1.messageId)
+          .update({"messageId": newMessage1.messageId});
       return {
         'user1': messageResult.id,
         'user2': message1Result.id,
@@ -341,7 +406,9 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
     try {
       await global.checkBody().then((result) async {
         if (result) {
-          await apiHelper.getuserReview(global.currentUserId!, astrologerId).then((result) {
+          await apiHelper
+              .getuserReview(global.currentUserId!, astrologerId)
+              .then((result) {
             if (result.status == "200") {
               reviewData = result.recordList;
               reviewController.text = reviewData[0].review;
@@ -403,7 +470,9 @@ class ChatController extends GetxController with GetSingleTickerProviderStateMix
       };
       await global.checkBody().then((result) async {
         if (result) {
-          await apiHelper.updateAstrologerReview(reviewId, basicDetails).then((result) async {
+          await apiHelper
+              .updateAstrologerReview(reviewId, basicDetails)
+              .then((result) async {
             if (result.status == "200") {
               global.showToast(
                 message: 'Your review has been updated',

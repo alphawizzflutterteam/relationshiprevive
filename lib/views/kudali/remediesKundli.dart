@@ -37,11 +37,19 @@ class RemediesKundli extends StatelessWidget {
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(left: 10, right: 10),
                           decoration: BoxDecoration(
-                            color: kundliController.remediesTab[index].isSelected ? Color.fromARGB(255, 247, 243, 213) : Colors.transparent,
-                            border: Border.all(color: kundliController.remediesTab[index].isSelected ? Get.theme.primaryColor : Colors.black),
+                            color:
+                                kundliController.remediesTab[index].isSelected
+                                    ? Color.fromARGB(255, 247, 243, 213)
+                                    : Colors.transparent,
+                            border: Border.all(
+                                color: kundliController
+                                        .remediesTab[index].isSelected
+                                    ? Get.theme.primaryColor
+                                    : Colors.black),
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          child: Text(kundliController.remediesTab[index].title, style: TextStyle(fontSize: 13)).translate()),
+                          child: Text(kundliController.remediesTab[index].title,
+                              style: TextStyle(fontSize: 13))),
                     ),
                   );
                 }),
