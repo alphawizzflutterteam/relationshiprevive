@@ -133,6 +133,290 @@ class HomeScreen extends StatelessWidget {
           ),
           preferredSize: Size.fromHeight(70.0),
         ),
+        /*AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          leading: Card(
+            child: Image.asset(
+              'assets/images/appicon.png',
+            ),
+          ),
+          centerTitle: true,
+          title: Text(
+            '${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
+            style: Get.theme.primaryTextTheme.headline6!
+                .copyWith(fontWeight: FontWeight.normal),
+          ),
+          iconTheme: IconThemeData(
+            color: Get.theme.iconTheme.color,
+          ),
+          actions: [
+            InkWell(
+              onTap: () async {
+                bool isLogin = await global.isLogin();
+                global.showOnlyLoaderDialog(context);
+                await walletController.getAmount();
+                global.hideLoader();
+                if (isLogin) {
+                  Get.to(() => AddmoneyToWallet());
+                }
+              },
+              child: Image.asset(
+                Images.wallet,
+                height: 25,
+                width: 25,
+                color: Colors.white,
+              ),
+            ),
+            */ /* const SizedBox(width: 12),
+                  InkWell(
+                    onTap: () async {
+                      homeController.lan = [];
+                      await homeController.getLanguages();
+                      await homeController.updateLanIndex();
+                      print(homeController.lan);
+                      global.checkBody().then((result) {
+                        if (result) {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return GetBuilder<HomeController>(builder: (h) {
+                                  return AlertDialog(
+                                    contentPadding: EdgeInsets.zero,
+                                    content: GetBuilder<HomeController>(
+                                        builder: (h) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          InkWell(
+                                              onTap: () => Get.back(),
+                                              child: Align(
+                                                alignment: Alignment.topRight,
+                                                child: const Icon(Icons.close),
+                                              )),
+                                          Container(
+                                              padding: EdgeInsets.all(6),
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                        'Choose your app language',
+                                                        style: Get.textTheme
+                                                            .subtitle1!
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                    GetBuilder<HomeController>(
+                                                        builder: (home) {
+                                                      return Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                top: 15),
+                                                        child: Wrap(
+                                                            children:
+                                                                List.generate(
+                                                                    homeController
+                                                                        .lan
+                                                                        .length,
+                                                                    (index) {
+                                                          return InkWell(
+                                                            onTap: () {
+                                                              homeController
+                                                                  .updateLan(
+                                                                      index);
+                                                            },
+                                                            child: GetBuilder<
+                                                                    HomeController>(
+                                                                builder: (h) {
+                                                              return Container(
+                                                                height: 80,
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        left: 7,
+                                                                        right:
+                                                                            7,
+                                                                        top:
+                                                                            10),
+                                                                width: 75,
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        horizontal:
+                                                                            8,
+                                                                        vertical:
+                                                                            8),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: homeController
+                                                                          .lan[
+                                                                              index]
+                                                                          .isSelected
+                                                                      ? Color.fromARGB(
+                                                                          255,
+                                                                          228,
+                                                                          217,
+                                                                          185)
+                                                                      : Colors
+                                                                          .transparent,
+                                                                  border: Border.all(
+                                                                      color: homeController
+                                                                              .lan[
+                                                                                  index]
+                                                                              .isSelected
+                                                                          ? Get
+                                                                              .theme
+                                                                              .primaryColor
+                                                                          : Colors
+                                                                              .black),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                ),
+                                                                child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Text(
+                                                                        homeController
+                                                                            .lan[index]
+                                                                            .title,
+                                                                        style: Get
+                                                                            .textTheme
+                                                                            .bodyText2,
+                                                                      ),
+                                                                      Text(
+                                                                        homeController
+                                                                            .lan[index]
+                                                                            .subTitle,
+                                                                        style: Get
+                                                                            .textTheme
+                                                                            .bodyText2!
+                                                                            .copyWith(fontSize: 12),
+                                                                      )
+                                                                    ]),
+                                                              );
+                                                            }),
+                                                          );
+                                                        })),
+                                                      );
+                                                    }),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 25),
+                                                      width: double.infinity,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 20),
+                                                      child: ElevatedButton(
+                                                        onPressed: () async {
+                                                          splashController
+                                                                  .currentLanguageCode =
+                                                              homeController
+                                                                  .lan[homeController
+                                                                      .selectedIndex]
+                                                                  .lanCode;
+                                                          splashController
+                                                              .update();
+                                                          global.sp =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          global.sp!.setString(
+                                                              'currentLanguage',
+                                                              splashController
+                                                                  .currentLanguageCode);
+                                                          BottomNavigationController
+                                                              bottomNavigationController =
+                                                              Get.find<
+                                                                  BottomNavigationController>();
+                                                          bottomNavigationController
+                                                                  .isValueShowChat =
+                                                              false;
+                                                          bottomNavigationController
+                                                                  .isValueShow =
+                                                              false;
+                                                          bottomNavigationController
+                                                                  .isValueShowLive =
+                                                              false;
+                                                          bottomNavigationController
+                                                                  .isValueShowCall =
+                                                              false;
+                                                          bottomNavigationController
+                                                                  .isValueShowHist =
+                                                              false;
+                                                          bottomNavigationController
+                                                              .update();
+                                                          // ignore: invalid_use_of_protected_member
+                                                          bottomNavigationController
+                                                              .refresh();
+                                                          Get.back();
+                                                        },
+                                                        child: Text('APPLY',
+                                                            style: Get.textTheme
+                                                                .bodyText1),
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .all(Get.theme
+                                                                      .primaryColor),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ]))
+                                        ],
+                                      );
+                                    }),
+                                  );
+                                });
+                              });
+                        }
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Image.asset(
+                        Images.translation,
+                        height: 25,
+                        width: 25,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  InkWell(
+                    onTap: () async {
+                      bool isLogin = await global.isLogin();
+                      if (isLogin) {
+                        CustomerSupportController customerSupportController =
+                            Get.find<CustomerSupportController>();
+                        AstrologerAssistantController
+                            astrologerAssistantController =
+                            Get.find<AstrologerAssistantController>();
+                        global.showOnlyLoaderDialog(context);
+                        await customerSupportController.getCustomerTickets();
+                        await astrologerAssistantController
+                            .getChatWithAstrologerAssisteant();
+                        global.hideLoader();
+                        Get.to(() => CustomerSupportChat());
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Image.asset(
+                        Images.customerService,
+                        height: 25,
+                        width: 25,
+                      ),
+                    ),
+                  ),*/ /*
+          ],
+        ),*/
         body: RefreshIndicator(
           onRefresh: () async {
             await homeController.getBanner();
