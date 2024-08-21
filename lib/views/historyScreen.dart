@@ -286,7 +286,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 fontWeight: FontWeight.w400,
                                 color: Colors.grey[700],
                               ),
-                            ).translate(),
+                            ),
                             GetBuilder<SplashController>(
                                 builder: (splashContro) {
                               return Row(
@@ -335,7 +335,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         'Recharge',
                                         style: Get
                                             .theme.primaryTextTheme.subtitle2,
-                                      ).translate(),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -374,15 +374,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.only(
                                           left: 8.0, right: 8.0),
-                                      child: Text('Wallet Transaction')
-                                          .translate(),
+                                      child: Text('Wallet Transaction'),
                                     ),
                                   ),
                                   Tab(
                                     child: Padding(
                                       padding: const EdgeInsets.only(
                                           left: 8.0, right: 8.0),
-                                      child: Text('Payment Logs').translate(),
+                                      child: Text('Payment Logs'),
                                     ),
                                   ),
                                 ],
@@ -463,7 +462,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                           style: TextStyle(
                                                                               fontSize: 13,
                                                                               fontWeight: FontWeight.w500),
-                                                                        ).translate(),
+                                                                        ),
                                                                       ),
                                                                       historyController
                                                                               .walletTransactionList[i]
@@ -579,7 +578,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                         style: TextStyle(
                                                                             fontWeight:
                                                                                 FontWeight.w500),
-                                                                      ).translate(),
+                                                                      ),
                                                                       Text(
                                                                         '+${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.paymentLogsList[ind].amount}',
                                                                         style: TextStyle(
@@ -641,7 +640,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             color: historyController.paymentLogsList[ind].paymentStatus == "failed" || historyController.paymentLogsList[ind].paymentStatus == "Failed"
                                                                                 ? Colors.red
                                                                                 : Colors.green),
-                                                                      ).translate()
+                                                                      )
                                                                     ],
                                                                   )
                                                                 ],
@@ -789,7 +788,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                   : historyController.callHistoryList[index].callStatus == "pending" || historyController.callHistoryList[index].callStatus == "Pending"
                                                                                       ? Colors.yellow
                                                                                       : Colors.green),
-                                                                        ).translate(),
+                                                                        ),
                                                                         FutureBuilder(
                                                                             future:
                                                                                 global.translatedText('Call type:'),
@@ -814,7 +813,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             fontSize:
                                                                                 12,
                                                                           ),
-                                                                        ).translate(),
+                                                                        ),
                                                                         Text(
                                                                           'Duration: ${historyController.callHistoryList[index].totalMin == null ? '0' : historyController.callHistoryList[index].totalMin == "" ? "0" : historyController.callHistoryList[index].totalMin} minutes',
                                                                           style: Get
@@ -826,7 +825,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             fontSize:
                                                                                 12,
                                                                           ),
-                                                                        ).translate(),
+                                                                        ),
                                                                         Text(
                                                                           'Deduction: ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.callHistoryList[index].deduction}',
                                                                           style: Get
@@ -838,7 +837,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             fontSize:
                                                                                 12,
                                                                           ),
-                                                                        ).translate(),
+                                                                        ),
                                                                         GestureDetector(
                                                                           onTap:
                                                                               () {
@@ -863,7 +862,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                 Text(
                                                                                   "Share with your friends",
                                                                                   style: Get.textTheme.bodyText2!.copyWith(fontSize: 12),
-                                                                                ).translate()
+                                                                                )
                                                                               ],
                                                                             ),
                                                                           ),
@@ -876,7 +875,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             historyController.callHistoryList[index].astrologerName!,
                                                                             style:
                                                                                 Get.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold),
-                                                                          ).translate(),
+                                                                          ),
                                                                           SizedBox(
                                                                               height: 12),
                                                                           Container(
@@ -912,7 +911,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.callHistoryList[index].charge == null ? '0' : historyController.callHistoryList[index].charge == "" ? "0" : historyController.callHistoryList[index].charge}/min',
                                                                             style:
                                                                                 Get.textTheme.bodyText2!.copyWith(color: Colors.grey, fontSize: 10),
-                                                                          ).translate(),
+                                                                          ),
                                                                           Container(
                                                                             margin:
                                                                                 const EdgeInsets.only(top: 6),
@@ -924,7 +923,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                 Text(
                                                                               'CALL: ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.callHistoryList[index].callRate == null ? '0' : historyController.callHistoryList[index].callRate == "" ? "0" : historyController.callHistoryList[index].callRate}/min',
                                                                               style: Get.textTheme.bodyText1!.copyWith(fontSize: 11, color: Colors.grey),
-                                                                            ).translate(),
+                                                                            ),
                                                                           ),
                                                                         ])
                                                                   ],
@@ -979,7 +978,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                   'Call history not available',
                                                   style: TextStyle(
                                                       color: Colors.grey),
-                                                ).translate()
+                                                )
                                               ],
                                             ),
                                           );
@@ -1093,7 +1092,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                   : historyController.chatHistoryList[index].chatStatus == "pending" || historyController.chatHistoryList[index].chatStatus == "Pending"
                                                                                       ? Colors.yellow
                                                                                       : Colors.green),
-                                                                        ).translate(),
+                                                                        ),
                                                                         FutureBuilder(
                                                                             future:
                                                                                 global.translatedText('Chat type:'),
@@ -1118,7 +1117,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             fontSize:
                                                                                 12,
                                                                           ),
-                                                                        ).translate(),
+                                                                        ),
                                                                         Text(
                                                                           'Duration: ${historyController.chatHistoryList[index].totalMin == null ? '0' : historyController.chatHistoryList[index].totalMin == "" ? "0" : historyController.chatHistoryList[index].totalMin} minutes',
                                                                           style: Get
@@ -1130,7 +1129,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             fontSize:
                                                                                 12,
                                                                           ),
-                                                                        ).translate(),
+                                                                        ),
                                                                         Text(
                                                                           'Deduction: ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.chatHistoryList[index].deduction}',
                                                                           style: Get
@@ -1142,7 +1141,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             fontSize:
                                                                                 12,
                                                                           ),
-                                                                        ).translate(),
+                                                                        ),
                                                                         GestureDetector(
                                                                           onTap:
                                                                               () {
@@ -1173,7 +1172,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                 Text(
                                                                                   "Share with your friends",
                                                                                   style: Get.textTheme.bodyText2!.copyWith(fontSize: 12),
-                                                                                ).translate()
+                                                                                )
                                                                               ],
                                                                             ),
                                                                           ),
@@ -1186,7 +1185,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             historyController.chatHistoryList[index].astrologerName!,
                                                                             style:
                                                                                 Get.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold),
-                                                                          ).translate(),
+                                                                          ),
                                                                           SizedBox(
                                                                               height: 12),
                                                                           Container(
@@ -1229,7 +1228,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                 Text(
                                                                               'CHAT: ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.chatHistoryList[index].chatRate == null ? '0' : historyController.chatHistoryList[index].chatRate == "" ? "0" : historyController.chatHistoryList[index].chatRate}/min',
                                                                               style: Get.textTheme.bodyText1!.copyWith(fontSize: 11, color: Colors.grey),
-                                                                            ).translate(),
+                                                                            ),
                                                                           ),
                                                                         ])
                                                                   ],
@@ -1284,7 +1283,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                   'Chat history not available',
                                                   style: TextStyle(
                                                       color: Colors.grey),
-                                                ).translate()
+                                                )
                                               ],
                                             ),
                                           )
@@ -1351,22 +1350,22 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                             historyController.astroMallHistoryList[inx].productName!,
                                                                             style:
                                                                                 Get.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold),
-                                                                          ).translate(),
+                                                                          ),
                                                                           Text(
                                                                             '${historyController.astroMallHistoryList[inx].orderAddressName}',
-                                                                          ).translate(),
+                                                                          ),
                                                                           Text(
                                                                             '${global.formatter.format(historyController.astroMallHistoryList[inx].createdAt!)}',
                                                                             style:
                                                                                 TextStyle(color: Colors.grey, fontSize: 12),
-                                                                          ).translate(),
+                                                                          ),
                                                                           Text(
                                                                             '${historyController.astroMallHistoryList[inx].flatNo} ${historyController.astroMallHistoryList[inx].city} ${historyController.astroMallHistoryList[inx].state} ${historyController.astroMallHistoryList[inx].country} ${historyController.astroMallHistoryList[inx].pincode}',
                                                                             overflow:
                                                                                 TextOverflow.clip,
                                                                             style:
                                                                                 TextStyle(fontSize: 12),
-                                                                          ).translate(),
+                                                                          ),
                                                                           Text(
                                                                             'GST: ${global.getSystemFlagValue(global.systemFlagNameList.gst)}',
                                                                             style:
@@ -1382,7 +1381,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                               Text(
                                                                                 'Order Status: ',
                                                                                 style: Get.textTheme.bodyText2!.copyWith(fontSize: 13),
-                                                                              ).translate(),
+                                                                              ),
                                                                               Text(
                                                                                 historyController.astroMallHistoryList[inx].orderStatus!.toUpperCase(),
                                                                                 style: TextStyle(
@@ -1392,7 +1391,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                         : historyController.astroMallHistoryList[inx].orderStatus! == "Pending"
                                                                                             ? Colors.red
                                                                                             : Colors.green),
-                                                                              ).translate(),
+                                                                              ),
                                                                             ],
                                                                           ),
                                                                           historyController.astroMallHistoryList[inx].orderStatus == 'Pending' || historyController.astroMallHistoryList[inx].orderStatus == "Confirmed"
@@ -1405,7 +1404,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                   child: Text(
                                                                                     "Cancel Order",
                                                                                     style: TextStyle(color: Colors.black),
-                                                                                  ).translate())
+                                                                                  ))
                                                                               : const SizedBox()
                                                                         ],
                                                                       ),
@@ -1416,7 +1415,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                               child: Text(
                                                                                 historyController.astroMallHistoryList[inx].productName!,
                                                                                 style: Get.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold, fontSize: 12),
-                                                                              ).translate(),
+                                                                              ),
                                                                             ),
                                                                             SizedBox(height: 12),
                                                                             Container(
@@ -1490,7 +1489,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                       'Astromall history not available',
                                                       style: TextStyle(
                                                           color: Colors.grey),
-                                                    ).translate()
+                                                    )
                                                   ],
                                                 ),
                                               )
@@ -1558,14 +1557,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                 Text(
                                                                                   '${historyController.reportHistoryList[index].firstName} ${historyController.reportHistoryList[index].lastName}',
                                                                                   style: Get.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold),
-                                                                                ).translate(),
+                                                                                ),
                                                                                 Text(
                                                                                   historyController.reportHistoryList[index].contactNo!,
-                                                                                ).translate(),
+                                                                                ),
                                                                                 Text(
                                                                                   '${historyController.reportHistoryList[index].title}',
                                                                                   style: TextStyle(color: Colors.grey),
-                                                                                ).translate(),
+                                                                                ),
                                                                                 Text(
                                                                                   '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.reportHistoryList[index].reportRate == null ? '0' : historyController.reportHistoryList[index].reportRate == null ? 0 : historyController.reportHistoryList[index].reportRate}',
                                                                                   style: Get.textTheme.bodyText1!.copyWith(
@@ -1581,7 +1580,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                                         child: Text(
                                                                                           "View Report",
                                                                                           style: TextStyle(color: Colors.black),
-                                                                                        ).translate())
+                                                                                        ))
                                                                                     : const SizedBox()
                                                                               ],
                                                                             ),
@@ -1589,7 +1588,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                               Text(
                                                                                 '${historyController.reportHistoryList[index].astrologerName}',
                                                                                 style: Get.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold),
-                                                                              ).translate(),
+                                                                              ),
                                                                               const SizedBox(
                                                                                 height: 12,
                                                                               ),
@@ -1617,7 +1616,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                               Text(
                                                                                 'Rate ${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.reportHistoryList[index].reportRate == null ? '0' : historyController.reportHistoryList[index].reportRate == null ? 0 : historyController.reportHistoryList[index].reportRate}',
                                                                                 style: Get.textTheme.bodyText2!.copyWith(color: Colors.grey, fontSize: 10),
-                                                                              ).translate(),
+                                                                              ),
                                                                             ])
                                                                           ],
                                                                         )
@@ -1670,7 +1669,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .grey),
-                                                          ).translate()
+                                                          )
                                                         ],
                                                       ),
                                                     )
@@ -1684,7 +1683,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                 height: 150, width: 150),
                                             Text(
                                               'Uh - oh!',
-                                            ).translate(),
+                                            ),
                                           ],
                                         ),
                 );

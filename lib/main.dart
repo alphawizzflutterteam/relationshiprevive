@@ -45,6 +45,7 @@ class PostHttpOverrides extends HttpOverrides {
 
 FlutterLocalNotificationsPlugin _localNotifications =
     FlutterLocalNotificationsPlugin();
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -231,10 +232,7 @@ void main() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   String? token = await FirebaseMessaging.instance.getToken();
 
-  log('${token}');
-
-  String? token = await FirebaseMessaging.instance.getToken();
-  print('FCM: ${token}');
+  log('FCM: ${token}');
 
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
@@ -546,6 +544,7 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       onSelectNotification(json.encode(message.data));
     });
+
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
         print('getInitialMessage return not null');
@@ -668,10 +667,13 @@ class _MyAppState extends State<MyApp> {
   final String apiKey = "AIzaSyDwps2hHZbsri0yg4NPUYdQoj5BOsZmWK0";
   ThemeController themeController = Get.put(ThemeController());
   SplashController splashController = Get.put(SplashController());
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ThemeController>(builder: (themeController) {
       return GetBuilder<SplashController>(builder: (s) {
+        SystemChrome.setSystemUIOverlayStyle(
+            SystemUiOverlayStyle(statusBarColor: Colors.transparent));
         return GoogleTranslatorInit(apiKey,
             translateFrom: Locale(
                 splashController.currentLanguageCode == 'en' ? 'hi' : 'en'),

@@ -18,6 +18,7 @@ class AddmoneyToWallet extends BaseRoute {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(56),
           child: CommonAppBar(
@@ -72,7 +73,7 @@ class AddmoneyToWallet extends BaseRoute {
                               child: Center(
                                   child: Text(
                                 '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${walletController.paymentAmount[index].amount}',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(color: Colors.black),
                               )),
                             ),
                           ),

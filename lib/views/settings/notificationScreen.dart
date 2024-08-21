@@ -13,6 +13,7 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
           backgroundColor:
               Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,

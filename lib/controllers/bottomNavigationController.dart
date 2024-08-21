@@ -79,6 +79,7 @@ class BottomNavigationController extends GetxController {
   int? selectedCatId;
   bool isCallAstroDataLoadedOnce = false;
   bool isChatAstroDataLoadedOnce = false;
+
   List<Widget> screens() => [
         HomeScreen(userDetails: userModel),
         // ChatScreen(),

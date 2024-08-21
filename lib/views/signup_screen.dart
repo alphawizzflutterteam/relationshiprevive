@@ -112,7 +112,7 @@ class RegisterUserScreen extends StatelessWidget {
                                             child: Text(
                                               'Change Profile Pic',
                                               style: Get.textTheme.headline6!.copyWith(color: Colors.grey, fontSize: 16),
-                                            ).translate()),
+                                            )),
                                         Divider(
                                           thickness: 2,
                                         ),
@@ -123,7 +123,7 @@ class RegisterUserScreen extends StatelessWidget {
                                             style: TextStyle(
                                               color: Colors.grey,
                                             ),
-                                          ).translate(),
+                                          ),
                                         ),
                                         SizedBox(
                                           height: Get.height * 0.4,
@@ -163,7 +163,7 @@ class RegisterUserScreen extends StatelessWidget {
                                                                 content: Column(
                                                                   mainAxisSize: MainAxisSize.min,
                                                                   children: [
-                                                                    Text('Update Profile Photo').translate(),
+                                                                    Text('Update Profile Photo'),
                                                                     Container(
                                                                       height: 150,
                                                                       width: 150,
@@ -196,7 +196,7 @@ class RegisterUserScreen extends StatelessWidget {
                                                                               });
                                                                               Get.back();
                                                                             },
-                                                                            child: Text('Download').translate(),
+                                                                            child: Text('Download'),
                                                                             style: ButtonStyle(
                                                                               backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
                                                                               foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -214,7 +214,7 @@ class RegisterUserScreen extends StatelessWidget {
                                                                               await userProfileController.updateCurrentUserProfilepic(userProfileController.profile);
                                                                               Get.back();
                                                                             },
-                                                                            child: Text('Set profile pic').translate(),
+                                                                            child: Text('Set profile pic'),
                                                                             style: ButtonStyle(
                                                                               backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
                                                                               foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -242,7 +242,7 @@ class RegisterUserScreen extends StatelessWidget {
                                                               ),
                                                             ),
                                                           ),
-                                                          Text(userProfileController.zodicData[i].title, style: Get.textTheme.bodySmall).translate()
+                                                          Text(userProfileController.zodicData[i].title, style: Get.textTheme.bodySmall)
                                                         ],
                                                       )
                                                   ],
@@ -258,7 +258,7 @@ class RegisterUserScreen extends StatelessWidget {
                                             style: TextStyle(
                                               color: Colors.grey,
                                             ),
-                                          ).translate(),
+                                          ),
                                         ),
                                         SizedBox(
                                           width: Get.width,
@@ -282,7 +282,7 @@ class RegisterUserScreen extends StatelessWidget {
                                                       color: Colors.grey,
                                                     ),
                                                   ),
-                                                  Text('Camera', style: Get.textTheme.bodySmall).translate()
+                                                  Text('Camera', style: Get.textTheme.bodySmall)
                                                 ],
                                               ),
                                               Column(
@@ -305,7 +305,7 @@ class RegisterUserScreen extends StatelessWidget {
                                                     ' Gallery',
                                                     style: Get.textTheme.bodySmall,
                                                     textAlign: TextAlign.center,
-                                                  ).translate()
+                                                  )
                                                 ],
                                               )
                                             ],
@@ -348,7 +348,7 @@ class RegisterUserScreen extends StatelessWidget {
                         title: Text(
                           "Male",
                           style: TextStyle(fontSize: 13),
-                        ).translate(),
+                        ),
                         value: "Male",
                         groupValue: userProfileController.gender,
                         dense: true,
@@ -362,7 +362,7 @@ class RegisterUserScreen extends StatelessWidget {
                     Flexible(
                       flex: 1,
                       child: RadioListTile(
-                        title: Text("Female", style: TextStyle(fontSize: 13)).translate(),
+                        title: Text("Female", style: TextStyle(fontSize: 13)),
                         value: "Female",
                         groupValue: userProfileController.gender,
                         activeColor: Get.theme.primaryColor,

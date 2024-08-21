@@ -5,6 +5,7 @@ import 'package:AstroGuru/controllers/chatController.dart';
 import 'package:AstroGuru/controllers/history_controller.dart';
 import 'package:AstroGuru/controllers/homeController.dart';
 import 'package:AstroGuru/controllers/liveController.dart';
+import 'package:AstroGuru/controllers/themeController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,10 +55,13 @@ class BottomNavigationBarScreen extends StatelessWidget {
         return Scaffold(
             bottomNavigationBar: GetBuilder<BottomNavigationController>(
               builder: (c) {
-                return SizedBox(
+                return Container(
+                  decoration: BoxDecoration(
+                    gradient: gradient.btnGradient,
+                  ),
                   height: 45,
                   child: BottomNavigationBar(
-                    backgroundColor: Get.theme.primaryColor,
+                    backgroundColor: Colors.transparent,
                     iconSize: 22,
                     type: BottomNavigationBarType.fixed,
                     selectedItemColor: Colors.white,

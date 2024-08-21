@@ -537,7 +537,7 @@ showOnlyLoaderDialog(context) {
               /* const SizedBox(
                 width: 10,
               ),
-              const Text('please wait').translate()*/
+              const Text('please wait')*/
             ],
           ),
         ),
@@ -588,7 +588,7 @@ Future<bool> checkBody() async {
                 child: Text(
                   'No internet available',
                   textAlign: TextAlign.start,
-                ).translate(),
+                ),
               ),
             ),
             GestureDetector(
@@ -606,7 +606,7 @@ Future<bool> checkBody() async {
                   child: Text(
                     'Retry',
                     style: TextStyle(color: Get.theme.primaryColor),
-                  ).translate(),
+                  ),
                 ),
               ),
             )
@@ -726,10 +726,10 @@ showToast(
     {required String message,
     required Color textColor,
     required Color bgColor}) async {
-  var translation = await translator.translate(message,
-      to: splashController.currentLanguageCode);
+  /*var translation = await translator.translate(message,
+      to: splashController.currentLanguageCode);*/
   return Fluttertoast.showToast(
-    msg: translation.text,
+    msg: message,
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 1,

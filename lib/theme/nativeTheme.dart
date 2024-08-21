@@ -71,10 +71,8 @@ ThemeData nativeTheme({bool? darkModeEnabled}) {
   } else {
     return ThemeData(
       appBarTheme: AppBarTheme(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: themeController.pickColor,
-          statusBarIconBrightness: Brightness.light,
-        ),
+        systemOverlayStyle:
+            SystemUiOverlayStyle(statusBarColor: Colors.transparent),
       ),
       fontFamily: 'Poppins',
       primaryColor: themeController.pickColor,

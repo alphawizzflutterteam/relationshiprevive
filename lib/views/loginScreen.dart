@@ -90,7 +90,7 @@ class LoginScreen extends StatelessWidget {
                                 style: Get.textTheme.subtitle1!.copyWith(
                                     color: Colors.black,
                                     decoration: TextDecoration.underline),
-                              ).translate(),
+                              ),
                             ),
                           ),
                         ),
@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                       Text(
                         '${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
                         style: Get.textTheme.headline5,
-                      ).translate(),
+                      ),
                       SizedBox(
                         height: 10,
                       )
@@ -241,7 +241,7 @@ class LoginScreen extends StatelessWidget {
                                         'SEND OTP',
                                         style: TextStyle(color: Colors.white),
                                         textAlign: TextAlign.center,
-                                      ).translate(),
+                                      ),
                                       Image.asset(
                                         'assets/images/arrow_left.png',
                                         color: Colors.white,
@@ -266,7 +266,7 @@ class LoginScreen extends StatelessWidget {
                                         'By signing up, you agree to our ',
                                         style: TextStyle(
                                             color: Colors.grey, fontSize: 11),
-                                      ).translate(),
+                                      ),
                                     ]),
                               ),
                             ),
@@ -283,12 +283,11 @@ class LoginScreen extends StatelessWidget {
                                         decoration: TextDecoration.underline,
                                         fontSize: 11,
                                         color: Colors.blue),
-                                  ).translate(),
+                                  ),
                                 ),
                                 Text(' and ',
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 11))
-                                    .translate(),
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 11)),
                                 GestureDetector(
                                   onTap: () {
                                     Get.to(() => PrivacyPolicyScreen());
@@ -299,7 +298,7 @@ class LoginScreen extends StatelessWidget {
                                         decoration: TextDecoration.underline,
                                         fontSize: 11,
                                         color: Colors.blue),
-                                  ).translate(),
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 5,
@@ -315,7 +314,7 @@ class LoginScreen extends StatelessWidget {
                                       fontSize: 11,
                                       color: Colors.blue,
                                     ),
-                                  ).translate(),
+                                  ),
                                 ),
                               ],
                             ),

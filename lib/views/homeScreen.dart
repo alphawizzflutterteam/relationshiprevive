@@ -14,6 +14,7 @@ import 'package:AstroGuru/controllers/reviewController.dart';
 import 'package:AstroGuru/controllers/themeController.dart';
 
 import 'package:AstroGuru/model/kundli_model.dart';
+import 'package:AstroGuru/theme/nativeTheme.dart';
 import 'package:AstroGuru/utils/date_converter.dart';
 import 'package:AstroGuru/utils/global.dart' as global;
 import 'package:AstroGuru/utils/images.dart';
@@ -81,179 +82,56 @@ class HomeScreen extends StatelessWidget {
       },
       child: Scaffold(
         key: drawerKey,
+        backgroundColor: Colors.white,
         /*drawer: DrawerWidget(),*/
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          backgroundColor: Get.theme.primaryColor,
-          leading: Card(
-            child: Image.asset(
-              'assets/images/appicon.png',
+        appBar: PreferredSize(
+          child: Container(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 10.0,
+                  top: 15.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Card(
+                      child: Image.asset(
+                        'assets/images/appicon.png',
+                      ),
+                    ),
+                    Text(
+                      '${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
+                      style: Get.theme.primaryTextTheme.headline6!
+                          .copyWith(fontWeight: FontWeight.normal),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: InkWell(
+                        onTap: () async {
+                          bool isLogin = await global.isLogin();
+                          global.showOnlyLoaderDialog(context);
+                          await walletController.getAmount();
+                          global.hideLoader();
+                          if (isLogin) {
+                            Get.to(() => AddmoneyToWallet());
+                          }
+                        },
+                        child: Image.asset(
+                          Images.wallet,
+                          height: 25,
+                          width: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
+            decoration: BoxDecoration(
+              gradient: gradient.btnGradient,
             ),
           ),
-          centerTitle: true,
-          title: Text(
-            '${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
-            style: Get.theme.primaryTextTheme.headline6!
-                .copyWith(fontWeight: FontWeight.normal),
-          ).translate(),
-          iconTheme: IconThemeData(
-            color: Get.theme.iconTheme.color,
-          ),
-          actions: [
-            InkWell(
-              onTap: () async {
-                bool isLogin = await global.isLogin();
-                global.showOnlyLoaderDialog(context);
-                await walletController.getAmount();
-                global.hideLoader();
-                if (isLogin) {
-                  Get.to(() => AddmoneyToWallet());
-                }
-              },
-              child: Image.asset(
-                Images.wallet,
-                height: 25,
-                width: 25,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(width: 12),
-            /*InkWell(
-              onTap: () async {
-                homeController.lan = [];
-                await homeController.getLanguages();
-                await homeController.updateLanIndex();
-                print(homeController.lan);
-                global.checkBody().then((result) {
-                  if (result) {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return GetBuilder<HomeController>(builder: (h) {
-                            return AlertDialog(
-                              contentPadding: EdgeInsets.zero,
-                              content: GetBuilder<HomeController>(builder: (h) {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    InkWell(
-                                        onTap: () => Get.back(),
-                                        child: Align(
-                                          alignment: Alignment.topRight,
-                                          child: const Icon(Icons.close),
-                                        )),
-                                    Container(
-                                        padding: EdgeInsets.all(6),
-                                        child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                          Text('Choose your app language', style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold)).translate(),
-                                          GetBuilder<HomeController>(builder: (home) {
-                                            return Padding(
-                                              padding: EdgeInsets.only(top: 15),
-                                              child: Wrap(
-                                                  children: List.generate(homeController.lan.length, (index) {
-                                                return InkWell(
-                                                  onTap: () {
-                                                    homeController.updateLan(index);
-                                                  },
-                                                  child: GetBuilder<HomeController>(builder: (h) {
-                                                    return Container(
-                                                      height: 80,
-                                                      alignment: Alignment.center,
-                                                      margin: EdgeInsets.only(left: 7, right: 7, top: 10),
-                                                      width: 75,
-                                                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                                                      decoration: BoxDecoration(
-                                                        color: homeController.lan[index].isSelected ? Color.fromARGB(255, 228, 217, 185) : Colors.transparent,
-                                                        border: Border.all(color: homeController.lan[index].isSelected ? Get.theme.primaryColor : Colors.black),
-                                                        borderRadius: BorderRadius.circular(10),
-                                                      ),
-                                                      child: Column(mainAxisSize: MainAxisSize.min, children: [
-                                                        Text(
-                                                          homeController.lan[index].title,
-                                                          style: Get.textTheme.bodyText2,
-                                                        ),
-                                                        Text(
-                                                          homeController.lan[index].subTitle,
-                                                          style: Get.textTheme.bodyText2!.copyWith(fontSize: 12),
-                                                        )
-                                                      ]),
-                                                    );
-                                                  }),
-                                                );
-                                              })),
-                                            );
-                                          }),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 25),
-                                            width: double.infinity,
-                                            padding: EdgeInsets.symmetric(horizontal: 20),
-                                            child: ElevatedButton(
-                                              onPressed: () async {
-                                                splashController.currentLanguageCode = homeController.lan[homeController.selectedIndex].lanCode;
-                                                splashController.update();
-                                                global.sp = await SharedPreferences.getInstance();
-                                                global.sp!.setString('currentLanguage', splashController.currentLanguageCode);
-                                                BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
-                                                bottomNavigationController.isValueShowChat = false;
-                                                bottomNavigationController.isValueShow = false;
-                                                bottomNavigationController.isValueShowLive = false;
-                                                bottomNavigationController.isValueShowCall = false;
-                                                bottomNavigationController.isValueShowHist = false;
-                                                bottomNavigationController.update();
-                                                // ignore: invalid_use_of_protected_member
-                                                bottomNavigationController.refresh();
-                                                Get.back();
-                                              },
-                                              child: Text('APPLY', style: Get.textTheme.bodyText1).translate(),
-                                              style: ButtonStyle(
-                                                backgroundColor: MaterialStateProperty.all(Get.theme.primaryColor),
-                                              ),
-                                            ),
-                                          )
-                                        ]))
-                                  ],
-                                );
-                              }),
-                            );
-                          });
-                        });
-                  }
-                });
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Image.asset(
-                  Images.translation,
-                  height: 25,
-                  width: 25,
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            InkWell(
-              onTap: () async {
-                bool isLogin = await global.isLogin();
-                if (isLogin) {
-                  CustomerSupportController customerSupportController = Get.find<CustomerSupportController>();
-                  AstrologerAssistantController astrologerAssistantController = Get.find<AstrologerAssistantController>();
-                  global.showOnlyLoaderDialog(context);
-                  await customerSupportController.getCustomerTickets();
-                  await astrologerAssistantController.getChatWithAstrologerAssisteant();
-                  global.hideLoader();
-                  Get.to(() => CustomerSupportChat());
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: Image.asset(
-                  Images.customerService,
-                  height: 25,
-                  width: 25,
-                ),
-              ),
-            ),*/
-          ],
+          preferredSize: Size.fromHeight(70.0),
         ),
         body: RefreshIndicator(
           onRefresh: () async {
@@ -267,11 +145,11 @@ class HomeScreen extends StatelessWidget {
           },
           child: GetBuilder<BottomNavigationController>(
               builder: (bottomController) {
-            return Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                SingleChildScrollView(
-                  child: Column(
+            return SingleChildScrollView(
+              child: Column(
+                //alignment: Alignment.bottomCenter,
+                children: [
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       /*Padding(
@@ -307,7 +185,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w400,
                                         color: Colors.black38,
                                       ),
-                                    ).translate()
+                                    )
                                   ],
                                 ),
                               ),
@@ -370,7 +248,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -424,7 +302,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -475,7 +353,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -527,7 +405,7 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0,
                                       ),
-                                    ).translate(),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -663,7 +541,7 @@ class HomeScreen extends StatelessWidget {
                                                             fontWeight:
                                                                 FontWeight
                                                                     .w500),
-                                                  ).translate(),
+                                                  ),
                                                 ],
                                               ),
                                               GestureDetector(
@@ -743,7 +621,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -877,7 +755,7 @@ class HomeScreen extends StatelessWidget {
                                                                         .start,
                                                                 children: [
                                                                   Text('${homeController.myOrders[index].astrologerName}')
-                                                                      .translate(),
+                                                                      ,
                                                                   Text(
                                                                     DateConverter.dateTimeStringToDateOnly(homeController
                                                                         .myOrders[
@@ -950,7 +828,7 @@ class HomeScreen extends StatelessWidget {
                                                                                 : homeController.myOrders[index].orderType == "chat"
                                                                                     ? Padding(
                                                                                         padding: const EdgeInsets.all(10.0),
-                                                                                        child: Text('View Chat').translate(),
+                                                                                        child: Text('View Chat'),
                                                                                       )
                                                                                     : const SizedBox()),
                                                                       ),
@@ -987,7 +865,7 @@ class HomeScreen extends StatelessWidget {
                                                                               border: Border.all(color: Get.theme.primaryColor),
                                                                               borderRadius: BorderRadius.circular(15),
                                                                             ),
-                                                                            child: Text(homeController.myOrders[index].orderType == "call" ? 'Call Again' : 'Chat again').translate()),
+                                                                            child: Text(homeController.myOrders[index].orderType == "call" ? 'Call Again' : 'Chat again')),
                                                                       ),
                                                                     ],
                                                                   )
@@ -1047,7 +925,7 @@ class HomeScreen extends StatelessWidget {
                                                             fontWeight:
                                                                 FontWeight
                                                                     .w500),
-                                                  ).translate(),
+                                                  ),
                                                   Padding(
                                                     padding: EdgeInsets.only(
                                                         left: 5),
@@ -1083,7 +961,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -1331,7 +1209,7 @@ class HomeScreen extends StatelessWidget {
                                                                                   fontSize: 12,
                                                                                   fontWeight: FontWeight.w300,
                                                                                 ),
-                                                                              ).translate(),
+                                                                              ),
                                                                             ],
                                                                           ),
                                                                         ),
@@ -1346,7 +1224,7 @@ class HomeScreen extends StatelessWidget {
                                                                             color:
                                                                                 Colors.white,
                                                                           ),
-                                                                        ).translate(),
+                                                                        ),
                                                                       ],
                                                                     ),
                                                                   )
@@ -1397,7 +1275,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () {
                                                   bottomController
@@ -1414,7 +1292,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -1527,7 +1405,7 @@ class HomeScreen extends StatelessWidget {
                                                               FontWeight.w400,
                                                           letterSpacing: 0,
                                                         ),
-                                                      ).translate(),
+                                                      ),
                                                       Text(
                                                         '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${bottomNavigationController.astrologerList[index].charge}/min',
                                                         textAlign:
@@ -1542,7 +1420,7 @@ class HomeScreen extends StatelessWidget {
                                                               FontWeight.w300,
                                                           letterSpacing: 0,
                                                         ),
-                                                      ).translate(),
+                                                      ),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -1617,7 +1495,7 @@ class HomeScreen extends StatelessWidget {
                                                                   .copyWith(
                                                                       color: Colors
                                                                           .green),
-                                                            ).translate(),
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -1665,7 +1543,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () async {
                                                   BlogController
@@ -1697,7 +1575,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -1983,7 +1861,7 @@ class HomeScreen extends StatelessWidget {
                                                                       letterSpacing:
                                                                           0,
                                                                     ),
-                                                                  ).translate(),
+                                                                  ),
                                                                 ),
                                                               ),
                                                               Row(
@@ -2014,7 +1892,7 @@ class HomeScreen extends StatelessWidget {
                                                                         letterSpacing:
                                                                             0,
                                                                       ),
-                                                                    ).translate(),
+                                                                    ),
                                                                   ),
                                                                   Text(
                                                                     "${DateFormat("MMM d,yyyy").format(DateTime.parse(homeController.blogList[index].createdAt))}",
@@ -2089,7 +1967,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () async {
                                                   final AstromallController
@@ -2121,7 +1999,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -2236,7 +2114,7 @@ class HomeScreen extends StatelessWidget {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold),
-                                                      ).translate(),
+                                                      ),
                                                     )
                                                   ],
                                                 ),
@@ -2273,7 +2151,7 @@ class HomeScreen extends StatelessWidget {
                                           .theme.primaryTextTheme.subtitle1!
                                           .copyWith(
                                               fontWeight: FontWeight.w500),
-                                    ).translate(),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 200,
@@ -2364,7 +2242,7 @@ class HomeScreen extends StatelessWidget {
                                                 .copyWith(
                                                     fontWeight:
                                                         FontWeight.w500),
-                                          ).translate(),
+                                          ),
                                           GestureDetector(
                                             onTap: () async {
                                               global.showOnlyLoaderDialog(
@@ -2383,7 +2261,7 @@ class HomeScreen extends StatelessWidget {
                                                 fontWeight: FontWeight.w400,
                                                 color: Colors.grey[500],
                                               ),
-                                            ).translate(),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -2456,7 +2334,7 @@ class HomeScreen extends StatelessWidget {
                                                               FontWeight.w300,
                                                           fontSize: 13,
                                                         ),
-                                                      ).translate(),
+                                                      ),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -2570,7 +2448,7 @@ class HomeScreen extends StatelessWidget {
                                                                         fontWeight:
                                                                             FontWeight.w400,
                                                                       ),
-                                                                    ).translate(),
+                                                                    ),
                                                                   ),
                                                                   Text(
                                                                     '${homeController.clientReviews[index].location}',
@@ -2583,7 +2461,7 @@ class HomeScreen extends StatelessWidget {
                                                                           FontWeight
                                                                               .w300,
                                                                     ),
-                                                                  ).translate(),
+                                                                  ),
                                                                 ],
                                                               ),
                                                             ),
@@ -2657,7 +2535,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () {
                                                   Get.to(() =>
@@ -2673,7 +2551,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -2806,7 +2684,7 @@ class HomeScreen extends StatelessWidget {
                                                                   letterSpacing:
                                                                       0,
                                                                 ),
-                                                              ).translate(),
+                                                              ),
                                                             ),
                                                             Row(
                                                               mainAxisAlignment:
@@ -2837,7 +2715,7 @@ class HomeScreen extends StatelessWidget {
                                                                     letterSpacing:
                                                                         0,
                                                                   ),
-                                                                ).translate(),
+                                                                ),
                                                                 Text(
                                                                   "${DateFormat("MMM d,yyyy").format(DateTime.parse(homeController.astroNews[index].newsDate.toString()))}",
                                                                   textAlign:
@@ -2931,7 +2809,7 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text("Today's Panchang").translate(),
+                                        Text("Today's Panchang"),
                                         Container(
                                           height: 25,
                                           width: 90,
@@ -2954,7 +2832,7 @@ class HomeScreen extends StatelessWidget {
                                               letterSpacing: -0.2,
                                               wordSpacing: 0,
                                             ),
-                                          ).translate(),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -3031,7 +2909,7 @@ class HomeScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500),
-                                              ).translate(),
+                                              ),
                                               GestureDetector(
                                                 onTap: () {
                                                   Get.to(() =>
@@ -3047,7 +2925,7 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.grey[500],
                                                   ),
-                                                ).translate(),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -3211,7 +3089,7 @@ class HomeScreen extends StatelessWidget {
                                                                 letterSpacing:
                                                                     0,
                                                               ),
-                                                            ).translate(),
+                                                            ),
                                                             Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
@@ -3278,11 +3156,11 @@ class HomeScreen extends StatelessWidget {
                                   'I am the Product Manager',
                                   style: Get.theme.primaryTextTheme.subtitle1!
                                       .copyWith(fontWeight: FontWeight.w500),
-                                ).translate(),
+                                ),
                                 Text(
                                   'share your feedback to help us improve the app',
                                   style: TextStyle(fontSize: 10),
-                                ).translate(),
+                                ),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -3363,7 +3241,7 @@ class HomeScreen extends StatelessWidget {
                                           style: Get
                                               .theme.primaryTextTheme.bodySmall!
                                               .copyWith(color: Colors.white),
-                                        ).translate(),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -3414,7 +3292,7 @@ class HomeScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 0.5,
                                     ),
-                                  ).translate(),
+                                  ),
                                 ],
                               ),
                               Column(
@@ -3446,7 +3324,7 @@ class HomeScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 0.5,
                                     ),
-                                  ).translate(),
+                                  ),
                                 ],
                               ),
                               Column(
@@ -3478,7 +3356,7 @@ class HomeScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 0.5,
                                     ),
-                                  ).translate(),
+                                  ),
                                 ],
                               ),
                             ],
@@ -3487,133 +3365,133 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
 
-                /*Card(
-                  elevation: 0,
-                  margin: EdgeInsets.only(top: 6),
-                  shape:
-                      RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 5, right: 5, bottom: 6),
-                    child: Row(
-                      children: [
-                        */ /*Expanded(
-                          child: GestureDetector(
-                            onTap: () async {
-                              global.showOnlyLoaderDialog(context);
-                              bottomController.astrologerList = [];
-                              bottomController.astrologerList.clear();
-                              bottomController.isAllDataLoaded = false;
-                              bottomController.update();
-                              await bottomController.getAstrologerList(
-                                  isLazyLoading: false);
-                              global.hideLoader();
-                              bottomController.setBottomIndex(1, 0);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(bottom: 3),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[350],
-                                borderRadius: BorderRadius.circular(7),
-                              ),
+                  /*Card(
+                    elevation: 0,
+                    margin: EdgeInsets.only(top: 6),
+                    shape:
+                        RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 5, right: 5, bottom: 6),
+                      child: Row(
+                        children: [
+                          */ /*Expanded(
+                            child: GestureDetector(
+                              onTap: () async {
+                                global.showOnlyLoaderDialog(context);
+                                bottomController.astrologerList = [];
+                                bottomController.astrologerList.clear();
+                                bottomController.isAllDataLoaded = false;
+                                bottomController.update();
+                                await bottomController.getAstrologerList(
+                                    isLazyLoading: false);
+                                global.hideLoader();
+                                bottomController.setBottomIndex(1, 0);
+                              },
                               child: Container(
-                                height: 40,
-                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(bottom: 3),
                                 decoration: BoxDecoration(
-                                  color: Get.theme.primaryColor,
+                                  color: Colors.grey[350],
                                   borderRadius: BorderRadius.circular(7),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.solidCommentDots,
-                                      size: 13,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5),
-                                      child: Text(
-                                        'Chat with Astrologers',
-                                        style: Get
-                                            .theme.primaryTextTheme.bodySmall!
-                                            .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          letterSpacing: -0.2,
-                                          wordSpacing: 0,
+                                child: Container(
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Get.theme.primaryColor,
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        FontAwesomeIcons.solidCommentDots,
+                                        size: 13,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          'Chat with Astrologers',
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            letterSpacing: -0.2,
+                                            wordSpacing: 0,
+                                          ),
                                         ),
-                                      ).translate(),
-                                    ),
-                                  ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),*/ /*
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () async {
-                              global.showOnlyLoaderDialog(context);
-                              bottomController.astrologerList = [];
-                              bottomController.astrologerList.clear();
-                              bottomController.isAllDataLoaded = false;
-                              bottomController.update();
-                              await bottomController.getAstrologerList(
-                                  isLazyLoading: false);
-                              global.hideLoader();
+                          SizedBox(
+                            width: 10,
+                          ),*/ /*
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () async {
+                                global.showOnlyLoaderDialog(context);
+                                bottomController.astrologerList = [];
+                                bottomController.astrologerList.clear();
+                                bottomController.isAllDataLoaded = false;
+                                bottomController.update();
+                                await bottomController.getAstrologerList(
+                                    isLazyLoading: false);
+                                global.hideLoader();
 
-                              Get.to(CallScreen());
+                                Get.to(CallScreen());
 
-                              //bottomController.setBottomIndex(3, 0);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(bottom: 3),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[350],
-                                borderRadius: BorderRadius.circular(7),
-                              ),
+                                //bottomController.setBottomIndex(3, 0);
+                              },
                               child: Container(
-                                height: 40,
-                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(bottom: 3),
                                 decoration: BoxDecoration(
-                                  color: Get.theme.primaryColor,
+                                  color: Colors.grey[350],
                                   borderRadius: BorderRadius.circular(7),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.phone,
-                                      size: 18,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5),
-                                      child: Text(
-                                        'Call with Advisor',
-                                        style: Get
-                                            .theme.primaryTextTheme.bodySmall!
-                                            .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          letterSpacing: -0.2,
-                                          wordSpacing: 0,
+                                child: Container(
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Get.theme.primaryColor,
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.phone,
+                                        size: 18,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          'Call with Advisor',
+                                          style: Get
+                                              .theme.primaryTextTheme.bodySmall!
+                                              .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            letterSpacing: -0.2,
+                                            wordSpacing: 0,
+                                          ),
                                         ),
-                                      ).translate(),
-                                    ),
-                                  ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                )*/
-              ],
+                  )*/
+                ],
+              ),
             );
           }),
         ),
@@ -3623,33 +3501,30 @@ class HomeScreen extends StatelessWidget {
             decoration: BoxDecoration(
                 gradient: gradient.btnGradient,
                 borderRadius: const BorderRadius.all(Radius.circular(15))),
-            child: Expanded(
-              child: TextButton(
-                onPressed: () async {
-                  global.showOnlyLoaderDialog(context);
-                  bottomController.astrologerList = [];
-                  bottomController.astrologerList.clear();
-                  bottomController.isAllDataLoaded = false;
-                  bottomController.update();
-                  await bottomController.getAstrologerList(
-                      isLazyLoading: false);
-                  global.hideLoader();
+            child: TextButton(
+              onPressed: () async {
+                global.showOnlyLoaderDialog(context);
+                bottomController.astrologerList = [];
+                bottomController.astrologerList.clear();
+                bottomController.isAllDataLoaded = false;
+                bottomController.update();
+                await bottomController.getAstrologerList(isLazyLoading: false);
+                global.hideLoader();
 
-                  Get.to(CallScreen());
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.call,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      'Call With Advisor',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
+                Get.to(CallScreen());
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.call,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'Call With Advisor',
+                    style: TextStyle(color: Colors.white),
+                  )
+                ],
               ),
             ),
           );

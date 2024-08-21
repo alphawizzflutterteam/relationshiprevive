@@ -16,15 +16,13 @@ class DropDownWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DropDownController>(builder: (c) {
       return DropdownButton(
-        dropdownColor: Get.theme.cardColor,
+          dropdownColor: Get.theme.cardColor,
           isExpanded: true,
-
           underline: Container(
             height: 1,
             color: Get.theme.primaryColor,
           ),
           alignment: Alignment.bottomLeft,
-          dropdownColor: Get.theme.cardColor,
           value: dropDownController.innitialValue(callId, item),
           hint: Text(hint ?? 'hint'),
           items: item.map<DropdownMenuItem<String>>((String value) {
