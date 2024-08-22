@@ -28,7 +28,8 @@ import 'package:AstroGuru/utils/global.dart' as global;
 // ignore: must_be_immutable
 class RegisterUserScreen extends StatelessWidget {
   RegisterUserScreen({Key? key}) : super(key: key);
-  final UserProfileController userProfileController = Get.find<UserProfileController>();
+  final UserProfileController userProfileController =
+      Get.find<UserProfileController>();
   SearchController1 searchController = Get.find<SearchController1>();
 
   @override
@@ -42,81 +43,93 @@ class RegisterUserScreen extends StatelessWidget {
           )),
       body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-            child: GetBuilder<UserProfileController>(builder: (userProfile) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: Stack(
-                      children: [
-                        userProfileController.userFile != null && userProfileController.userFile != ''
-                            ? Container(
-                          height: 140,
-                          width: 140,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7),
-                              color: Get.theme.primaryColor,
-                              image: DecorationImage(
-                                image: FileImage(userProfileController.userFile!),
-                                fit: BoxFit.cover,
-                              )),
-                        )
-                            : GetBuilder<SplashController>(builder: (splashController) {
-                          return Container(
-                              height: 140,
-                              width: 140,
-                              alignment: Alignment.center,
-                              child: userProfileController.splashController.currentUser?.profile == "" || userProfileController.splashController.currentUser?.profile == null
-                                  ? CircleAvatar(
-                                  radius: 35,
-                                  backgroundColor: Colors.white,
-                                  child: Image.asset(
-                                    Images.deafultUser,
-                                    fit: BoxFit.fill,
-                                    height: 50,
-                                  ))
-                                  : Container(
+        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+        child: GetBuilder<UserProfileController>(builder: (userProfile) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Stack(
+                  children: [
+                    userProfileController.userFile != null &&
+                            userProfileController.userFile != ''
+                        ? Container(
+                            height: 140,
+                            width: 140,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7),
+                                color: Get.theme.primaryColor,
+                                image: DecorationImage(
+                                  image: FileImage(
+                                      userProfileController.userFile!),
+                                  fit: BoxFit.cover,
+                                )),
+                          )
+                        : GetBuilder<SplashController>(
+                            builder: (splashController) {
+                            return Container(
                                 height: 140,
                                 width: 140,
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(7),
-                                    color: Get.theme.primaryColor,
-                                    image: DecorationImage(
-                                      image: NetworkImage("${global.imgBaseurl}${userProfileController.splashController.currentUser?.profile}"),
-                                      fit: BoxFit.cover,
-                                    )),
-                              ));
-                        }),
-                        Positioned(
-                            bottom: -5,
-                            right: -8,
-                            child: GestureDetector(
-                              onTap: () async {
-                                await userProfileController.getZodicImg();
-                                Get.defaultDialog(
-                                    titlePadding: EdgeInsets.all(0),
-                                    contentPadding: EdgeInsets.all(0),
-                                    title: "",
-                                    content: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Center(
-                                            child: Text(
-                                              'Change Profile Pic',
-                                              style: Get.textTheme.headline6!.copyWith(color: Colors.grey, fontSize: 16),
+                                child: userProfileController.splashController
+                                                .currentUser?.profile ==
+                                            "" ||
+                                        userProfileController.splashController
+                                                .currentUser?.profile ==
+                                            null
+                                    ? CircleAvatar(
+                                        radius: 35,
+                                        backgroundColor: Colors.white,
+                                        child: Image.asset(
+                                          Images.deafultUser,
+                                          fit: BoxFit.fill,
+                                          height: 50,
+                                        ))
+                                    : Container(
+                                        height: 140,
+                                        width: 140,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(7),
+                                            color: Get.theme.primaryColor,
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "${global.imgBaseurl}${userProfileController.splashController.currentUser?.profile}"),
+                                              fit: BoxFit.cover,
                                             )),
-                                        Divider(
-                                          thickness: 2,
-                                        ),
-                                        Padding(
+                                      ));
+                          }),
+                    Positioned(
+                        bottom: -5,
+                        right: -8,
+                        child: GestureDetector(
+                          onTap: () async {
+                            //  await userProfileController.getZodicImg();
+                            Get.defaultDialog(
+                                titlePadding: EdgeInsets.all(0),
+                                contentPadding: EdgeInsets.all(0),
+                                backgroundColor: Colors.white,
+                                title: "",
+                                content: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Center(
+                                        child: Text(
+                                      'Change Profile Pic',
+                                      style: Get.textTheme.headline6!.copyWith(
+                                          color: Colors.grey, fontSize: 16),
+                                    )),
+                                    Divider(
+                                      thickness: 2,
+                                    ),
+                                    /*Padding(
                                           padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
                                           child: Text(
                                             'Select from Library',
@@ -250,95 +263,140 @@ class RegisterUserScreen extends StatelessWidget {
                                               )
                                             ],
                                           ),
+                                        ),*/
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 6.0, horizontal: 8.0),
+                                      child: Text(
+                                        'Upload from Phone',
+                                        style: TextStyle(
+                                          color: Colors.grey,
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
-                                          child: Text(
-                                            'Upload from Phone',
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                            mainAxisSize: MainAxisSize.min,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: Get.width,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Column(
                                             children: [
-                                              Column(
-                                                children: [
-                                                  IconButton(
-                                                    onPressed: () async {
-                                                      userProfileController.imageFile = await userProfileController.imageService(ImageSource.camera);
-                                                      userProfileController.userFile = userProfileController.imageFile;
-                                                      userProfileController.profile = base64.encode(userProfileController.imageFile!.readAsBytesSync());
-                                                      userProfileController.update();
-                                                      Get.back();
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.camera,
-                                                      size: 40,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                  Text('Camera', style: Get.textTheme.bodySmall)
-                                                ],
+                                              IconButton(
+                                                onPressed: () async {
+                                                  userProfileController
+                                                          .imageFile =
+                                                      await userProfileController
+                                                          .imageService(
+                                                              ImageSource
+                                                                  .camera);
+                                                  userProfileController
+                                                          .userFile =
+                                                      userProfileController
+                                                          .imageFile;
+                                                  userProfileController
+                                                          .profile =
+                                                      base64.encode(
+                                                          userProfileController
+                                                              .imageFile!
+                                                              .readAsBytesSync());
+                                                  userProfileController
+                                                      .update();
+                                                  Get.back();
+                                                },
+                                                icon: Icon(
+                                                  Icons.camera,
+                                                  size: 40,
+                                                  color: Colors.grey,
+                                                ),
                                               ),
-                                              Column(
-                                                children: [
-                                                  IconButton(
-                                                    onPressed: () async {
-                                                      userProfileController.imageFile = await userProfileController.imageService(ImageSource.gallery);
-                                                      userProfileController.userFile = userProfileController.imageFile;
-                                                      userProfileController.profile = base64.encode(userProfileController.imageFile!.readAsBytesSync());
-                                                      userProfileController.update();
-                                                      Get.back();
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.picture_in_picture,
-                                                      size: 40,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    ' Gallery',
-                                                    style: Get.textTheme.bodySmall,
-                                                    textAlign: TextAlign.center,
-                                                  )
-                                                ],
-                                              )
+                                              Text('Camera',
+                                                  style:
+                                                      Get.textTheme.bodySmall)
                                             ],
                                           ),
-                                        )
-                                      ],
-                                    ));
-                              },
-                              child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                  child: Icon(
-                                    Icons.cloud_upload,
-                                    color: Get.theme.primaryColor,
-                                  )),
-                            )),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Center(child: Text('+910000000000')),
-                  SizedBox(height: 10),
-                  TextFieldWidget(
-                    controller: userProfileController.nameController,
-                    focusNode: userProfileController.nameFocus,
-                    labelText: 'Name',
-                    keyboardType: TextInputType.name,
-                    inputFormatter: [
-                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
-                    ],
-                  ),
-                  Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                          Column(
+                                            children: [
+                                              IconButton(
+                                                onPressed: () async {
+                                                  userProfileController
+                                                          .imageFile =
+                                                      await userProfileController
+                                                          .imageService(
+                                                              ImageSource
+                                                                  .gallery);
+                                                  userProfileController
+                                                          .userFile =
+                                                      userProfileController
+                                                          .imageFile;
+                                                  userProfileController
+                                                          .profile =
+                                                      base64.encode(
+                                                          userProfileController
+                                                              .imageFile!
+                                                              .readAsBytesSync());
+                                                  userProfileController
+                                                      .update();
+                                                  Get.back();
+                                                },
+                                                icon: Icon(
+                                                  Icons.picture_in_picture,
+                                                  size: 40,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              Text(
+                                                ' Gallery',
+                                                style: Get.textTheme.bodySmall,
+                                                textAlign: TextAlign.center,
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ));
+                          },
+                          child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.white),
+                              child: Icon(
+                                Icons.cloud_upload,
+                                color: Get.theme.primaryColor,
+                              )),
+                        )),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+              Center(child: Text('+910000000000')),
+              SizedBox(height: 10),
+              TextFieldWidget(
+                controller: userProfileController.nameController,
+                focusNode: userProfileController.nameFocus,
+                labelText: 'Name',
+                keyboardType: TextInputType.name,
+                inputFormatter: [
+                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                ],
+              ),
+              TextFieldWidget(
+                inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                controller: userProfileController.phoneController,
+                labelText: 'Mobile',
+                hintText: '',
+                maxlen: 10,
+                keyboardType: TextInputType.numberWithOptions(
+                    decimal: false, signed: true),
+              ),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     TextFieldLabelWidget(
                       label: 'Gender',
                     ),
@@ -374,124 +432,133 @@ class RegisterUserScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 78)
                   ]),
-                  InkWell(
-                    onTap: () async {
-                      userProfileController.nameFocus.unfocus();
-                      var datePicked = await DatePicker.showSimpleDatePicker(
-                        context,
-                        initialDate: DateTime(1994),
-                        firstDate: DateTime(1960),
-                        lastDate: DateTime.now(),
-                        dateFormat: "dd-MM-yyyy",
-                        itemTextStyle: Get.theme.textTheme.subtitle1!.copyWith(fontSize: 15, fontWeight: FontWeight.w400, letterSpacing: 0, color: Colors.black),
-                        titleText: 'Select Birth Date',
-                        textColor: Get.theme.primaryColor,
-                      );
-                      if (datePicked != null) {
-                        userProfileController.dateController.text = formatDate(datePicked, [dd, '-', mm, '-', yyyy]);
-                        userProfileController.pickedDate = datePicked;
-                        userProfileController.update();
-                      } else {
-                        userProfileController.dateController.text = formatDate(DateTime(1994), [dd, '-', mm, '-', yyyy]);
-                        userProfileController.pickedDate = DateTime(1994);
-                        userProfileController.update();
-                      }
-                    },
-                    child: IgnorePointer(
-                      child: TextFieldWidget(
-                        controller: userProfileController.dateController,
-                        labelText: 'Date of Birth',
-                      ),
-                    ),
+              InkWell(
+                onTap: () async {
+                  userProfileController.nameFocus.unfocus();
+                  var datePicked = await DatePicker.showSimpleDatePicker(
+                    context,
+                    initialDate: DateTime(1994),
+                    firstDate: DateTime(1960),
+                    lastDate: DateTime.now(),
+                    dateFormat: "dd-MM-yyyy",
+                    itemTextStyle: Get.theme.textTheme.subtitle1!.copyWith(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0,
+                        color: Colors.black),
+                    titleText: 'Select Birth Date',
+                    textColor: Get.theme.primaryColor,
+                  );
+                  if (datePicked != null) {
+                    userProfileController.dateController.text =
+                        formatDate(datePicked, [dd, '-', mm, '-', yyyy]);
+                    userProfileController.pickedDate = datePicked;
+                    userProfileController.update();
+                  } else {
+                    userProfileController.dateController.text =
+                        formatDate(DateTime(1994), [dd, '-', mm, '-', yyyy]);
+                    userProfileController.pickedDate = DateTime(1994);
+                    userProfileController.update();
+                  }
+                },
+                child: IgnorePointer(
+                  child: TextFieldWidget(
+                    controller: userProfileController.dateController,
+                    labelText: 'Date of Birth',
                   ),
-                  InkWell(
-                    onTap: () async {
-                      userProfileController.nameFocus.unfocus();
-                      final format = DateFormat("hh:mm a");
-                      final time = await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay(hour: 12, minute: 30),
-                          builder: (context, child) {
-                            return Theme(
-                              data: ThemeData(
-                                colorScheme: ColorScheme.light(
-                                  primary: Get.theme.primaryColor,
-                                  onBackground: Colors.white,
-                                ),
-                              ),
-                              child: child ?? SizedBox(),
-                            );
-                          });
-                      String formatTimeOfDay(TimeOfDay tod) {
-                        final now = new DateTime.now();
-                        final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
-                        final format = DateFormat.jm(); //"6:00 AM"
-                        return format.format(dt);
-                      }
+                ),
+              ),
+              /*InkWell(
+                onTap: () async {
+                  userProfileController.nameFocus.unfocus();
+                  final format = DateFormat("hh:mm a");
+                  final time = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay(hour: 12, minute: 30),
+                      builder: (context, child) {
+                        return Theme(
+                          data: ThemeData(
+                            colorScheme: ColorScheme.light(
+                              primary: Get.theme.primaryColor,
+                              onBackground: Colors.white,
+                            ),
+                          ),
+                          child: child ?? SizedBox(),
+                        );
+                      });
+                  String formatTimeOfDay(TimeOfDay tod) {
+                    final now = new DateTime.now();
+                    final dt = DateTime(
+                        now.year, now.month, now.day, tod.hour, tod.minute);
+                    final format = DateFormat.jm(); //"6:00 AM"
+                    return format.format(dt);
+                  }
 
-                      if (time != null) {
-                        userProfileController.timeController.text = formatTimeOfDay(time);
-                      } else {
-                        userProfileController.timeController.text = formatTimeOfDay(TimeOfDay(hour: 12, minute: 30));
-                      }
-                    },
-                    child: IgnorePointer(
-                      child: TextFieldWidget(
-                        controller: userProfileController.timeController,
-                        labelText: 'Time of Birth',
-                      ),
-                    ),
+                  if (time != null) {
+                    userProfileController.timeController.text =
+                        formatTimeOfDay(time);
+                  } else {
+                    userProfileController.timeController.text =
+                        formatTimeOfDay(TimeOfDay(hour: 12, minute: 30));
+                  }
+                },
+                child: IgnorePointer(
+                  child: TextFieldWidget(
+                    controller: userProfileController.timeController,
+                    labelText: 'Time of Birth',
                   ),
-                  InkWell(
-                    onTap: () {
-                      userProfileController.nameFocus.unfocus();
-                      Get.to(() => PlaceOfBirthSearchScreen(
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  userProfileController.nameFocus.unfocus();
+                  Get.to(() => PlaceOfBirthSearchScreen(
                         flagId: 3,
                       ));
-                    },
-                    child: IgnorePointer(
-                      child: TextFieldWidget(
-                        controller: userProfileController.placeBirthController,
-                        labelText: 'Place of Birth',
-                      ),
-                    ),
+                },
+                child: IgnorePointer(
+                  child: TextFieldWidget(
+                    controller: userProfileController.placeBirthController,
+                    labelText: 'Place of Birth',
                   ),
-                  TextFieldWidget(
-                    controller: userProfileController.currentAddressController,
-                    labelText: 'Current Address',
-                    focusNode: userProfileController.currentAddFocus,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      userProfileController.nameFocus.unfocus();
-                      userProfileController.currentAddFocus.unfocus();
-                      Get.to(() => PlaceOfBirthSearchScreen(
+                ),
+              ),*/
+              TextFieldWidget(
+                controller: userProfileController.currentAddressController,
+                labelText: 'Current Address',
+                focusNode: userProfileController.currentAddFocus,
+              ),
+              InkWell(
+                onTap: () {
+                  userProfileController.nameFocus.unfocus();
+                  userProfileController.currentAddFocus.unfocus();
+                  Get.to(() => PlaceOfBirthSearchScreen(
                         flagId: 4,
                       ));
-                    },
-                    child: IgnorePointer(
-                      child: TextFieldWidget(
-                        controller: userProfileController.addressController,
-                        labelText: 'City,State,Country',
-                      ),
-                    ),
-                  ),
-                  TextFieldWidget(
-                    inputFormatter: [FilteringTextInputFormatter.digitsOnly],
-                    controller: userProfileController.pinController,
-                    labelText: 'Pincode',
-                    hintText: '',
-                    maxlen: 6,
-                    keyboardType: TextInputType.numberWithOptions(decimal: false, signed: true),
-                  ),
-                  SizedBox(
-                    height: 70,
-                  )
-                ],
-              );
-            }),
-          )),
-      bottomSheet: GetBuilder<UserProfileController>(builder: (userProfileController) {
+                },
+                child: TextFieldWidget(
+                  controller: userProfileController.addressController,
+                  labelText: 'City,State,Country',
+                ),
+              ),
+              TextFieldWidget(
+                inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                controller: userProfileController.pinController,
+                labelText: 'Pincode',
+                hintText: '',
+                maxlen: 6,
+                keyboardType: TextInputType.numberWithOptions(
+                    decimal: false, signed: true),
+              ),
+              SizedBox(
+                height: 70,
+              )
+            ],
+          );
+        }),
+      )),
+      bottomSheet:
+          GetBuilder<UserProfileController>(builder: (userProfileController) {
         return CustomBottomButton(
           title: 'Submit',
           onTap: () async {
@@ -504,9 +571,10 @@ class RegisterUserScreen extends StatelessWidget {
               );
             } else {
               global.showOnlyLoaderDialog(context);
-              searchController.update();
-              await userProfileController.updateCurrentUser(global.sp!.getInt("currentUserId") ?? 0);
-              global.hideLoader();
+              // searchController.update();
+              /*await userProfileController
+                  .updateCurrentUser(global.sp!.getInt("currentUserId") ?? 0);*/
+              await userProfileController.sendOtp();
             }
           },
         );

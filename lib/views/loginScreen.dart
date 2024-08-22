@@ -217,10 +217,11 @@ class LoginScreen extends StatelessWidget {
                                         loginController.validedPhone();
                                     if (isValid) {
                                       global.showOnlyLoaderDialog(context);
-                                      await loginController.loginAndSignupUser(
+                                      /*await loginController.loginAndSignupUser(
                                           int.parse(loginController
-                                              .phoneController.text));
+                                              .phoneController.text));*/
                                       //await loginController.verifyOTP();
+                                      loginController.sendOtp();
                                     } else {
                                       global.showToast(
                                         message: loginController.errorText!,

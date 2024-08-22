@@ -10,6 +10,7 @@ import 'package:AstroGuru/controllers/IntakeController.dart';
 import 'package:AstroGuru/controllers/chatController.dart';
 import 'package:AstroGuru/controllers/razorPayController.dart';
 import 'package:AstroGuru/controllers/splashController.dart';
+import 'package:AstroGuru/controllers/themeController.dart';
 import 'package:AstroGuru/utils/images.dart';
 import 'package:AstroGuru/views/placeOfBrithSearchScreen.dart';
 import 'package:AstroGuru/widget/customBottomButton.dart';
@@ -22,6 +23,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_holo_date_picker/date_picker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:AstroGuru/utils/global.dart' as global;
 import 'package:google_translator/google_translator.dart';
@@ -85,14 +87,64 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      appBar: PreferredSize(
+        child: Container(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          child: Padding(
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                top: 15.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () => Get.back(),
+                    icon: Icon(
+                      Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
+                      color: Get.theme.iconTheme.color,
+                    ),
+                  ),
+                  Text(
+                    '${widget.type} Intake Form',
+                    style: Get.theme.primaryTextTheme.headline6!
+                        .copyWith(fontWeight: FontWeight.normal),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: InkWell(
+                      onTap: () async {
+                        /*bool isLogin = await global.isLogin();
+                        global.showOnlyLoaderDialog(context);
+                        await walletController.getAmount();
+                        global.hideLoader();
+                        if (isLogin) {
+                          Get.to(() => AddmoneyToWallet());
+                        }*/
+                      },
+                      child: Image.asset(
+                        Images.wallet,
+                        height: 25,
+                        width: 25,
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+          decoration: BoxDecoration(
+            gradient: gradient.btnGradient,
+          ),
+        ),
+        preferredSize: Size.fromHeight(70.0),
+      ) /*AppBar(
         backgroundColor:
             Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
         title: Text(
           '${widget.type} Intake Form',
           style: Get.theme.primaryTextTheme.headline6!
               .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-        ) /**/,
+        ) */ /**/ /*,
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: Icon(
@@ -100,7 +152,8 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
             color: Get.theme.iconTheme.color,
           ),
         ),
-      ),
+      )*/
+      ,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -854,6 +907,11 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
               callId: body["callId"],
               fcmToken: body["fcmToken"] ?? "",
             ));
+      } else if (body["notificationType"] == 100) {
+        FlutterRingtonePlayer().stop();
+        Get.back();
+        _timer?.cancel();
+        Fluttertoast.showToast(msg: 'Call rejected by advisor');
       }
     });
   }

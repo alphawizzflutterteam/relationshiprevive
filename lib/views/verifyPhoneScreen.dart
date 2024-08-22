@@ -11,8 +11,14 @@ import 'package:google_translator/google_translator.dart';
 class VerifyPhoneScreen extends StatelessWidget {
   final String phoneNumber;
   final String verificationId;
+  final String otp;
+  bool? fromSignup;
   VerifyPhoneScreen(
-      {Key? key, required this.phoneNumber, required this.verificationId})
+      {Key? key,
+      required this.phoneNumber,
+      required this.verificationId,
+      required this.otp,
+      this.fromSignup})
       : super(key: key);
   final LoginController loginController = Get.find<LoginController>();
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -49,11 +55,15 @@ class VerifyPhoneScreen extends StatelessWidget {
                   'OTP Send to ${loginController.countryCode}-$phoneNumber',
                   style: TextStyle(color: Colors.green),
                 ),
+                Text(
+                  'OTP: $otp',
+                  style: TextStyle(color: Colors.green),
+                ),
                 SizedBox(
                   height: 30,
                 ),
                 OtpTextField(
-                  numberOfFields: 6,
+                  numberOfFields: 4,
                   showFieldAsBox: true,
                   onCodeChanged: (value) {},
                   onSubmit: (value) {
@@ -78,17 +88,34 @@ class VerifyPhoneScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       try {
-                        PhoneAuthCredential credential =
+                        /* PhoneAuthCredential credential =
                             PhoneAuthProvider.credential(
                           verificationId: verificationId,
                           smsCode: loginController.smsCode,
-                        );
-                        print('validation id${loginController.verificationId}');
+                        );*/
+
+                        if (loginController.smsCode == otp) {
+                          global.showOnlyLoaderDialog(context);
+
+                          if (fromSignup ?? false) {
+                            loginController.userRegister();
+                          } else {
+                            await loginController
+                                .loginAndSignupUser(int.parse(phoneNumber));
+                          }
+                        } else {
+                          global.showToast(
+                            message: "OTP INVALID",
+                            textColor: Colors.white,
+                            bgColor: Colors.red,
+                          );
+                        }
+
+                        /*print('validation id${loginController.verificationId}');
                         print('smscode ${loginController.smsCode}');
-                        global.showOnlyLoaderDialog(context);
                         await auth.signInWithCredential(credential);
                         await loginController
-                            .loginAndSignupUser(int.parse(phoneNumber));
+                            .loginAndSignupUser(int.parse(phoneNumber));*/
                       } catch (e) {
                         global.hideLoader();
 
@@ -161,7 +188,7 @@ class VerifyPhoneScreen extends StatelessWidget {
                                           loginController.timer();
                                           loginController.phoneController.text =
                                               phoneNumber;
-                                          loginController.verifyOTP();
+                                          loginController.sendOtp();
                                         },
                                         child: Text(
                                           'Resend OTP on SMS',

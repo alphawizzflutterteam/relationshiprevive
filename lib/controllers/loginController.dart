@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:AstroGuru/controllers/homeController.dart';
 import 'package:AstroGuru/controllers/splashController.dart';
+import 'package:AstroGuru/controllers/userProfileController.dart';
 import 'package:AstroGuru/main.dart';
 import 'package:AstroGuru/model/login_model.dart';
 import 'package:AstroGuru/utils/services/api_helper.dart';
@@ -113,10 +114,77 @@ class LoginController extends GetxController {
         Get.to(() => VerifyPhoneScreen(
               phoneNumber: phoneController.text,
               verificationId: verificationId,
+              otp: '',
             ));
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
+  }
+
+  sendOtp() async {
+    print(phoneController.text);
+    print('country code $countryCode');
+    print('country code ${phoneController.text}');
+
+    try {
+      await global.checkBody().then((result) async {
+        if (result) {
+          await apiHelper.sendOtp(phoneController.text).then((result) async {
+            if (result.status == "200") {
+              print('${result.status}____________');
+              log('${result.recordList['otp']}____________');
+              var recordId = result.recordList["recordList"];
+
+              global.hideLoader();
+              LoginController loginController = Get.find<LoginController>();
+              loginController.timer();
+              Get.to(() => VerifyPhoneScreen(
+                    phoneNumber: phoneController.text,
+                    verificationId: verificationId,
+                    otp: result.recordList['otp'].toString(),
+                  ));
+              //Get.off(() => BottomNavigationBarScreen(index: 0));
+            } else {
+              global.hideLoader();
+              log("what\'s wrong ${result.status}");
+
+              global.showToast(
+                message: 'Failed to sign in',
+                textColor: global.textColor,
+                bgColor: global.toastBackGoundColor,
+              );
+            }
+          });
+        }
+      });
+    } catch (e) {}
+
+    /*await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: '${countryCode + phoneController.text}',
+      verificationCompleted: (PhoneAuthCredential credential) {},
+      verificationFailed: (FirebaseAuthException e) {
+        global.hideLoader();
+        print('exception $e');
+
+        global.showToast(
+          message: 'Please enter valid mobile number',
+          textColor: global.textColor,
+          bgColor: global.toastBackGoundColor,
+        );
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        verificationId = verificationId;
+        update();
+        global.hideLoader();
+        LoginController loginController = Get.find<LoginController>();
+        loginController.timer();
+        Get.to(() => VerifyPhoneScreen(
+              phoneNumber: phoneController.text,
+              verificationId: verificationId,
+            ));
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );*/
   }
 
   loginAndSignupUser(int phoneNumber) async {
@@ -168,5 +236,13 @@ class LoginController extends GetxController {
       global.hideLoader();
       print("Exception in loginAndSignupUser():-" + e.toString());
     }
+  }
+
+  userRegister() async {
+    UserProfileController userProfileController =
+        Get.find<UserProfileController>();
+
+    await userProfileController.registerUser();
+    global.hideLoader();
   }
 }

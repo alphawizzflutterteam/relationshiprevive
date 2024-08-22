@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:AstroGuru/controllers/splashController.dart';
 
 import 'package:AstroGuru/utils/services/api_helper.dart';
+import 'package:AstroGuru/views/verifyPhoneScreen.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,9 +17,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../model/dailyHoroscope_model.dart';
+import 'loginController.dart';
 
 class UserProfileController extends GetxController {
   TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   TextEditingController placeBirthController = TextEditingController();
@@ -123,6 +126,10 @@ class UserProfileController extends GetxController {
       toastMessage = "Please Enter your first name";
       update();
       return false;
+    } else if (phoneController.text.length != 10) {
+      toastMessage = "Please Enter valid mobile number";
+      update();
+      return false;
     }
     return true;
   }
@@ -204,6 +211,118 @@ class UserProfileController extends GetxController {
                 bgColor: global.toastBackGoundColor,
               );
               await splashController.getCurrentUserData();
+              Get.back();
+            } else {
+              global.showToast(
+                message: 'Failed to update profile please try again later!',
+                textColor: global.textColor,
+                bgColor: global.toastBackGoundColor,
+              );
+            }
+          });
+        }
+      });
+    } catch (e) {
+      print("Exception in updateUserProfile:-" + e.toString());
+    }
+  }
+
+  sendOtp() async {
+    print(phoneController.text);
+    print('country code ${phoneController.text}');
+
+    try {
+      await global.checkBody().then((result) async {
+        if (result) {
+          await apiHelper.sendOtp(phoneController.text).then((result) async {
+            if (result.status == "200") {
+              print('${result.status}____________');
+              log('${result.recordList['otp']}____________');
+              // var recordId = result.recordList["recordList"];
+
+              global.hideLoader();
+              LoginController loginController = Get.find<LoginController>();
+              loginController.timer();
+              Get.to(() => VerifyPhoneScreen(
+                    phoneNumber: phoneController.text,
+                    verificationId: "",
+                    otp: result.recordList['otp'].toString(),
+                    fromSignup: true,
+                  ));
+            } else {
+              global.hideLoader();
+              log("what\'s wrong ${result.status}");
+
+              global.showToast(
+                message: 'Failed to sign in',
+                textColor: global.textColor,
+                bgColor: global.toastBackGoundColor,
+              );
+            }
+          });
+        }
+      });
+    } catch (e) {}
+
+    /*await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: '${countryCode + phoneController.text}',
+      verificationCompleted: (PhoneAuthCredential credential) {},
+      verificationFailed: (FirebaseAuthException e) {
+        global.hideLoader();
+        print('exception $e');
+
+        global.showToast(
+          message: 'Please enter valid mobile number',
+          textColor: global.textColor,
+          bgColor: global.toastBackGoundColor,
+        );
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        verificationId = verificationId;
+        update();
+        global.hideLoader();
+        LoginController loginController = Get.find<LoginController>();
+        loginController.timer();
+        Get.to(() => VerifyPhoneScreen(
+              phoneNumber: phoneController.text,
+              verificationId: verificationId,
+            ));
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );*/
+  }
+
+  registerUser() async {
+    var basicDetails = {
+      "name": nameController.text,
+      "contactNo": phoneController.text,
+      "gender": gender,
+      //"birthTime": timeController.text == "" ? null : timeController.text,
+      "birthDate": pickedDate == null ? null : pickedDate!.toIso8601String(),
+      // "birthPlace": placeBirthController.text == "" ? null : placeBirthController.text,
+      "addressLine1": currentAddressController.text == ""
+          ? null
+          : currentAddressController.text,
+      // "addressLine2": null,
+      "location": addressController.text == "" ? null : addressController.text,
+      "pincode":
+          pinController.text == "" ? null : int.parse(pinController.text),
+      "profile": profile == "" ? null : profile,
+    };
+    try {
+      await global.checkBody().then((result) async {
+        if (result) {
+          await apiHelper
+              .registerUserProfile(basicDetails)
+              .then((result) async {
+            if (result.status == "200") {
+              global.showToast(
+                message: 'User register successfully',
+                textColor: global.textColor,
+                bgColor: global.toastBackGoundColor,
+              );
+              await splashController.getCurrentUserData();
+              Get.back();
               Get.back();
             } else {
               global.showToast(

@@ -50,6 +50,31 @@ import '../../model/intake_model.dart';
 import '../../model/login_model.dart';
 
 class APIHelper {
+  Future<dynamic> sendOtp(String mobile) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/sendOtp'),
+        body: json.encode({"contactNo": mobile}),
+        headers: await global.getApiHeaders(false),
+      );
+      log('${response.request?.url}');
+      log('${json.encode(mobile)}');
+
+      print(response);
+      dynamic recordList;
+      if (response.statusCode == 200) {
+        recordList = json.decode(response.body);
+
+        log('token at login:- ${response.body}');
+      } else {
+        recordList = null;
+      }
+      return getAPIResult(response, recordList);
+    } catch (e) {
+      print("Exception in loginSignUp():-" + e.toString());
+    }
+  }
+
   // login & signup
   Future<dynamic> loginSignUp(LoginModel loginModel) async {
     try {
@@ -1004,6 +1029,29 @@ class APIHelper {
         body: jsonEncode(basicDetails),
       );
       print('edit profile body:- ${jsonEncode(basicDetails)}');
+      print(response);
+      dynamic recordList;
+      log('${response.body}');
+
+      if (response.statusCode == 200) {
+        recordList = json.decode(response.body);
+      } else {
+        recordList = null;
+      }
+      return getAPIResult(response, recordList);
+    } catch (e) {
+      print('Exception:- in updateUserProfile:-' + e.toString());
+    }
+  }
+
+  Future<dynamic> registerUserProfile(var basicDetails) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/user/add'),
+        headers: await global.getApiHeaders(true),
+        body: jsonEncode(basicDetails),
+      );
+      print('register profile body:- ${jsonEncode(basicDetails)}');
       print(response);
       dynamic recordList;
       log('${response.body}');
@@ -3114,6 +3162,7 @@ class APIHelper {
 
   Future<dynamic> addIntakeDetail(IntakeModel basicDetails) async {
     try {
+      log('${basicDetails.toJson()}');
       final response = await http.post(
         Uri.parse('$baseUrl/chatRequest/addIntakeForm'),
         headers: await global.getApiHeaders(true),
