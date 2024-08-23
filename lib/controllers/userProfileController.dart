@@ -104,7 +104,8 @@ class UserProfileController extends GetxController {
   Future<File> imageService(ImageSource imageSource) async {
     try {
       final ImagePicker picker = ImagePicker();
-      XFile? selectedImage = await picker.pickImage(source: imageSource);
+      XFile? selectedImage = await picker.pickImage(
+          source: imageSource, imageQuality: 80, maxHeight: 400, maxWidth: 400);
       imageFile = File(selectedImage!.path);
 
       if (selectedImage != null) {

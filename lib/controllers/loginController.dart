@@ -206,6 +206,7 @@ class LoginController extends GetxController {
       await global.checkBody().then((result) async {
         if (result) {
           await apiHelper.loginSignUp(loginModel).then((result) async {
+            print('${result.status}___________');
             if (result.status == "200") {
               var recordId = result.recordList["recordList"];
               var token = result.recordList["token"];

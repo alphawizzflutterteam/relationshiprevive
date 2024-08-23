@@ -29,6 +29,7 @@ class AstrologyBlogDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(56),
             child: Stack(children: [

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:AstroGuru/controllers/callController.dart';
+import 'package:AstroGuru/controllers/splashController.dart';
 import 'package:AstroGuru/main.dart';
 import 'package:AstroGuru/utils/images.dart';
 import 'package:AstroGuru/views/bottomNavigationBarScreen.dart';
@@ -10,6 +11,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_translator/google_translator.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -218,6 +220,13 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
                   Get.to(() => BottomNavigationBarScreen(
                         index: 0,
                       ));
+
+                  Get.dialog(AlertDialog(
+                    scrollable: true,
+                    backgroundColor: Colors.white,
+                    content:
+                        addReviewWidget(widget.astrologerName, '', context),
+                  ));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),
@@ -250,6 +259,195 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
         ),
       ),
     );
+  }
+
+  Widget addReviewWidget(
+      String astrologerName, String astrologerProfile, BuildContext context) {
+    SplashController splashController = Get.find<SplashController>();
+    return GetBuilder<CallController>(builder: (chatController) {
+      return SizedBox(
+        height: Get.height * 0.3,
+        child: Column(
+          children: [
+            /* Center(child: Text(astrologerName)),
+            /*profileImage == ""
+                ?*/
+            Center(
+              child: CircleAvatar(
+                radius: 33,
+                child: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white,
+                    child: Image.asset(
+                      Images.deafultUser,
+                      fit: BoxFit.fill,
+                      height: 40,
+                    )),
+              ),
+            ),
+               : Center(
+              child: CachedNetworkImage(
+                imageUrl: "${global.imgBaseurl}$profileImage",
+                imageBuilder: (context, imageProvider) {
+                  return CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white,
+                    backgroundImage: imageProvider,
+                  );
+                },
+                placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) {
+                  return CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.white,
+                      child: Image.asset(
+                        Images.deafultUser,
+                        fit: BoxFit.fill,
+                        height: 40,
+                      ));
+                },
+              ),
+            ),*/
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 22,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage: AssetImage(Images.deafultUser),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(splashController.currentUser!.name ?? "Anonymous"),
+              ],
+            ),
+            /*Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Checkbox(
+                    value: true,
+                    activeColor: Get.theme.primaryColor,
+                    onChanged: (bool? value) {
+                      // chatController.isPublic = value!;
+                      // chatController.update();
+                    }),
+                SizedBox(
+                  width: Get.width * 0.5,
+                  child: Text('Hide my name from all public reviews',
+                      style: Get.textTheme.subtitle1!.copyWith(
+                        fontSize: 12,
+                      )),
+                )
+              ],
+            ),*/
+            Center(
+              child: RatingBar(
+                initialRating: chatController.rating ?? 0,
+                itemCount: 5,
+                allowHalfRating: true,
+                ratingWidget: RatingWidget(
+                  full: const Icon(Icons.grade, color: Colors.yellow),
+                  half: const Icon(Icons.star_half, color: Colors.yellow),
+                  empty: const Icon(Icons.grade, color: Colors.grey),
+                ),
+                onRatingUpdate: (rating) {
+                  chatController.rating = rating;
+                  chatController.update();
+                },
+              ),
+            ),
+            FutureBuilder(
+                future:
+                    global.translatedText('Describe your experience(optional)'),
+                builder: (context, snapshot) {
+                  return TextField(
+                    controller: chatController.reviewController,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 2,
+                    maxLines: 2,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      hintStyle: TextStyle(fontSize: 12),
+                      hintText:
+                          snapshot.data ?? "Describe your experience(optional)",
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                    ),
+                  );
+                }),
+            SizedBox(
+              height: 60,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                    backgroundColor:
+                        MaterialStateProperty.all(Get.theme.primaryColor),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                  ),
+                  onPressed: () async {
+                    print('submit');
+                    if (chatController.rating == 0) {
+                      global.showToast(
+                        message: 'Rate Advisor',
+                        textColor: global.textColor,
+                        bgColor: global.toastBackGoundColor,
+                      );
+                    } /* else if (chatController.reviewController.text == "") {
+                      global.showToast(
+                        message: 'Enter Review',
+                        textColor: global.textColor,
+                        bgColor: global.toastBackGoundColor,
+                      );
+                    }*/
+                    else {
+                      if (/*chatController.reviewData.isNotEmpty*/ false) {
+                        /*global.showOnlyLoaderDialog(context);
+                        await chatController?.updateReview(
+                            chatController.reviewData[0].id!, astrologerId);
+                        global.hideLoader();*/
+                      } else {
+                        // global.showOnlyLoaderDialog(context);
+                        await chatController.addReview(widget.astrologerId);
+                        //global.hideLoader();
+                      }
+                    }
+                  },
+                  child: Text(
+                    'Submit',
+                    textAlign: TextAlign.center,
+                    style: Get.theme.primaryTextTheme.subtitle1!.copyWith(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   Future<void> setupVoiceSDKEngine() async {
@@ -292,6 +490,11 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
           await leave();
           print('offline : - $remoteUId');
           Get.back();
+          Get.dialog(AlertDialog(
+            scrollable: true,
+            backgroundColor: Colors.white,
+            content: addReviewWidget(widget.astrologerName, '', context),
+          ));
         },
         onRtcStats: (connection, stats) {},
       ),
@@ -332,6 +535,11 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
           Get.to(() => BottomNavigationBarScreen(
                 index: 0,
               ));
+          Get.dialog(AlertDialog(
+            scrollable: true,
+            backgroundColor: Colors.white,
+            content: addReviewWidget(widget.astrologerName, '', context),
+          ));
           //call the disconnect method from requested customer
         }
       },
@@ -436,6 +644,8 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
 
     Get.back();
     Navigator.pop(context);
+
+    print("release goifsdfsdfdsfsdfsffsfsfl");
   }
 
   @override

@@ -188,8 +188,10 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("$baseUrl/getCustomerHome"),
       );
+      print('${response.statusCode}________________lkfhkjgg');
       dynamic recordList;
       if (response.statusCode == 200) {
+        print('_vvgdfgfdg____________${response.body}');
         recordList = List<Banner>.from(json
             .decode(response.body)["banner"]
             .map((x) => Banner.fromJson(x)));
@@ -1051,7 +1053,7 @@ class APIHelper {
         headers: await global.getApiHeaders(true),
         body: jsonEncode(basicDetails),
       );
-      print('register profile body:- ${jsonEncode(basicDetails)}');
+      log('register profile body:- ${jsonEncode(basicDetails)}');
       print(response);
       dynamic recordList;
       log('${response.body}');

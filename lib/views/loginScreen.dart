@@ -64,7 +64,7 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      SizedBox(
+                      /*SizedBox(
                         height: 40,
                         child: Align(
                           alignment: Alignment.topRight,
@@ -94,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
+                      ),*/
                       Card(
                         child: Image.asset(
                           'assets/images/splash.png',

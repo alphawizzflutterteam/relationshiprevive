@@ -1163,7 +1163,7 @@ class _CallScreenState extends State<CallScreen> {
                                     width: Get.width * 0.85,
                                     child: minBalance != ''
                                         ? Text(
-                                            'Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start call with $astrologer ',
+                                            'Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start call with advisor ', //astrologer
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.red))

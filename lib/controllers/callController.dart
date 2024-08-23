@@ -24,8 +24,10 @@ class CallController extends GetxController
   bool callBottom = false;
   APIHelper apiHelper = APIHelper();
   bool isLeaveCall = false;
-
+  double? rating;
+  bool isPublic = true;
   var resourceId;
+  TextEditingController reviewController = TextEditingController();
 
   @override
   void onInit() async {
@@ -339,6 +341,41 @@ class CallController extends GetxController
       });
     } catch (e) {
       print("Exception stopRecordingStoreData:-" + e.toString());
+    }
+  }
+
+  addReview(int astrologerId) async {
+    try {
+      await global.checkBody().then((result) async {
+        if (result) {
+          await apiHelper
+              .addAstrologerReview(
+            astrologerId,
+            rating,
+            reviewController.text,
+            !isPublic,
+          )
+              .then((result) async {
+            if (result.status == "200") {
+              global.showToast(
+                message: 'Thank you!',
+                textColor: global.textColor,
+                bgColor: global.toastBackGoundColor,
+              );
+              // await getuserReview(astrologerId);
+              Get.back();
+            } else {
+              global.showToast(
+                message: 'Failed to add review',
+                textColor: global.textColor,
+                bgColor: global.toastBackGoundColor,
+              );
+            }
+          });
+        }
+      });
+    } catch (e) {
+      print('Exception in addReview : - ${e.toString()}');
     }
   }
 }

@@ -704,7 +704,7 @@ class HomeScreen extends StatelessWidget {
                                 isLoop: true,
                                 autoPlayInterval: 3000,
                                 width: double.infinity,
-                                height: 150,
+                                //hheight: 170,
                                 initialPage: 0,
                                 children: List.generate(
                                   homeController.bannerList.length,
@@ -2245,7 +2245,7 @@ class HomeScreen extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Shop at Astromall',
+                                                'Shop at Relationship revive',
                                                 style: Get.theme
                                                     .primaryTextTheme.subtitle1!
                                                     .copyWith(
