@@ -235,7 +235,9 @@ class UserProfileController extends GetxController {
     try {
       await global.checkBody().then((result) async {
         if (result) {
-          await apiHelper.sendOtp(phoneController.text).then((result) async {
+          await apiHelper
+              .sendOtp(phoneController.text, '0')
+              .then((result) async {
             if (result.status == "200") {
               print('${result.status}____________');
               log('${result.recordList['otp']}____________');
@@ -255,7 +257,7 @@ class UserProfileController extends GetxController {
               log("what\'s wrong ${result.status}");
 
               global.showToast(
-                message: 'Failed to sign in',
+                message: result.error.contactNo[0],
                 textColor: global.textColor,
                 bgColor: global.toastBackGoundColor,
               );

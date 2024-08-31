@@ -129,7 +129,9 @@ class LoginController extends GetxController {
     try {
       await global.checkBody().then((result) async {
         if (result) {
-          await apiHelper.sendOtp(phoneController.text).then((result) async {
+          await apiHelper
+              .sendOtp(phoneController.text, '1')
+              .then((result) async {
             if (result.status == "200") {
               print('${result.status}____________');
               log('${result.recordList['otp']}____________');
@@ -146,10 +148,10 @@ class LoginController extends GetxController {
               //Get.off(() => BottomNavigationBarScreen(index: 0));
             } else {
               global.hideLoader();
-              log("what\'s wrong ${result.status}");
+              log("what\'s wrong ${result}");
 
               global.showToast(
-                message: 'Failed to sign in',
+                message: result.error.contactNo[0],
                 textColor: global.textColor,
                 bgColor: global.toastBackGoundColor,
               );

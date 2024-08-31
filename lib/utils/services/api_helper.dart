@@ -50,15 +50,15 @@ import '../../model/intake_model.dart';
 import '../../model/login_model.dart';
 
 class APIHelper {
-  Future<dynamic> sendOtp(String mobile) async {
+  Future<dynamic> sendOtp(String mobile, String type) async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/sendOtp'),
-        body: json.encode({"contactNo": mobile}),
+        body: json.encode({"contactNo": mobile, "login": type}),
         headers: await global.getApiHeaders(false),
       );
       log('${response.request?.url}');
-      log('${json.encode(mobile)}');
+      log('${json.encode({"contactNo": mobile, "login": type})}');
 
       print(response);
       dynamic recordList;
@@ -69,7 +69,7 @@ class APIHelper {
       } else {
         recordList = null;
       }
-      return getAPIResult(response, recordList);
+      return getAPIResult2(response, recordList);
     } catch (e) {
       print("Exception in loginSignUp():-" + e.toString());
     }
@@ -1193,6 +1193,21 @@ class APIHelper {
     try {
       dynamic result;
       result = APIResult.fromJson(json.decode(response.body), recordList);
+      return result;
+    } catch (e) {
+      print("Exception - getAPIResult():" + e.toString());
+    }
+  }
+
+  dynamic getAPIResult2<T>(final response, T recordList) {
+    try {
+      dynamic result;
+      if (recordList == null) {
+        result =
+            ErrorAPIResult.fromJson(json.decode(response.body), recordList);
+      } else {
+        result = APIResult.fromJson(json.decode(response.body), recordList);
+      }
       return result;
     } catch (e) {
       print("Exception - getAPIResult():" + e.toString());
