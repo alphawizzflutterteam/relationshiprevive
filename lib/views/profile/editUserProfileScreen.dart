@@ -551,7 +551,7 @@ class EditUserProfile extends StatelessWidget {
                   ),
                 ),
               ),
-              InkWell(
+              /* InkWell(
                 onTap: () async {
                   userProfileController.nameFocus.unfocus();
                   final format = DateFormat("hh:mm a");
@@ -605,7 +605,7 @@ class EditUserProfile extends StatelessWidget {
                     labelText: 'Place of Birth',
                   ),
                 ),
-              ),
+              ),*/
               TextFieldWidget(
                 controller: userProfileController.currentAddressController,
                 labelText: 'Current Address',
@@ -647,7 +647,7 @@ class EditUserProfile extends StatelessWidget {
         return CustomBottomButton(
           title: 'Submit',
           onTap: () async {
-            bool isvalid = userProfileController.isValidData();
+            bool isvalid = userProfileController.isValidData(fromUpdate: true);
             if (!isvalid) {
               global.showToast(
                 message: userProfileController.toastMessage,

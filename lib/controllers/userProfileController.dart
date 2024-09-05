@@ -122,12 +122,13 @@ class UserProfileController extends GetxController {
     update();
   }
 
-  bool isValidData() {
+  bool isValidData({bool? fromUpdate}) {
     if (nameController.text == "") {
       toastMessage = "Please Enter your first name";
       update();
       return false;
-    } else if (phoneController.text.length != 10) {
+    } else if (!(fromUpdate ?? false) && phoneController.text.length != 10) {
+      print('${phoneController.text.length}__________');
       toastMessage = "Please Enter valid mobile number";
       update();
       return false;
