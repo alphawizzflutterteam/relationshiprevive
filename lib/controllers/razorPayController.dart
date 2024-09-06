@@ -11,14 +11,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_translator/google_translator.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+// import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:AstroGuru/utils/global.dart' as global;
 import 'package:http/http.dart' as http;
 
 class RazorPayController extends GetxController {
   SplashController splashController = Get.find<SplashController>();
   APIHelper apiHelper = APIHelper();
-  Razorpay? _razorpay;
+  // Razorpay? _razorpay;
   late double totalAmount;
   late double addWalletAmount;
   String? number;
@@ -41,68 +41,68 @@ class RazorPayController extends GetxController {
 
   _inIt() async {
     try {
-      _razorpay = Razorpay();
-      _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-      _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+      // _razorpay = Razorpay();
+      // _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+      // _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     } catch (e) {
       print("Exception - event_payment_gateways_screen.dart - _init():" +
           e.toString());
     }
   }
 
-  Future _handlePaymentSuccess(PaymentSuccessResponse response) async {
-    try {
-      print("Paymant success");
-      print(
-          "${addWalletAmount},${response.orderId}, ${response.paymentId}, ${response.signature}______sdasdsadadsddadasdadasd");
-      global.showOnlyLoaderDialog(Get.context);
-      await apiHelper
-          .addAmountInWallet(
-              amount: addWalletAmount,
-              orderId: 'response.orderId!',
-              paymentId: response.paymentId!,
-              signature: 'response.signature!',
-              status: 'Success')
-          .then((result) {
-        global.hideLoader();
-        splashController.getCurrentUserData();
-        splashController.update();
-        hideLoader();
-        bottomController.setIndex(1, 0);
-        Get.to(() => BottomNavigationBarScreen(index: 0));
-        global.showToast(
-          message: 'Payment transaction successful',
-          textColor: global.textColor,
-          bgColor: global.toastBackGoundColor,
-        );
-
-        // }
-      });
-    } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart - _handlePaymentSuccess" +
-          e.toString());
-    }
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) async {
-    try {
-      await apiHelper.addAmountInWallet(
-          amount: addWalletAmount,
-          paymentId: 'razorpay',
-          orderId: '',
-          signature: '',
-          status: 'failed');
-
-      tryAgainDialog(openCheckout);
-      global.showToast(
-          message: 'Payment Failed. Amount not added into your wallet.',
-          bgColor: global.toastBackGoundColor,
-          textColor: global.textColor);
-    } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart -  _handlePaymentError" +
-          e.toString());
-    }
-  }
+  // Future _handlePaymentSuccess(PaymentSuccessResponse response) async {
+  //   try {
+  //     print("Paymant success");
+  //     print(
+  //         "${addWalletAmount},${response.orderId}, ${response.paymentId}, ${response.signature}______sdasdsadadsddadasdadasd");
+  //     global.showOnlyLoaderDialog(Get.context);
+  //     await apiHelper
+  //         .addAmountInWallet(
+  //             amount: addWalletAmount,
+  //             orderId: 'response.orderId!',
+  //             paymentId: response.paymentId!,
+  //             signature: 'response.signature!',
+  //             status: 'Success')
+  //         .then((result) {
+  //       global.hideLoader();
+  //       splashController.getCurrentUserData();
+  //       splashController.update();
+  //       hideLoader();
+  //       bottomController.setIndex(1, 0);
+  //       Get.to(() => BottomNavigationBarScreen(index: 0));
+  //       global.showToast(
+  //         message: 'Payment transaction successful',
+  //         textColor: global.textColor,
+  //         bgColor: global.toastBackGoundColor,
+  //       );
+  //
+  //       // }
+  //     });
+  //   } catch (e) {
+  //     print("Exception - paymentGatewaysScreen.dart - _handlePaymentSuccess" +
+  //         e.toString());
+  //   }
+  // }
+  //
+  // void _handlePaymentError(PaymentFailureResponse response) async {
+  //   try {
+  //     await apiHelper.addAmountInWallet(
+  //         amount: addWalletAmount,
+  //         paymentId: 'razorpay',
+  //         orderId: '',
+  //         signature: '',
+  //         status: 'failed');
+  //
+  //     tryAgainDialog(openCheckout);
+  //     global.showToast(
+  //         message: 'Payment Failed. Amount not added into your wallet.',
+  //         bgColor: global.toastBackGoundColor,
+  //         textColor: global.textColor);
+  //   } catch (e) {
+  //     print("Exception - paymentGatewaysScreen.dart -  _handlePaymentError" +
+  //         e.toString());
+  //   }
+  // }
 
   void openCheckout(double amount) async {
     try {
@@ -137,7 +137,7 @@ class RazorPayController extends GetxController {
         }
       };
       try {
-        _razorpay?.open(options);
+        // _razorpay?.open(options);
       } catch (e) {
         debugPrint('Error: $e');
       }

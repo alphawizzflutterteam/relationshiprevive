@@ -277,6 +277,7 @@ class SettingListScreen extends StatelessWidget {
                 onTap: () {
                   Get.dialog(
                     AlertDialog(
+                      backgroundColor: Colors.white,
                       title: Text(
                         "Are you sure you want to logout?",
                         style: Get.textTheme.subtitle1,
@@ -350,6 +351,7 @@ class SettingListScreen extends StatelessWidget {
                     if (isLogin) {
                       Get.dialog(
                         AlertDialog(
+                          backgroundColor: Colors.white,
                           title: Text(
                             "Are you sure you want to delete this Account?",
                             style: Get.textTheme.subtitle1,

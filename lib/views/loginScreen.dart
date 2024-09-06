@@ -38,8 +38,8 @@ class LoginScreen extends StatelessWidget {
             height: double.maxFinite,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                     stops: [
                   0.2,
                   0.5,
@@ -47,10 +47,14 @@ class LoginScreen extends StatelessWidget {
                   0.9
                 ],
                     colors: [
-                  Theme.of(context).primaryColor,
-                  Theme.of(context).primaryColorLight,
-                  Theme.of(context).primaryColor,
-                  Theme.of(context).primaryColorLight
+                      Color(0xFFAED2C8),
+                      Color(0xFFB7D7CF),
+                      Color(0xFF84D4D8),
+                      Color(0xFF18B9CA),
+                  // Theme.of(context).primaryColor,
+                  // Theme.of(context).primaryColorLight,
+                  // Theme.of(context).primaryColor,
+                  // Theme.of(context).primaryColorLight
                 ])),
             child: SingleChildScrollView(
               child: Column(

@@ -1796,6 +1796,9 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               );
                       }),*/
+
+         //code of blog section starts here
+
                       GetBuilder<HomeController>(builder: (homeController) {
                         return homeController.blogList.length == 0
                             ? SizedBox()
@@ -1821,7 +1824,8 @@ class HomeScreen extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Latest from blog',
+                                                // 'Latest from blog',
+                                                'About Us',
                                                 style: Get.theme
                                                     .primaryTextTheme.subtitle1!
                                                     .copyWith(
@@ -2219,6 +2223,14 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               );
                       }),
+
+                //       Padding(
+                //         padding: const EdgeInsets.all(10.0),
+                //         child: Text('About Us',style: Get.theme
+                //     .primaryTextTheme.subtitle1!
+                //     .copyWith(fontWeight: FontWeight.w500),
+                // )),
+
                       GetBuilder<AstromallController>(
                           builder: (astromallController) {
                         return astromallController.astroCategory.length == 0
@@ -3179,41 +3191,41 @@ class HomeScreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Watch Advisor Videos',
-                                                style: Get.theme
-                                                    .primaryTextTheme.subtitle1!
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Get.to(() =>
-                                                      AstrologerVideoScreen());
-                                                },
-                                                child: Text(
-                                                  'View All',
-                                                  style: Get
-                                                      .theme
-                                                      .primaryTextTheme
-                                                      .bodySmall!
-                                                      .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.grey[500],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                        // Padding(
+                                        //   padding: const EdgeInsets.symmetric(
+                                        //       horizontal: 10),
+                                        //   child: Row(
+                                        //     mainAxisAlignment:
+                                        //         MainAxisAlignment.spaceBetween,
+                                        //     children: [
+                                        //       Text(
+                                        //         'Watch Advisor Videos',
+                                        //         style: Get.theme
+                                        //             .primaryTextTheme.subtitle1!
+                                        //             .copyWith(
+                                        //                 fontWeight:
+                                        //                     FontWeight.w500),
+                                        //       ),
+                                        //       GestureDetector(
+                                        //         onTap: () {
+                                        //           Get.to(() =>
+                                        //               AstrologerVideoScreen());
+                                        //         },
+                                        //         child: Text(
+                                        //           'View All',
+                                        //           style: Get
+                                        //               .theme
+                                        //               .primaryTextTheme
+                                        //               .bodySmall!
+                                        //               .copyWith(
+                                        //             fontWeight: FontWeight.w400,
+                                        //             color: Colors.grey[500],
+                                        //           ),
+                                        //         ),
+                                        //       ),
+                                        //     ],
+                                        //   ),
+                                        // ),
                                         Expanded(
                                             child: ListView.builder(
                                           itemCount: homeController
@@ -3436,14 +3448,14 @@ class HomeScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                // Text(
+                                //   'I am the Product Manager',
+                                //   style: Get.theme.primaryTextTheme.subtitle1!
+                                //       .copyWith(fontWeight: FontWeight.w500),
+                                // ),
                                 Text(
-                                  'I am the Product Manager',
-                                  style: Get.theme.primaryTextTheme.subtitle1!
-                                      .copyWith(fontWeight: FontWeight.w500),
-                                ),
-                                Text(
-                                  'share your feedback to help us improve the app',
-                                  style: TextStyle(fontSize: 10),
+                                  'Your feedback is very important to us.\nShare your thoughts …',
+                                  style: TextStyle(fontSize: 16),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -3451,7 +3463,7 @@ class HomeScreen extends StatelessWidget {
                                 FutureBuilder(
                                     future: global
                                         .translatedText('Start typing here..'),
-                                    builder: (context, snapshot) {
+                                      builder: (context, snapshot) {
                                       return TextFormField(
                                         controller:
                                             homeController.feedbackController,
@@ -3465,7 +3477,7 @@ class HomeScreen extends StatelessWidget {
                                           hintText: snapshot.data ??
                                               'Start typing here..',
                                           hintStyle: TextStyle(
-                                              fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.w300,
                                               color: Colors.grey[500]),
                                         ),
                                       );
@@ -3550,8 +3562,8 @@ class HomeScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   Container(
-                                    height: 70,
-                                    width: 70,
+                                    height: 50,
+                                    width: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(7),
                                       color: Colors.grey[200],
@@ -3565,14 +3577,14 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 15,
+                                    height: 10,
                                   ),
                                   Text(
                                     'Private &\nConfidential',
                                     textAlign: TextAlign.center,
                                     style:
                                         Get.theme.textTheme.subtitle1!.copyWith(
-                                      fontSize: 13,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 0.5,
                                     ),
@@ -3582,8 +3594,8 @@ class HomeScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   Container(
-                                    height: 70,
-                                    width: 70,
+                                    height: 50,
+                                    width: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(7),
                                       color: Colors.grey[200],
@@ -3597,7 +3609,7 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 15,
+                                    height: 10,
                                   ),
                                   Text(
                                     'Verified\nAdvisors',
@@ -3614,8 +3626,8 @@ class HomeScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   Container(
-                                    height: 70,
-                                    width: 70,
+                                    height: 50,
+                                    width: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(7),
                                       color: Colors.grey[200],
@@ -3629,7 +3641,7 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 15,
+                                    height: 10,
                                   ),
                                   Text(
                                     'Secure\nPayments',
@@ -3647,6 +3659,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Center(child: Text(' Relationship Revive is Brand name under the entity of \“Neelu World\"',style: TextStyle(fontSize: 10),)),
                     ],
                   ),
 

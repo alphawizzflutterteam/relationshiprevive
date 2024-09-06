@@ -22,8 +22,8 @@ class SplashScreen extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/splash.png',
-              height: 100,
-              width: 100,
+              height: 200,
+              width: 200,
             ),
             /*CircleAvatar(
               backgroundColor: Get.theme.primaryColor,
@@ -31,14 +31,16 @@ class SplashScreen extends StatelessWidget {
               backgroundImage: AssetImage('assets/images/splash.png'),
             ),*/
             const SizedBox(
-              height: 15,
+              height: 30,
             ),
             GetBuilder<SplashController>(builder: (s) {
               return splashController.appName == ''
                   ? const CircularProgressIndicator()
                   : Text(
-                      splashController.appName,
-                      style: Get.textTheme.headline5,
+                      // splashController.appName,
+                "Revive, Rekindle, Reconnect Nurturing Stronger Bonds, Together."
+                ,
+                      style: Get.textTheme.headlineSmall,textAlign: TextAlign.center,
                     );
             })
           ],

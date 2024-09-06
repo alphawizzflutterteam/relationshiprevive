@@ -24,6 +24,7 @@ import 'package:AstroGuru/views/chat/incoming_chat_request.dart';
 import 'package:AstroGuru/views/live_astrologer/live_astrologer_screen.dart';
 import 'package:AstroGuru/views/loginScreen.dart';
 import 'package:AstroGuru/views/splashScreen.dart';
+import 'package:AstroGuru/views/welcomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -671,28 +672,29 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ThemeController>(builder: (themeController) {
-      return GetBuilder<SplashController>(builder: (s) {
-        SystemChrome.setSystemUIOverlayStyle(
-            SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+      // return GetBuilder<SplashController>(builder: (s) {
+      //   SystemChrome.setSystemUIOverlayStyle(
+      //       SystemUiOverlayStyle(statusBarColor: Colors.transparent));
         return GoogleTranslatorInit(apiKey,
             translateFrom: Locale(
                 splashController.currentLanguageCode == 'en' ? 'hi' : 'en'),
             translateTo: Locale(splashController.currentLanguageCode),
             automaticDetection: true, builder: () {
           return GetMaterialApp(
-            navigatorKey: Get.key,
+          //  navigatorKey: Get.key,
             debugShowCheckedModeBanner: false,
-            enableLog: true,
+          //  enableLog: true,
             theme: nativeTheme(),
-            initialBinding: NetworkBinding(),
+           // initialBinding: NetworkBinding(),
             title: 'Relationship Revive',
-            initialRoute: "SplashScreen",
+            //initialRoute: "SplashScreen",
             supportedLocales: L10n.all,
-            home: SplashScreen(),
+            home:WelcomeScreen(),                  //SplashScreen(),
           );
-        });
+        // });
       });
-    });
+    }
+    );
   }
 }
 
