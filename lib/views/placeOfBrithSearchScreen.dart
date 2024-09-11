@@ -137,7 +137,7 @@ class PlaceOfBirthSearchScreen extends StatelessWidget {
                           kundliMatchingController.update();
                         }
                         if (flagId == 4) {
-                          userProfileController.addressController.text =
+                          userProfileController.cityController.text =
                               searchPlaceController
                                   .predictions[index].description!;
                         }

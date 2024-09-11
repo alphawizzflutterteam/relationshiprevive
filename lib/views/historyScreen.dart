@@ -153,7 +153,27 @@ class _HistoryScreenState extends State<HistoryScreen> {
           backgroundColor: Get.theme.cardColor,
           key: drawerKey,
           //drawer: DrawerWidget(),
-          appBar: CustomAppBar(
+          appBar: PreferredSize(
+            child: Container(
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'History',
+                      style: Get.theme.primaryTextTheme.headline6!
+                          .copyWith(fontWeight: FontWeight.normal),
+                    ),
+                  ],
+                ),
+              ),
+              decoration: BoxDecoration(
+                gradient: gradient.btnGradient,
+              ),
+            ),
+            preferredSize: Size.fromHeight(70.0),
+          ) /*CustomAppBar(
             isLeading: false,
             // onBackPressed: () {},
             scaffoldKey: drawerKey,
@@ -162,7 +182,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 .copyWith(fontWeight: FontWeight.normal),
             bgColor: Get.theme.primaryColor,
             actions: [],
-          ),
+          )*/
+          ,
           body: Column(
             children: [
               GetBuilder<CallController>(builder: (c) {
@@ -343,7 +364,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             }),
                             SizedBox(height: 15),
                             SizedBox(
-                              height: 30,
+                              height: 40,
                               child: TabBar(
                                 controller:
                                     historyController.tabControllerHistory,
@@ -374,7 +395,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.only(
                                           left: 8.0, right: 8.0),
-                                      child: Text('Wallet Transaction'),
+                                      child: Text(
+                                        'Wallet Transaction',
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ),
                                   Tab(

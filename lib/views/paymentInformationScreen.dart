@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:AstroGuru/controllers/themeController.dart';
+
 import 'package:AstroGuru/controllers/astromallController.dart';
 import 'package:AstroGuru/controllers/razorPayController.dart';
 import 'package:AstroGuru/controllers/splashController.dart';
@@ -25,10 +28,63 @@ class PaymentInformationScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Get.theme.cardColor,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(56),
-          child: CommonAppBar(
-            title: 'Payment Information',
-          )),
+        child: Container(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          child: Padding(
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                top: 15.0,
+              ),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () => Get.back(),
+                    icon: Icon(
+                      Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
+                      color: Get.theme.iconTheme.color,
+                    ),
+                  ),
+                  Text(
+                    'Payment Information',
+                    style: Get.theme.primaryTextTheme.headline6!
+                        .copyWith(fontWeight: FontWeight.normal),
+                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(right: 10),
+                  //   child:
+                  //   global.splashController.currentUser?.walletAmount !=
+                  //       null
+                  //       ? Container(
+                  //     padding: EdgeInsets.all(2),
+                  //     margin: EdgeInsets.symmetric(
+                  //         vertical: 17, horizontal: 20),
+                  //     decoration: BoxDecoration(
+                  //       border: Border.all(color: Colors.white),
+                  //       borderRadius: BorderRadius.circular(5),
+                  //     ),
+                  //     alignment: Alignment.center,
+                  //     child: Text(
+                  //       '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)}${global.splashController.currentUser?.walletAmount.toString()}',
+                  //       style: Get.theme.primaryTextTheme.bodySmall
+                  //           ?.copyWith(color: Colors.white),
+                  //     ),
+                  //   )
+                  //       : SizedBox(),
+                  // ),
+                ],
+              )),
+          decoration: BoxDecoration(
+            gradient: gradient.btnGradient,
+          ),
+        ),
+        preferredSize: Size.fromHeight(70.0),
+      ),
+      // appBar: PreferredSize(
+      //     preferredSize: Size.fromHeight(56),
+      //     child: CommonAppBar(
+      //       title: 'Payment Information',
+      //     )),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -131,9 +187,8 @@ class PaymentInformationScreen extends StatelessWidget {
             onPressed: () {
               razorPay.addWalletAmount = amount;
               razorPay.update();
-              /*"${global.getSystemFlagValue(global.systemFlagNameList.paymentMode)}" ==
-                      'RazorPay'*/
-              true
+              "${global.getSystemFlagValue(global.systemFlagNameList.paymentMode)}" ==
+                      'RazorPay'
                   ? razorPay.openCheckout(amount +
                       amount *
                           double.parse(global.getSystemFlagValue(
@@ -148,7 +203,8 @@ class PaymentInformationScreen extends StatelessWidget {
                               100);
             },
             child: Text('Proceed to Pay',
-                style: Get.textTheme.subtitle1!.copyWith(fontSize: 12)),
+                style: Get.textTheme.subtitle1!
+                    .copyWith(fontSize: 12, color: Colors.white)),
             style: ButtonStyle(
               padding: MaterialStateProperty.all(EdgeInsets.all(0)),
               backgroundColor:

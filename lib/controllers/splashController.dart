@@ -8,6 +8,7 @@ import 'package:AstroGuru/model/current_user_model.dart';
 import 'package:AstroGuru/model/systemFlagModel.dart';
 import 'package:AstroGuru/utils/services/api_helper.dart';
 import 'package:AstroGuru/views/loginScreen.dart';
+import 'package:AstroGuru/views/welcomeScreen.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
@@ -38,9 +39,9 @@ class SplashController extends GetxController {
   }
 
   _inIt() async {
-    print("kkkk");
     await getSystemFlag();
-    appName = global.getSystemFlagValueForLogin(global.systemFlagNameList.appName);
+    appName =
+        global.getSystemFlagValueForLogin(global.systemFlagNameList.appName);
     global.sp = await SharedPreferences.getInstance();
     currentLanguageCode = global.sp!.getString('currentLanguage') ?? 'en';
     update();
@@ -62,14 +63,19 @@ class SplashController extends GetxController {
                   await getCurrentUserData();
                   await global.getCurrentUser();
                   if (global.generalPayload != null) {
-                    Map<String, dynamic> convetedPayLoad = json.decode(global.generalPayload);
-                    Map<String, dynamic> body = jsonDecode(convetedPayLoad['body']);
+                    Map<String, dynamic> convetedPayLoad =
+                        json.decode(global.generalPayload);
+                    Map<String, dynamic> body =
+                        jsonDecode(convetedPayLoad['body']);
                     print("Yes general pay load called" + body.toString());
                     if (body["notificationType"] == 1) {
                       Get.to(() => IncomingCallRequest(
                             astrologerId: body["astrologerId"],
-                            astrologerName: body["astrologerName"] == null ? "Astrologer" : body["astrologerName"],
-                            astrologerProfile: body["profile"] == null ? "" : body["profile"],
+                            astrologerName: body["astrologerName"] == null
+                                ? "Astrologer"
+                                : body["astrologerName"],
+                            astrologerProfile:
+                                body["profile"] == null ? "" : body["profile"],
                             token: body["token"],
                             channel: body["channelName"],
                             callId: body["callId"],
@@ -77,8 +83,11 @@ class SplashController extends GetxController {
                           ));
                     } else if (body["notificationType"] == 3) {
                       Get.to(() => IncomingChatRequest(
-                            astrologerName: body["astrologerName"] == null ? "Astrologer" : body["astrologerName"],
-                            profile: body["profile"] == null ? "" : body["profile"],
+                            astrologerName: body["astrologerName"] == null
+                                ? "Astrologer"
+                                : body["astrologerName"],
+                            profile:
+                                body["profile"] == null ? "" : body["profile"],
                             fireBasechatId: body["firebaseChatId"],
                             chatId: body["chatId"],
                             astrologerId: body["astrologerId"],
@@ -86,14 +95,17 @@ class SplashController extends GetxController {
                           ));
                     } else if (body["notificationType"] == 4) {
                       print('live astrologer');
-                      Get.find<ReviewController>().getReviewData(body["astrologerId"]);
-                      await Get.find<BottomNavigationController>().getAstrologerbyId(body["astrologerId"]);
+                      Get.find<ReviewController>()
+                          .getReviewData(body["astrologerId"]);
+                      await Get.find<BottomNavigationController>()
+                          .getAstrologerbyId(body["astrologerId"]);
                       Get.to(() => AstrologerProfile(index: 0));
                     } else {
                       print('other notification');
                     }
                   } else {
-                    BottomNavigationController bottomNavigationController = Get.find<BottomNavigationController>();
+                    BottomNavigationController bottomNavigationController =
+                        Get.find<BottomNavigationController>();
                     bottomNavigationController.setIndex(0, 0);
 
                     Get.off(() => BottomNavigationBarScreen(index: 0));
@@ -105,7 +117,7 @@ class SplashController extends GetxController {
                   });
                   HomeController homeController = Get.find<HomeController>();
                   homeController.myOrders.clear();
-                  Get.off(() => LoginScreen());
+                  Get.off(() => WelcomeScreen());
                 }
               });
             }
@@ -115,7 +127,7 @@ class SplashController extends GetxController {
             version = packageInfo.version;
             update();
           });
-          Get.off(() => LoginScreen());
+          Get.off(() => WelcomeScreen());
         }
       } catch (e) {
         print('Exception in _inIt():' + e.toString());
@@ -129,22 +141,27 @@ class SplashController extends GetxController {
       String appShareLink;
       final DynamicLinkParameters parameters = DynamicLinkParameters(
         uriPrefix: 'https://astroguruupdated.page.link',
-        link: Uri.parse("https://astroguruupdated.page.link/userProfile?screen=astrologerShare"),
+        link: Uri.parse(
+            "https://astroguruupdated.page.link/userProfile?screen=astrologerShare"),
         androidParameters: AndroidParameters(
           packageName: 'com.AstroGuru.app',
           minimumVersion: 1,
         ),
       );
       Uri url;
-      final ShortDynamicLink shortLink = await dynamicLinks.buildShortLink(parameters, shortLinkType: ShortDynamicLinkType.short);
+      final ShortDynamicLink shortLink = await dynamicLinks.buildShortLink(
+          parameters,
+          shortLinkType: ShortDynamicLinkType.short);
       url = shortLink.shortUrl;
       appShareLink = url.toString();
       appShareLinkForLiveSreaming = appShareLink;
       update();
       global.hideLoader();
       await FlutterShare.share(
-        title: 'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
-        text: 'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
+        title:
+            'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
+        text:
+            'Hey! I am using ${global.getSystemFlagValue(global.systemFlagNameList.appName)} to get predictions related to marriage/career. I would recommend you to connect with best Astrologer at ${global.getSystemFlagValue(global.systemFlagNameList.appName)}.',
         linkUrl: '$appShareLinkForLiveSreaming',
       );
     } catch (e) {

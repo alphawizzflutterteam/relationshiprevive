@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:AstroGuru/controllers/bottomNavigationController.dart';
 import 'package:AstroGuru/controllers/dropDownController.dart';
 import 'package:AstroGuru/controllers/intake_verifyotp_screen.dart';
+import 'package:AstroGuru/controllers/splashController.dart';
 import 'package:AstroGuru/model/astrologer_model.dart';
 import 'package:AstroGuru/model/intake_model.dart';
 import 'package:AstroGuru/utils/services/api_helper.dart';
@@ -22,14 +23,20 @@ class IntakeController extends GetxController {
   TextEditingController dobController = TextEditingController();
   TextEditingController birthTimeController = TextEditingController();
   TextEditingController placeController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   TextEditingController ocupationController = TextEditingController();
   TextEditingController partnerNameController = TextEditingController();
   TextEditingController partnerPlaceController = TextEditingController();
   TextEditingController partnerDobController = TextEditingController();
   TextEditingController partnerBirthController = TextEditingController();
+  TextEditingController dataController = TextEditingController();
 
   TextEditingController verifyPhoneController = TextEditingController();
+
+  SplashController splashController = Get.find<SplashController>();
 
   APIHelper apiHelper = APIHelper();
   var astrologerSorting = <AstrologerModel>[];
@@ -44,8 +51,11 @@ class IntakeController extends GetxController {
   String? sortingFilter = ''.obs();
   FocusNode namefocus = FocusNode();
   FocusNode phonefocus = FocusNode();
+  FocusNode emailfocus = FocusNode();
   FocusNode partnerNamefocus = FocusNode();
   FocusNode occupationfocus = FocusNode();
+  FocusNode cityfocus = FocusNode();
+  FocusNode countryfocus = FocusNode();
 
   bool isValue = true;
 
@@ -62,6 +72,12 @@ class IntakeController extends GetxController {
   }
 
   _inIt() async {
+    await splashController.getCurrentUserData();
+    nameController.text = splashController.currentUser?.name ?? '';
+    phoneController.text = splashController.currentUser?.contactNo ?? '';
+    emailController.text = splashController.currentUser?.email ?? '';
+    cityController.text = splashController.currentUser?.location ?? '';
+    countryController.text = splashController.currentUser?.country ?? '';
     await getFormIntakeData();
   }
 
@@ -100,6 +116,7 @@ class IntakeController extends GetxController {
   }
 
   bool isValidData() {
+    dobController.text = '09/09/2023';
     if (nameController.text == "") {
       errorText = "Please Enter Name";
       return false;
@@ -109,11 +126,16 @@ class IntakeController extends GetxController {
     } else if (dobController.text == "") {
       errorText = "Please Enter Date of Birth";
       return false;
-    } else if (birthTimeController.text == "") {
+    } /*else if (birthTimeController.text == "") {
       errorText = "Please Enter  Time of Birth";
       return false;
-    } else if (placeController.text == " ") {
+    }
+    else if (placeController.text == " ") {
       errorText = "Please Enter Place of Birth";
+      return false;
+    }*/
+    else if (dataController.text == " ") {
+      errorText = "Please fill this field";
       return false;
     } else if (ocupationController.text == "") {
       errorText = "Please Enter occupation";
@@ -152,6 +174,9 @@ class IntakeController extends GetxController {
             countryCode: countryCode ?? "+91",
             gender: gender,
             maritalStatus: dropDownController.maritalStatus ?? "Single",
+            city: cityController.text,
+            country: countryController.text,
+            email: emailController.text,
             occupation: ocupationController.text == ""
                 ? null
                 : ocupationController.text,

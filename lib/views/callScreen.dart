@@ -210,7 +210,9 @@ class _CallScreenState extends State<CallScreen> {
             ),
           ),
           preferredSize: Size.fromHeight(70.0),
-        ) /*CustomAppBar(
+        )
+
+        /*CustomAppBar(
           flagId: 2,
           onBackPressed: () {},
           isLeading: true,
@@ -471,10 +473,10 @@ class _CallScreenState extends State<CallScreen> {
                             if (isLogin) {
                               if (/*bottomNavigationController.astrologerList[i].callStatus == 'Online'*/ bottomNavigationController
                                   .astrologerList.isNotEmpty) {
-                                ///to check User Wallet balance available or not for call
+                                ///to check User Wallet balance available or not for call...
                                 if (bottomNavigationController
                                                 .astrologerList.first.charge! *
-                                            5 <=
+                                            10 <=
                                         global.splashController.currentUser!
                                             .walletAmount! /*||
                                     bottomNavigationController.astrologerList
@@ -571,7 +573,7 @@ class _CallScreenState extends State<CallScreen> {
                                       (bottomNavigationController
                                                   .astrologerList[index]
                                                   .charge! *
-                                              5)
+                                              10)
                                           .toString(),
                                       '${bottomNavigationController.astrologerList[index].name}');
                                 }
@@ -1163,7 +1165,7 @@ class _CallScreenState extends State<CallScreen> {
                                     width: Get.width * 0.85,
                                     child: minBalance != ''
                                         ? Text(
-                                            'Minimum balance of 5 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start call with advisor ', //astrologer
+                                            'Minimum balance of 10 minutes(${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} $minBalance) is required to start call with advisor ', //astrologer
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.red))

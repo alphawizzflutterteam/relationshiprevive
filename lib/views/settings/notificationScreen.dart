@@ -15,8 +15,8 @@ class NotificationScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          backgroundColor:
-              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+          backgroundColor: Get.theme
+              .primaryColor, //Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           title: Text(
             'Notifications',
             style: Get.theme.primaryTextTheme.headline6!
@@ -38,6 +38,7 @@ class NotificationScreen extends StatelessWidget {
                         Get.defaultDialog(
                             title: '',
                             titlePadding: EdgeInsets.all(0),
+                            backgroundColor: Colors.white,
                             content: Text(
                                 'Are you sure you want to delete all notifications?'),
                             contentPadding: EdgeInsets.symmetric(

@@ -149,6 +149,9 @@ dependencies:
   #playRingSound
   flutter_ringtone_player: ^4.0.0+3
 
+  #ForAnimation
+  lottie: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -177,6 +180,7 @@ flutter:
   assets:
     - assets/images/
     - assets/
+    - assets/json/
 
   #   - images/a_dot_ham.jpeg
 

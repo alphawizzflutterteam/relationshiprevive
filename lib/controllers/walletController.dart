@@ -33,6 +33,8 @@ class WalletController extends GetxController {
 
   var paymentAmount = <AmountModel>[];
 
+  late final List<AmountModel> tempPaymentAmount;
+
   bool isChashbackMsg = true;
   bool isWallet = false;
 
@@ -46,19 +48,35 @@ class WalletController extends GetxController {
     update();
   }
 
+  subUpdateAmount(int amount, int index) {
+    if (paymentAmount[index].amount! > tempPaymentAmount[index].amount!)
+      paymentAmount[index].amount =
+          (paymentAmount[index].amount! - tempPaymentAmount[index].amount!);
+    update();
+  }
+
+  addUpdateAmount(int amount, int index) {
+    paymentAmount[index].amount =
+        (paymentAmount[index].amount! + tempPaymentAmount[index].amount!);
+    update();
+  }
+
   getAmount() async {
     try {
       await global.checkBody().then((result) async {
         if (result) {
           await apiHelper.getpaymentAmount().then((result) {
             if (result.status == "200") {
-              print('${result.recordList}___________dasas');
               paymentAmount = result.recordList;
+              tempPaymentAmount = result.recordList;
+
               payment.clear();
               rechrage.clear();
+              //  tempPaymentAmount.clear();
               for (int i = 0; i < paymentAmount.length; i++) {
                 payment.add(paymentAmount[i].amount.toString());
                 rechrage.add(paymentAmount[i].amount.toString());
+                // tempPaymentAmount.add(paymentAmount[i]);
               }
               update();
             } else {

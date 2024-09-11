@@ -1,9 +1,11 @@
 // ignore_for_file: unused_local_variable, unrelated_type_equality_checks
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:AstroGuru/controllers/search_controller.dart';
 import 'package:AstroGuru/controllers/splashController.dart';
+import 'package:AstroGuru/controllers/themeController.dart';
 
 import 'package:AstroGuru/controllers/userProfileController.dart';
 import 'package:AstroGuru/views/placeOfBrithSearchScreen.dart';
@@ -36,11 +38,62 @@ class EditUserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
+      appBar: /*PreferredSize(
           preferredSize: Size.fromHeight(56),
           child: CommonAppBar(
             title: 'Profile',
-          )),
+          ))*/
+          PreferredSize(
+        child: Container(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          child: Padding(
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                top: 15.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () => Get.back(),
+                    icon: Icon(
+                      Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
+                      color: Get.theme.iconTheme.color,
+                    ),
+                  ),
+                  Text(
+                    'Profile',
+                    style: Get.theme.primaryTextTheme.headline6!
+                        .copyWith(fontWeight: FontWeight.normal),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: InkWell(
+                      onTap: () async {
+                        /*bool isLogin = await global.isLogin();
+                        global.showOnlyLoaderDialog(context);
+                        await walletController.getAmount();
+                        global.hideLoader();
+                        if (isLogin) {
+                          Get.to(() => AddmoneyToWallet());
+                        }*/
+                      },
+                      child: Image.asset(
+                        Images.wallet,
+                        height: 25,
+                        width: 25,
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+          decoration: BoxDecoration(
+            gradient: gradient.btnGradient,
+          ),
+        ),
+        preferredSize: Size.fromHeight(70.0),
+      ),
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -611,7 +664,17 @@ class EditUserProfile extends StatelessWidget {
                 labelText: 'Current Address',
                 focusNode: userProfileController.currentAddFocus,
               ),
-              InkWell(
+              TextFieldWidget(
+                controller: userProfileController.cityController,
+                labelText: 'City',
+                focusNode: userProfileController.cityFocus,
+              ),
+              TextFieldWidget(
+                controller: userProfileController.countryController,
+                labelText: 'Country',
+                focusNode: userProfileController.countryFocus,
+              ),
+              /*InkWell(
                 onTap: () {
                   userProfileController.nameFocus.unfocus();
                   userProfileController.currentAddFocus.unfocus();
@@ -621,11 +684,11 @@ class EditUserProfile extends StatelessWidget {
                 },
                 child: IgnorePointer(
                   child: TextFieldWidget(
-                    controller: userProfileController.addressController,
+                    controller: userProfileController.cityController,
                     labelText: 'City,State,Country',
                   ),
                 ),
-              ),
+              ),*/
               TextFieldWidget(
                 inputFormatter: [FilteringTextInputFormatter.digitsOnly],
                 controller: userProfileController.pinController,

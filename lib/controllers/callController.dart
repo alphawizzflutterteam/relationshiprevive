@@ -82,6 +82,7 @@ class CallController extends GetxController
     try {
       await global.checkBody().then((result) async {
         if (result) {
+          print('${astrologerId}__________astrologrt_');
           await apiHelper
               .sendAstrologerCallRequest(astrologerId, isFreeSession)
               .then((result) {

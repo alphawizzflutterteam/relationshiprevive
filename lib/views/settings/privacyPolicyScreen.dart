@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../widget/commonAppbar.dart';
@@ -10,13 +12,15 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Get.theme.primaryColor,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(56),
           child: CommonAppBar(
             title: 'Privacy Policy',
           )),
       body: WebView(
-        initialUrl: '${global.webBaseUrl}privacyPolicy',
+        initialUrl: /*'${global.webBaseUrl}admin/privacypolicy'*/
+            'https://relationship.developmentalphawizz.com/admin/privacypolicy',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

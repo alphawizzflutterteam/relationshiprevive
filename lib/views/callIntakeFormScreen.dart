@@ -28,6 +28,7 @@ import 'package:get/get.dart';
 import 'package:AstroGuru/utils/global.dart' as global;
 import 'package:google_translator/google_translator.dart';
 import 'package:intl/intl.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../controllers/dropDownController.dart';
@@ -70,6 +71,7 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
   CallController callController = Get.find<CallController>();
 
   ChatController chatController = Get.find<ChatController>();
+  bool _isChecked = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -159,570 +161,1242 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
           padding: const EdgeInsets.all(8.0),
           child: GetBuilder<IntakeController>(builder: (c) {
             return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 15),
-                TextFieldWidget(
-                  controller: callIntakeController.nameController,
-                  focusNode: callIntakeController.namefocus,
-                  inputFormatter: [
-                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))
-                  ],
-                  labelText: 'Name',
+                ListTile(
+                  title: Text('Are you the same person ?'),
+                  leading: Checkbox(
+                    value: _isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isChecked = value ?? false; // Toggle checkbox state
+                      });
+                    },
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                            child: FutureBuilder(
-                                future: global.translatedText('Phone Number'),
-                                builder: (context, snapshot) {
-                                  return IntlPhoneField(
-                                    autovalidateMode: null,
-                                    showDropdownIcon: false,
-                                    onCountryChanged: (value) {
-                                      callIntakeController.namefocus.unfocus();
-                                      callIntakeController.phonefocus.unfocus();
+                _isChecked == true
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            controller: callIntakeController.dataController,
+                            minLines: 4,
+                            maxLines: 8,
+                            maxLength: 200,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(5),
+                                border: InputBorder.none,
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText:
+                                    'Please share more details (optional)',
+                                hintStyle: TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.grey[500]),
+                                focusedBorder: OutlineInputBorder(),
+                                enabledBorder: OutlineInputBorder()),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          GetBuilder<IntakeController>(
+                              builder: (intakeController) {
+                            return Container(
+                              width: Get.width,
+                              margin: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                  gradient: gradient.btnGradient,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(15))),
+                              child: TextButton(
+                                onPressed: () async {
+                                  if (_isChecked == true &&
+                                      callIntakeController.dobController.text ==
+                                          "")
+                                    callIntakeController.dobController.text =
+                                        '01/01/2000';
+                                  if (_isChecked == true &&
                                       callIntakeController
-                                          .updateCountryCode(value.code);
-                                    },
-                                    focusNode: callIntakeController.phonefocus,
-                                    controller:
-                                        callIntakeController.phoneController,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
-                                    keyboardType: TextInputType.phone,
-                                    cursorColor: global.coursorColor,
-                                    decoration: InputDecoration(
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 10, horizontal: 10),
-                                      hintText: snapshot.data,
-                                      errorText: null,
-                                      counterText: '',
-                                    ),
-                                    initialCountryCode:
-                                        callIntakeController.countryCode ??
-                                            'IN',
-                                    onChanged: (phone) {
-                                      print('length ${phone.number}');
-
-                                      callIntakeController
-                                          .checkContact(phone.number);
-                                    },
-                                  );
-                                })),
-                      ),
-                    ),
-                    !callIntakeController.isVarified
-                        ? GetBuilder<IntakeController>(builder: (c) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: 30,
-                                child: TextButton(
-                                  style: ButtonStyle(
-                                    padding: MaterialStateProperty.all(
-                                        EdgeInsets.all(4)),
-                                    fixedSize: MaterialStateProperty.all(
-                                        Size.fromWidth(90)),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Get.theme.primaryColor),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        side: BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 189, 189, 189),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    if (callIntakeController
-                                            .intakeContact!.length ==
-                                        10) {
+                                              .ocupationController.text ==
+                                          "")
+                                    callIntakeController.ocupationController
+                                        .text = 'Private Job';
+                                  // if()
+                                  bool isvalid = intakeController.isValidData();
+                                  print(isvalid);
+                                  if (!isvalid) {
+                                    global.showToast(
+                                      message: intakeController.errorText,
+                                      textColor: global.textColor,
+                                      bgColor: global.toastBackGoundColor,
+                                    );
+                                  } else {
+                                    if (/*intakeController.isVarified*/ true) {
                                       global.showOnlyLoaderDialog(context);
-                                      await callIntakeController.verifyOTP();
+                                      await callIntakeController
+                                          .addCallIntakeFormData();
+                                      print(
+                                          'firebase ${widget.astrologerId}_${global.currentUserId}');
+                                      if (widget.isFreeAvailable == true) {
+                                        //await intakeController.checkFreeSessionAvailable();
+                                        if (intakeController
+                                                .isAddNewRequestByFreeuser ==
+                                            true) {
+                                          if (widget.type == "Call") {
+                                            await callController
+                                                .sendCallRequest(
+                                                    widget.astrologerId, true);
+                                          } else {
+                                            ChatController chatController =
+                                                Get.find<ChatController>();
+                                            DropDownController
+                                                dropDownController =
+                                                Get.find<DropDownController>();
+                                            await chatController.sendMessage(
+                                                'hi ${widget.astrologerName} ',
+                                                '${widget.astrologerId}_${global.currentUserId}',
+                                                widget.astrologerId,
+                                                false);
+                                            await chatController.sendMessage(
+                                                'Below are my details:',
+                                                '${widget.astrologerId}_${global.currentUserId}',
+                                                widget.astrologerId,
+                                                false);
+                                            await chatController.sendMessage(
+                                                'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
+                                                '${widget.astrologerId}_${global.currentUserId}',
+                                                widget.astrologerId,
+                                                false);
+
+                                            if (callIntakeController
+                                                .isEnterPartnerDetails) {
+                                              await chatController.sendMessage(
+                                                  'Below are my partner details:',
+                                                  '${widget.astrologerId}_${global.currentUserId}',
+                                                  widget.astrologerId,
+                                                  false);
+                                              await chatController.sendMessage(
+                                                  'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
+                                                  '${widget.astrologerId}_${global.currentUserId}',
+                                                  widget.astrologerId,
+                                                  false);
+                                              await chatController.sendMessage(
+                                                  'This is automated message to confirm that chat has started.',
+                                                  '${widget.astrologerId}_${global.currentUserId}',
+                                                  widget.astrologerId,
+                                                  false);
+                                            } else {
+                                              await chatController.sendMessage(
+                                                  'This is automated message to confirm that chat has started.',
+                                                  '${widget.astrologerId}_${global.currentUserId}',
+                                                  widget.astrologerId,
+                                                  false);
+                                            }
+                                            await chatController
+                                                .sendChatRequest(
+                                                    widget.astrologerId, true);
+                                          }
+                                        } else {
+                                          global.showToast(
+                                              message:
+                                                  'You can not join multiple offers at same time',
+                                              textColor: global.textColor,
+                                              bgColor:
+                                                  global.toastBackGoundColor);
+                                        }
+                                      } else {
+                                        if (widget.type == "Call") {
+                                          await callController.sendCallRequest(
+                                              widget.astrologerId, false);
+                                        } else {
+                                          ChatController chatController =
+                                              Get.find<ChatController>();
+                                          DropDownController
+                                              dropDownController =
+                                              Get.find<DropDownController>();
+                                          await chatController.sendMessage(
+                                              'hi ${widget.astrologerName} ',
+                                              '${widget.astrologerId}_${global.currentUserId}',
+                                              widget.astrologerId,
+                                              false);
+                                          await chatController.sendMessage(
+                                              'Below are my details:',
+                                              '${widget.astrologerId}_${global.currentUserId}',
+                                              widget.astrologerId,
+                                              false);
+                                          await chatController.sendMessage(
+                                              'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
+                                              '${widget.astrologerId}_${global.currentUserId}',
+                                              widget.astrologerId,
+                                              false);
+
+                                          if (callIntakeController
+                                              .isEnterPartnerDetails) {
+                                            await chatController.sendMessage(
+                                                'Below are my partner details:',
+                                                '${widget.astrologerId}_${global.currentUserId}',
+                                                widget.astrologerId,
+                                                false);
+                                            await chatController.sendMessage(
+                                                'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
+                                                '${widget.astrologerId}_${global.currentUserId}',
+                                                widget.astrologerId,
+                                                false);
+                                            await chatController.sendMessage(
+                                                'This is automated message to confirm that chat has started.',
+                                                '${widget.astrologerId}_${global.currentUserId}',
+                                                widget.astrologerId,
+                                                false);
+                                          } else {
+                                            await chatController.sendMessage(
+                                                'This is automated message to confirm that chat has started.',
+                                                '${widget.astrologerId}_${global.currentUserId}',
+                                                widget.astrologerId,
+                                                false);
+                                          }
+                                          await chatController.sendChatRequest(
+                                              widget.astrologerId, false);
+                                        }
+                                      }
+                                      global.hideLoader();
+                                      Navigator.pop(context);
+                                      Get.back();
+
+                                      FlutterRingtonePlayer().play(
+                                          fromAsset:
+                                              "assets/phone_outgoing_call.mp3", // will be the sound on Android
+                                          ios: IosSounds.glass,
+                                          volume: 1,
+                                          looping:
+                                              true // will be the sound on iOS
+                                          );
+                                      _timer = Timer.periodic(
+                                          Duration(seconds: 1), (Timer timer) {
+                                        if (count >= 30) {
+                                          timer.cancel();
+                                          FlutterRingtonePlayer().stop();
+                                          callController.rejectedCall(
+                                              callController.callId!);
+                                          Get.back();
+                                          Get.showSnackbar(GetSnackBar(
+                                              message:
+                                                  'Right now advisor is busy, try again after some time'));
+                                        } else {
+                                          count++;
+                                        }
+                                      });
+                                      ;
+                                      dialogForchat();
+                                    } else {
+                                      global.showToast(
+                                        message:
+                                            'Please verify your phone number',
+                                        textColor: global.textColor,
+                                        bgColor: global.toastBackGoundColor,
+                                      );
                                     }
-                                  },
-                                  child: Text(
-                                    'Verify',
-                                    style: Get.theme.primaryTextTheme.subtitle2,
-                                    textAlign: TextAlign.center,
-                                  ) /**/,
+                                  }
+                                },
+                                child: Row(
+                                  //mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    /*Icon(
+                  Icons.call,
+                  color: Colors.white,
+                ),*/
+                                    Text(
+                                      'LET’S CONNECT \n(TALK TO OUR ADVISOR)',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  ],
                                 ),
                               ),
                             );
-                          })
-                        : const SizedBox(),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextFieldLabelWidget(
-                        label: 'Gender',
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: RadioListTile(
-                          title: Text("Male") /**/,
-                          value: "male",
-                          groupValue: callIntakeController.gender,
-                          dense: true,
-                          activeColor: Get.theme.primaryColor,
-                          contentPadding: EdgeInsets.all(0.0),
-                          onChanged: (value) {
-                            callIntakeController.updateGeneder(value);
-                          },
-                        ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: RadioListTile(
-                          title: Text("Female") /**/,
-                          value: "female",
-                          groupValue: callIntakeController.gender,
-                          activeColor: Get.theme.primaryColor,
-                          contentPadding: EdgeInsets.all(0.0),
-                          dense: true,
-                          onChanged: (value) {
-                            callIntakeController.updateGeneder(value);
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 78,
+
+                            //   CustomBottomButton(
+                            //   onTap: () async {
+                            //     bool isvalid = intakeController.isValidData();
+                            //     print(isvalid);
+                            //     if (!isvalid) {
+                            //       global.showToast(
+                            //         message: intakeController.errorText,
+                            //         textColor: global.textColor,
+                            //         bgColor: global.toastBackGoundColor,
+                            //       );
+                            //     } else {
+                            //       if (/*intakeController.isVarified*/ true) {
+                            //         global.showOnlyLoaderDialog(context);
+                            //         await callIntakeController.addCallIntakeFormData();
+                            //         print(
+                            //             'firebase ${widget.astrologerId}_${global.currentUserId}');
+                            //         if (widget.isFreeAvailable == true) {
+                            //           //await intakeController.checkFreeSessionAvailable();
+                            //           if (intakeController.isAddNewRequestByFreeuser == true) {
+                            //             if (widget.type == "Call") {
+                            //               print('hsdkjfhkjfkfhffkfkkjshdf');
+                            //               await callController.sendCallRequest(
+                            //                   widget.astrologerId, true);
+                            //             } else {
+                            //               ChatController chatController =
+                            //                   Get.find<ChatController>();
+                            //               DropDownController dropDownController =
+                            //                   Get.find<DropDownController>();
+                            //               await chatController.sendMessage(
+                            //                   'hi ${widget.astrologerName} ',
+                            //                   '${widget.astrologerId}_${global.currentUserId}',
+                            //                   widget.astrologerId,
+                            //                   false);
+                            //               await chatController.sendMessage(
+                            //                   'Below are my details:',
+                            //                   '${widget.astrologerId}_${global.currentUserId}',
+                            //                   widget.astrologerId,
+                            //                   false);
+                            //               await chatController.sendMessage(
+                            //                   'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
+                            //                   '${widget.astrologerId}_${global.currentUserId}',
+                            //                   widget.astrologerId,
+                            //                   false);
+                            //
+                            //               if (callIntakeController.isEnterPartnerDetails) {
+                            //                 await chatController.sendMessage(
+                            //                     'Below are my partner details:',
+                            //                     '${widget.astrologerId}_${global.currentUserId}',
+                            //                     widget.astrologerId,
+                            //                     false);
+                            //                 await chatController.sendMessage(
+                            //                     'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
+                            //                     '${widget.astrologerId}_${global.currentUserId}',
+                            //                     widget.astrologerId,
+                            //                     false);
+                            //                 await chatController.sendMessage(
+                            //                     'This is automated message to confirm that chat has started.',
+                            //                     '${widget.astrologerId}_${global.currentUserId}',
+                            //                     widget.astrologerId,
+                            //                     false);
+                            //               } else {
+                            //                 await chatController.sendMessage(
+                            //                     'This is automated message to confirm that chat has started.',
+                            //                     '${widget.astrologerId}_${global.currentUserId}',
+                            //                     widget.astrologerId,
+                            //                     false);
+                            //               }
+                            //               await chatController.sendChatRequest(
+                            //                   widget.astrologerId, true);
+                            //             }
+                            //           } else {
+                            //             global.showToast(
+                            //                 message:
+                            //                     'You can not join multiple offers at same time',
+                            //                 textColor: global.textColor,
+                            //                 bgColor: global.toastBackGoundColor);
+                            //           }
+                            //         } else {
+                            //           if (widget.type == "Call") {
+                            //             await callController.sendCallRequest(
+                            //                 widget.astrologerId, false);
+                            //           } else {
+                            //             ChatController chatController = Get.find<ChatController>();
+                            //             DropDownController dropDownController =
+                            //                 Get.find<DropDownController>();
+                            //             await chatController.sendMessage(
+                            //                 'hi ${widget.astrologerName} ',
+                            //                 '${widget.astrologerId}_${global.currentUserId}',
+                            //                 widget.astrologerId,
+                            //                 false);
+                            //             await chatController.sendMessage(
+                            //                 'Below are my details:',
+                            //                 '${widget.astrologerId}_${global.currentUserId}',
+                            //                 widget.astrologerId,
+                            //                 false);
+                            //             await chatController.sendMessage(
+                            //                 'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
+                            //                 '${widget.astrologerId}_${global.currentUserId}',
+                            //                 widget.astrologerId,
+                            //                 false);
+                            //
+                            //             if (callIntakeController.isEnterPartnerDetails) {
+                            //               await chatController.sendMessage(
+                            //                   'Below are my partner details:',
+                            //                   '${widget.astrologerId}_${global.currentUserId}',
+                            //                   widget.astrologerId,
+                            //                   false);
+                            //               await chatController.sendMessage(
+                            //                   'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
+                            //                   '${widget.astrologerId}_${global.currentUserId}',
+                            //                   widget.astrologerId,
+                            //                   false);
+                            //               await chatController.sendMessage(
+                            //                   'This is automated message to confirm that chat has started.',
+                            //                   '${widget.astrologerId}_${global.currentUserId}',
+                            //                   widget.astrologerId,
+                            //                   false);
+                            //             } else {
+                            //               await chatController.sendMessage(
+                            //                   'This is automated message to confirm that chat has started.',
+                            //                   '${widget.astrologerId}_${global.currentUserId}',
+                            //                   widget.astrologerId,
+                            //                   false);
+                            //             }
+                            //             await chatController.sendChatRequest(
+                            //                 widget.astrologerId, false);
+                            //           }
+                            //         }
+                            //         global.hideLoader();
+                            //         Navigator.pop(context);
+                            //         Get.back();
+                            //
+                            //         FlutterRingtonePlayer().play(
+                            //             fromAsset:
+                            //                 "assets/phone_outgoing_call.mp3", // will be the sound on Android
+                            //             ios: IosSounds.glass,
+                            //             volume: 1,
+                            //             looping: true // will be the sound on iOS
+                            //             );
+                            //         _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+                            //           if (count >= 30) {
+                            //             timer.cancel();
+                            //             FlutterRingtonePlayer().stop();
+                            //             callController.rejectedCall(callController.callId!);
+                            //             Get.back();
+                            //             Get.showSnackbar(GetSnackBar(
+                            //                 message:
+                            //                     'Right now advisor is busy, try again after some time'));
+                            //           } else {
+                            //             count++;
+                            //           }
+                            //         });
+                            //         ;
+                            //         dialogForchat();
+                            //       } else {
+                            //         global.showToast(
+                            //           message: 'Please verify your phone number',
+                            //           textColor: global.textColor,
+                            //           bgColor: global.toastBackGoundColor,
+                            //         );
+                            //       }
+                            //     }
+                            //   },
+                            //   title: 'LET’S CONNECT (TALK TO OUR ADVISOR)',
+                            // );
+                          }),
+                        ],
                       )
-                    ]),
-                InkWell(
-                  onTap: () async {
-                    callIntakeController.namefocus.unfocus();
-                    callIntakeController.phonefocus.unfocus();
-                    var datePicked = await DatePicker.showSimpleDatePicker(
-                      context,
-                      initialDate: DateTime(1994),
-                      firstDate: DateTime(1960),
-                      lastDate: DateTime.now(),
-                      dateFormat: "dd-MM-yyyy",
-                      itemTextStyle: Get.theme.textTheme.subtitle1!.copyWith(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 0,
-                      ),
-                      titleText: 'Select Birth Date',
-                      textColor: Get.theme.primaryColor,
-                    );
-                    if (datePicked != null) {
-                      callIntakeController.dobController.text =
-                          DateConverter.isoStringToLocalDateOnly(
-                              datePicked.toIso8601String());
-                      callIntakeController.selctedDate = datePicked;
-                      callIntakeController.update();
-                    } else {
-                      callIntakeController.dobController.text =
-                          DateConverter.isoStringToLocalDateOnly(
-                              DateTime(1994).toIso8601String());
-                      callIntakeController.selctedDate = DateTime(1994);
-                      callIntakeController.update();
-                    }
-                  },
-                  child: IgnorePointer(
-                    child: TextFieldWidget(
-                      controller: callIntakeController.dobController,
-                      labelText: 'Date of Birth',
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () async {
-                    callIntakeController.namefocus.unfocus();
-                    callIntakeController.phonefocus.unfocus();
-                    final time = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay(hour: 12, minute: 30),
-                        builder: (context, child) {
-                          return Theme(
-                            data: ThemeData(
-                              colorScheme: ColorScheme.light(
-                                primary: Get.theme.primaryColor,
-                                onBackground: Colors.white,
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 15),
+                          TextFieldWidget(
+                            controller: callIntakeController.nameController,
+                            focusNode: callIntakeController.namefocus,
+                            inputFormatter: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp("[a-zA-Z ]"))
+                            ],
+                            labelText: 'Name',
+                          ),
+                          TextFieldWidget(
+                            controller: callIntakeController.emailController,
+                            focusNode: callIntakeController.emailfocus,
+                            labelText: 'email',
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                      child: FutureBuilder(
+                                          future: global
+                                              .translatedText('Phone Number'),
+                                          builder: (context, snapshot) {
+                                            return IntlPhoneField(
+                                              pickerDialogStyle:
+                                                  PickerDialogStyle(
+                                                      backgroundColor:
+                                                          Colors.white),
+                                              autovalidateMode: null,
+                                              showDropdownIcon: false,
+                                              onCountryChanged: (value) {
+                                                callIntakeController.namefocus
+                                                    .unfocus();
+                                                callIntakeController.phonefocus
+                                                    .unfocus();
+                                                callIntakeController
+                                                    .updateCountryCode(
+                                                        value.code);
+                                              },
+                                              focusNode: callIntakeController
+                                                  .phonefocus,
+                                              controller: callIntakeController
+                                                  .phoneController,
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly
+                                              ],
+                                              keyboardType: TextInputType.phone,
+                                              cursorColor: global.coursorColor,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 10),
+                                                hintText: snapshot.data,
+                                                errorText: null,
+                                                counterText: '',
+                                              ),
+                                              initialCountryCode:
+                                                  callIntakeController
+                                                          .countryCode ??
+                                                      'IN',
+                                              onChanged: (phone) {
+                                                print('length ${phone.number}');
+
+                                                callIntakeController
+                                                    .checkContact(phone.number);
+                                              },
+                                            );
+                                          })),
+                                ),
+                              ),
+                              /* !callIntakeController.isVarified
+                            ? GetBuilder<IntakeController>(builder: (c) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    height: 30,
+                                    child: TextButton(
+                                      style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                            EdgeInsets.all(4)),
+                                        fixedSize: MaterialStateProperty.all(
+                                            Size.fromWidth(90)),
+                                        backgroundColor: MaterialStateProperty.all(
+                                            Get.theme.primaryColor),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            side: BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 189, 189, 189),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () async {
+                                        if (callIntakeController
+                                                .intakeContact!.length ==
+                                            10) {
+                                          global.showOnlyLoaderDialog(context);
+                                          await callIntakeController.verifyOTP();
+                                        }
+                                      },
+                                      child: Text(
+                                        'Verify',
+                                        style: Get.theme.primaryTextTheme.subtitle2,
+                                        textAlign: TextAlign.center,
+                                      ) */ /**/ /*,
+                                    ),
+                                  ),
+                                );
+                              })
+                            : const SizedBox(),*/
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextFieldLabelWidget(
+                                  label: 'Gender',
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: RadioListTile(
+                                    title: Text("Male") /**/,
+                                    value: "male",
+                                    groupValue: callIntakeController.gender,
+                                    dense: true,
+                                    activeColor: Get.theme.primaryColor,
+                                    contentPadding: EdgeInsets.all(0.0),
+                                    onChanged: (value) {
+                                      callIntakeController.updateGeneder(value);
+                                    },
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: RadioListTile(
+                                    title: Text("Female") /**/,
+                                    value: "female",
+                                    groupValue: callIntakeController.gender,
+                                    activeColor: Get.theme.primaryColor,
+                                    contentPadding: EdgeInsets.all(0.0),
+                                    dense: true,
+                                    onChanged: (value) {
+                                      callIntakeController.updateGeneder(value);
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                )
+                              ]),
+                          InkWell(
+                            onTap: () async {
+                              callIntakeController.namefocus.unfocus();
+                              callIntakeController.phonefocus.unfocus();
+                              var datePicked =
+                                  await DatePicker.showSimpleDatePicker(
+                                context,
+                                initialDate: DateTime(1994),
+                                firstDate: DateTime(1960),
+                                lastDate: DateTime.now(),
+                                dateFormat: "MMMM-dd-yyyy",
+                                itemTextStyle:
+                                    Get.theme.textTheme.subtitle1!.copyWith(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0,
+                                ),
+                                titleText: 'Select Date',
+                                textColor: Get.theme.primaryColor,
+                              );
+                              if (datePicked != null) {
+                                callIntakeController.dobController.text =
+                                    DateConverter.isoStringToLocalDateOnly(
+                                        datePicked.toIso8601String());
+                                callIntakeController.selctedDate = datePicked;
+                                callIntakeController.update();
+                              } else {
+                                callIntakeController.dobController.text =
+                                    DateConverter.isoStringToLocalDateOnly(
+                                        DateTime(1994).toIso8601String());
+                                callIntakeController.selctedDate =
+                                    DateTime(1994);
+                                callIntakeController.update();
+                              }
+                            },
+                            child: IgnorePointer(
+                              child: TextFieldWidget(
+                                controller: callIntakeController.dobController,
+                                labelText: 'Anniversary Date (Optional)',
                               ),
                             ),
-                            child: child ?? SizedBox(),
-                          );
-                        });
-                    String formatTimeOfDay(TimeOfDay tod) {
-                      final now = new DateTime.now();
-                      final dt = DateTime(
-                          now.year, now.month, now.day, tod.hour, tod.minute);
-                      final format = DateFormat.jm(); //"6:00 AM"
-                      return format.format(dt);
-                    }
-
-                    if (time != null) {
-                      callIntakeController.birthTimeController.text =
-                          formatTimeOfDay(time);
-                    }
-                  },
-                  child: IgnorePointer(
-                    child: TextFieldWidget(
-                      controller: callIntakeController.birthTimeController,
-                      labelText: 'Time of Birth',
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    callIntakeController.namefocus.unfocus();
-                    callIntakeController.phonefocus.unfocus();
-                    Get.to(() => PlaceOfBirthSearchScreen(
-                          flagId: 5,
-                        ));
-                  },
-                  child: IgnorePointer(
-                    child: TextFieldWidget(
-                      controller: callIntakeController.placeController,
-                      labelText: 'Place of Birth',
-                    ),
-                  ),
-                ),
-                TextFieldLabelWidget(
-                  label: 'Marital Status',
-                ),
-                DropDownWidget(
-                  item: [
-                    'single',
-                    'Married',
-                    'Divorced',
-                    'Separated',
-                    'Widowed'
-                  ],
-                  hint: 'Select Marital Status',
-                  callId: 1,
-                ),
-                const SizedBox(
-                  height: 6,
-                ),
-                TextFieldWidget(
-                  controller: callIntakeController.ocupationController,
-                  focusNode: callIntakeController.occupationfocus,
-                  labelText: 'Occupation',
-                  inputFormatter: [
-                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))
-                  ],
-                ),
-                TextFieldLabelWidget(
-                  label: 'Topic of Concern',
-                ),
-                DropDownWidget(
-                  item: ['Study', 'Future', 'Past'],
-                  hint: 'Select Topic of Concern',
-                  callId: 3,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Checkbox(
-                        value: callIntakeController.isEnterPartnerDetails,
-                        activeColor: Get.theme.primaryColor,
-                        onChanged: (bool? value) {
-                          callIntakeController.partnerDetails(value!);
-                        }),
-                    Text("Enter Partner's Details",
-                        style: Get.textTheme.subtitle1!.copyWith(
-                          fontSize: 12,
-                          decoration: TextDecoration.underline,
-                        )) /**/
-                  ],
-                ),
-                if (callIntakeController.isEnterPartnerDetails)
-                  if (callIntakeController.isEnterPartnerDetails)
-                    TextFieldWidget(
-                      controller: callIntakeController.partnerNameController,
-                      labelText: "Partner's Name",
-                      focusNode: callIntakeController.partnerNamefocus,
-                      inputFormatter: [
-                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))
-                      ],
-                    ),
-                if (callIntakeController.isEnterPartnerDetails)
-                  if (callIntakeController.isEnterPartnerDetails)
-                    InkWell(
-                      onTap: () async {
-                        callIntakeController.occupationfocus.unfocus();
-                        callIntakeController.partnerNamefocus.unfocus();
-                        var datePicked = await DatePicker.showSimpleDatePicker(
-                          context,
-                          initialDate: DateTime(1994),
-                          firstDate: DateTime(1960),
-                          lastDate: DateTime.now(),
-                          dateFormat: "dd-MM-yyyy",
-                          itemTextStyle:
-                              Get.theme.textTheme.subtitle1!.copyWith(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 0,
                           ),
-                          titleText: "Select Partner's Birth Date",
-                        );
-                        if (datePicked != null) {
-                          callIntakeController.partnerDobController.text =
-                              DateConverter.isoStringToLocalDateOnly(
-                                  datePicked.toIso8601String());
-                          callIntakeController.selctedPartnerDate = datePicked;
-                          callIntakeController.update();
-                        } else {
-                          callIntakeController.partnerDobController.text =
-                              DateConverter.isoStringToLocalDateOnly(
-                                  DateTime(1994).toIso8601String());
-                          callIntakeController.selctedPartnerDate =
-                              DateTime(1994);
-                          callIntakeController.update();
-                        }
-                      },
-                      child: IgnorePointer(
-                        child: TextFieldWidget(
-                          controller: callIntakeController.partnerDobController,
-                          labelText: "Partner's DOB",
-                        ),
-                      ),
-                    ),
-                if (callIntakeController.isEnterPartnerDetails)
-                  if (callIntakeController.isEnterPartnerDetails)
-                    InkWell(
+                          /*InkWell(
                       onTap: () async {
-                        callIntakeController.occupationfocus.unfocus();
-                        callIntakeController.partnerNamefocus.unfocus();
-
+                        callIntakeController.namefocus.unfocus();
+                        callIntakeController.phonefocus.unfocus();
                         final time = await showTimePicker(
                             context: context,
-                            initialTime: TimeOfDay(hour: 12, minute: 30));
+                            initialTime: TimeOfDay(hour: 12, minute: 30),
+                            builder: (context, child) {
+                              return Theme(
+                                data: ThemeData(
+                                  colorScheme: ColorScheme.light(
+                                    primary: Get.theme.primaryColor,
+                                    onBackground: Colors.white,
+                                  ),
+                                ),
+                                child: child ?? SizedBox(),
+                              );
+                            });
                         String formatTimeOfDay(TimeOfDay tod) {
                           final now = new DateTime.now();
-                          final dt = DateTime(now.year, now.month, now.day,
-                              tod.hour, tod.minute);
+                          final dt = DateTime(
+                              now.year, now.month, now.day, tod.hour, tod.minute);
                           final format = DateFormat.jm(); //"6:00 AM"
                           return format.format(dt);
                         }
 
                         if (time != null) {
-                          callIntakeController.partnerBirthController.text =
+                          callIntakeController.birthTimeController.text =
                               formatTimeOfDay(time);
                         }
                       },
                       child: IgnorePointer(
                         child: TextFieldWidget(
-                          controller:
-                              callIntakeController.partnerBirthController,
-                          labelText: "Partner's Time of Birth",
+                          controller: callIntakeController.birthTimeController,
+                          labelText: 'Time of Birth',
                         ),
                       ),
                     ),
-                if (callIntakeController.isEnterPartnerDetails)
-                  if (callIntakeController.isEnterPartnerDetails)
                     InkWell(
                       onTap: () {
-                        callIntakeController.occupationfocus.unfocus();
-                        callIntakeController.partnerNamefocus.unfocus();
+                        callIntakeController.namefocus.unfocus();
+                        callIntakeController.phonefocus.unfocus();
                         Get.to(() => PlaceOfBirthSearchScreen(
-                              flagId: 6,
+                              flagId: 5,
                             ));
                       },
                       child: IgnorePointer(
                         child: TextFieldWidget(
-                          controller:
-                              callIntakeController.partnerPlaceController,
+                          controller: callIntakeController.placeController,
                           labelText: 'Place of Birth',
                         ),
                       ),
+                    ),*/
+                          TextFieldLabelWidget(
+                            label: 'Marital Status',
+                          ),
+                          DropDownWidget(
+                            item: [
+                              'single',
+                              'Married',
+                              'Divorced',
+                              'Separated',
+                              'Widowed'
+                            ],
+                            hint: 'Select Marital Status',
+                            callId: 1,
+                          ),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          TextFieldWidget(
+                            controller:
+                                callIntakeController.ocupationController,
+                            focusNode: callIntakeController.occupationfocus,
+                            labelText: 'Profession',
+                            inputFormatter: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp("[a-zA-Z ]"))
+                            ],
+                          ),
+                          TextFieldWidget(
+                            controller: callIntakeController.cityController,
+                            focusNode: callIntakeController.cityfocus,
+                            labelText: 'City',
+                            inputFormatter: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp("[a-zA-Z ]"))
+                            ],
+                          ),
+                          TextFieldWidget(
+                            controller: callIntakeController.countryController,
+                            focusNode: callIntakeController.countryfocus,
+                            labelText: 'Country',
+                            inputFormatter: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp("[a-zA-Z ]"))
+                            ],
+                          ),
+                          TextFieldLabelWidget(
+                            label: 'Topic of Concern',
+                          ),
+                          DropDownWidget(
+                            item: ['Study', 'Future', 'Past'],
+                            hint: 'Select Topic of Concern',
+                            callId: 3,
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          /*Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Checkbox(
+                            value: callIntakeController.isEnterPartnerDetails,
+                            activeColor: Get.theme.primaryColor,
+                            onChanged: (bool? value) {
+                              callIntakeController.partnerDetails(value!);
+                            }),
+                        Text("Enter Partner's Details",
+                            style: Get.textTheme.subtitle1!.copyWith(
+                              fontSize: 12,
+                              decoration: TextDecoration.underline,
+                            )) */ /**/ /*
+                      ],
                     ),
-                const SizedBox(
-                  height: 60,
-                ),
+                    if (callIntakeController.isEnterPartnerDetails)
+                      if (callIntakeController.isEnterPartnerDetails)
+                        TextFieldWidget(
+                          controller: callIntakeController.partnerNameController,
+                          labelText: "Partner's Name",
+                          focusNode: callIntakeController.partnerNamefocus,
+                          inputFormatter: [
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]"))
+                          ],
+                        ),
+                    if (callIntakeController.isEnterPartnerDetails)
+                      if (callIntakeController.isEnterPartnerDetails)
+                        InkWell(
+                          onTap: () async {
+                            callIntakeController.occupationfocus.unfocus();
+                            callIntakeController.partnerNamefocus.unfocus();
+                            var datePicked = await DatePicker.showSimpleDatePicker(
+                              context,
+                              initialDate: DateTime(1994),
+                              firstDate: DateTime(1960),
+                              lastDate: DateTime.now(),
+                              dateFormat: "dd-MM-yyyy",
+                              itemTextStyle:
+                                  Get.theme.textTheme.subtitle1!.copyWith(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 0,
+                              ),
+                              titleText: "Select Partner's Birth Date",
+                            );
+                            if (datePicked != null) {
+                              callIntakeController.partnerDobController.text =
+                                  DateConverter.isoStringToLocalDateOnly(
+                                      datePicked.toIso8601String());
+                              callIntakeController.selctedPartnerDate = datePicked;
+                              callIntakeController.update();
+                            } else {
+                              callIntakeController.partnerDobController.text =
+                                  DateConverter.isoStringToLocalDateOnly(
+                                      DateTime(1994).toIso8601String());
+                              callIntakeController.selctedPartnerDate =
+                                  DateTime(1994);
+                              callIntakeController.update();
+                            }
+                          },
+                          child: IgnorePointer(
+                            child: TextFieldWidget(
+                              controller: callIntakeController.partnerDobController,
+                              labelText: "Partner's DOB",
+                            ),
+                          ),
+                        ),
+                    if (callIntakeController.isEnterPartnerDetails)
+                      if (callIntakeController.isEnterPartnerDetails)
+                        InkWell(
+                          onTap: () async {
+                            callIntakeController.occupationfocus.unfocus();
+                            callIntakeController.partnerNamefocus.unfocus();
+
+                            final time = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay(hour: 12, minute: 30));
+                            String formatTimeOfDay(TimeOfDay tod) {
+                              final now = new DateTime.now();
+                              final dt = DateTime(now.year, now.month, now.day,
+                                  tod.hour, tod.minute);
+                              final format = DateFormat.jm(); //"6:00 AM"
+                              return format.format(dt);
+                            }
+
+                            if (time != null) {
+                              callIntakeController.partnerBirthController.text =
+                                  formatTimeOfDay(time);
+                            }
+                          },
+                          child: IgnorePointer(
+                            child: TextFieldWidget(
+                              controller:
+                                  callIntakeController.partnerBirthController,
+                              labelText: "Partner's Time of Birth",
+                            ),
+                          ),
+                        ),
+                    if (callIntakeController.isEnterPartnerDetails)
+                      if (callIntakeController.isEnterPartnerDetails)
+                        InkWell(
+                          onTap: () {
+                            callIntakeController.occupationfocus.unfocus();
+                            callIntakeController.partnerNamefocus.unfocus();
+                            Get.to(() => PlaceOfBirthSearchScreen(
+                                  flagId: 6,
+                                ));
+                          },
+                          child: IgnorePointer(
+                            child: TextFieldWidget(
+                              controller:
+                                  callIntakeController.partnerPlaceController,
+                              labelText: 'Place of Birth',
+                            ),
+                          ),
+                        ),*/
+                          const SizedBox(
+                            height: 60,
+                          ),
+                        ],
+                      ),
               ],
             );
           }),
         ),
       ),
-      bottomSheet: GetBuilder<IntakeController>(builder: (intakeController) {
-        return CustomBottomButton(
-          onTap: () async {
-            bool isvalid = intakeController.isValidData();
-            print(isvalid);
-            if (!isvalid) {
-              global.showToast(
-                message: intakeController.errorText,
-                textColor: global.textColor,
-                bgColor: global.toastBackGoundColor,
-              );
-            } else {
-              if (intakeController.isVarified) {
-                global.showOnlyLoaderDialog(context);
-                await callIntakeController.addCallIntakeFormData();
-                print(
-                    'firebase ${widget.astrologerId}_${global.currentUserId}');
-                if (widget.isFreeAvailable == true) {
-                  //await intakeController.checkFreeSessionAvailable();
-                  if (intakeController.isAddNewRequestByFreeuser == true) {
-                    if (widget.type == "Call") {
-                      print('hsdkjfhkjfkfhffkfkkjshdf');
-                      await callController.sendCallRequest(
-                          widget.astrologerId, true);
-                    } else {
-                      ChatController chatController =
-                          Get.find<ChatController>();
-                      DropDownController dropDownController =
-                          Get.find<DropDownController>();
-                      await chatController.sendMessage(
-                          'hi ${widget.astrologerName} ',
-                          '${widget.astrologerId}_${global.currentUserId}',
-                          widget.astrologerId,
-                          false);
-                      await chatController.sendMessage(
-                          'Below are my details:',
-                          '${widget.astrologerId}_${global.currentUserId}',
-                          widget.astrologerId,
-                          false);
-                      await chatController.sendMessage(
-                          'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
-                          '${widget.astrologerId}_${global.currentUserId}',
-                          widget.astrologerId,
-                          false);
-
-                      if (callIntakeController.isEnterPartnerDetails) {
-                        await chatController.sendMessage(
-                            'Below are my partner details:',
-                            '${widget.astrologerId}_${global.currentUserId}',
-                            widget.astrologerId,
-                            false);
-                        await chatController.sendMessage(
-                            'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
-                            '${widget.astrologerId}_${global.currentUserId}',
-                            widget.astrologerId,
-                            false);
-                        await chatController.sendMessage(
-                            'This is automated message to confirm that chat has started.',
-                            '${widget.astrologerId}_${global.currentUserId}',
-                            widget.astrologerId,
-                            false);
-                      } else {
-                        await chatController.sendMessage(
-                            'This is automated message to confirm that chat has started.',
-                            '${widget.astrologerId}_${global.currentUserId}',
-                            widget.astrologerId,
-                            false);
-                      }
-                      await chatController.sendChatRequest(
-                          widget.astrologerId, true);
-                    }
-                  } else {
-                    global.showToast(
-                        message:
-                            'You can not join multiple offers at same time',
+      bottomSheet: _isChecked == true
+          ? SizedBox()
+          : GetBuilder<IntakeController>(builder: (intakeController) {
+              return Container(
+                width: Get.width,
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    gradient: gradient.btnGradient,
+                    borderRadius: const BorderRadius.all(Radius.circular(15))),
+                child: TextButton(
+                  onPressed: () async {
+                    if (_isChecked == true &&
+                        callIntakeController.dobController.text == "")
+                      callIntakeController.dobController.text = '09/09/2023';
+                    if (_isChecked == true &&
+                        callIntakeController.ocupationController.text == "")
+                      callIntakeController.ocupationController.text = 'Docter';
+                    // if()
+                    bool isvalid = intakeController.isValidData();
+                    print(isvalid);
+                    if (!isvalid) {
+                      global.showToast(
+                        message: intakeController.errorText,
                         textColor: global.textColor,
-                        bgColor: global.toastBackGoundColor);
-                  }
-                } else {
-                  if (widget.type == "Call") {
-                    await callController.sendCallRequest(
-                        widget.astrologerId, false);
-                  } else {
-                    ChatController chatController = Get.find<ChatController>();
-                    DropDownController dropDownController =
-                        Get.find<DropDownController>();
-                    await chatController.sendMessage(
-                        'hi ${widget.astrologerName} ',
-                        '${widget.astrologerId}_${global.currentUserId}',
-                        widget.astrologerId,
-                        false);
-                    await chatController.sendMessage(
-                        'Below are my details:',
-                        '${widget.astrologerId}_${global.currentUserId}',
-                        widget.astrologerId,
-                        false);
-                    await chatController.sendMessage(
-                        'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
-                        '${widget.astrologerId}_${global.currentUserId}',
-                        widget.astrologerId,
-                        false);
-
-                    if (callIntakeController.isEnterPartnerDetails) {
-                      await chatController.sendMessage(
-                          'Below are my partner details:',
-                          '${widget.astrologerId}_${global.currentUserId}',
-                          widget.astrologerId,
-                          false);
-                      await chatController.sendMessage(
-                          'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
-                          '${widget.astrologerId}_${global.currentUserId}',
-                          widget.astrologerId,
-                          false);
-                      await chatController.sendMessage(
-                          'This is automated message to confirm that chat has started.',
-                          '${widget.astrologerId}_${global.currentUserId}',
-                          widget.astrologerId,
-                          false);
+                        bgColor: global.toastBackGoundColor,
+                      );
                     } else {
-                      await chatController.sendMessage(
-                          'This is automated message to confirm that chat has started.',
-                          '${widget.astrologerId}_${global.currentUserId}',
-                          widget.astrologerId,
-                          false);
-                    }
-                    await chatController.sendChatRequest(
-                        widget.astrologerId, false);
-                  }
-                }
-                global.hideLoader();
-                Navigator.pop(context);
-                Get.back();
+                      if (/*intakeController.isVarified*/ true) {
+                        global.showOnlyLoaderDialog(context);
+                        await callIntakeController.addCallIntakeFormData();
+                        print(
+                            'firebase ${widget.astrologerId}_${global.currentUserId}');
+                        if (widget.isFreeAvailable == true) {
+                          //await intakeController.checkFreeSessionAvailable();
+                          if (intakeController.isAddNewRequestByFreeuser ==
+                              true) {
+                            if (widget.type == "Call") {
+                              print('hsdkjfhkjfkfhffkfkkjshdf');
+                              await callController.sendCallRequest(
+                                  widget.astrologerId, true);
+                            } else {
+                              ChatController chatController =
+                                  Get.find<ChatController>();
+                              DropDownController dropDownController =
+                                  Get.find<DropDownController>();
+                              await chatController.sendMessage(
+                                  'hi ${widget.astrologerName} ',
+                                  '${widget.astrologerId}_${global.currentUserId}',
+                                  widget.astrologerId,
+                                  false);
+                              await chatController.sendMessage(
+                                  'Below are my details:',
+                                  '${widget.astrologerId}_${global.currentUserId}',
+                                  widget.astrologerId,
+                                  false);
+                              await chatController.sendMessage(
+                                  'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
+                                  '${widget.astrologerId}_${global.currentUserId}',
+                                  widget.astrologerId,
+                                  false);
 
-                FlutterRingtonePlayer().play(
-                    fromAsset:
-                        "assets/phone_outgoing_call.mp3", // will be the sound on Android
-                    ios: IosSounds.glass,
-                    volume: 1,
-                    looping: true // will be the sound on iOS
-                    );
-                _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
-                  if (count >= 30) {
-                    timer.cancel();
-                    FlutterRingtonePlayer().stop();
-                    callController.rejectedCall(callController.callId!);
-                    Get.back();
-                    Get.showSnackbar(GetSnackBar(
-                        message:
-                            'Right now advisor is busy, try again after some time'));
-                  } else {
-                    count++;
-                  }
-                });
-                ;
-                dialogForchat();
-              } else {
-                global.showToast(
-                  message: 'Please verify your phone number',
-                  textColor: global.textColor,
-                  bgColor: global.toastBackGoundColor,
-                );
-              }
-            }
-          },
-          title: 'Start ${widget.type} with ${widget.astrologerName}',
-        );
-      }),
+                              if (callIntakeController.isEnterPartnerDetails) {
+                                await chatController.sendMessage(
+                                    'Below are my partner details:',
+                                    '${widget.astrologerId}_${global.currentUserId}',
+                                    widget.astrologerId,
+                                    false);
+                                await chatController.sendMessage(
+                                    'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
+                                    '${widget.astrologerId}_${global.currentUserId}',
+                                    widget.astrologerId,
+                                    false);
+                                await chatController.sendMessage(
+                                    'This is automated message to confirm that chat has started.',
+                                    '${widget.astrologerId}_${global.currentUserId}',
+                                    widget.astrologerId,
+                                    false);
+                              } else {
+                                await chatController.sendMessage(
+                                    'This is automated message to confirm that chat has started.',
+                                    '${widget.astrologerId}_${global.currentUserId}',
+                                    widget.astrologerId,
+                                    false);
+                              }
+                              await chatController.sendChatRequest(
+                                  widget.astrologerId, true);
+                            }
+                          } else {
+                            global.showToast(
+                                message:
+                                    'You can not join multiple offers at same time',
+                                textColor: global.textColor,
+                                bgColor: global.toastBackGoundColor);
+                          }
+                        } else {
+                          if (widget.type == "Call") {
+                            await callController.sendCallRequest(
+                                widget.astrologerId, false);
+                          } else {
+                            ChatController chatController =
+                                Get.find<ChatController>();
+                            DropDownController dropDownController =
+                                Get.find<DropDownController>();
+                            await chatController.sendMessage(
+                                'hi ${widget.astrologerName} ',
+                                '${widget.astrologerId}_${global.currentUserId}',
+                                widget.astrologerId,
+                                false);
+                            await chatController.sendMessage(
+                                'Below are my details:',
+                                '${widget.astrologerId}_${global.currentUserId}',
+                                widget.astrologerId,
+                                false);
+                            await chatController.sendMessage(
+                                'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
+                                '${widget.astrologerId}_${global.currentUserId}',
+                                widget.astrologerId,
+                                false);
+
+                            if (callIntakeController.isEnterPartnerDetails) {
+                              await chatController.sendMessage(
+                                  'Below are my partner details:',
+                                  '${widget.astrologerId}_${global.currentUserId}',
+                                  widget.astrologerId,
+                                  false);
+                              await chatController.sendMessage(
+                                  'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
+                                  '${widget.astrologerId}_${global.currentUserId}',
+                                  widget.astrologerId,
+                                  false);
+                              await chatController.sendMessage(
+                                  'This is automated message to confirm that chat has started.',
+                                  '${widget.astrologerId}_${global.currentUserId}',
+                                  widget.astrologerId,
+                                  false);
+                            } else {
+                              await chatController.sendMessage(
+                                  'This is automated message to confirm that chat has started.',
+                                  '${widget.astrologerId}_${global.currentUserId}',
+                                  widget.astrologerId,
+                                  false);
+                            }
+                            await chatController.sendChatRequest(
+                                widget.astrologerId, false);
+                          }
+                        }
+                        global.hideLoader();
+                        Navigator.pop(context);
+                        Get.back();
+
+                        FlutterRingtonePlayer().play(
+                            fromAsset:
+                                "assets/phone_outgoing_call.mp3", // will be the sound on Android
+                            ios: IosSounds.glass,
+                            volume: 1,
+                            looping: true // will be the sound on iOS
+                            );
+                        _timer =
+                            Timer.periodic(Duration(seconds: 1), (Timer timer) {
+                          if (count >= 30) {
+                            timer.cancel();
+                            FlutterRingtonePlayer().stop();
+                            callController.rejectedCall(callController.callId!);
+                            Get.back();
+                            Get.showSnackbar(GetSnackBar(
+                                message:
+                                    'Right now advisor is busy, try again after some time'));
+                          } else {
+                            count++;
+                          }
+                        });
+                        ;
+                        dialogForchat();
+                      } else {
+                        global.showToast(
+                          message: 'Please verify your phone number',
+                          textColor: global.textColor,
+                          bgColor: global.toastBackGoundColor,
+                        );
+                      }
+                    }
+                  },
+                  child: Row(
+                    //mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      /*Icon(
+                  Icons.call,
+                  color: Colors.white,
+                ),*/
+                      Text(
+                        'LET’S CONNECT \n(TALK TO OUR ADVISOR)',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+              );
+
+              //   CustomBottomButton(
+              //   onTap: () async {
+              //     bool isvalid = intakeController.isValidData();
+              //     print(isvalid);
+              //     if (!isvalid) {
+              //       global.showToast(
+              //         message: intakeController.errorText,
+              //         textColor: global.textColor,
+              //         bgColor: global.toastBackGoundColor,
+              //       );
+              //     } else {
+              //       if (/*intakeController.isVarified*/ true) {
+              //         global.showOnlyLoaderDialog(context);
+              //         await callIntakeController.addCallIntakeFormData();
+              //         print(
+              //             'firebase ${widget.astrologerId}_${global.currentUserId}');
+              //         if (widget.isFreeAvailable == true) {
+              //           //await intakeController.checkFreeSessionAvailable();
+              //           if (intakeController.isAddNewRequestByFreeuser == true) {
+              //             if (widget.type == "Call") {
+              //               print('hsdkjfhkjfkfhffkfkkjshdf');
+              //               await callController.sendCallRequest(
+              //                   widget.astrologerId, true);
+              //             } else {
+              //               ChatController chatController =
+              //                   Get.find<ChatController>();
+              //               DropDownController dropDownController =
+              //                   Get.find<DropDownController>();
+              //               await chatController.sendMessage(
+              //                   'hi ${widget.astrologerName} ',
+              //                   '${widget.astrologerId}_${global.currentUserId}',
+              //                   widget.astrologerId,
+              //                   false);
+              //               await chatController.sendMessage(
+              //                   'Below are my details:',
+              //                   '${widget.astrologerId}_${global.currentUserId}',
+              //                   widget.astrologerId,
+              //                   false);
+              //               await chatController.sendMessage(
+              //                   'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
+              //                   '${widget.astrologerId}_${global.currentUserId}',
+              //                   widget.astrologerId,
+              //                   false);
+              //
+              //               if (callIntakeController.isEnterPartnerDetails) {
+              //                 await chatController.sendMessage(
+              //                     'Below are my partner details:',
+              //                     '${widget.astrologerId}_${global.currentUserId}',
+              //                     widget.astrologerId,
+              //                     false);
+              //                 await chatController.sendMessage(
+              //                     'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
+              //                     '${widget.astrologerId}_${global.currentUserId}',
+              //                     widget.astrologerId,
+              //                     false);
+              //                 await chatController.sendMessage(
+              //                     'This is automated message to confirm that chat has started.',
+              //                     '${widget.astrologerId}_${global.currentUserId}',
+              //                     widget.astrologerId,
+              //                     false);
+              //               } else {
+              //                 await chatController.sendMessage(
+              //                     'This is automated message to confirm that chat has started.',
+              //                     '${widget.astrologerId}_${global.currentUserId}',
+              //                     widget.astrologerId,
+              //                     false);
+              //               }
+              //               await chatController.sendChatRequest(
+              //                   widget.astrologerId, true);
+              //             }
+              //           } else {
+              //             global.showToast(
+              //                 message:
+              //                     'You can not join multiple offers at same time',
+              //                 textColor: global.textColor,
+              //                 bgColor: global.toastBackGoundColor);
+              //           }
+              //         } else {
+              //           if (widget.type == "Call") {
+              //             await callController.sendCallRequest(
+              //                 widget.astrologerId, false);
+              //           } else {
+              //             ChatController chatController = Get.find<ChatController>();
+              //             DropDownController dropDownController =
+              //                 Get.find<DropDownController>();
+              //             await chatController.sendMessage(
+              //                 'hi ${widget.astrologerName} ',
+              //                 '${widget.astrologerId}_${global.currentUserId}',
+              //                 widget.astrologerId,
+              //                 false);
+              //             await chatController.sendMessage(
+              //                 'Below are my details:',
+              //                 '${widget.astrologerId}_${global.currentUserId}',
+              //                 widget.astrologerId,
+              //                 false);
+              //             await chatController.sendMessage(
+              //                 'Name: ${intakeController.nameController.text},Gender: ${intakeController.gender},DOB: ${intakeController.dobController.text},TOB: ${intakeController.birthTimeController.text},POB: ${intakeController.placeController.text},Marital status: ${dropDownController.maritalStatus ?? "Single"},TOPIC: ${dropDownController.topic ?? 'Study'}',
+              //                 '${widget.astrologerId}_${global.currentUserId}',
+              //                 widget.astrologerId,
+              //                 false);
+              //
+              //             if (callIntakeController.isEnterPartnerDetails) {
+              //               await chatController.sendMessage(
+              //                   'Below are my partner details:',
+              //                   '${widget.astrologerId}_${global.currentUserId}',
+              //                   widget.astrologerId,
+              //                   false);
+              //               await chatController.sendMessage(
+              //                   'Name: ${intakeController.partnerNameController.text},DOB: ${intakeController.partnerDobController.text},TOB: ${intakeController.partnerBirthController.text},POB: ${intakeController.partnerPlaceController.text}',
+              //                   '${widget.astrologerId}_${global.currentUserId}',
+              //                   widget.astrologerId,
+              //                   false);
+              //               await chatController.sendMessage(
+              //                   'This is automated message to confirm that chat has started.',
+              //                   '${widget.astrologerId}_${global.currentUserId}',
+              //                   widget.astrologerId,
+              //                   false);
+              //             } else {
+              //               await chatController.sendMessage(
+              //                   'This is automated message to confirm that chat has started.',
+              //                   '${widget.astrologerId}_${global.currentUserId}',
+              //                   widget.astrologerId,
+              //                   false);
+              //             }
+              //             await chatController.sendChatRequest(
+              //                 widget.astrologerId, false);
+              //           }
+              //         }
+              //         global.hideLoader();
+              //         Navigator.pop(context);
+              //         Get.back();
+              //
+              //         FlutterRingtonePlayer().play(
+              //             fromAsset:
+              //                 "assets/phone_outgoing_call.mp3", // will be the sound on Android
+              //             ios: IosSounds.glass,
+              //             volume: 1,
+              //             looping: true // will be the sound on iOS
+              //             );
+              //         _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+              //           if (count >= 30) {
+              //             timer.cancel();
+              //             FlutterRingtonePlayer().stop();
+              //             callController.rejectedCall(callController.callId!);
+              //             Get.back();
+              //             Get.showSnackbar(GetSnackBar(
+              //                 message:
+              //                     'Right now advisor is busy, try again after some time'));
+              //           } else {
+              //             count++;
+              //           }
+              //         });
+              //         ;
+              //         dialogForchat();
+              //       } else {
+              //         global.showToast(
+              //           message: 'Please verify your phone number',
+              //           textColor: global.textColor,
+              //           bgColor: global.toastBackGoundColor,
+              //         );
+              //       }
+              //     }
+              //   },
+              //   title: 'LET’S CONNECT (TALK TO OUR ADVISOR)',
+              // );
+            }),
     );
   }
 
@@ -838,7 +1512,7 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                       ) /**/,
                     ),
                     Text(
-                      'Advisor will try to answer atleast one question in this 5 mins session',
+                      'Advisor will try to answer at least one question in this 5 mins session',
                       style: TextStyle(
                           fontSize: 11, fontWeight: FontWeight.normal),
                     ) /**/,
@@ -852,6 +1526,7 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                                 await callController
                                     .rejectedCall(callController.callId!);
                                 FlutterRingtonePlayer().stop();
+                                _timer?.cancel();
                                 Get.back();
                               } else {}
                             },

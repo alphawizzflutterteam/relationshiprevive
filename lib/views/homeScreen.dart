@@ -48,6 +48,7 @@ import 'package:get/get.dart';
 import 'package:google_translator/google_translator.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 import '../controllers/IntakeController.dart';
@@ -69,6 +70,8 @@ class HomeScreen extends StatelessWidget {
   KundliController kundliController = Get.find<KundliController>();
   SplashController splashController = Get.find<SplashController>();
   final WalletController walletController = Get.find<WalletController>();
+  String description =
+      "Relationship Reviving is an online service dedicated to rejuvenating connections across various life segments, including career, love, business, health and wellness, parenting, couple relationships, family dynamics, and self-relationship. We provide personalized guidance to help individuals and couples restore harmony, improve communication, and strengthen bonds in every aspect of their lives.";
 
   @override
   Widget build(BuildContext context) {
@@ -1796,6 +1799,9 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               );
                       }),*/
+
+                      //code of blog section starts here
+
                       GetBuilder<HomeController>(builder: (homeController) {
                         return homeController.blogList.length == 0
                             ? SizedBox()
@@ -1821,7 +1827,8 @@ class HomeScreen extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Latest from blog',
+                                                // 'Latest from blog',
+                                                'About Us',
                                                 style: Get.theme
                                                     .primaryTextTheme.subtitle1!
                                                     .copyWith(
@@ -1830,7 +1837,7 @@ class HomeScreen extends StatelessWidget {
                                               ),
                                               GestureDetector(
                                                 onTap: () async {
-                                                  BlogController
+                                                  /*BlogController
                                                       blogController = Get.find<
                                                           BlogController>();
                                                   global.showOnlyLoaderDialog(
@@ -1847,10 +1854,10 @@ class HomeScreen extends StatelessWidget {
                                                           "", false);
                                                   global.hideLoader();
                                                   Get.to(() =>
-                                                      AstrologyBlogScreen());
+                                                      AstrologyBlogScreen());*/
                                                 },
                                                 child: Text(
-                                                  'View All',
+                                                  /*'View All'*/ '',
                                                   style: Get
                                                       .theme
                                                       .primaryTextTheme
@@ -1864,7 +1871,7 @@ class HomeScreen extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        Expanded(child:
+                                        /*Expanded(child:
                                             GetBuilder<HomeController>(
                                                 builder: (homeControllerr) {
                                           return ListView.builder(
@@ -2212,13 +2219,59 @@ class HomeScreen extends StatelessWidget {
                                               );
                                             },
                                           );
-                                        }))
+                                        }))*/
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                                left: 10, right: 10, top: 10),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              border: Border.all(
+                                                  color: Colors.grey),
+                                            ),
+                                            padding: EdgeInsets.all(10),
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  description,
+                                                  maxLines: 10,
+                                                  textAlign: TextAlign.justify,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: Get
+                                                      .theme
+                                                      .primaryTextTheme
+                                                      .bodyText2!
+                                                      .copyWith(
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: 13,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 20.0, bottom: 8),
+                                                  child: Divider(height: 0),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
                                 ),
                               );
                       }),
+
+                      //       Padding(
+                      //         padding: const EdgeInsets.all(10.0),
+                      //         child: Text('About Us',style: Get.theme
+                      //     .primaryTextTheme.subtitle1!
+                      //     .copyWith(fontWeight: FontWeight.w500),
+                      // )),
+
                       GetBuilder<AstromallController>(
                           builder: (astromallController) {
                         return astromallController.astroCategory.length == 0
@@ -2500,6 +2553,74 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                       }),*/
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          height: 120,
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          // margin: const EdgeInsets.only(
+                          //     top: 10, bottom: 10, right: 10, left: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: Get.theme.primaryColor,
+                            ),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'I WANT TO EXPLORE… \n(Watch the next slide for the details.)',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              GetBuilder<BottomNavigationController>(
+                                  builder: (bottomController) {
+                                return Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      gradient: gradient.btnGradient,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15))),
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero),
+                                    onPressed: () async {
+                                      global.showOnlyLoaderDialog(context);
+                                      bottomController.astrologerList = [];
+                                      bottomController.astrologerList.clear();
+                                      bottomController.isAllDataLoaded = false;
+                                      bottomController.update();
+                                      await bottomController.getAstrologerList(
+                                          isLazyLoading: false);
+                                      global.hideLoader();
+
+                                      Get.to(CallScreen());
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                        Text(
+                                          '',
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
+                        ),
+                      ),
                       GetBuilder<HomeController>(builder: (homeController) {
                         return homeController.clientReviews.length == 0
                             ? SizedBox()
@@ -3179,41 +3300,41 @@ class HomeScreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Watch Advisor Videos',
-                                                style: Get.theme
-                                                    .primaryTextTheme.subtitle1!
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Get.to(() =>
-                                                      AstrologerVideoScreen());
-                                                },
-                                                child: Text(
-                                                  'View All',
-                                                  style: Get
-                                                      .theme
-                                                      .primaryTextTheme
-                                                      .bodySmall!
-                                                      .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.grey[500],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                        // Padding(
+                                        //   padding: const EdgeInsets.symmetric(
+                                        //       horizontal: 10),
+                                        //   child: Row(
+                                        //     mainAxisAlignment:
+                                        //         MainAxisAlignment.spaceBetween,
+                                        //     children: [
+                                        //       Text(
+                                        //         'Watch Advisor Videos',
+                                        //         style: Get.theme
+                                        //             .primaryTextTheme.subtitle1!
+                                        //             .copyWith(
+                                        //                 fontWeight:
+                                        //                     FontWeight.w500),
+                                        //       ),
+                                        //       GestureDetector(
+                                        //         onTap: () {
+                                        //           Get.to(() =>
+                                        //               AstrologerVideoScreen());
+                                        //         },
+                                        //         child: Text(
+                                        //           'View All',
+                                        //           style: Get
+                                        //               .theme
+                                        //               .primaryTextTheme
+                                        //               .bodySmall!
+                                        //               .copyWith(
+                                        //             fontWeight: FontWeight.w400,
+                                        //             color: Colors.grey[500],
+                                        //           ),
+                                        //         ),
+                                        //       ),
+                                        //     ],
+                                        //   ),
+                                        // ),
                                         Expanded(
                                             child: ListView.builder(
                                           itemCount: homeController
@@ -3436,14 +3557,14 @@ class HomeScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                // Text(
+                                //   'I am the Product Manager',
+                                //   style: Get.theme.primaryTextTheme.subtitle1!
+                                //       .copyWith(fontWeight: FontWeight.w500),
+                                // ),
                                 Text(
-                                  'I am the Product Manager',
-                                  style: Get.theme.primaryTextTheme.subtitle1!
-                                      .copyWith(fontWeight: FontWeight.w500),
-                                ),
-                                Text(
-                                  'share your feedback to help us improve the app',
-                                  style: TextStyle(fontSize: 10),
+                                  'Your feedback is very important to us. Share your thoughts …',
+                                  style: TextStyle(fontSize: 14),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -3455,6 +3576,7 @@ class HomeScreen extends StatelessWidget {
                                       return TextFormField(
                                         controller:
                                             homeController.feedbackController,
+                                        minLines: 4,
                                         maxLines: 8,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
@@ -3465,7 +3587,7 @@ class HomeScreen extends StatelessWidget {
                                           hintText: snapshot.data ??
                                               'Start typing here..',
                                           hintStyle: TextStyle(
-                                              fontWeight: FontWeight.w600,
+                                              fontWeight: FontWeight.w300,
                                               color: Colors.grey[500]),
                                         ),
                                       );
@@ -3535,6 +3657,34 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                       }),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: InkWell(
+                          onTap: () {
+                            launchUrl(Uri.parse(
+                                'https://play.google.com/store/apps/'));
+                          },
+                          child: Container(
+                            //height: 120,
+                            width: Get.width,
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            // margin: const EdgeInsets.only(
+                            //     top: 10, bottom: 10, right: 10, left: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.transparent,
+                              ),
+                            ),
+                            child: Text(
+                              'If you are willing to support others as an ADVISOR on this platform and then kindly click this link.',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          ),
+                        ),
+                      ),
                       Card(
                         elevation: 0,
                         margin: EdgeInsets.only(top: 6),
@@ -3543,15 +3693,15 @@ class HomeScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                                   vertical: 15, horizontal: 10)
-                              .copyWith(bottom: 65),
+                              .copyWith(bottom: 60),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Column(
                                 children: [
                                   Container(
-                                    height: 70,
-                                    width: 70,
+                                    height: 50,
+                                    width: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(7),
                                       color: Colors.grey[200],
@@ -3565,14 +3715,14 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 15,
+                                    height: 10,
                                   ),
                                   Text(
                                     'Private &\nConfidential',
                                     textAlign: TextAlign.center,
                                     style:
                                         Get.theme.textTheme.subtitle1!.copyWith(
-                                      fontSize: 13,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 0.5,
                                     ),
@@ -3582,8 +3732,8 @@ class HomeScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   Container(
-                                    height: 70,
-                                    width: 70,
+                                    height: 50,
+                                    width: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(7),
                                       color: Colors.grey[200],
@@ -3597,7 +3747,7 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 15,
+                                    height: 10,
                                   ),
                                   Text(
                                     'Verified\nAdvisors',
@@ -3614,8 +3764,8 @@ class HomeScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   Container(
-                                    height: 70,
-                                    width: 70,
+                                    height: 50,
+                                    width: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(7),
                                       color: Colors.grey[200],
@@ -3629,7 +3779,7 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 15,
+                                    height: 10,
                                   ),
                                   Text(
                                     'Secure\nPayments',
@@ -3647,6 +3797,15 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Center(
+                          child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          ' Relationship Revive is Brand name under the entity of \“Neelu World\".',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      )),
                     ],
                   ),
 
@@ -3779,40 +3938,40 @@ class HomeScreen extends StatelessWidget {
             );
           }),
         ),
-        floatingActionButton:
-            GetBuilder<BottomNavigationController>(builder: (bottomController) {
-          return Container(
-            decoration: BoxDecoration(
-                gradient: gradient.btnGradient,
-                borderRadius: const BorderRadius.all(Radius.circular(15))),
-            child: TextButton(
-              onPressed: () async {
-                global.showOnlyLoaderDialog(context);
-                bottomController.astrologerList = [];
-                bottomController.astrologerList.clear();
-                bottomController.isAllDataLoaded = false;
-                bottomController.update();
-                await bottomController.getAstrologerList(isLazyLoading: false);
-                global.hideLoader();
-
-                Get.to(CallScreen());
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.call,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    'Call With Advisor',
-                    style: TextStyle(color: Colors.white),
-                  )
-                ],
-              ),
-            ),
-          );
-        }),
+        // floatingActionButton:
+        //     GetBuilder<BottomNavigationController>(builder: (bottomController) {
+        //   return Container(
+        //     decoration: BoxDecoration(
+        //         gradient: gradient.btnGradient,
+        //         borderRadius: const BorderRadius.all(Radius.circular(15))),
+        //     child: TextButton(
+        //       onPressed: () async {
+        //         global.showOnlyLoaderDialog(context);
+        //         bottomController.astrologerList = [];
+        //         bottomController.astrologerList.clear();
+        //         bottomController.isAllDataLoaded = false;
+        //         bottomController.update();
+        //         await bottomController.getAstrologerList(isLazyLoading: false);
+        //         global.hideLoader();
+        //
+        //         Get.to(CallScreen());
+        //       },
+        //       child: Row(
+        //         mainAxisSize: MainAxisSize.min,
+        //         children: [
+        //           Icon(
+        //             Icons.call,
+        //             color: Colors.white,
+        //           ),
+        //           Text(
+        //             'Call With Advisor',
+        //             style: TextStyle(color: Colors.white),
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //   );
+        // }),
       ),
     );
   }

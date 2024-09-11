@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:AstroGuru/utils/global.dart' as global;
 import '../../widget/commonAppbar.dart';
@@ -9,13 +10,15 @@ class TermAndConditionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Get.theme.primaryColor,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(56),
           child: CommonAppBar(
             title: 'Terms and Condition',
           )),
       body: WebView(
-        initialUrl: '${global.webBaseUrl}terms-condition',
+        initialUrl: /*'${global.webBaseUrl}admin/termsCondition'*/
+            'https://relationship.developmentalphawizz.com/admin/termsCondition',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

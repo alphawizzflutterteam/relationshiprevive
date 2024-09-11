@@ -3,6 +3,7 @@
 import 'package:AstroGuru/controllers/splashController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../controllers/life_cycle_controller.dart';
@@ -22,8 +23,8 @@ class SplashScreen extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/splash.png',
-              height: 100,
-              width: 100,
+              height: 150,
+              width: 150,
             ),
             /*CircleAvatar(
               backgroundColor: Get.theme.primaryColor,
@@ -31,16 +32,26 @@ class SplashScreen extends StatelessWidget {
               backgroundImage: AssetImage('assets/images/splash.png'),
             ),*/
             const SizedBox(
-              height: 15,
+              height: 20,
             ),
-            GetBuilder<SplashController>(builder: (s) {
+            SizedBox(
+              width: Get.width / 1.2,
+              child: Text(
+                // splashController.appName,
+                "Revive, Rekindle, Reconnect Nurturing Stronger Bonds, Together.",
+                style: Get.textTheme.bodySmall!
+                    .copyWith(color: Colors.white, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            /*GetBuilder<SplashController>(builder: (s) {
               return splashController.appName == ''
                   ? const CircularProgressIndicator()
-                  : Text(
-                      splashController.appName,
-                      style: Get.textTheme.headline5,
-                    );
-            })
+                  : SizedBox();
+            })*/
           ],
         ),
       ),

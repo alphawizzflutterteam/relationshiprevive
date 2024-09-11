@@ -61,7 +61,7 @@ String stripeBaseApi = 'https://api.stripe.com/v1';
 
 String baseUrl = "http://relationship.developmentalphawizz.com/api";
 String imgBaseurl = "http://relationship.developmentalphawizz.com/";
-String webBaseUrl = "";
+String webBaseUrl = "http://relationship.developmentalphawizz.com/";
 String appMode = "LIVE";
 Map<String, dynamic> appParameters = {
   "LIVE": {

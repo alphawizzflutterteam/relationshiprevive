@@ -446,6 +446,11 @@ class RegisterUserScreen extends StatelessWidget {
                 keyboardType: TextInputType.numberWithOptions(
                     decimal: false, signed: true),
               ),
+              TextFieldWidget(
+                controller: userProfileController.emailController,
+                labelText: 'Email',
+                keyboardType: TextInputType.emailAddress,
+              ),
               Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -473,17 +478,18 @@ class RegisterUserScreen extends StatelessWidget {
                     Flexible(
                       flex: 1,
                       child: RadioListTile(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         title: Text("Female", style: TextStyle(fontSize: 13)),
                         value: "Female",
                         groupValue: userProfileController.gender,
                         activeColor: Get.theme.primaryColor,
-                        contentPadding: EdgeInsets.all(0.0),
+                        contentPadding: EdgeInsets.zero,
                         onChanged: (value) {
                           userProfileController.updateGeneder(value);
                         },
                       ),
                     ),
-                    SizedBox(width: 78)
+                    SizedBox(width: 20)
                   ]),
               InkWell(
                 onTap: () async {
@@ -493,7 +499,7 @@ class RegisterUserScreen extends StatelessWidget {
                     initialDate: DateTime(1994),
                     firstDate: DateTime(1960),
                     lastDate: DateTime.now(),
-                    dateFormat: "dd-MM-yyyy",
+                    dateFormat: "dd-MMMM-yyyy",
                     itemTextStyle: Get.theme.textTheme.subtitle1!.copyWith(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
@@ -581,6 +587,29 @@ class RegisterUserScreen extends StatelessWidget {
                 labelText: 'Current Address',
                 focusNode: userProfileController.currentAddFocus,
               ),
+              TextFieldWidget(
+                controller: userProfileController.cityController,
+                labelText: 'City',
+                focusNode: userProfileController.cityFocus,
+              ),
+              TextFieldWidget(
+                controller: userProfileController.countryController,
+                labelText: 'Country',
+                focusNode: userProfileController.countryFocus,
+              ),
+              /*InkWell(
+                onTap: () {
+                  userProfileController.nameFocus.unfocus();
+                  userProfileController.currentAddFocus.unfocus();
+                  Get.to(() => PlaceOfBirthSearchScreen(
+                        flagId: 4,
+                      ));
+                },
+                child: TextFieldWidget(
+                  controller: userProfileController.cityController,
+                  labelText: 'City',
+                ),
+              ),
               InkWell(
                 onTap: () {
                   userProfileController.nameFocus.unfocus();
@@ -590,10 +619,10 @@ class RegisterUserScreen extends StatelessWidget {
                       ));
                 },
                 child: TextFieldWidget(
-                  controller: userProfileController.addressController,
-                  labelText: 'City,State,Country',
+                  controller: userProfileController.countryController,
+                  labelText: 'Country',
                 ),
-              ),
+              ),*/
               TextFieldWidget(
                 inputFormatter: [FilteringTextInputFormatter.digitsOnly],
                 controller: userProfileController.pinController,
@@ -612,7 +641,44 @@ class RegisterUserScreen extends StatelessWidget {
       )),
       bottomSheet:
           GetBuilder<UserProfileController>(builder: (userProfileController) {
-        return CustomBottomButton(
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(10.0, 0, 8, 8.0),
+          child: Container(
+            height: 45,
+            width: double.infinity,
+            margin: EdgeInsets.only(top: 20),
+            decoration: BoxDecoration(
+              gradient: gradient.btnGradient,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
+            child: TextButton(
+              onPressed: () async {
+                bool isvalid = userProfileController.isValidData();
+                if (!isvalid) {
+                  global.showToast(
+                    message: userProfileController.toastMessage,
+                    textColor: global.textColor,
+                    bgColor: global.toastBackGoundColor,
+                  );
+                } else {
+                  global.showOnlyLoaderDialog(context);
+                  await userProfileController.sendOtp();
+                }
+              },
+              child: Row(
+                // mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    'Submit',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ) /*CustomBottomButton(
           title: 'Submit',
           onTap: () async {
             bool isvalid = userProfileController.isValidData();
@@ -625,12 +691,13 @@ class RegisterUserScreen extends StatelessWidget {
             } else {
               global.showOnlyLoaderDialog(context);
               // searchController.update();
-              /*await userProfileController
-                  .updateCurrentUser(global.sp!.getInt("currentUserId") ?? 0);*/
+              */ /*await userProfileController
+                  .updateCurrentUser(global.sp!.getInt("currentUserId") ?? 0);*/ /*
               await userProfileController.sendOtp();
             }
           },
-        );
+        )*/
+            ;
       }),
     );
   }

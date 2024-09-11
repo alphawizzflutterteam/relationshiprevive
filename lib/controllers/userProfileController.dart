@@ -22,16 +22,20 @@ import 'loginController.dart';
 class UserProfileController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   TextEditingController placeBirthController = TextEditingController();
   TextEditingController currentAddressController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   TextEditingController pinController = TextEditingController();
   SplashController splashController = Get.find<SplashController>();
   FocusNode fSearch = new FocusNode();
   FocusNode nameFocus = FocusNode();
   FocusNode currentAddFocus = FocusNode();
+  FocusNode cityFocus = FocusNode();
+  FocusNode countryFocus = FocusNode();
   String toastMessage = "";
   String gender = 'Male';
   bool isShowMore = false;
@@ -85,7 +89,8 @@ class UserProfileController extends GetxController {
       placeBirthController.text = splashController.currentUser!.birthPlace!;
       currentAddressController.text =
           splashController.currentUser!.addressLine1!;
-      addressController.text = splashController.currentUser!.location!;
+      cityController.text = splashController.currentUser!.location!;
+      countryController.text = splashController.currentUser?.country ?? '';
       pinController.text =
           splashController.currentUser!.pincode.toString() == "null"
               ? ""
@@ -158,6 +163,7 @@ class UserProfileController extends GetxController {
     var basicDetails = {
       "name": nameController.text,
       "contactNo": splashController.currentUser!.contactNo,
+      "email": splashController.currentUser!.email,
       "gender": gender,
       "birthTime": timeController.text == "" ? null : timeController.text,
       "birthDate": pickedDate == null ? null : pickedDate!.toIso8601String(),
@@ -167,10 +173,11 @@ class UserProfileController extends GetxController {
           ? null
           : currentAddressController.text,
       "addressLine2": null,
-      "location": addressController.text == "" ? null : addressController.text,
+      "location": cityController.text == "" ? null : cityController.text,
       "pincode":
           pinController.text == "" ? null : int.parse(pinController.text),
       "profile": profile == "" ? null : profile,
+      "country": countryController.text
     };
     try {
       await global.checkBody().then((result) async {
@@ -301,6 +308,7 @@ class UserProfileController extends GetxController {
       "name": nameController.text,
       "contactNo": phoneController.text,
       "gender": gender,
+      "email": emailController.text,
       //"birthTime": timeController.text == "" ? null : timeController.text,
       "birthDate": pickedDate == null ? null : pickedDate!.toIso8601String(),
       // "birthPlace": placeBirthController.text == "" ? null : placeBirthController.text,
@@ -308,10 +316,11 @@ class UserProfileController extends GetxController {
           ? null
           : currentAddressController.text,
       // "addressLine2": null,
-      "location": addressController.text == "" ? null : addressController.text,
+      "location": cityController.text == "" ? null : cityController.text,
       "pincode":
           pinController.text == "" ? null : int.parse(pinController.text),
       "profile": profile == "" ? null : profile,
+      "country": countryController.text
     };
     try {
       await global.checkBody().then((result) async {
