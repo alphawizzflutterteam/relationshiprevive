@@ -2556,33 +2556,67 @@ class HomeScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Container(
-                          height: 120,
+                          // height: 120,
+
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           // margin: const EdgeInsets.only(
                           //     top: 10, bottom: 10, right: 10, left: 10),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: Get.theme.primaryColor,
-                            ),
-                          ),
-                          child: Row(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Get.theme.primaryColor,
+                              ),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    // Color(0xFF003f7f), // Darker blue at the top
+                                    // Color(0xFF4FC3F7),
+                                    //Color(0xFFAED2C8),
+                                    //Color(0xFFB7D7CF),
+                                    Color(0xFF18B9CA),
+                                    Color(0xFFB7D7CF)
+                                    //Color(0xFF84D4D8),
+
+                                    // Theme.of(context).primaryColor,
+                                    // Theme.of(context).primaryColorLight,
+                                    // Theme.of(context).primaryColor,
+                                    // Theme.of(context).primaryColorLight
+                                  ])),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              SizedBox(
+                                height: 5,
+                              ),
                               Text(
-                                'I WANT TO EXPLORE… \n(Watch the next slide for the details.)',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                'I WOULD LIKE TO ENGAGE WITH ADVISOR TO HELP MY RELATIONSHIP ISSUES',
+                                textAlign: TextAlign.center,
+                                style: Get.textTheme.headlineSmall!
+                                    .copyWith(fontSize: 16),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Click here to select the segment and share your relationship concerns',
+                                textAlign: TextAlign.center,
+                                style: Get.textTheme.bodySmall,
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               GetBuilder<BottomNavigationController>(
                                   builder: (bottomController) {
                                 return Container(
                                   height: 40,
-                                  width: 40,
+                                  // width: 40,
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
                                   decoration: BoxDecoration(
                                       gradient: gradient.btnGradient,
                                       borderRadius: const BorderRadius.all(
-                                          Radius.circular(15))),
+                                          Radius.circular(10))),
                                   child: TextButton(
                                     style: TextButton.styleFrom(
                                         padding: EdgeInsets.zero),
@@ -2603,13 +2637,8 @@ class HomeScreen extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.white,
-                                          size: 20,
-                                        ),
                                         Text(
-                                          '',
+                                          "LET'S START",
                                           style: TextStyle(color: Colors.white),
                                         )
                                       ],
@@ -2617,6 +2646,9 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 );
                               }),
+                              SizedBox(
+                                height: 10,
+                              )
                             ],
                           ),
                         ),
@@ -3659,30 +3691,54 @@ class HomeScreen extends StatelessWidget {
                       }),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: InkWell(
-                          onTap: () {
-                            launchUrl(Uri.parse(
-                                'https://play.google.com/store/apps/'));
-                          },
-                          child: Container(
-                            //height: 120,
-                            width: Get.width,
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            // margin: const EdgeInsets.only(
-                            //     top: 10, bottom: 10, right: 10, left: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: Colors.transparent,
+                        child: Column(
+                          children: [
+                            Container(
+                              //height: 120,
+                              width: Get.width,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              // margin: const EdgeInsets.only(
+                              //     top: 10, bottom: 10, right: 10, left: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              child: Text(
+                                "If you're interested in supporting others as an ADVISOR on this platform, kindly enroll yourself by click",
+                                style: Get.textTheme.headlineSmall?.copyWith(
+                                    color: Colors.black54, fontSize: 16),
                               ),
                             ),
-                            child: Text(
-                              'If you are willing to support others as an ADVISOR on this platform and then kindly click this link.',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  decoration: TextDecoration.underline),
-                            ),
-                          ),
+                            Container(
+                              height: 20,
+                              // width: 40,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                  gradient: gradient.btnGradient,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5))),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero),
+                                onPressed: () async {
+                                  launchUrl(Uri.parse(
+                                      'https://play.google.com/store/apps/'));
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      "I’m Interested",
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       Card(
@@ -3801,7 +3857,7 @@ class HomeScreen extends StatelessWidget {
                           child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
-                          ' Relationship Revive is Brand name under the entity of \“Neelu World\".',
+                          '"Relationship Revive" is Brand name under the entity of \“Neelu World\".',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 14),
                         ),

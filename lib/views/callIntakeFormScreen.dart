@@ -71,7 +71,7 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
   CallController callController = Get.find<CallController>();
 
   ChatController chatController = Get.find<ChatController>();
-  bool _isChecked = false;
+  bool _isChecked = true;
   @override
   void initState() {
     // TODO: implement initState

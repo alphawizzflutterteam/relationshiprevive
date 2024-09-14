@@ -576,7 +576,7 @@ class EditUserProfile extends StatelessWidget {
                     initialDate: DateTime(1994),
                     firstDate: DateTime(1960),
                     lastDate: DateTime.now(),
-                    dateFormat: "dd-MM-yyyy",
+                    dateFormat: "dd-MMMM-yyyy",
                     itemTextStyle: Get.theme.textTheme.subtitle1!.copyWith(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,

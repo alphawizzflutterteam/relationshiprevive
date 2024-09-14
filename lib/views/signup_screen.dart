@@ -426,7 +426,7 @@ class RegisterUserScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              Center(child: Text('+910000000000')),
+              //Center(child: Text('+910000000000')),
               SizedBox(height: 10),
               TextFieldWidget(
                 controller: userProfileController.nameController,

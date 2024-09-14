@@ -1026,7 +1026,7 @@ class APIHelper {
   Future<dynamic> updateUserProfile(int id, var basicDetails) async {
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl/user/update/$id'),
+        Uri.parse('$baseUrl $id'),
         headers: await global.getApiHeaders(true),
         body: jsonEncode(basicDetails),
       );

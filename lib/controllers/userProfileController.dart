@@ -79,6 +79,7 @@ class UserProfileController extends GetxController {
   }
 
   getValue() async {
+    print('${splashController.currentUser!.birthDate}_______________');
     if (splashController.currentUser != null) {
       nameController.text = splashController.currentUser!.name!;
       profile = splashController.currentUser!.profile ?? "";
@@ -328,6 +329,7 @@ class UserProfileController extends GetxController {
           await apiHelper
               .registerUserProfile(basicDetails)
               .then((result) async {
+            log('${basicDetails}');
             if (result.status == "200") {
               global.showToast(
                 message: 'User register successfully',

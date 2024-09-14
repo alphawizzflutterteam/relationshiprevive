@@ -1,3 +1,4 @@
+import 'package:AstroGuru/constants/colors.dart';
 import 'package:AstroGuru/controllers/bottomNavigationController.dart';
 import 'package:AstroGuru/controllers/homeController.dart';
 import 'package:AstroGuru/controllers/loginController.dart';
@@ -47,10 +48,10 @@ class LoginScreen extends StatelessWidget {
                   0.9
                 ],
                     colors: [
-                      Color(0xFFAED2C8),
-                      Color(0xFFB7D7CF),
-                      Color(0xFF84D4D8),
-                      Color(0xFF18B9CA),
+                  Color(0xFFAED2C8),
+                  Color(0xFFB7D7CF),
+                  Color(0xFF84D4D8),
+                  Color(0xFF18B9CA),
                   // Theme.of(context).primaryColor,
                   // Theme.of(context).primaryColorLight,
                   // Theme.of(context).primaryColor,
@@ -58,9 +59,12 @@ class LoginScreen extends StatelessWidget {
                 ])),
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                //mainAxisSize: MainAxisSize.min,
                 children: [
+                  SizedBox(
+                    height: Get.height * 0.05,
+                  ),
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -115,8 +119,18 @@ class LoginScreen extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        '${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
-                        style: Get.textTheme.headline5,
+                        'Welcome to \n"Relationship Revive!"', //'${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
+                        textAlign: TextAlign.center,
+                        style: Get.textTheme.headlineSmall
+                            ?.copyWith(fontSize: 20, color: Colors.black),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        '"Create an account to get started (by clicking Signup),\n else sign in below "', //'${global.getSystemFlagValueForLogin(global.systemFlagNameList.appName)}',
+                        textAlign: TextAlign.center,
+                        style: Get.textTheme.bodySmall,
                       ),
                       SizedBox(
                         height: 10,

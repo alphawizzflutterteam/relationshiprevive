@@ -55,7 +55,7 @@ class ChatController extends GetxController
 
   @override
   void onInit() async {
-    await _init();
+    await init();
     super.onInit();
     categoryTab = TabController(
         vsync: this, length: categoryList.length, initialIndex: isSelected);
@@ -67,7 +67,7 @@ class ChatController extends GetxController
     super.dispose();
   }
 
-  _init() async {
+  init() async {
     await getAstrologerCategorys();
   }
 

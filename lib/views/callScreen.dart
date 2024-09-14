@@ -61,6 +61,11 @@ class _CallScreenState extends State<CallScreen> {
 
   init() async {
     global.sp = await SharedPreferences.getInstance();
+
+    ///for recall category
+    await chatController.init();
+    setState(() {});
+
     await global.sp!.reload();
     global.sp = global.sp;
     if (global.sp!.getInt('callBottom') == 1) {
