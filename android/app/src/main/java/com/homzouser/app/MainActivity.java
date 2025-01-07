@@ -1,4 +1,4 @@
-package com.AstroGuru.app;
+package com.relationshiprevive.app;
 
 import io.flutter.embedding.android.FlutterActivity;
 

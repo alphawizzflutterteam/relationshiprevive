@@ -17,8 +17,7 @@ class TermAndConditionScreen extends StatelessWidget {
             title: 'Terms and Condition',
           )),
       body: WebView(
-        initialUrl: /*'${global.webBaseUrl}admin/termsCondition'*/
-            'https://relationship.developmentalphawizz.com/admin/termsCondition',
+        initialUrl: '${global.webBaseUrl}admin/terms-condition-1',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

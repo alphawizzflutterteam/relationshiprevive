@@ -446,7 +446,7 @@ class LiveAstrologerListScreen extends StatelessWidget {
                                                     androidParameters:
                                                         AndroidParameters(
                                                       packageName:
-                                                          'com.AstroGuru.app',
+                                                          'com.relationshiprevive.app',
                                                       minimumVersion: 1,
                                                     ),
                                                   );

@@ -144,7 +144,7 @@ class SplashController extends GetxController {
         link: Uri.parse(
             "https://astroguruupdated.page.link/userProfile?screen=astrologerShare"),
         androidParameters: AndroidParameters(
-          packageName: 'com.AstroGuru.app',
+          packageName: 'com.relationshiprevive.app',
           minimumVersion: 1,
         ),
       );

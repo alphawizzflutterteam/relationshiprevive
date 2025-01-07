@@ -618,7 +618,7 @@ class KudliMatchingResultScreen extends StatelessWidget {
                                     link: Uri.parse(
                                         "https://astroguruupdated.page.link/userProfile?screen=astroProfile"),
                                     androidParameters: AndroidParameters(
-                                      packageName: 'com.AstroGuru.app',
+                                      packageName: 'com.relationshiprevive.app',
                                       minimumVersion: 1,
                                     ),
                                   );

@@ -5,6 +5,10 @@ buildscript {
         mavenCentral()  // Maven Central repository
     }
 
+    configurations.all {
+        exclude group: "io.agora.rtc", module: "full-screen-sharing"
+    }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

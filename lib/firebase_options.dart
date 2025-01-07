@@ -16,21 +16,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBoq2BNu3kD-36qczc9N96i4iGK1zCFPw8',
-    appId: '1:41514283184:android:67a43dcb6ce4800e23cb75',
-    messagingSenderId: '41514283184',
-    projectId: 'relationship-d4fa7',
-    storageBucket: 'relationship-d4fa7.appspot.com',
+    apiKey: 'AIzaSyAkvK05yuexsLuSWy9B91DJwi_wimt6Xxo',
+    appId: '1:884911350693:android:4ba0b2de65baa504823e4c',
+    messagingSenderId: '884911350693',
+    projectId: 'realtionship-849b1',
+    storageBucket: 'realtionship-849b1.firebasestorage.app',
   );
 
   
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCbNlcjeQww2bJlKzaWtGfLskjSjIGYkzM',
-    appId: '1:41514283184:ios:d108cf798195920323cb75',
-    messagingSenderId: '41514283184',
-    projectId: 'relationship-d4fa7',
-    storageBucket: 'relationship-d4fa7.appspot.com',
+    apiKey: 'AIzaSyAkvK05yuexsLuSWy9B91DJwi_wimt6Xxo',
+    appId: '1:884911350693:android:4ba0b2de65baa504823e4c',
+    messagingSenderId: '884911350693',
+    projectId: 'realtionship-849b1',
+    storageBucket: 'realtionship-849b1.firebasestorage.app',
     iosBundleId: 'com.os.AstroGuru.app',
   );
 

@@ -59,9 +59,12 @@ final DateFormat formatter = DateFormat("dd MMM yy, hh:mm a");
 String stripeBaseApi = 'https://api.stripe.com/v1';
 //You can purchase this script from https://www.codester.com/items/44883/astrotalks-astrology-consultation-script. Avoid Nulled Code
 
-String baseUrl = "http://relationship.developmentalphawizz.com/api";
-String imgBaseurl = "http://relationship.developmentalphawizz.com/";
-String webBaseUrl = "http://relationship.developmentalphawizz.com/";
+String baseUrl = "https://relationship-revive.com/api";
+// String baseUrl = "http://relationship.developmentalphawizz.com/api";
+String imgBaseurl = "https://relationship-revive.com/";
+// String imgBaseurl = "http://relationship.developmentalphawizz.com/";
+String webBaseUrl = "https://relationship-revive.com/";
+// String webBaseUrl = "http://relationship.developmentalphawizz.com/";
 String appMode = "LIVE";
 Map<String, dynamic> appParameters = {
   "LIVE": {
@@ -295,7 +298,7 @@ Future<void> createAndShareLinkForHistoryChatCall() async {
       link: Uri.parse(
           "https://astroguruupdated.page.link/userProfile?screen=historyCallChat"),
       androidParameters: AndroidParameters(
-        packageName: 'com.AstroGuru.app',
+        packageName: 'com.relationshiprevive.app',
         minimumVersion: 1,
       ),
     );
@@ -328,7 +331,7 @@ Future<void> createAndShareTrackPlanet() async {
       link: Uri.parse(
           "https://astroguruupdated.page.link/userProfile?screen=trackPlanet"),
       androidParameters: AndroidParameters(
-        packageName: 'com.AstroGuru.app',
+        packageName: 'com.relationshiprevive.app',
         minimumVersion: 1,
       ),
     );
@@ -361,7 +364,7 @@ Future<void> createAndShareLinkForBloog(String title) async {
       link: Uri.parse(
           "https://astroguruupdated.page.link/userProfile?screen=blogs"),
       androidParameters: AndroidParameters(
-        packageName: 'com.AstroGuru.app',
+        packageName: 'com.relationshiprevive.app',
         minimumVersion: 1,
       ),
     );
@@ -392,7 +395,7 @@ Future<void> createAndShareAstroProfile(ScreenshotController sc) async {
       link: Uri.parse(
           "https://astroguruupdated.page.link/userProfile?screen=astroProfile"),
       androidParameters: AndroidParameters(
-        packageName: 'com.AstroGuru.app',
+        packageName: 'com.relationshiprevive.app',
         minimumVersion: 1,
       ),
     );
@@ -447,7 +450,7 @@ createAndShareLinkForDailyHorscope(ScreenshotController sc) async {
     link: Uri.parse(
         "https://astroguruupdated.page.link/userProfile?screen=dailyHorscope"),
     androidParameters: AndroidParameters(
-      packageName: 'com.AstroGuru.app',
+      packageName: 'com.relationshiprevive.app',
       minimumVersion: 1,
     ),
   );

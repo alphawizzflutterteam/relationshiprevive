@@ -124,7 +124,7 @@ class LiveController extends GetxController {
         link: Uri.parse(
             "https://astroguruupdated.page.link/userProfile?screen=liveStreaming&token='$token'&astrologerName=$astrologerName&astrologerId=$astrologerId&channelName=$channelName&charge=$charge&videoCallCharge=$videoCallCharge"),
         androidParameters: AndroidParameters(
-          packageName: 'com.AstroGuru.app',
+          packageName: 'com.relationshiprevive.app',
           minimumVersion: 1,
         ),
       );

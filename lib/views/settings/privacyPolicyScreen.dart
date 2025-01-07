@@ -19,8 +19,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             title: 'Privacy Policy',
           )),
       body: WebView(
-        initialUrl: /*'${global.webBaseUrl}admin/privacypolicy'*/
-            'https://relationship.developmentalphawizz.com/admin/privacypolicy',
+        initialUrl: '${global.webBaseUrl}admin/privacy-policy-1',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );
