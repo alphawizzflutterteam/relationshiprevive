@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:AstroGuru/controllers/callController.dart';
 import 'package:AstroGuru/controllers/splashController.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_translator/google_translator.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:AstroGuru/utils/global.dart' as global;
 
@@ -59,14 +61,24 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
   int totalSecond = 0;
   bool isHostJoin = false;
   int? localUserId;
-  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 300;
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 600;
+
+
 
   bool isStart = false;
+
+  static const appId = "68e78b7633604458a5bf8b312a5b59cc";
+// Fill in the temporary token generated from Agora Console
+  static const token = "007eJxTYChb/FH8+IL0p9um/L2VI3ag7JB/Q/T80/45beL7XWYtdnFTYDCzSDW3SDI3MzY2MzAxMbVINE1Ks0gyNjQCMkwtk5MNNzekNwQyMvgnWjIzMkAgiM/LkJyYk+Nb6ZhSllmcX8TAAADvYSN4";
+// Fill in the channel name you used to generate the token
+  static const channel = "callMyAdvisor";
   @override
   void initState() {
     super.initState();
     // Set up an instance of Agora engine
     setupVoiceSDKEngine();
+
+
     timer = Timer.periodic(Duration(seconds: 5), (timer) async {
       print('timer call');
       print("local uid " + global.localUid.toString());
@@ -75,13 +87,27 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
           isStart = true;
         });
         CallController callController = Get.find<CallController>();
-        await callController.getAgoraResourceId(
-            widget.callChannel, global.localUid!);
-        await callController.getAgoraResourceId2(
-            widget.callChannel, remoteUid!);
-        print('start recording');
-        await startRecord();
-        await startRecord2();
+
+        //   await callController.getAgoraResourceId(widget.callChannel, global.localUid!);
+        // await callController.getAgoraResourceId2(widget.callChannel, remoteUid!);
+        // await startRecord();
+        // checkRecord() ;
+        // await startRecord2();
+
+        /*agoraEngine.startAudioRecording( AudioRecordingConfiguration(
+          filePath: '/storage/emulated/0/Download/agora_recording.aac', // Set your file path
+          sampleRate: 32000,
+          quality: AudioRecordingQualityType.audioRecordingQualityMedium,
+        ),);*/
+
+        startRecording() ;
+
+
+
+       // print('start recording');
+
+       
+
       }
     });
 
@@ -457,8 +483,9 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     try {
       agoraEngine = createAgoraRtcEngine();
       await agoraEngine.initialize(RtcEngineContext(
-          appId:
-              global.getSystemFlagValue(global.systemFlagNameList.agoraAppId)));
+          appId: global.getSystemFlagValue(global.systemFlagNameList.agoraAppId)//appId
+      ));
+
     } catch (e) {
       print('Exception in setupVoiceSDKEngine:- ${e.toString()}');
     }
@@ -554,8 +581,8 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     );
     print('in join method of customer call');
     await agoraEngine.joinChannel(
-      token: widget.token,
-      channelId: widget.callChannel,
+      token:widget.token,//token
+      channelId: widget.callChannel,//channel
       options: options,
       uid: uid,
     );
@@ -572,6 +599,12 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     print('stop1 audio recording in live astrologer $remoteIdForStop');
     await callController.agoraStartRecording2(
         widget.callChannel, remoteIdForStop!, widget.token);
+  }
+
+  Future checkRecord() async {
+    CallController callController = Get.find<CallController>();
+    await callController.agoraCheckRecording(
+        widget.callId, widget.callChannel, global.localUid!);
   }
 
   Future stopRecord() async {
@@ -606,15 +639,14 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     callController.callBottom = false;
     callController.update();
     log('totalSeconds ${_callController.totalSeconds}');
-    await stopRecord();
-    await stopRecord2();
+   // await stopRecord();
+   // await stopRecord2();
+   await stopRecording();
     print('final total ${_callController.totalSeconds}');
-    print('endcall from leave $remoteUid');
     // if (remoteUid != null) {
     print('endcall API');
     global.showOnlyLoaderDialog(Get.context);
-    await callController.endCall(widget.callId, _callController.totalSeconds,
-        global.agoraSid1, global.agoraSid2);
+    await callController.endCall(widget.callId, _callController.totalSeconds, global.agoraSid1, global.agoraSid2);
     global.hideLoader();
     // }
     print("mounted called");
@@ -660,4 +692,42 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     }
     super.dispose();
   }
+
+
+  Future<String> getRecordingFilePath() async {
+    final directory = await getApplicationSupportDirectory(); // Hidden storage
+    return '${directory.path}/agora_recording.aac';
+  }
+
+  Future<void> startRecording() async {
+    String filePath = await getRecordingFilePath();
+    agoraEngine.startAudioRecording( AudioRecordingConfiguration(
+      filePath: filePath, // Set your file path
+      sampleRate: 32000,
+      quality: AudioRecordingQualityType.audioRecordingQualityMedium,
+    ),);
+
+  }
+
+  Future<void> stopRecording() async {
+    await agoraEngine.stopAudioRecording();
+    uploadRecording(); // Auto-upload after stopping
+  }
+
+
+
+  Future uploadRecording() async {
+    CallController callController = Get.find<CallController>();
+    String filePath = await getRecordingFilePath();
+
+    File file = File(filePath);
+
+    if (!file.existsSync()) return;
+
+    await callController.storeRecordingData(widget.callId, widget.callChannel, file);
+  }
+
+
+
+
 }

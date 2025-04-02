@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:AstroGuru/model/amount_model.dart';
 import 'package:AstroGuru/model/app_review_model.dart';
@@ -1174,16 +1175,17 @@ class APIHelper {
       final response = await http.post(
         Uri.parse('$baseUrl/callRequest/add'),
         headers: await global.getApiHeaders(true),
-        body: json.encode(
-            {'astrologerId': '$astrologerId', "isFreeSession": isFreeSession}),
+        body: json.encode({'astrologerId': '$astrologerId', "isFreeSession": isFreeSession}),
       );
+
+      log('${await global.getApiHeaders(true)} _________${{'astrologerId': '$astrologerId', "isFreeSession": isFreeSession}}');
       dynamic recordList;
       if (response.statusCode == 200) {
-        return recordList = json.decode(response.body);
+        return recordList = jsonDecode(response.body);
       } else {
         recordList = null;
       }
-      return getAPIResult(response, recordList);
+      return  recordList;
     } catch (e) {
       print('Exception:- in sendAstrologerCallRequest ' + e.toString());
     }
@@ -2413,6 +2415,31 @@ class APIHelper {
     }
   }
 
+
+  // Future<dynamic> uploadRecordedFile(String  astrologerId, int? userId) async {
+  //   try {
+  //     final response = await http.MultipartRequest('POST',
+  //       Uri.parse('$baseUrl/getAstrologerForCustomer'),
+  //
+  //       body: json.encode({"astrologerId": astrologerId, "userId": userId}),
+  //     );
+  //     response.headers.addAll( await global.getApiHeaders(false),);
+  //
+  //     print('done : $response');
+  //     dynamic recordList;
+  //     if (response.statusCode == 200) {
+  //       recordList = List<AstrologerModel>.from(json
+  //           .decode(response.body)["recordList"]
+  //           .map((x) => AstrologerModel.fromJson(x)));
+  //     } else {
+  //       recordList = null;
+  //     }
+  //     return getAPIResult(response, recordList);
+  //   } catch (e) {
+  //     print("Exception in getAstrologerById : -" + e.toString());
+  //   }
+  // }
+
   //report
   Future<dynamic> addReportIntakeDetail(var basicDetails) async {
     try {
@@ -2969,6 +2996,7 @@ class APIHelper {
 
   Future<dynamic> getResourceId(String cname, int uid) async {
     try {
+
       final response = await http.post(
         Uri.parse(
             'https://api.agora.io/v1/apps/${global.getSystemFlagValue(global.systemFlagNameList.agoraAppId)}/cloud_recording/acquire'),
@@ -2977,15 +3005,16 @@ class APIHelper {
           "Accept": "application/json",
           "authorization": "Basic " +
               base64.encode(utf8.encode(
-                  "${global.getSystemFlagValue(global.systemFlagNameList.agoraKey)}:${global.getSystemFlagValue(global.systemFlagNameList.agoraSecret)}"))
+                  "058b47ed9abe425895fa21ba82fbff2c:baa350e9a3b34edc89b294d32ee781e6"))
         },
         body: json.encode({
           "cname": "$cname",
           "uid": "$uid",
-          "clientRequest": {"region": "CN", "resourceExpiredHour": 24}
+          "clientRequest": {}//"region": 11, "resourceExpiredHour": 24
         }),
       );
-      print('response $response');
+      print('uid_____$uid');
+      print('resourceId Response_____${response.body}');
       dynamic recordList;
       if (response.statusCode == 200) {
         recordList = json.decode(response.body);
@@ -3008,8 +3037,7 @@ class APIHelper {
           "Content-Type": "application/json",
           "Accept": "application/json",
           "authorization": "Basic " +
-              base64.encode(utf8.encode(
-                  "${global.getSystemFlagValue(global.systemFlagNameList.agoraKey)}:${global.getSystemFlagValue(global.systemFlagNameList.agoraSecret)}"))
+              base64.encode(utf8.encode("058b47ed9abe425895fa21ba82fbff2c:baa350e9a3b34edc89b294d32ee781e6"))
         },
         body: json.encode({
           "cname": "$cname",
@@ -3017,9 +3045,8 @@ class APIHelper {
           "clientRequest": {
             "token": "$token",
             "storageConfig": {
-              "secretKey":
-                  "${global.getSystemFlagValue(global.systemFlagNameList.googleSecretKey)}",
-              "vendor": 6,
+              "secretKey": "${global.getSystemFlagValue(global.systemFlagNameList.googleSecretKey)}",
+              "vendor": 0,//6
               "region": 0,
               "bucket":
                   "${global.getSystemFlagValue(global.systemFlagNameList.googleBucketName)}",
@@ -3028,11 +3055,32 @@ class APIHelper {
             },
             "recordingConfig": {
               "channelType": 0,
-              "streamTypes": 0,
+              //"streamTypes": 0,
             }
           }
         }),
       );
+      log('${{
+        "cname": "$cname",
+        "uid": "$uid",
+        "clientRequest": {
+          "token": "$token",
+          "storageConfig": {
+            "secretKey": "${global.getSystemFlagValue(global.systemFlagNameList.googleSecretKey)}",
+            "vendor": 6,
+            "region": 11,
+            "bucket":
+            "${global.getSystemFlagValue(global.systemFlagNameList.googleBucketName)}",
+            "accessKey":
+            "${global.getSystemFlagValue(global.systemFlagNameList.googleAccessKey)}"
+          },
+          "recordingConfig": {
+            "channelType": 0,
+            "streamTypes": 0,
+          }
+        }
+      }}');
+      log('https://api.agora.io/v1/apps/${global.getSystemFlagValue(global.systemFlagNameList.agoraAppId)}/cloud_recording/resourceid/${global.agoraResourceId}/mode/mix/start');
       print('response of start recording ${response.body}');
       dynamic recordList;
       if (response.statusCode == 200) {
@@ -3045,6 +3093,8 @@ class APIHelper {
       print('Exception:- in agoraStartCloudRecording:- ' + e.toString());
     }
   }
+
+
 
   Future<dynamic> agoraStartCloudRecording2(
       String cname, int uid, String token) async {
@@ -3057,7 +3107,7 @@ class APIHelper {
           "Accept": "application/json",
           "authorization": "Basic " +
               base64.encode(utf8.encode(
-                  "${global.getSystemFlagValue(global.systemFlagNameList.agoraKey)}:${global.getSystemFlagValue(global.systemFlagNameList.agoraSecret)}"))
+                  "058b47ed9abe425895fa21ba82fbff2c:baa350e9a3b34edc89b294d32ee781e6"))
         },
         body: json.encode({
           "cname": "$cname",
@@ -3094,6 +3144,39 @@ class APIHelper {
     }
   }
 
+  Future<dynamic> checkRecording(String cname, int uid) async {
+    try {
+
+
+     //https://api.agora.io/v1/apps/<appid>/cloud_recording/resourceid/<resourceid>/sid/<sid>/mode/<mode>/query
+      final response = await http.get(
+        Uri.parse(
+            'https://api.agora.io/v1/apps/${global.getSystemFlagValue(global.systemFlagNameList.agoraAppId)}/cloud_recording/resourceid/${global.agoraResourceId}/sid/${global.agoraSid1}/mode/mix/query'),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "authorization": "Basic " +
+              base64.encode(utf8.encode(
+                  "058b47ed9abe425895fa21ba82fbff2c:baa350e9a3b34edc89b294d32ee781e6"))
+        },
+
+      );
+
+      log('responsedadadasdasdassdasdasdddsd ${response.body}');
+      print('responsedadaddadadad ${response.statusCode}');
+      dynamic recordList;
+      if (response.statusCode == 200) {
+        recordList = json.decode(response.body);
+      } else {
+        recordList = null;
+      }
+      return getAPIResult(response, recordList);
+    } catch (e) {
+      print('Exception:- in getResourceId:- ' + e.toString());
+    }
+  }
+
+
   Future<dynamic> agoraStopCloudRecording(String cname, int uid) async {
     print('api helper stop');
     try {
@@ -3105,12 +3188,15 @@ class APIHelper {
           "Accept": "application/json",
           "authorization": "Basic " +
               base64.encode(utf8.encode(
-                  "${global.getSystemFlagValue(global.systemFlagNameList.agoraKey)}:${global.getSystemFlagValue(global.systemFlagNameList.agoraSecret)}"))
+                  "058b47ed9abe425895fa21ba82fbff2c:baa350e9a3b34edc89b294d32ee781e6"))
         },
         body: json
             .encode({"uid": "$uid", "cname": "$cname", "clientRequest": {}}),
       );
-      print('response $response');
+      print('stop recording response: ${{"uid": "$uid", "cname": "$cname", "clientRequest": {}}}');
+      log('stop recording response: ${response.body}');
+      print('response ___________dasdasd${response.statusCode}');
+      log('https://api.agora.io/v1/apps/${global.getSystemFlagValue(global.systemFlagNameList.agoraAppId)}/cloud_recording/resourceid/${global.agoraResourceId}/sid/${global.agoraSid1}/mode/mix/stop');
       dynamic recordList;
       if (response.statusCode == 200) {
         recordList = json.decode(response.body);
@@ -3134,12 +3220,14 @@ class APIHelper {
           "Accept": "application/json",
           "authorization": "Basic " +
               base64.encode(utf8.encode(
-                  "${global.getSystemFlagValue(global.systemFlagNameList.agoraKey)}:${global.getSystemFlagValue(global.systemFlagNameList.agoraSecret)}"))
+                  "058b47ed9abe425895fa21ba82fbff2c:baa350e9a3b34edc89b294d32ee781e6"))
         },
         body: json
             .encode({"uid": "$uid", "cname": "$cname", "clientRequest": {}}),
       );
-      print('response $response');
+      log('https://api.agora.io/v1/apps/${global.getSystemFlagValue(global.systemFlagNameList.agoraAppId)}/cloud_recording/resourceid/${global.agoraResourceId2}/sid/${global.agoraSid2}/mode/mix/stop');
+      print('responsexcvxcvxcvx ${response.body}');
+      print('responsevxvxvxv ${response.statusCode}');
       dynamic recordList;
       if (response.statusCode == 200) {
         recordList = json.decode(response.body);
@@ -3153,7 +3241,8 @@ class APIHelper {
   }
 
   Future<dynamic> stopRecoedingStoreData(
-      int callId, String channelName, String sId) async {
+      int callId, String channelName, String sId)
+  async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/storeCallRecording'),
@@ -3167,6 +3256,41 @@ class APIHelper {
       print('done stopRecoedingStoreData: $response');
       dynamic recordList;
       if (response.statusCode == 200) {
+      } else {
+        recordList = null;
+      }
+      return getAPIResult(response, recordList);
+    } catch (e) {
+      print("Exception in getLiveUsers : -" + e.toString());
+    }
+  }
+
+  Future<dynamic> storeRecordingData(
+      int callId, String channelName, String sId, File file )
+  async {
+    try {
+      final request = await http.MultipartRequest('POST',
+        Uri.parse('$baseUrl/storeCallRecording'),);
+      request.fields.addAll({
+        "callId": "$callId",
+        "channelName": "$channelName",
+        "sId": "$sId"
+      });
+      request.headers.addAll(await global.getApiHeaders(true),);
+      request.files.add(await http.MultipartFile.fromPath('record', file.path));
+
+            var response = await request.send();
+      print('done stopRecoedingStoreData: $response');
+      dynamic recordList;
+
+
+      if (response.statusCode == 200) {
+
+
+        var result =  await response.stream.bytesToString() ;
+
+        recordList = json.decode(result) ;
+
       } else {
         recordList = null;
       }

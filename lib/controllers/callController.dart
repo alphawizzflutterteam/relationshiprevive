@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:AstroGuru/utils/services/api_helper.dart';
 import 'package:AstroGuru/views/call/incoming_call_request.dart';
@@ -83,9 +84,7 @@ class CallController extends GetxController
       await global.checkBody().then((result) async {
         if (result) {
           print('${astrologerId}__________astrologrt_');
-          await apiHelper
-              .sendAstrologerCallRequest(astrologerId, isFreeSession)
-              .then((result) {
+          await apiHelper.sendAstrologerCallRequest(astrologerId, isFreeSession).then((result) {
             callId = result['data'];
             if (result.status.toString() == "200") {
               callId = result['data'];
@@ -203,7 +202,7 @@ class CallController extends GetxController
         if (result) {
           await apiHelper.getResourceId(cname, uid).then((result) {
             resourceId = result.recordList;
-            log('resourceId response:- $result');
+            log('resourceId response:- ${result}');
             log('record ${resourceId["resourceId"]}');
             global.agoraResourceId = resourceId["resourceId"];
             log('global agoraResourceId ${global.agoraResourceId}');
@@ -237,11 +236,12 @@ class CallController extends GetxController
     try {
       await global.checkBody().then((result) async {
         if (result) {
-          await apiHelper
-              .agoraStartCloudRecording(cname, uid, token)
+          await apiHelper.agoraStartCloudRecording(cname, uid, token)
               .then((result) {
             log('start recording response:- ${result.recordList}');
+
             global.agoraSid1 = result.recordList["sid"];
+
             log('global agoraSId ${global.agoraSid1}');
 
             global.showToast(
@@ -275,6 +275,29 @@ class CallController extends GetxController
       print("Exception getAgoraResourceId:-" + e.toString());
     }
   }
+  agoraCheckRecording(int callId, String cname, int uid) async {
+    print('controller stop1');
+    try {
+      await global.checkBody().then((result) async {
+        if (result) {
+          await apiHelper
+              .checkRecording(cname, uid)
+              .then((result) async {
+            log('stop recording response:- ${result.recordList}');
+
+            global.showToast(
+              message: 'check recording success',
+              textColor: global.textColor,
+              bgColor: global.toastBackGoundColor,
+            );
+          });
+        }
+      });
+    } catch (e) {
+      print("Exception agoraStopRecording:-" + e.toString());
+    }
+  }
+
 
   agoraStopRecording(int callId, String cname, int uid) async {
     print('controller stop1');
@@ -377,6 +400,39 @@ class CallController extends GetxController
       });
     } catch (e) {
       print('Exception in addReview : - ${e.toString()}');
+    }
+  }
+
+  storeRecordingData(int callId, String channelName, File file) async {
+    try {
+      await global.checkBody().then((result) async {
+        if (result) {
+
+
+
+          await apiHelper
+              .storeRecordingData(callId, channelName, global.agoraSid1,file)
+              .then((result) {
+                //result
+                //"message":"record uploaded successfully!","image":"2025-04-02-67ed1c56a1446.aac","status":true,"error":false
+            // if (result.status == "200") {
+            //   global.showToast(
+            //     message: 'store sid successfully',
+            //     textColor: global.textColor,
+            //     bgColor: global.toastBackGoundColor,
+            //   );
+            // } else {
+            //   global.showToast(
+            //     message: 'Failed store sid',
+            //     textColor: global.textColor,
+            //     bgColor: global.toastBackGoundColor,
+            //   );
+            // }
+          });
+        }
+      });
+    } catch (e) {
+      print("Exception stopRecordingStoreData:-" + e.toString());
     }
   }
 }

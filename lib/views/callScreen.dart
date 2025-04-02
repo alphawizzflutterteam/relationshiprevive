@@ -148,6 +148,10 @@ class _CallScreenState extends State<CallScreen> {
     [Colors.red[200]!, Colors.red[100]!],
     [Colors.green[200]!, Colors.green[100]!],
     [Colors.pink[200]!, Colors.pink[100]!],
+    [Colors.yellow[200]!, Colors.yellow[100]!],
+    [Colors.blue[200]!, Colors.blue[100]!],
+    [Colors.red[200]!, Colors.red[100]!],
+
   ];
 
   @override
@@ -458,6 +462,7 @@ class _CallScreenState extends State<CallScreen> {
                       itemCount: chatController.categoryList.length,
                       itemBuilder: (context, index) {
                         bool isLeftAligned = index % 2 == 0;
+                        print('${index}___${chatController.categoryList.length}_');
                         return InkWell(
                           onTap: () async {
                             ///for getting category wise astrologer data
@@ -466,9 +471,7 @@ class _CallScreenState extends State<CallScreen> {
                             bottomNavigationController.isAllDataLoaded = false;
                             bottomNavigationController.update();
                             global.showOnlyLoaderDialog(context);
-                            await bottomNavigationController.astroCat(
-                                id: chatController.categoryList[index].id!,
-                                isLazyLoading: false);
+                            await bottomNavigationController.astroCat(id: chatController.categoryList[index].id!, isLazyLoading: false);
                             global.hideLoader();
 
                             ///for connecting free astrologer
@@ -476,14 +479,9 @@ class _CallScreenState extends State<CallScreen> {
 
                             bool isLogin = await global.isLogin();
                             if (isLogin) {
-                              if (/*bottomNavigationController.astrologerList[i].callStatus == 'Online'*/ bottomNavigationController
-                                  .astrologerList.isNotEmpty) {
+                              if (/*bottomNavigationController.astrologerList[i].callStatus == 'Online'*/ bottomNavigationController.astrologerList.isNotEmpty) {
                                 ///to check User Wallet balance available or not for call...
-                                if (bottomNavigationController
-                                                .astrologerList.first.charge! *
-                                            10 <=
-                                        global.splashController.currentUser!
-                                            .walletAmount! /*||
+                                if (bottomNavigationController.astrologerList.first.charge! * 10 <= global.splashController.currentUser!.walletAmount! /*||
                                     bottomNavigationController.astrologerList
                                             .first.isFreeAvailable ==
                                         true*/
@@ -493,36 +491,20 @@ class _CallScreenState extends State<CallScreen> {
 
                                   ///to check astrologer has already request or not for same user
                                   if (/*bottomNavigationController.isUserAlreadyInCallReq == false*/ true) {
-                                    if (bottomNavigationController
-                                            .astrologerList.first.callStatus ==
-                                        "Wait Time") {
+                                    if (bottomNavigationController.astrologerList.first.callStatus == "Wait Time") {
                                       global.showOnlyLoaderDialog(context);
 
-                                      if (bottomNavigationController
-                                              .astrologerList
-                                              .first
-                                              .callStatus !=
-                                          null) {
-                                        if (bottomNavigationController
-                                                .astrologerList
-                                                .first
-                                                .callWaitTime!
-                                                .difference(DateTime.now())
-                                                .inMinutes <
-                                            0) {
+                                      if (bottomNavigationController.astrologerList.first.callStatus != null) {
+                                        if (bottomNavigationController.astrologerList.first.callWaitTime!.difference(DateTime.now()).inMinutes < 0) {
                                           await bottomNavigationController
-                                              .changeOfflineCallStatus(
-                                                  bottomNavigationController
-                                                      .astrologerList.first.id,
-                                                  "Online");
+                                              .changeOfflineCallStatus(bottomNavigationController.astrologerList.first.id, "Online");
                                         }
                                         global.hideLoader();
                                       }
 
                                       global.hideLoader();
-                                    } else if (bottomNavigationController
-                                            .astrologerList.first.callStatus ==
-                                        'Online') {
+                                    }
+                                    else if (bottomNavigationController.astrologerList.first.callStatus == 'Online') {
                                       await Get.to(() => CallIntakeFormScreen(
                                             astrologerProfile:
                                                 bottomNavigationController
@@ -542,9 +524,8 @@ class _CallScreenState extends State<CallScreen> {
                                                     .first
                                                     .isFreeAvailable,
                                           ));
-                                    } else if (bottomNavigationController
-                                            .astrologerList.first.callStatus ==
-                                        "Offline") {
+                                    }
+                                    else if (bottomNavigationController.astrologerList.first.callStatus == "Offline") {
                                       bottomNavigationController
                                           .dialogForJoinInWaitListForListPageOnly(
                                         context,
@@ -575,9 +556,7 @@ class _CallScreenState extends State<CallScreen> {
                                   global.hideLoader();
                                   openBottomSheetRechrage(
                                       context,
-                                      (bottomNavigationController
-                                                  .astrologerList[index]
-                                                  .charge! *
+                                      (bottomNavigationController.astrologerList[index].charge! *
                                               10)
                                           .toString(),
                                       '${bottomNavigationController.astrologerList[index].name}');
@@ -592,8 +571,7 @@ class _CallScreenState extends State<CallScreen> {
                           child: ServiceCard(
                             service: chatController.categoryList[index],
                             isLeftAligned: isLeftAligned,
-                            color: colorList[
-                                index % chatController.categoryList.length],
+                            color: colorList[index % chatController.categoryList.length],
                           ),
                         );
                       },

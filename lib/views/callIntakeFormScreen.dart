@@ -139,14 +139,16 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
           ),
         ),
         preferredSize: Size.fromHeight(70.0),
-      ) /*AppBar(
+      )
+      /*AppBar(
         backgroundColor:
             Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
         title: Text(
           '${widget.type} Intake Form',
           style: Get.theme.primaryTextTheme.headline6!
               .copyWith(fontSize: 15, fontWeight: FontWeight.normal),
-        ) */ /**/ /*,
+        ) */ /**/
+      /*,
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: Icon(
@@ -213,17 +215,10 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                                       Radius.circular(15))),
                               child: TextButton(
                                 onPressed: () async {
-                                  if (_isChecked == true &&
-                                      callIntakeController.dobController.text ==
-                                          "")
-                                    callIntakeController.dobController.text =
-                                        '01/01/2000';
-                                  if (_isChecked == true &&
-                                      callIntakeController
-                                              .ocupationController.text ==
-                                          "")
-                                    callIntakeController.ocupationController
-                                        .text = 'Private Job';
+                                  if (_isChecked == true && callIntakeController.dobController.text == "")
+                                    callIntakeController.dobController.text = '01/01/2000';
+                                  if (_isChecked == true && callIntakeController.ocupationController.text == "")
+                                    callIntakeController.ocupationController.text = 'Private Job';
                                   // if()
                                   bool isvalid = intakeController.isValidData();
                                   print(isvalid);
@@ -242,13 +237,9 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                                           'firebase ${widget.astrologerId}_${global.currentUserId}');
                                       if (widget.isFreeAvailable == true) {
                                         //await intakeController.checkFreeSessionAvailable();
-                                        if (intakeController
-                                                .isAddNewRequestByFreeuser ==
-                                            true) {
+                                        if (intakeController.isAddNewRequestByFreeuser == true) {
                                           if (widget.type == "Call") {
-                                            await callController
-                                                .sendCallRequest(
-                                                    widget.astrologerId, true);
+                                            await callController.sendCallRequest(widget.astrologerId, true);
                                           } else {
                                             ChatController chatController =
                                                 Get.find<ChatController>();
@@ -704,7 +695,9 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                                         'Verify',
                                         style: Get.theme.primaryTextTheme.subtitle2,
                                         textAlign: TextAlign.center,
-                                      ) */ /**/ /*,
+                                      ) */
+                              /**/
+                              /*,
                                     ),
                                   ),
                                 );
@@ -1045,8 +1038,7 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                     if (_isChecked == true &&
                         callIntakeController.dobController.text == "")
                       callIntakeController.dobController.text = '09/09/2023';
-                    if (_isChecked == true &&
-                        callIntakeController.ocupationController.text == "")
+                    if (_isChecked == true && callIntakeController.ocupationController.text == "")
                       callIntakeController.ocupationController.text = 'Docter';
                     // if()
                     bool isvalid = intakeController.isValidData();

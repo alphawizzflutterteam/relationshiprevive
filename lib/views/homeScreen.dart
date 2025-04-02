@@ -59,19 +59,83 @@ import '../controllers/splashController.dart';
 import '../controllers/walletController.dart';
 import 'astromall/astroProductScreen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final KundliModel? userDetails;
   HomeScreen({a, o, this.userDetails}) : super();
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+
+ static  Color? colorVariation(int note){
+    if(note <= 1){
+      return Colors.white;
+    }else if(note>1 && note<=2){
+      return Colors.white60;
+    }else if(note>2 && note<=3){
+      return Colors.white;
+    }else if(note>3 && note<=4){
+      return Colors.white60;
+    }else if(note>4 && note<=5){
+      return Colors.white;
+    }else if(note>5 && note<=6){
+      return Colors.white60;
+    }else if(note>6 && note<=7){
+      return Colors.white;
+    }else if(note>7 && note<=8){
+      return Colors.white60;
+    }else if(note>8 && note<=9){
+      return Colors.white;
+    }else if(note>9 && note<=10){
+      return Colors.white60;
+    }
+  }
+
+}
+
+class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
   GlobalKey<ScaffoldState> drawerKey = GlobalKey<ScaffoldState>();
+
   final HomeController homeController = Get.find<HomeController>();
+
   BottomNavigationController bottomControllerMain =
       Get.find<BottomNavigationController>();
+
   LiveController liveController = Get.find<LiveController>();
+
   KundliController kundliController = Get.find<KundliController>();
+
   SplashController splashController = Get.find<SplashController>();
+
   final WalletController walletController = Get.find<WalletController>();
-  String description =
-      "Relationship Reviving is an online service dedicated to rejuvenating connections across various life segments, including career, love, business, health and wellness, parenting, couple relationships, family dynamics, and self-relationship. We provide personalized guidance to help individuals and couples restore harmony, improve communication, and strengthen bonds in every aspect of their lives.";
+
+  String description = "Relationship Reviving is an online service dedicated to rejuvenating connections across various life segments, including career, love, business, health and wellness, parenting, couple relationships, family dynamics, and self-relationship. We provide personalized guidance to help individuals and couples restore harmony, improve communication, and strengthen bonds in every aspect of their lives.";
+ late AnimationController _resizableController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _resizableController = new AnimationController(
+      vsync: this,
+      duration: new Duration(
+        milliseconds: 1000,
+      ),
+    );
+    _resizableController.addStatusListener((animationStatus) {
+      switch (animationStatus) {
+        case AnimationStatus.completed:
+          _resizableController.reverse();
+          break;
+        case AnimationStatus.dismissed:
+          _resizableController.forward();
+          break;
+        case AnimationStatus.forward:
+          break;
+        case AnimationStatus.reverse:
+          break;
+      }
+    });
+    _resizableController.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +235,8 @@ class HomeScreen extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            */ /* const SizedBox(width: 12),
+            */
+        /* const SizedBox(width: 12),
                   InkWell(
                     onTap: () async {
                       homeController.lan = [];
@@ -417,8 +482,8 @@ class HomeScreen extends StatelessWidget {
                         width: 25,
                       ),
                     ),
-                  ),*/ /*
-          ],
+                  ),*/
+        /*],
         ),*/
         body: RefreshIndicator(
           onRefresh: () async {
@@ -713,18 +778,14 @@ class HomeScreen extends StatelessWidget {
                                   homeController.bannerList.length,
                                   (index) => GestureDetector(
                                     onTap: () async {
-                                      if (homeController
-                                              .bannerList[index].bannerType ==
+                                      if (homeController.bannerList[index].bannerType ==
                                           'Astrologer') {
                                         global.showOnlyLoaderDialog(context);
                                         bottomController.astrologerList = [];
                                         bottomController.astrologerList.clear();
-                                        bottomController.isAllDataLoaded =
-                                            false;
+                                        bottomController.isAllDataLoaded = false;
                                         bottomController.update();
-                                        await bottomController
-                                            .getAstrologerList(
-                                                isLazyLoading: false);
+                                        await bottomController.getAstrologerList(isLazyLoading: false);
                                         global.hideLoader();
                                         bottomController.setBottomIndex(1, 0);
                                       } else if (homeController
@@ -2609,47 +2670,201 @@ class HomeScreen extends StatelessWidget {
                               ),
                               GetBuilder<BottomNavigationController>(
                                   builder: (bottomController) {
-                                return Container(
-                                  height: 40,
-                                  // width: 40,
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  decoration: BoxDecoration(
-                                      gradient: gradient.btnGradient,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10))),
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                        padding: EdgeInsets.zero),
-                                    onPressed: () async {
-                                      global.showOnlyLoaderDialog(context);
-                                      bottomController.astrologerList = [];
-                                      bottomController.astrologerList.clear();
-                                      bottomController.isAllDataLoaded = false;
-                                      bottomController.update();
-                                      await bottomController.getAstrologerList(
-                                          isLazyLoading: false);
-                                      global.hideLoader();
+                                return AnimatedBuilder(
+                                  animation: _resizableController,
+                                  builder: (context, child) {
+                                    return Container(
+                                      height: 45,
+                                      // width: 40,
+                                      padding: EdgeInsets.symmetric(horizontal: 20),
+                                      decoration: BoxDecoration(
+                                          gradient: gradient.btnGradient,
+                                          border: Border.all(color: HomeScreen.colorVariation((_resizableController.value *10).round()) ?? Colors.white,width: 2),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: TextButton(
+                                        style: TextButton.styleFrom(
+                                            padding: EdgeInsets.zero),
+                                        onPressed: () async {
+                                          global.showOnlyLoaderDialog(context);
+                                          bottomController.astrologerList = [];
+                                          bottomController.astrologerList.clear();
+                                          bottomController.isAllDataLoaded = false;
+                                          bottomController.update();
+                                          await bottomController.getAstrologerList(
+                                              isLazyLoading: false);
+                                          global.hideLoader();
 
-                                      Get.to(CallScreen());
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment:
+                                          Get.to(CallScreen());
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "LET'S START",
-                                          style: TextStyle(color: Colors.white),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              "LET'S START",
+                                              style: TextStyle(color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ) ;
+                                  },
                                 );
                               }),
                               SizedBox(
                                 height: 10,
                               )
                             ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        //height: Get.height * 0.65,
+                        child: Card(
+                          elevation: 0,
+                          margin: EdgeInsets.only(top: 6),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, bottom: 5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        // 'Latest from blog',
+                                        '${global.getSystemFlagData(global.systemFlagNameList.aboutContent).displayName}',
+                                        style: Get.theme
+                                            .primaryTextTheme.subtitle1!
+                                            .copyWith(
+                                            fontWeight:
+                                            FontWeight.w500),
+                                      ),
+
+
+                                      GestureDetector(
+                                        onTap: () async {
+                                          /*BlogController
+                                                      blogController = Get.find<
+                                                          BlogController>();
+                                                  global.showOnlyLoaderDialog(
+                                                      context);
+                                                  blogController
+                                                      .astrologyBlogs = [];
+                                                  blogController.astrologyBlogs
+                                                      .clear();
+                                                  blogController
+                                                      .isAllDataLoaded = false;
+                                                  blogController.update();
+                                                  await blogController
+                                                      .getAstrologyBlog(
+                                                          "", false);
+                                                  global.hideLoader();
+                                                  Get.to(() =>
+                                                      AstrologyBlogScreen());*/
+                                        },
+                                        child: Text(
+                                          /*'View All'*/ '',
+                                          style: Get
+                                              .theme
+                                              .primaryTextTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.grey[500],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: 10, right: 10, top: 10),
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color: Colors.grey),
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                        '${global.imgBaseurl}${global.getSystemFlagData(global.systemFlagNameList.aboutImage).value}',
+                                        imageBuilder: (context, imageProvider) {
+                                          return
+                                            Card(
+                                              child: Container(
+                                                height: Get.height * 0.4/2,
+                                                width: Get.width/2,
+                                                margin:
+                                                const EdgeInsets.all(0),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10),
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: imageProvider,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+
+                                        },
+                                        placeholder: (context, url) =>
+                                        const Center(
+                                            child:
+                                            CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) =>
+                                            Card(
+                                              child: Image.asset(
+                                                Images.blog,
+                                                height: Get.height * 0.15,
+                                                width: Get.width,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                      ),
+                                      Text(
+                                        '${global.getSystemFlagData(global.systemFlagNameList.aboutContent).value}',
+                                        maxLines: 20,
+                                        textAlign: TextAlign.justify,
+                                        overflow:
+                                        TextOverflow.ellipsis,
+                                        style: Get
+                                            .theme
+                                            .primaryTextTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                        const EdgeInsets.only(
+                                            top: 20.0, bottom: 8),
+                                        child: Divider(height: 0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -3724,7 +3939,7 @@ class HomeScreen extends StatelessWidget {
                                     padding: EdgeInsets.zero),
                                 onPressed: () async {
                                   launchUrl(Uri.parse(
-                                      'https://play.google.com/store/apps/'));
+                                      'https://play.google.com/store/apps/details?id=com.relationship_app'));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -3862,8 +4077,31 @@ class HomeScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 14),
                         ),
                       )),
+
                     ],
                   ),
+
+                  Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(children: [
+                          Text(
+                            'For support-related queries, please write to mail',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          InkWell(
+                            onTap: (){
+                              launchEmailSubmission('support@relationship-revive.com');
+                            },
+                            child: Text(
+                              'support@relationship-revive.com',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 12,decoration: TextDecoration.underline,color: Colors.blue),
+                            ),
+                          )
+                        ],),
+                      ))
 
                   /*Card(
                     elevation: 0,
@@ -3875,7 +4113,8 @@ class HomeScreen extends StatelessWidget {
                           const EdgeInsets.only(left: 5, right: 5, bottom: 6),
                       child: Row(
                         children: [
-                          */ /*Expanded(
+                          */
+                  /*Expanded(
                             child: GestureDetector(
                               onTap: () async {
                                 global.showOnlyLoaderDialog(context);
@@ -3929,7 +4168,8 @@ class HomeScreen extends StatelessWidget {
                           ),
                           SizedBox(
                             width: 10,
-                          ),*/ /*
+                          ),*/
+                  /*
                           Expanded(
                             child: GestureDetector(
                               onTap: () async {
@@ -4031,6 +4271,24 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  void launchEmailSubmission(String email) async {
+    final Uri params = Uri(
+        scheme: 'mailto',
+        path: email,
+        queryParameters: {
+          'subject': 'Subject',
+          'body': 'Hi,'
+        }
+    );
+    String url = params.toString();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
+
 }
 
 class CustomClipPath extends CustomClipper<Path> {
@@ -4049,3 +4307,4 @@ class CustomClipPath extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
+

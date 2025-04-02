@@ -12,6 +12,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_translator/google_translator.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../widget/commonAppbar.dart';
 import 'package:AstroGuru/utils/global.dart' as global;
@@ -296,6 +297,40 @@ class SettingListScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                Share.share('Hey! check out this new app https://play.google.com/store/apps/details?id=com.relationshiprevive.app', subject: 'Relationship Revive');
+
+              },
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Card(
+                  elevation: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: SizedBox(
+                          width: 170,
+                          child: Text(
+                            "Share App",
+                            style: Get.theme.primaryTextTheme.subtitle1,
+                          ),
+                        ),
+                      ),
+                      Icon(
+                        Icons.share,
+                        color: Get.theme.primaryColor,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Divider(
+              color: Get.theme.primaryColorLight,
+            ),
+            GestureDetector(
+              onTap: () {
                 Get.dialog(
                   AlertDialog(
                     backgroundColor: Colors.white,
@@ -368,6 +403,7 @@ class SettingListScreen extends StatelessWidget {
             Divider(
               color: Get.theme.primaryColorLight,
             ),
+
             GetBuilder<SettingsController>(builder: (settingsController) {
               return GestureDetector(
                 onTap: () async {
@@ -378,24 +414,24 @@ class SettingListScreen extends StatelessWidget {
                         backgroundColor: Colors.white,
                         title: Text(
                           "Are you sure you want to delete this Account?",
-                          style: Get.textTheme.subtitle1,
+                          style: Get.textTheme.titleMedium?.copyWith(fontSize: 14),
                         ),
                         content: Row(
                           children: [
                             Expanded(
-                              flex: 4,
+                              flex: 1,
                               child: ElevatedButton(
                                 onPressed: () {
                                   Get.back();
                                 },
-                                child: Text('No'),
+                                child: Text('No',style: Get.textTheme.titleMedium?.copyWith(fontSize: 14,color: Colors.white)),
                               ),
                             ),
                             const SizedBox(
                               width: 10,
                             ),
                             Expanded(
-                              flex: 4,
+                              flex: 1,
                               child: ElevatedButton(
                                 onPressed: () async {
                                   global.showOnlyLoaderDialog(context);
@@ -404,7 +440,7 @@ class SettingListScreen extends StatelessWidget {
                                   global.logoutUser();
                                   global.hideLoader();
                                 },
-                                child: Text('YES'),
+                                child: Text('YES',style: Get.textTheme.titleMedium?.copyWith(fontSize: 14,color: Colors.white)),
                               ),
                             ),
                           ],

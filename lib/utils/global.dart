@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:AstroGuru/controllers/splashController.dart';
 import 'package:AstroGuru/model/current_user_model.dart';
 import 'package:AstroGuru/model/hororscopeSignModel.dart';
+import 'package:AstroGuru/model/systemFlagModel.dart';
 import 'package:AstroGuru/model/systemFlagNameListModel.dart';
 import 'package:AstroGuru/utils/services/api_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -60,7 +61,7 @@ String stripeBaseApi = 'https://api.stripe.com/v1';
 //You can purchase this script from https://www.codester.com/items/44883/astrotalks-astrology-consultation-script. Avoid Nulled Code
 
 String baseUrl = "https://relationship-revive.com/api";
-// String baseUrl = "http://relationship.developmentalphawizz.com/api";
+//String baseUrl = "http://relationship.developmentalphawizz.com/api";
 String imgBaseurl = "https://relationship-revive.com/";
 // String imgBaseurl = "http://relationship.developmentalphawizz.com/";
 String webBaseUrl = "https://relationship-revive.com/";
@@ -723,6 +724,13 @@ String getSystemFlagValueForLogin(String flag) {
       splashController.syatemFlag.firstWhere((e) => e.name == flag).value;
   log('hello from getSystemFlagValueForLogin flag-$flag  $value');
   return splashController.syatemFlag.firstWhere((e) => e.name == flag).value;
+}
+
+SystemFlag getSystemFlagData(String flag) {
+  SystemFlag value =
+      splashController.syatemFlag.firstWhere((e) => e.name == flag);
+  log('hello from getSystemFlagValueForLogin flag-$flag  $value');
+  return value;
 }
 
 showToast(

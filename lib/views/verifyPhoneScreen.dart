@@ -103,10 +103,10 @@ class VerifyPhoneScreen extends StatelessWidget {
                       'OTP SEND TO YOUR EMAIL / PHONE', //{loginController.countryCode}-$phoneNumber
                       style: TextStyle(color: Colors.black),
                     ),
-                    Text(
+                    /*Text(
                       'OTP: $otp',
                       style: TextStyle(color: Colors.black),
-                    ),
+                    ),*/
                     SizedBox(
                       height: 30,
                     ),

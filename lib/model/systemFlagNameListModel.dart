@@ -31,6 +31,8 @@ class SystemFlagNameList {
   late String appName;
   late String currency;
   late String behindScenes;
+  late String aboutImage;
+  late String aboutContent;
 
   SystemFlagNameList() {
     gst = 'Gst';
@@ -64,5 +66,7 @@ class SystemFlagNameList {
     appName = 'AppName';
     currency = 'Currency';
     behindScenes = 'BehindScenes';
+    aboutImage = 'aboutImage';
+    aboutContent = 'aboutContent';
   }
 }
