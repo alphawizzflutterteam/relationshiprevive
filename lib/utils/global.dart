@@ -294,20 +294,20 @@ Future<void> createAndShareLinkForHistoryChatCall() async {
     showOnlyLoaderDialog(Get.context);
     String appShareLink;
     String applink;
-    final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: 'https://astroguruupdated.page.link',
-      link: Uri.parse(
-          "https://astroguruupdated.page.link/userProfile?screen=historyCallChat"),
-      androidParameters: AndroidParameters(
-        packageName: 'com.relationshiprevive.app',
-        minimumVersion: 1,
-      ),
-    );
-    Uri url;
-    final ShortDynamicLink shortLink = await dynamicLinks
-        .buildShortLink(parameters, shortLinkType: ShortDynamicLinkType.short);
-    url = shortLink.shortUrl;
-    appShareLink = url.toString();
+    // final DynamicLinkParameters parameters = DynamicLinkParameters(
+    //   uriPrefix: 'https://astroguruupdated.page.link',
+    //   link: Uri.parse(
+    //       "https://astroguruupdated.page.link/userProfile?screen=historyCallChat"),
+    //   androidParameters: AndroidParameters(
+    //     packageName: 'com.relationshiprevive.app',
+    //     minimumVersion: 1,
+    //   ),
+    // );
+    // Uri url;
+    // final ShortDynamicLink shortLink = await dynamicLinks
+    //     .buildShortLink(parameters, shortLinkType: ShortDynamicLinkType.short);
+    // url = shortLink.shortUrl;
+    appShareLink = 'https://play.google.com/store/apps/details?id=com.relationshiprevive.app'/*url.toString()*/;
     applink = appShareLink;
     hideLoader();
     await FlutterShare.share(
@@ -732,6 +732,15 @@ SystemFlag getSystemFlagData(String flag) {
   log('hello from getSystemFlagValueForLogin flag-$flag  $value');
   return value;
 }
+
+SystemFlag getSocialLink(String flag) {
+  SystemFlag value =
+  splashController.syatemFlag.firstWhere((e) => e.name == flag);
+  log('hello from getSystemFlagValueForLogin flag-$flag  $value');
+  return value;
+}
+
+
 
 showToast(
     {required String message,

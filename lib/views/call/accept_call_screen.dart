@@ -27,6 +27,7 @@ class AcceptCallScreen extends StatefulWidget {
   final String? astrologerProfile;
   final String token;
   final String callChannel;
+  final String? charges;
   final int callId;
   const AcceptCallScreen(
       {super.key,
@@ -35,7 +36,7 @@ class AcceptCallScreen extends StatefulWidget {
       required this.astrologerId,
       this.astrologerProfile,
       required this.token,
-      required this.callChannel});
+      required this.callChannel,this.charges});
 
   @override
   State<AcceptCallScreen> createState() => _AcceptCallScreenState();
@@ -61,7 +62,7 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
   int totalSecond = 0;
   bool isHostJoin = false;
   int? localUserId;
-  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 600;
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 300;
 
 
 
@@ -72,16 +73,30 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
   static const token = "007eJxTYChb/FH8+IL0p9um/L2VI3ag7JB/Q/T80/45beL7XWYtdnFTYDCzSDW3SDI3MzY2MzAxMbVINE1Ks0gyNjQCMkwtk5MNNzekNwQyMvgnWjIzMkAgiM/LkJyYk+Nb6ZhSllmcX8TAAADvYSN4";
 // Fill in the channel name you used to generate the token
   static const channel = "callMyAdvisor";
+
+
+
+
+int timerValue = 0 ;
+
   @override
   void initState() {
     super.initState();
     // Set up an instance of Agora engine
+
+
+
+    int minutes =  global.splashController.currentUser!.walletAmount! ~/ double.parse(widget.charges ?? '0.0');
+
+    if(minutes > 0) {
+      endTime = DateTime.now().millisecondsSinceEpoch + minutes * 60 * 1000;
+    }
+
     setupVoiceSDKEngine();
 
 
     timer = Timer.periodic(Duration(seconds: 5), (timer) async {
-      print('timer call');
-      print("local uid " + global.localUid.toString());
+
       if (global.localUid != null && !isStart) {
         setState(() {
           isStart = true;
@@ -111,12 +126,9 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
       }
     });
 
-    timer2 = Timer.periodic(Duration(seconds: 1), (timer) {
-      _callController.totalSeconds = _callController.totalSeconds + 1;
 
-      _callController.update();
-      print('totalsecons $_callController.totalSeconds');
-    });
+startTimer();
+
   }
 
   @override
@@ -534,6 +546,7 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
   Widget status() {
     return CountdownTimer(
       endTime: endTime,
+
       widgetBuilder: (_, CurrentRemainingTime? time) {
         if (time == null) {
           return const Text('00 min 00 sec');
@@ -646,7 +659,7 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     // if (remoteUid != null) {
     print('endcall API');
     global.showOnlyLoaderDialog(Get.context);
-    await callController.endCall(widget.callId, _callController.totalSeconds, global.agoraSid1, global.agoraSid2);
+    await callController.endCall(widget.callId, timerValue/*_callController.totalSeconds*/, global.agoraSid1, global.agoraSid2);
     global.hideLoader();
     // }
     print("mounted called");
@@ -678,6 +691,20 @@ class _AcceptCallScreenState extends State<AcceptCallScreen> {
     Navigator.pop(context);
 
     print("release goifsdfsdfdsfsdfsffsfsfl");
+  }
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    timer2 = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+
+            _callController.totalSeconds++;
+            timerValue++;
+
+            print('timerValue: ${timerValue}_________Fsdf');
+            },
+    );
   }
 
   @override

@@ -110,6 +110,15 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
   String description = "Relationship Reviving is an online service dedicated to rejuvenating connections across various life segments, including career, love, business, health and wellness, parenting, couple relationships, family dynamics, and self-relationship. We provide personalized guidance to help individuals and couples restore harmony, improve communication, and strengthen bonds in every aspect of their lives.";
  late AnimationController _resizableController;
 
+ List<Map> socialIcons = [
+   {'image': 'assets/icons/facebook.png','name':'Facebook'},
+   {'image': 'assets/icons/instagram.png','name':'Instagram'},
+   {'image': 'assets/icons/twitter.png','name':'Twitter'},
+   {'image': 'assets/icons/youtube.png','name':'Youtube'},
+   {'image': 'assets/icons/pinterest.png','name':'Pintrest'},
+   {'image': 'assets/icons/linkedin.png','name':'LinkedIn'},
+ ];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -807,8 +816,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                                       } else {}
                                     },
                                     child: CachedNetworkImage(
-                                      imageUrl:
-                                          '${global.imgBaseurl}${homeController.bannerList[index].bannerImage}',
+                                      imageUrl: '${global.imgBaseurl}${homeController.bannerList[index].bannerImage}',
                                       imageBuilder: (context, imageProvider) {
                                         return homeController.checkBannerValid(
                                           startDate: homeController
@@ -1866,464 +1874,459 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                       GetBuilder<HomeController>(builder: (homeController) {
                         return homeController.blogList.length == 0
                             ? SizedBox()
-                            : SizedBox(
-                                height: 250,
-                                child: Card(
-                                  elevation: 0,
-                                  margin: EdgeInsets.only(top: 6),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.zero),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10, bottom: 5),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                // 'Latest from blog',
-                                                'About Us',
-                                                style: Get.theme
-                                                    .primaryTextTheme.subtitle1!
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () async {
-                                                  /*BlogController
-                                                      blogController = Get.find<
-                                                          BlogController>();
-                                                  global.showOnlyLoaderDialog(
-                                                      context);
-                                                  blogController
-                                                      .astrologyBlogs = [];
-                                                  blogController.astrologyBlogs
-                                                      .clear();
-                                                  blogController
-                                                      .isAllDataLoaded = false;
-                                                  blogController.update();
-                                                  await blogController
-                                                      .getAstrologyBlog(
-                                                          "", false);
-                                                  global.hideLoader();
-                                                  Get.to(() =>
-                                                      AstrologyBlogScreen());*/
-                                                },
-                                                child: Text(
-                                                  /*'View All'*/ '',
-                                                  style: Get
-                                                      .theme
-                                                      .primaryTextTheme
-                                                      .bodySmall!
-                                                      .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.grey[500],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                            : Card(
+                              elevation: 0,
+                              margin: EdgeInsets.only(top: 6),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.zero),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10, bottom: 5),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            // 'Latest from blog',
+                                            'About Us',
+                                            style: Get.theme
+                                                .primaryTextTheme.subtitle1!
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                           ),
-                                        ),
-                                        /*Expanded(child:
-                                            GetBuilder<HomeController>(
-                                                builder: (homeControllerr) {
-                                          return ListView.builder(
-                                            itemCount:
-                                                homeController.blogList.length,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.horizontal,
-                                            padding: const EdgeInsets.only(
-                                                top: 10, left: 10, bottom: 10),
-                                            itemBuilder: (context, index) {
-                                              return GestureDetector(
-                                                onTap: () async {
-                                                  global.showOnlyLoaderDialog(
-                                                      context);
-                                                  await homeController
-                                                      .incrementBlogViewer(
-                                                          homeController
-                                                              .blogList[index]
-                                                              .id);
-                                                  homeController.homeBlogVideo(
+                                          GestureDetector(
+                                            onTap: () async {
+                                              /*BlogController
+                                                  blogController = Get.find<
+                                                      BlogController>();
+                                              global.showOnlyLoaderDialog(
+                                                  context);
+                                              blogController
+                                                  .astrologyBlogs = [];
+                                              blogController.astrologyBlogs
+                                                  .clear();
+                                              blogController
+                                                  .isAllDataLoaded = false;
+                                              blogController.update();
+                                              await blogController
+                                                  .getAstrologyBlog(
+                                                      "", false);
+                                              global.hideLoader();
+                                              Get.to(() =>
+                                                  AstrologyBlogScreen());*/
+                                            },
+                                            child: Text(
+                                              /*'View All'*/ '',
+                                              style: Get
+                                                  .theme
+                                                  .primaryTextTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.grey[500],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    /*Expanded(child:
+                                        GetBuilder<HomeController>(
+                                            builder: (homeControllerr) {
+                                      return ListView.builder(
+                                        itemCount:
+                                            homeController.blogList.length,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        padding: const EdgeInsets.only(
+                                            top: 10, left: 10, bottom: 10),
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () async {
+                                              global.showOnlyLoaderDialog(
+                                                  context);
+                                              await homeController
+                                                  .incrementBlogViewer(
                                                       homeController
                                                           .blogList[index]
-                                                          .blogImage);
-                                                  global.hideLoader();
-                                                  Get.to(() =>
-                                                      AstrologyBlogDetailScreen(
-                                                        image:
-                                                            "${homeController.blogList[index].blogImage}",
-                                                        title: homeController
+                                                          .id);
+                                              homeController.homeBlogVideo(
+                                                  homeController
+                                                      .blogList[index]
+                                                      .blogImage);
+                                              global.hideLoader();
+                                              Get.to(() =>
+                                                  AstrologyBlogDetailScreen(
+                                                    image:
+                                                        "${homeController.blogList[index].blogImage}",
+                                                    title: homeController
+                                                        .blogList[index]
+                                                        .title,
+                                                    description:
+                                                        homeController
                                                             .blogList[index]
-                                                            .title,
-                                                        description:
-                                                            homeController
-                                                                .blogList[index]
-                                                                .description!,
-                                                        extension:
-                                                            homeController
-                                                                .blogList[index]
-                                                                .extension!,
-                                                        controller: homeController
-                                                            .homeVideoPlayerController,
-                                                      ));
-                                                },
-                                                child: Card(
-                                                  elevation: 4,
-                                                  margin: const EdgeInsets.only(
-                                                      right: 12),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                  child: Container(
-                                                    width: 200,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Stack(children: [
-                                                          ClipRRect(
-                                                              borderRadius:
-                                                                  const BorderRadius
-                                                                      .only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        10),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        10),
-                                                              ),
-                                                              child: homeController
-                                                                              .blogList[
-                                                                                  index]
-                                                                              .extension ==
-                                                                          'mp4' ||
-                                                                      homeController
-                                                                              .blogList[index]
-                                                                              .extension ==
-                                                                          'gif'
-                                                                  ? Stack(
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .center,
-                                                                      children: [
-                                                                        CachedNetworkImage(
-                                                                          imageUrl:
-                                                                              '${global.imgBaseurl}${homeController.blogList[index].previewImage}',
-                                                                          imageBuilder: (context, imageProvider) =>
-                                                                              Container(
-                                                                            height:
-                                                                                110,
-                                                                            width:
-                                                                                Get.width,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              borderRadius: BorderRadius.circular(10),
-                                                                              image: DecorationImage(
-                                                                                fit: BoxFit.fill,
-                                                                                image: imageProvider,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                          placeholder: (context, url) =>
-                                                                              const Center(child: CircularProgressIndicator()),
-                                                                          errorWidget: (context, url, error) =>
-                                                                              Image.asset(
-                                                                            Images.blog,
-                                                                            height:
-                                                                                Get.height * 0.15,
-                                                                            width:
-                                                                                Get.width,
-                                                                            fit:
-                                                                                BoxFit.fill,
-                                                                          ),
-                                                                        ),
-                                                                        Icon(
-                                                                          Icons
-                                                                              .play_arrow,
-                                                                          size:
-                                                                              40,
-                                                                          color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                      ],
-                                                                    )
-                                                                  : CachedNetworkImage(
+                                                            .description!,
+                                                    extension:
+                                                        homeController
+                                                            .blogList[index]
+                                                            .extension!,
+                                                    controller: homeController
+                                                        .homeVideoPlayerController,
+                                                  ));
+                                            },
+                                            child: Card(
+                                              elevation: 4,
+                                              margin: const EdgeInsets.only(
+                                                  right: 12),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10),
+                                              ),
+                                              child: Container(
+                                                width: 200,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20),
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Stack(children: [
+                                                      ClipRRect(
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                  .only(
+                                                            topLeft: Radius
+                                                                .circular(
+                                                                    10),
+                                                            topRight: Radius
+                                                                .circular(
+                                                                    10),
+                                                          ),
+                                                          child: homeController
+                                                                          .blogList[
+                                                                              index]
+                                                                          .extension ==
+                                                                      'mp4' ||
+                                                                  homeController
+                                                                          .blogList[index]
+                                                                          .extension ==
+                                                                      'gif'
+                                                              ? Stack(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  children: [
+                                                                    CachedNetworkImage(
                                                                       imageUrl:
-                                                                          '${global.imgBaseurl}${homeController.blogList[index].blogImage}',
-                                                                      imageBuilder:
-                                                                          (context, imageProvider) =>
-                                                                              Container(
+                                                                          '${global.imgBaseurl}${homeController.blogList[index].previewImage}',
+                                                                      imageBuilder: (context, imageProvider) =>
+                                                                          Container(
                                                                         height:
                                                                             110,
-                                                                        width: Get
-                                                                            .width,
+                                                                        width:
+                                                                            Get.width,
                                                                         decoration:
                                                                             BoxDecoration(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(10),
-                                                                          image:
-                                                                              DecorationImage(
-                                                                            fit:
-                                                                                BoxFit.fill,
-                                                                            image:
-                                                                                imageProvider,
+                                                                          borderRadius: BorderRadius.circular(10),
+                                                                          image: DecorationImage(
+                                                                            fit: BoxFit.fill,
+                                                                            image: imageProvider,
                                                                           ),
                                                                         ),
                                                                       ),
-                                                                      placeholder: (context,
-                                                                              url) =>
-                                                                          const Center(
-                                                                              child: CircularProgressIndicator()),
-                                                                      errorWidget: (context,
-                                                                              url,
-                                                                              error) =>
-                                                                          Image
-                                                                              .asset(
-                                                                        Images
-                                                                            .blog,
-                                                                        height: Get.height *
-                                                                            0.15,
-                                                                        width: Get
-                                                                            .width,
-                                                                        fit: BoxFit
-                                                                            .fill,
+                                                                      placeholder: (context, url) =>
+                                                                          const Center(child: CircularProgressIndicator()),
+                                                                      errorWidget: (context, url, error) =>
+                                                                          Image.asset(
+                                                                        Images.blog,
+                                                                        height:
+                                                                            Get.height * 0.15,
+                                                                        width:
+                                                                            Get.width,
+                                                                        fit:
+                                                                            BoxFit.fill,
                                                                       ),
-                                                                    )),
-                                                          Positioned(
-                                                            right: 7,
-                                                            child:
-                                                                ElevatedButton(
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      padding:
-                                                                          EdgeInsets
-                                                                              .zero,
-                                                                      backgroundColor: Colors
-                                                                          .white
-                                                                          .withOpacity(
-                                                                              0.5),
-                                                                      elevation:
-                                                                          0,
-                                                                      minimumSize:
-                                                                          const Size(
-                                                                              50,
-                                                                              30), //height
-                                                                      maximumSize:
-                                                                          const Size(
-                                                                              60,
-                                                                              30), //width
-                                                                      shape: RoundedRectangleBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(50.0)),
                                                                     ),
-                                                                    onPressed:
-                                                                        () {},
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        const Icon(
-                                                                          Icons
-                                                                              .visibility,
-                                                                          size:
-                                                                              20,
-                                                                          color:
-                                                                              Colors.black,
-                                                                        ),
-                                                                        Padding(
-                                                                          padding:
-                                                                              EdgeInsets.only(left: 5.0),
-                                                                          child:
-                                                                              Text(
-                                                                            "${homeController.blogList[index].viewer}",
-                                                                            style:
-                                                                                TextStyle(fontSize: 12, color: Colors.black),
-                                                                          ),
-                                                                        )
-                                                                      ],
-                                                                    )),
-                                                          )
-                                                        ]),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 5,
-                                                                  right: 5,
-                                                                  top: 3,
-                                                                  bottom: 3),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
+                                                                    Icon(
+                                                                      Icons
+                                                                          .play_arrow,
+                                                                      size:
+                                                                          40,
+                                                                      color:
+                                                                          Colors.white,
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              : CachedNetworkImage(
+                                                                  imageUrl:
+                                                                      '${global.imgBaseurl}${homeController.blogList[index].blogImage}',
+                                                                  imageBuilder:
+                                                                      (context, imageProvider) =>
+                                                                          Container(
+                                                                    height:
+                                                                        110,
+                                                                    width: Get
+                                                                        .width,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(10),
+                                                                      image:
+                                                                          DecorationImage(
+                                                                        fit:
+                                                                            BoxFit.fill,
+                                                                        image:
+                                                                            imageProvider,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  placeholder: (context,
+                                                                          url) =>
+                                                                      const Center(
+                                                                          child: CircularProgressIndicator()),
+                                                                  errorWidget: (context,
+                                                                          url,
+                                                                          error) =>
+                                                                      Image
+                                                                          .asset(
+                                                                    Images
+                                                                        .blog,
+                                                                    height: Get.height *
+                                                                        0.15,
+                                                                    width: Get
+                                                                        .width,
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                  ),
+                                                                )),
+                                                      Positioned(
+                                                        right: 7,
+                                                        child:
+                                                            ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  backgroundColor: Colors
+                                                                      .white
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                                  elevation:
+                                                                      0,
+                                                                  minimumSize:
+                                                                      const Size(
+                                                                          50,
+                                                                          30), //height
+                                                                  maximumSize:
+                                                                      const Size(
+                                                                          60,
+                                                                          30), //width
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(50.0)),
+                                                                ),
+                                                                onPressed:
+                                                                    () {},
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    const Icon(
+                                                                      Icons
+                                                                          .visibility,
+                                                                      size:
+                                                                          20,
+                                                                      color:
+                                                                          Colors.black,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding:
+                                                                          EdgeInsets.only(left: 5.0),
+                                                                      child:
+                                                                          Text(
+                                                                        "${homeController.blogList[index].viewer}",
+                                                                        style:
+                                                                            TextStyle(fontSize: 12, color: Colors.black),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                )),
+                                                      )
+                                                    ]),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets
+                                                              .only(
+                                                              left: 5,
+                                                              right: 5,
+                                                              top: 3,
+                                                              bottom: 3),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisSize:
+                                                            MainAxisSize
+                                                                .min,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 42,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      bottom:
+                                                                          8.0),
+                                                              child: Text(
+                                                                homeController
+                                                                    .blogList[
+                                                                        index]
+                                                                    .title,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: Get
+                                                                    .theme
+                                                                    .textTheme
+                                                                    .subtitle1!
+                                                                    .copyWith(
+                                                                  fontSize:
+                                                                      13,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  letterSpacing:
+                                                                      0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             children: [
                                                               SizedBox(
-                                                                height: 42,
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          bottom:
-                                                                              8.0),
-                                                                  child: Text(
-                                                                    homeController
-                                                                        .blogList[
-                                                                            index]
-                                                                        .title,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: Get
-                                                                        .theme
-                                                                        .textTheme
-                                                                        .subtitle1!
-                                                                        .copyWith(
-                                                                      fontSize:
-                                                                          13,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      letterSpacing:
-                                                                          0,
-                                                                    ),
+                                                                child: Text(
+                                                                  homeController
+                                                                      .blogList[
+                                                                          index]
+                                                                      .author,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: Get
+                                                                      .theme
+                                                                      .textTheme
+                                                                      .subtitle1!
+                                                                      .copyWith(
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight.w400,
+                                                                    color: Colors
+                                                                        .grey[350],
+                                                                    letterSpacing:
+                                                                        0,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  SizedBox(
-                                                                    child: Text(
-                                                                      homeController
-                                                                          .blogList[
-                                                                              index]
-                                                                          .author,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                      style: Get
-                                                                          .theme
-                                                                          .textTheme
-                                                                          .subtitle1!
-                                                                          .copyWith(
-                                                                        fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.w400,
-                                                                        color: Colors
-                                                                            .grey[350],
-                                                                        letterSpacing:
-                                                                            0,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    "${DateFormat("MMM d,yyyy").format(DateTime.parse(homeController.blogList[index].createdAt))}",
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: Get
-                                                                        .theme
-                                                                        .textTheme
-                                                                        .subtitle1!
-                                                                        .copyWith(
-                                                                      fontSize:
-                                                                          10,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      color: Colors
-                                                                              .grey[
-                                                                          350],
-                                                                      letterSpacing:
-                                                                          0,
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                              Text(
+                                                                "${DateFormat("MMM d,yyyy").format(DateTime.parse(homeController.blogList[index].createdAt))}",
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: Get
+                                                                    .theme
+                                                                    .textTheme
+                                                                    .subtitle1!
+                                                                    .copyWith(
+                                                                  fontSize:
+                                                                      10,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      350],
+                                                                  letterSpacing:
+                                                                      0,
+                                                                ),
                                                               ),
                                                             ],
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
+                                                  ],
                                                 ),
-                                              );
-                                            },
-                                          );
-                                        }))*/
-                                        Expanded(
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                                left: 10, right: 10, top: 10),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              border: Border.all(
-                                                  color: Colors.grey),
+                                              ),
                                             ),
-                                            padding: EdgeInsets.all(10),
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  description,
-                                                  maxLines: 10,
-                                                  textAlign: TextAlign.justify,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: Get
-                                                      .theme
-                                                      .primaryTextTheme
-                                                      .bodyText2!
-                                                      .copyWith(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 13,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 20.0, bottom: 8),
-                                                  child: Divider(height: 0),
-                                                ),
-                                              ],
+                                          );
+                                        },
+                                      );
+                                    }))*/
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: 10, right: 10, top: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15),
+                                        border: Border.all(
+                                            color: Colors.grey),
+                                      ),
+                                      padding: EdgeInsets.all(10),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            description,
+                                            maxLines: 10,
+                                            textAlign: TextAlign.justify,
+                                            overflow:
+                                                TextOverflow.ellipsis,
+                                            style: Get
+                                                .theme
+                                                .primaryTextTheme
+                                                .bodyText2!
+                                                .copyWith(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 13,
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(
+                                                    top: 20.0, bottom: 8),
+                                            child: Divider(height: 0),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              );
+                              ),
+                            );
                       }),
 
                       //       Padding(
@@ -2720,151 +2723,148 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        //height: Get.height * 0.65,
-                        child: Card(
-                          elevation: 0,
-                          margin: EdgeInsets.only(top: 6),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 10, bottom: 5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        // 'Latest from blog',
-                                        '${global.getSystemFlagData(global.systemFlagNameList.aboutContent).displayName}',
-                                        style: Get.theme
-                                            .primaryTextTheme.subtitle1!
-                                            .copyWith(
-                                            fontWeight:
-                                            FontWeight.w500),
-                                      ),
+                      Card(
+                        elevation: 0,
+                        margin: EdgeInsets.only(top: 6),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, bottom: 5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      // 'Latest from blog',
+                                      '${global.getSystemFlagData(global.systemFlagNameList.aboutContent).displayName}',
+                                      style: Get.theme
+                                          .primaryTextTheme.subtitle1!
+                                          .copyWith(
+                                          fontWeight:
+                                          FontWeight.w500),
+                                    ),
 
 
-                                      GestureDetector(
-                                        onTap: () async {
-                                          /*BlogController
-                                                      blogController = Get.find<
-                                                          BlogController>();
-                                                  global.showOnlyLoaderDialog(
-                                                      context);
-                                                  blogController
-                                                      .astrologyBlogs = [];
-                                                  blogController.astrologyBlogs
-                                                      .clear();
-                                                  blogController
-                                                      .isAllDataLoaded = false;
-                                                  blogController.update();
-                                                  await blogController
-                                                      .getAstrologyBlog(
-                                                          "", false);
-                                                  global.hideLoader();
-                                                  Get.to(() =>
-                                                      AstrologyBlogScreen());*/
-                                        },
-                                        child: Text(
-                                          /*'View All'*/ '',
-                                          style: Get
-                                              .theme
-                                              .primaryTextTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.grey[500],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: 10, right: 10, top: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(15),
-                                    border: Border.all(
-                                        color: Colors.grey),
-                                  ),
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                        '${global.imgBaseurl}${global.getSystemFlagData(global.systemFlagNameList.aboutImage).value}',
-                                        imageBuilder: (context, imageProvider) {
-                                          return
-                                            Card(
-                                              child: Container(
-                                                height: Get.height * 0.4/2,
-                                                width: Get.width/2,
-                                                margin:
-                                                const EdgeInsets.all(0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      10),
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.cover,
-                                                    image: imageProvider,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-
-                                        },
-                                        placeholder: (context, url) =>
-                                        const Center(
-                                            child:
-                                            CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) =>
-                                            Card(
-                                              child: Image.asset(
-                                                Images.blog,
-                                                height: Get.height * 0.15,
-                                                width: Get.width,
-                                                fit: BoxFit.contain,
-                                              ),
-                                            ),
-                                      ),
-                                      Text(
-                                        '${global.getSystemFlagData(global.systemFlagNameList.aboutContent).value}',
-                                        maxLines: 20,
-                                        textAlign: TextAlign.justify,
-                                        overflow:
-                                        TextOverflow.ellipsis,
+                                    GestureDetector(
+                                      onTap: () async {
+                                        /*BlogController
+                                                    blogController = Get.find<
+                                                        BlogController>();
+                                                global.showOnlyLoaderDialog(
+                                                    context);
+                                                blogController
+                                                    .astrologyBlogs = [];
+                                                blogController.astrologyBlogs
+                                                    .clear();
+                                                blogController
+                                                    .isAllDataLoaded = false;
+                                                blogController.update();
+                                                await blogController
+                                                    .getAstrologyBlog(
+                                                        "", false);
+                                                global.hideLoader();
+                                                Get.to(() =>
+                                                    AstrologyBlogScreen());*/
+                                      },
+                                      child: Text(
+                                        /*'View All'*/ '',
                                         style: Get
                                             .theme
                                             .primaryTextTheme
-                                            .bodyText2!
+                                            .bodySmall!
                                             .copyWith(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey[500],
                                         ),
                                       ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            top: 20.0, bottom: 8),
-                                        child: Divider(height: 0),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+
+
+                              Container(
+                                margin: EdgeInsets.only(
+                                    left: 10, right: 10, top: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                  BorderRadius.circular(15),
+                                  border: Border.all(
+                                      color: Colors.grey),
+                                ),
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  children: [
+                                    CachedNetworkImage(
+                                      imageUrl:
+                                      '${global.imgBaseurl}${global.getSystemFlagData(global.systemFlagNameList.aboutImage).value}',
+                                      imageBuilder: (context, imageProvider) {
+                                        return
+                                          Card(
+                                            child: Container(
+                                              height: Get.height * 0.4/2,
+                                              width: Get.width/2,
+                                              margin:
+                                              const EdgeInsets.all(0),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    10),
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: imageProvider,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+
+                                      },
+                                      placeholder: (context, url) =>
+                                      const Center(
+                                          child:
+                                          CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) =>
+                                          Card(
+                                            child: Image.asset(
+                                              Images.blog,
+                                              height: Get.height * 0.15,
+                                              width: Get.width,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                    ),
+                                    Text(
+                                      '${global.getSystemFlagData(global.systemFlagNameList.aboutContent).value}',
+                                      maxLines: 20,
+                                      textAlign: TextAlign.justify,
+                                      overflow:
+                                      TextOverflow.ellipsis,
+                                      style: Get
+                                          .theme
+                                          .primaryTextTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.only(
+                                          top: 20.0, bottom: 8),
+                                      child: Divider(height: 0),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -3593,8 +3593,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                                           itemBuilder: (context, index) {
                                             return GestureDetector(
                                               onTap: () async {
-                                                global.showOnlyLoaderDialog(
-                                                    context);
+                                                global.showOnlyLoaderDialog(context);
                                                 await homeController.youtubPlay(
                                                     homeController
                                                         .astrologyVideo[index]
@@ -4101,7 +4100,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                             ),
                           )
                         ],),
-                      ))
+                      )),
 
                   /*Card(
                     elevation: 0,
@@ -4229,6 +4228,20 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                       ),
                     ),
                   )*/
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List<Widget>.generate(socialIcons.length, (index) => Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: InkWell(
+                        onTap: () {
+                        launch(global.getSocialLink(socialIcons[index]['name']).value);
+
+
+                        },
+                          child: Image.asset(socialIcons[index]['image'],height: 30,width: 30,)),
+                    )) .toList(),),
+                  SizedBox(height: 5,)
                 ],
               ),
             );

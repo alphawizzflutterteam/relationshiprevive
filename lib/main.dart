@@ -209,6 +209,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         astroName: messageData["astrologerName"] ?? "Astrologer",
         astroProfile: messageData["profile"] ?? "",
         fcmToken: messageData["fcmToken"] ?? "",
+        charges:  messageData["charges"] ?? "",
       );
     } else if (messageData['notificationType'] == 14) {
       Future.delayed(Duration(milliseconds: 500)).then((value) async {
@@ -627,6 +628,7 @@ class _MyAppState extends State<MyApp> {
                 channel: body["channelName"],
                 callId: body["callId"],
                 fcmToken: body["fcmToken"] ?? "",
+                charges: body["charges"] ?? "",
               ));
         } else if (body["notificationType"] == 3) {
           if (chatController.isAstrologerEndedChat == true) {

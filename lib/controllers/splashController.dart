@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:AstroGuru/controllers/bottomNavigationController.dart';
 
 import 'package:AstroGuru/controllers/homeController.dart';
@@ -80,6 +81,7 @@ class SplashController extends GetxController {
                             channel: body["channelName"],
                             callId: body["callId"],
                             fcmToken: body["fcmToken"] ?? "",
+                        charges: body["charges"] ?? "",
                           ));
                     } else if (body["notificationType"] == 3) {
                       Get.to(() => IncomingChatRequest(

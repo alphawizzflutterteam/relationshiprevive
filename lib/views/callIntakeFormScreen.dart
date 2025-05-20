@@ -1520,7 +1520,9 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                                 FlutterRingtonePlayer().stop();
                                 _timer?.cancel();
                                 Get.back();
-                              } else {}
+                              } else {
+
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: isCall
@@ -1573,6 +1575,7 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
               channel: body["channelName"],
               callId: body["callId"],
               fcmToken: body["fcmToken"] ?? "",
+          charges: body["charges"] ?? "",
             ));
       } else if (body["notificationType"] == 100) {
         FlutterRingtonePlayer().stop();

@@ -1178,6 +1178,7 @@ class APIHelper {
         body: json.encode({'astrologerId': '$astrologerId', "isFreeSession": isFreeSession}),
       );
 
+      log('dsad____${response.body}');
       log('${await global.getApiHeaders(true)} _________${{'astrologerId': '$astrologerId', "isFreeSession": isFreeSession}}');
       dynamic recordList;
       if (response.statusCode == 200) {
@@ -1517,6 +1518,13 @@ class APIHelper {
               "sId1": sId1 != null ? sId1.toString() : null,
             },
           ));
+      print('endCall done : ${{
+        "callId": callId,
+        "totalMin": "$second",
+        "sId": sId.toString(),
+        // ignore: unnecessary_null_comparison
+        "sId1": sId1 != null ? sId1.toString() : null,
+      }}');
       print('endCall done : ${response.statusCode}');
       dynamic recordList;
       if (response.statusCode == 200) {
@@ -3773,12 +3781,10 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("$baseUrl/getSystemFlag"),
       );
-      print('done : $response');
+      log('done flag : ${response.body}');
       dynamic recordList;
       if (response.statusCode == 200) {
-        recordList = List<SystemFlag>.from(json
-            .decode(response.body)["recordList"]
-            .map((x) => SystemFlag.fromJson(x)));
+        recordList = List<SystemFlag>.from(json.decode(response.body)["recordList"].map((x) => SystemFlag.fromJson(x)));
       } else {
         recordList = null;
       }

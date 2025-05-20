@@ -20,6 +20,7 @@ class IncomingCallRequest extends StatelessWidget {
   final String token;
   final String channel;
   final String fcmToken;
+  final String? charges;
 
   IncomingCallRequest(
       {super.key,
@@ -29,7 +30,7 @@ class IncomingCallRequest extends StatelessWidget {
       this.astrologerProfile,
       required this.astrologerId,
       required this.token,
-      required this.channel});
+      required this.channel,this.charges});
   CallController callController = Get.find<CallController>();
 
   @override
@@ -181,6 +182,7 @@ class IncomingCallRequest extends StatelessWidget {
                                   token: token,
                                   callChannel: channel,
                                   callId: callId,
+                              charges: charges,
                                 ));
                           },
                           child: Container(

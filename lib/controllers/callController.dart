@@ -45,7 +45,7 @@ class CallController extends GetxController
       required String astroName,
       required String fcmToken,
       required String astroProfile,
-      required String token}) async {
+      required String token, String? charges}) async {
     print('in callcontroller showBottomAcceptCallRequest');
     showBottomAcceptCall = true;
     bottomAstrologerId = astrologerId;
@@ -83,7 +83,6 @@ class CallController extends GetxController
     try {
       await global.checkBody().then((result) async {
         if (result) {
-          print('${astrologerId}__________astrologrt_');
           await apiHelper.sendAstrologerCallRequest(astrologerId, isFreeSession).then((result) {
             callId = result['data'];
             if (result.status.toString() == "200") {

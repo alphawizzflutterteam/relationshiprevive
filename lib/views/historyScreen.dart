@@ -930,12 +930,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                          Text(
-                                                                            // ignore: unrelated_type_equality_checks
-                                                                            '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.callHistoryList[index].charge == null ? '0' : historyController.callHistoryList[index].charge == "" ? "0" : historyController.callHistoryList[index].charge}/min',
-                                                                            style:
-                                                                                Get.textTheme.bodyText2!.copyWith(color: Colors.grey, fontSize: 10),
-                                                                          ),
+                                                                          // Text(
+                                                                          //   // ignore: unrelated_type_equality_checks
+                                                                          //   '${global.getSystemFlagValueForLogin(global.systemFlagNameList.currency)} ${historyController.callHistoryList[index].charge == null ? '0' : historyController.callHistoryList[index].charge == "" ? "0" : historyController.callHistoryList[index].charge}/min',
+                                                                          //   style:
+                                                                          //       Get.textTheme.bodyText2!.copyWith(color: Colors.grey, fontSize: 10),
+                                                                          // ),
                                                                           Container(
                                                                             margin:
                                                                                 const EdgeInsets.only(top: 6),

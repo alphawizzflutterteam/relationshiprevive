@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:AstroGuru/controllers/reviewController.dart';
 import 'package:AstroGuru/controllers/splashController.dart';
+import 'package:AstroGuru/controllers/themeController.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_translator/google_translator.dart';
@@ -30,9 +32,71 @@ class BlogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor:
-              Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
+      appBar: PreferredSize(
+        child: Container(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          child: Padding(
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                top: 15.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () => Get.back(),
+                    icon: Icon(
+                      Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
+                      color: Get.theme.iconTheme.color,
+                    ),
+                  ),
+                  Text(
+                    title,
+                    style: Get.theme.primaryTextTheme.headline6!
+                        .copyWith(fontWeight: FontWeight.normal),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: GestureDetector(
+                      onTap: () {
+                        splashController.createAstrologerShareLink();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                Images.whatsapp,
+                                height: 40,
+                                width: 40,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text('Share',
+                                    style: Get.textTheme.subtitle1!
+                                        .copyWith(fontSize: 12,color: Colors.white)),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+          decoration: BoxDecoration(
+            gradient: gradient.btnGradient,
+          ),
+        ),
+        preferredSize: Size.fromHeight(70.0),
+      )
+      /*AppBar(
+          backgroundColor: Get.theme.appBarTheme.systemOverlayStyle!.statusBarColor,
           title: Text(
             '$title',
             style: Get.theme.primaryTextTheme.headline6!
@@ -75,7 +139,7 @@ class BlogScreen extends StatelessWidget {
                 ),
               ),
             )
-          ]),
+          ])*/,
       body: title == "News"
           ? WebView(
               initialUrl: link,
