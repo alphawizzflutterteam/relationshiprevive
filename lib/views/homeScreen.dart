@@ -117,6 +117,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
    {'image': 'assets/icons/youtube.png','name':'Youtube'},
    {'image': 'assets/icons/pinterest.png','name':'Pintrest'},
    {'image': 'assets/icons/linkedin.png','name':'LinkedIn'},
+   {'image': 'assets/images/appstore.png','name':'websiteLink'},
  ];
 
   @override
@@ -4239,7 +4240,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
 
 
                         },
-                          child: Image.asset(socialIcons[index]['image'],height: 30,width: 30,)),
+                          child: Image.asset(socialIcons[index]['image'],height: index==6 ? 38 : 30,width: index==6 ? 38 :30,)),
                     )) .toList(),),
                   SizedBox(height: 5,)
                 ],

@@ -233,9 +233,9 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                                       global.showOnlyLoaderDialog(context);
                                       await callIntakeController
                                           .addCallIntakeFormData();
-                                      print(
-                                          'firebase ${widget.astrologerId}_${global.currentUserId}');
-                                      if (widget.isFreeAvailable == true) {
+                                      print('firebase ${widget.astrologerId}_${global.currentUserId}');
+                                      print('${widget.isFreeAvailable}___________SDfsdfsdf');
+                                      if (/*widget.isFreeAvailable == true*/false) {
                                         //await intakeController.checkFreeSessionAvailable();
                                         if (intakeController.isAddNewRequestByFreeuser == true) {
                                           if (widget.type == "Call") {
@@ -301,7 +301,7 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                                       } else {
                                         if (widget.type == "Call") {
                                           await callController.sendCallRequest(
-                                              widget.astrologerId, false);
+                                              widget.astrologerId, widget.isFreeAvailable ?? false);
                                         } else {
                                           ChatController chatController =
                                               Get.find<ChatController>();
@@ -1053,12 +1053,10 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                       if (/*intakeController.isVarified*/ true) {
                         global.showOnlyLoaderDialog(context);
                         await callIntakeController.addCallIntakeFormData();
-                        print(
-                            'firebase ${widget.astrologerId}_${global.currentUserId}');
+                        print('firebase ${widget.astrologerId}_${global.currentUserId}');
                         if (widget.isFreeAvailable == true) {
                           //await intakeController.checkFreeSessionAvailable();
-                          if (intakeController.isAddNewRequestByFreeuser ==
-                              true) {
+                          if (intakeController.isAddNewRequestByFreeuser == true) {
                             if (widget.type == "Call") {
                               print('hsdkjfhkjfkfhffkfkkjshdf');
                               await callController.sendCallRequest(
@@ -1110,7 +1108,8 @@ class _CallIntakeFormScreenState extends State<CallIntakeFormScreen> {
                               await chatController.sendChatRequest(
                                   widget.astrologerId, true);
                             }
-                          } else {
+                          }
+                          else {
                             global.showToast(
                                 message:
                                     'You can not join multiple offers at same time',

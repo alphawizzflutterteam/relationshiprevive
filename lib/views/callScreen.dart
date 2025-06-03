@@ -420,11 +420,7 @@ class _CallScreenState extends State<CallScreen> {
                             if (isLogin) {
                               if (/*bottomNavigationController.astrologerList[i].callStatus == 'Online'*/ bottomNavigationController.astrologerList.isNotEmpty) {
                                 ///to check User Wallet balance available or not for call...
-                                if (bottomNavigationController.astrologerList.first.charge! * 5 <= global.splashController.currentUser!.walletAmount! /*||
-                                    bottomNavigationController.astrologerList
-                                            .first.isFreeAvailable ==
-                                        true*/
-                                    ) {
+                                if (bottomNavigationController.astrologerList.first.charge! * 5 <= global.splashController.currentUser!.walletAmount! || bottomNavigationController.astrologerList.first.isFreeAvailable == true) {
                                   ///Api astrologer has already request or not for same user
                                   // await bottomNavigationController.checkAlreadyInReqForCall(bottomNavigationController.astrologerList.first.id!);
 
@@ -444,6 +440,8 @@ class _CallScreenState extends State<CallScreen> {
                                       global.hideLoader();
                                     }
                                     else if (bottomNavigationController.astrologerList.first.callStatus == 'Online') {
+
+
                                       await Get.to(() => CallIntakeFormScreen(
                                             astrologerProfile:
                                                 bottomNavigationController
@@ -457,11 +455,7 @@ class _CallScreenState extends State<CallScreen> {
                                             astrologerName:
                                                 bottomNavigationController
                                                     .astrologerList.first.name!,
-                                            isFreeAvailable:
-                                                bottomNavigationController
-                                                    .astrologerList
-                                                    .first
-                                                    .isFreeAvailable,
+                                            isFreeAvailable: bottomNavigationController.astrologerList.first.isFreeAvailable,
                                           ));
                                     }
                                     else if (bottomNavigationController.astrologerList.first.callStatus == "Offline") {
@@ -490,15 +484,20 @@ class _CallScreenState extends State<CallScreen> {
                                     //break;
                                   }
                                 } else {
+
+                                  Fluttertoast.showToast(
+                                      msg:
+                                      'Insuffucient wallet balance. Please recharge.');
+
                                   global.showOnlyLoaderDialog(context);
                                   await walletController.getAmount();
                                   global.hideLoader();
                                   openBottomSheetRechrage(
                                       context,
-                                      (bottomNavigationController.astrologerList[index].charge! *
+                                      (bottomNavigationController.astrologerList.first.charge! *
                                               10)
                                           .toString(),
-                                      '${bottomNavigationController.astrologerList[index].name}');
+                                      '${bottomNavigationController.astrologerList.first.name}');
                                 }
                               } else {
                                 Fluttertoast.showToast(

@@ -513,6 +513,7 @@ class BottomNavigationController extends GetxController {
             if (result.status == "200") {
               astrologerList.addAll(result.recordList);
               log('astrologer list length ${astrologerList.length} ');
+              log('astrologer list length ${result} ');
               if (result.recordList.length == 0) {
                 isMoreDataAvailable = false;
                 isAllDataLoaded = true;

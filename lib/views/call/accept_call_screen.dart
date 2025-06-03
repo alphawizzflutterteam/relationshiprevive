@@ -538,8 +538,8 @@ startTimer();
         onRtcStats: (connection, stats) {},
       ),
     );
-    onVolume(isSpeaker);
-    onMute(isMuted);
+    //onVolume(isSpeaker);
+    //onMute(isMuted);
     join();
   }
 

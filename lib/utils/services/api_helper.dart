@@ -343,7 +343,7 @@ class APIHelper {
         recordList = List<AstrologerModel>.from(json
             .decode(response.body)["recordList"]
             .map((x) => AstrologerModel.fromJson(x)));
-        print('astrologer length in API helper ${recordList.length}');
+        log('astrologer length in API helper ${response.body}');
       } else {
         recordList = null;
       }

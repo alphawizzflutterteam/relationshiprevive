@@ -249,7 +249,7 @@ class UserProfileController extends GetxController {
               .then((result) async {
             if (result.status == "200") {
               print('${result.status}____________');
-              log('${result.recordList['otp']}____________');
+              print('${result.recordList['otp']}____________');
               // var recordId = result.recordList["recordList"];
 
               global.hideLoader();

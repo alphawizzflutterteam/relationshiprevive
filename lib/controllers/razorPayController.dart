@@ -126,7 +126,8 @@ class RazorPayController extends GetxController {
           razorpaySecret: global.getSystemFlagValue(global.systemFlagNameList.razorPayKeySecret));*/
       hideLoader();
       options = {
-        'key': global.getSystemFlagValue(global.systemFlagNameList.razorPayKeyId),
+         'key': global.getSystemFlagValue(global.systemFlagNameList.razorPayKeyId),
+        //'key': "",
         'amount': (totalAmount * 100).toInt(),
         'name': 'Relationship Revive',
         'description': 'Relationshiprevive',
